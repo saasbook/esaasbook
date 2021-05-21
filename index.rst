@@ -6,9 +6,7 @@
 Engineering Software as a Service: An Agile Approach Using Cloud Computing
 ====================================
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   
 
 The cover background is a photo of the Aqueduct of Segovia, Spain.
 We chose it as an example of a beautiful, long-lasting design. The full
@@ -26,6 +24,7 @@ About the Authors
 .. image:: /resources/fox.jpg
    :width: 200
    :alt: Armando Fox
+
 **Armando Fox** (pronouns: he, him, él) is a Professor of Computer Science, 
 Diversity and Eq- uity Officer at both the EECS Department level and Campus 
 level, and Faculty Advisor for Digital Learning Strategy at UC Berkeley. He 
@@ -65,6 +64,27 @@ this book, he received one for his pioneering textbook on computer architec- tur
 from UCLA, which awarded him an Outstanding Engineer- ing Academic Alumni Award. He grew up in California, 
 and for fun he enters sporting events with his two adult sons, including weekly soccer games and charity bike rides.
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+Content
+==================
+
+.. toctree::
+   :numbered:
+   :maxdepth: 2
+
+   
+   intro/chapter1/index
+
+   part1/chapter2/index
+   part1/chapter3/index
+   part1/chapter4/index
+   part1/chapter5/index
+   part1/chapter6/index
+
+   part2/chapter7/index
+   part2/chapter8/index
+   part2/chapter9/index
+   part2/chapter10/index
+   part2/chapter11/index
+   part2/chapter12/index
+   part2/chapter13/index
+

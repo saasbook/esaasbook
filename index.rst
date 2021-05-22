@@ -24,6 +24,7 @@ About the Authors
 .. image:: /resources/fox.jpg
    :width: 200
    :alt: Armando Fox
+   :align: right
 
 **Armando Fox** (pronouns: he, him, él) is a Professor of Computer Science, 
 Diversity and Eq- uity Officer at both the EECS Department level and Campus 
@@ -47,6 +48,8 @@ and bilingual/bicultural (Cuban-American) New Yorker transplanted to San Francis
 .. image:: /resources/patterson.jpg
    :width: 200
    :alt: David Patterson
+   :align: right
+
 **David Patterson** (pronouns: he, him) recently retired from a 40-year career as a 
 Professor of Computer Science at UC Berkeley. In the past, he served as Chair of Berkeley’s 
 Computer Science Division, Chair of the Computing Research Association, and President of 
@@ -66,6 +69,8 @@ and for fun he enters sporting events with his two adult sons, including weekly 
 
 Content
 ==================
+.. toctree::
+   intro/preface/index
 
 .. toctree::
    :numbered:

@@ -1,5 +1,9 @@
 How to Learn a New Language
 ====================================
+*You never need optimal performance, you need good-enough performance... 
+Programmers are far too hung up with performance.*
+    —Barbara Liskov, 2011
+
 .. toctree::
     :maxdepth: 2
  

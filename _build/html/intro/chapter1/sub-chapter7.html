@@ -83,7 +83,7 @@
   <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="sub-chapter1.html">
-     1.1. The Web’s Client–Server Architecture
+     1.1. Introduction
     </a>
    </li>
    <li class="toctree-l2">
@@ -948,6 +948,55 @@
                 
   <div class="section" id="deploying-saas-cloud-computing">
 <h1><span class="section-number">1.7. </span>Deploying SaaS: Cloud Computing<a class="headerlink" href="#deploying-saas-cloud-computing" title="Permalink to this headline">¶</a></h1>
+<p><em>If computers of the kind I have advocated become the computers of the future,
+then computing may someday be organized as a public utility just as the telephone
+system is a public utility …The computer utility could become the basis of a new
+and important industry.</em></p>
+<blockquote>
+<div><p>—John McCarthy, at MIT centennial celebration in 1961</p>
+</div></blockquote>
+<p>SaaS places three demands on our information technology (IT) infrastructure:</p>
+<ol class="arabic simple">
+<li><p>Communication, to allow any customer to interact with the service.</p></li>
+<li><p>Scalability,in that the central facility running the service must deal with the fluctuations in demand during the day and during popular times of the year for that service as well as a way for new services to add users rapidly.</p></li>
+<li><p>Availability, in that both the service and the communication vehicle must be continuously available: every day, 24 hours a day (“24×7”). The gold standard for availability, set by the US public phone system, is 99.999% (“five nines”), or about 5 minutes of downtime per year. Amazon.com aims for four nines, which is difficult to achieve even for well-run SaaS.</p></li>
+</ol>
+<p>The Internet and broadband to the home easily resolve the communication demand of SaaS.
+Although some early web services were deployed on expensive large-scale computers—in part
+because such computers were more reliable and in part because it was easier to operate a
+few large computers—a contrarian approach soon overtook the industry. Collections of commodity
+small-scale computers connected by commodity Ethernet switches, which became known as <strong>clusters</strong>,
+offered several advantages over the “big iron” hardware approach:</p>
+<ul class="simple">
+<li><p>Because of their reliance on Ethernet switches to interconnect, clusters are much more scalable than conventional servers. Early clusters offered 1000 computers, and today’s datacenters contain 100,000 or more.</p></li>
+<li><p>Careful selection of the type of hardware to place in the datacenter and careful control of software state made it possible for a very small number of operators to successfully run thousands of servers. In particular, some datacenters rely on <strong>virtual machines</strong> to simplify operation. A virtual machine monitor is software that imitates a real computer so successfully that you can even run an operating system correctly on top of the virtual machine abstraction that it provides (Popek and Goldberg 1974). The goal is to imitate with low overhead, and one popular use is to simplify software distribution within a cluster.</p></li>
+<li><p>Two senior architects at Google showed that the cost of the equivalent amount of processors, memory, and storage is much less for clusters than for “big iron,” perhaps by a factor of 20 (Barroso and Hoelzle 2009).</p></li>
+<li><p>Althoughtheclustercomponentsarelessreliablethanconventionalserversandstorage systems, the cluster software infrastructure makes the whole system dependable via extensive use of redundancy in both hardware and software. The low hardware cost makes the redundancy at the software level affordable. Modern service providers also use multiple datacenters that are distributed geographically so that a natural disaster cannot knock a service offline.</p></li>
+</ul>
+<p>As Internet datacenters grew, some service providers realized that their per capita costs were
+substantially below what it cost others to run their own smaller datacenters, in large part due
+to economies of scale when purchasing and operating 100,000 computers at a time. They also benefit
+from higher utilization given that many companies could share these giant datacenters, which
+(Barroso and Hoelzle 2009) call <em>Warehouse Scale Computers</em>, whereas smaller datacenters often
+run at only 10% to 20% utilization. Thus, these companies realized they could profit from making
+their datacenter hardware available on a pay-as-you-go basis.</p>
+<p>The result is called <em>public cloud services</em>, <strong>utility computing</strong>, or often simply <strong>cloud computing</strong>,
+which offers computing, storage, and communication at pennies per hour (Armbrust et al. 2010).
+Moreover, there is no additional cost for scale: Using 1000 computers for 1 hour costs no more
+than using 1 computer for 1000 hours. Leading examples of “infinitely
+scalable” pay-as-you-go computing are Amazon Web Services, Google AppEngine, and Microsoft Azure.
+The public cloud means that today anyone with a credit card and a good idea can start a SaaS
+company that can grow to millions of customers without first having to build and operate a datacenter.</p>
+<p>From 2010–2020, Cloud Computing and SaaS began a major transformation of the computer industry. The full
+impact of this revolution will take the rest of this decade to determine. What is clear is that engineering
+SaaS for Cloud Computing is radically different from engi- neering shrink-wrap software (SaaP) for PCs and
+servers, which is why you’re reading this book.</p>
+<p><strong>Self-Check 1.7.1.</strong> <em>True or False: Internal datacenters could get the same cost savings as Warehouse Scale
+Computers (WSCs) if they embraced SOA and purchased the same type of hardware.</em></p>
+<blockquote>
+<div><p>False. While imitating best practices of WSC could lower costs, the major cost advantage of WSCs comes from the
+economies of scale, which today means 100,000 servers, thereby dwarfing most internal datacenters.</p>
+</div></blockquote>
 </div>
 
 

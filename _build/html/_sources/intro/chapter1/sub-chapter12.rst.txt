@@ -1,2 +1,81 @@
 Concluding Remarks: Software Engineering Is More Than Programming
 ====================================
+The Concluding Remarks at the end of each chapter give the learner some 
+perspective on what the chapter has covered: Where did the technical ideas or 
+innovations come from? What, if anything, can we say about where they are going, 
+given that history? Where can an interested reader learn more about these topics? 
+These sections never contain specific technical skill content, so if you’re in a rush, 
+you can skip them; but if you want to become a seasoned practitioner and a good designer 
+of software and tools, you probably shouldn’t.
+
+    *But if Extreme Programming is just a new selection of old practices, what’s so extreme about it? Kent’s answer is that it takes obvious, common sense principles and practices to extreme levels. For example:
+    — If short iterations are good, make them as short as possible—hours or minutes or seconds rather than days or weeks or years.
+    — If simplicity is good, always do the simplest thing that could possibly work.
+    — If testing is good, test all the time. Write the test code before you write the code to test.
+    — If code reviews are good, review code continuously, by programming in pairs, two programmers to a computer, taking turns looking over each other’s shoulders.*
+        *—Michael Swaine, interview with Kent Beck, 
+        (Swaine 2001)*
+
+This single quote gives a good deal of the rationale behind the extreme programming (XP) 
+version of Agile that we cover in this book. We keep iterations short, so that the customer 
+sees the next version of the incomplete but working prototype every week or two. You write 
+the tests *before* you write the code, and then you write the least amount of code it takes 
+to make it pass the test. Pair programming means the code is under continuous review, rather 
+than just on special occasions. Agile went from software methodology heresy to the dominant 
+form of development in just a dozen years, and when combined with service oriented architecture, 
+allows complex services to be built reliably.
+
+While there is no inherent dependency among SaaS, Agile, and highly productive frameworks like Rails, 
+Figure 1.10 suggests there is a synergistic relationship among them. Agile development means continuous 
+progress while working closely with the customer, and SaaS on Cloud Computing enables the customer 
+to use the latest version immediately, thereby clos- ing the feedback loop (see Chapters 7 and Chapter 12). 
+SaaS on Cloud Computing matches the Model–View–Controller design pattern (see Chapter 11), which 
+Highly-Productive SaaS Frameworks expose (see Chapters 3, 4, and 5). Highly Productive Frameworks and 
+Tools designed to support Agile development remove obstacles to practicing Agile (see Chapters 7, 8, and 10). 
+We believe these three “crown jewels” form a “virtuous triangle” that leads to
+on-time and on-budget engineering of beautiful Software as a Service, and they form the foundation of this book.
+
+This virtuous triangle also helps explain the innovative nature of the Rails community, where new important 
+tools are frequently developed that further improve productivity, simply because it’s so easy to do. We fully 
+expect that future editions of this book will include tools not yet invented that are so helpful that we can’t 
+imagine how we got our work done without them!
+
+As teachers, since many students find the Plan-and-Document methods tedious, we are pleased that the answers to 
+the 10 questions in Figure 1.5 strongly recommend using Agile for student team projects. Nevertheless, we believe 
+it is worthwhile for readers to be familiar with the Plan-and-Document methodology, as there are some tasks where 
+it may be a better match, some customers require it, and it helps explain parts of the Agile methodology. Thus, 
+we include sections near the end of all chapters in Part II that offer the Plan-and-Document perspective.
+
+As researchers, we are convinced that software of the future will increasingly be built and rely on services in 
+the Cloud, and thus Agile methodology will continue to increase in popularity in part given the strong synergy b
+etween them. Hence, we are at a happy point in technology where the future of software development is more fun 
+both to learn and to teach. Highly productive frameworks like Rails let you understand this valuable technology 
+by *doing* in a remarkably short time. The main reason we wrote this book is to help more people become aware of 
+and take advantage of this extraordinary opportunity.
+
+Cloud computing had existed for only a few years prior to the First Edition of this book, and has evolved 
+spectacularly since then. Clusters of commodity computers had long been the basis of SaaS, but cloud computing 
+changed how those clusters are used. Until the late 1990s, it was common for a particular computer to be dedicated 
+to a particular SaaS app and have preinstalled all of the software components needed to run it. In contrast, 
+starting in the mid 2000s, **virtual machine** technology made it possible for a single physical computer to emulate 
+many computers, such that the software running in each virtual computer believed it was running on the real 
+hardware. Like many other SaaS-relevant technologies, virtual machines had been around for decades—in this case, 
+since at least the 1960s—but falling hardware costs and the dominance of the Intel architecture in server computers 
+made high- performance virtual machines a practical tool for hosting many different SaaS apps on a single computer, 
+even those requiring different operating systems and software packages. A typical SaaS app only cares about the type 
+of virtual machine it’s running in, and can remain largely ignorant of the details of the hardware and OS on which 
+that virtual machine is hosted. Since the mid 2000s, further evolution of virtual machine technology led to lightweight 
+**container** frameworks such as Docker, which isolate software packages from each other while sharing a single operating 
+system kernel image. The most recent phase of virtualization is so-called “serverless” computing (Castro et al. 2019), 
+one example of which is Amazon Lambda10 Functions as a Service (FaaS), since the developer now specifies only function 
+code and pays per function invocation. Of course, this computing is not truly serverless—the functions have to run 
+somewhere—but unlike traditional SaaS, developers do not deal with a software stack consisting of an app server, 
+HTTP server, and so on; they write only the functions. Serverless computing is still evolving and has both pros 
+and cons depending on the type of app to be deployed.
+
+We believe if you learn the contents of this book in conjunction with doing the suggested assignments and activities 
+(CHIPS), you can build your own (simplified) version of a popular
+software service like FarmVille or Twitter while learning and following sound software engineering practices. 
+While being able to imitate currently successful services and deploy them in the cloud in a few months is impressive, 
+we are even more excited to see what *you* will invent given this new skill set. We look forward to your beautiful 
+code becoming long-lasting, and to becoming some of its passionate fans!

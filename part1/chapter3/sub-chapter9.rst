@@ -1,2 +1,39 @@
 Concluding Remarks: Continuity From CGI to SOA
 ====================================
+
+Because an early use of the Web was to serve static files stored in a file system, early HTTP servers such as Apache 
+could be configured to expose a subdirectory of the file sys- tem as a browseable tree of files, so early URIs typically 
+mimicked the hierarchical struc- ture of a file system. For example, the URI http://www.cs.berkeley.edu/reports/ 1997/daedalus.ps very 
+likely referred to the actual file daedalus.ps located in sub- directory :code:`reports/1997/daedalus.ps` somewhere on the computer 
+whose hostname is www.cs.berkeley.edu.
+
+In 1993 the **Common Gateway Interface** or CGI protocol marked the emergence of SaaS. A CGI-capable Web server could interpret certain 
+URIs not as the name of a local file, but as a directive to run a program and send its output back to the client. While no conventions 
+were proposed for how to construct such URIs, a common one was to place all such “CGI programs” under a single subdirectory, often called 
+cgi-bin, and use a combination of URI path components and parameters in the query string to “pass arguments” to the program to be run. The 
+CGI program had to emit a complete well-formed HTTP response, including appropriate HTTP response headers and a content payload such as an HTML 
+page. As SaaS became an increasingly common way to deploy Web sites, **application server** frameworks began to emerge that automatically took care 
+of some of this “plumbing,” such as building an HTTP response or handling common HTTP errors, freeing the application writer to focus only on the 
+content.
+
+The rapid rise in popularity of the “microservices with RESTful APIs” model has led to a renewed focus on API design and tools to support it. Joshua 
+Bloch’s article *How To Design a Good API And Why It Matters* Bloch 2006, and the accompanying technical talk given at Google, provide a good overview 
+of how to think about API design. Bloch compares API design decisions to language design decisions, which have been debated for decades, and offers a 
+concise operational definition of an API as “the methods of operation by which components in a system use one another.” (Another talk by the same 
+author provides a wry and opinionated history of APIs since 1950.) Furthermore, since the API is the visible “contract” with callers of the service, 
+formally documenting the API itself has become increasingly important, along with ensuring that as the service evolves, the API documentation stays 
+current. The OpenAPI (formerly Swagger) tools include an API editor for designing APIs with the OpenAPI specification, a code generator to generate 
+server and client stubs for using an API, and tools to automatically extract and publish documentation with “live” API exercisers from an OpenAPI description.
+
+A recent alternative to purely-procedural REST APIs is **GraphQL**, which is based on describing data structures rather than procedure calls. In a RESTful API, 
+the server decides what operations to expose and what data structures are required to invoke them. In contrast, a
+GraphQL client defines the data structures it needs, and the same structures are returned from the server. The richness and complexity of GraphQL may not be 
+worthwhile for simpler APIs, but it is an interesting emerging alternative to REST for data-intensive services.
+
+Lastly, it is worth remembering that such APIs are really just the latest manifestation of a key factor in the Web’s success: separating the things that 
+change from those that stay the same. TCP/IP, HTTP, and HTML have all gone through several major revisions, but all include ways to detect which version 
+is in use, so a client can tell if it’s talking to an older server (or vice versa) and adjust its behavior accordingly. Today, APIs provide this same level 
+of separation of interface from from implementation, but at the level of entire services. Although dealing with multiple protocol and language versions puts 
+an additional burden on browsers and other clients, it has led to a remarkable result: A Web page created in 2019, using a markup language based on 1960s 
+technology, can be retrieved using network protocols developed in 1969 and displayed by a browser first created in 1992. Separating the things that change 
+from those that stay the same is part of the path to creating long-lasting software.

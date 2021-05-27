@@ -1,5 +1,9 @@
 SaaS Application Architecture: Microservices, APIs, and REST
 ====================================
+
+    I think the major good idea in Unix was its clean and simple interface: open, close, read, and write.
+
+    —Unix and Beyond: An Interview With Ken Thompson, IEEE Computer 32(5), May 1999
 .. toctree::
     :maxdepth: 2
  

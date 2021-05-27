@@ -1,5 +1,10 @@
 SaaS Framework: Rails as a Model–View–Controller Framework
 ====================================
+
+    In programming, everything we do is a special case of something more general—and often we know it too quickly.
+    
+    —Alan Perlis
+
 .. toctree::
     :maxdepth: 2
  

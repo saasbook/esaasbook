@@ -1,1 +1,1 @@
-<?php include_once("/_build/html/index.html"); ?>
+<?php include_once("/index.html"); ?>

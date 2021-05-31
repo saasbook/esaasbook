@@ -1,5 +1,9 @@
 SaaS Framework: Advanced Programming Abstractions for SaaS
 ====================================
+    Programming is understanding.
+
+    —Kristen Nygaard
+
 .. toctree::
     :maxdepth: 2
  

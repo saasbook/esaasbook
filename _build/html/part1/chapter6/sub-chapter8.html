@@ -83,7 +83,7 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../../intro/chapter1/sub-chapter1.html">
-     1.1. The Web’s Client–Server Architecture
+     1.1. Introduction
     </a>
    </li>
    <li class="toctree-l2">
@@ -948,6 +948,187 @@
                 
   <div class="section" id="testing-java-script-and-ajax">
 <h1><span class="section-number">6.8. </span>Testing Java Script and AJAX<a class="headerlink" href="#testing-java-script-and-ajax" title="Permalink to this headline">¶</a></h1>
+<p>Even our simple AJAX example has many moving parts. In this section we show how to test it using Jasmine,
+an open-source JavaScript TDD framework developed by Pivotal Labs. Jasmine is designed to mimic RSpec and
+support the same TDD practices RSpec supports. The rest of this section assumes you’ve read Chapter 8 or
+are otherwise proficient with TDD and RSpec; as Figure 6.16 shows, we will reuse all those TDD concepts
+in Jasmine.</p>
+<p>To start using Jasmine, add the <code class="code docutils literal notranslate"><span class="pre">jasmine-rails</span></code> and <code class="code docutils literal notranslate"><span class="pre">jasmine-jquery-rails</span></code> gems to the development and test
+groups in your Gemfile,and run bundle as usual, then run the commands in Figure 6.17 from your app’s root
+directory. Create a simple example spec file <code class="code docutils literal notranslate"><span class="pre">spec/javascripts/basic_check_spec.js</span></code> containing the following code:</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="n">rails</span> <span class="n">generate</span> <span class="ss">jasmine_rails</span><span class="p">:</span><span class="n">install</span>
+<span class="n">mkdir</span> <span class="n">spec</span><span class="o">/</span><span class="n">javascripts</span><span class="o">/</span><span class="n">fixtures</span>
+<span class="n">git</span> <span class="n">add</span> <span class="n">spec</span><span class="o">/</span><span class="n">javascripts</span>
+</pre></div>
+</div>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;Jasmine basic check&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;works&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">expect</span><span class="p">(</span><span class="kc">true</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span> <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>To run Jasmine tests, just start your app as usual with the rails server command, and once it’s running, browse
+to the specs subdirectory of your app (so, for example, <em>https://workspace–username.c9users.io/specs</em> if running on
+Cloud9, or <em>http://localhost:3000/specs</em> if developing on your own computer) to run all the specs and see the results.
+From now on, when you change any code in <code class="code docutils literal notranslate"><span class="pre">app/assets/javascripts</span></code> or tests in <code class="code docutils literal notranslate"><span class="pre">spec/javascripts</span></code>, just reload the browser
+page to rerun all the tests.</p>
+<p>Testing AJAX code must address two problems, and if you have read about TDD in Chap- ter 8, you’re already familiar with
+the solutions to both. First, just as we did in Section 8.4, we must be able to “stub out the Internet” by intercepting
+AJAX calls, so that we can return “canned” AJAX responses and test our JavaScript code in isolation from the server. We
+will solve this problem using stubs. Second, our JavaScript code expects to find certain elements on the rendered page,
+but as we just saw, when running Jasmine tests the browser is viewing the Jasmine reporting page rather than our app.
+Happily, we can use fixtures to test JavaScript code that relies on the presence of certain DOM elements on the page,
+just as we used them in Section 8.6 to test Rails app code that relies on the presence of certain items in the database.</p>
+<p>Figure 6.18 gives an overview of Jasmine for RSpec users. We will walk through five happy-path Jasmine specs for the
+popup-window functionality developed in Section 6.7. While these tests are hardly exhaustive even for the happy path,
+our goal is to illustrate Jasmine testing techniques generally and the use of Jasmine stubs and fixtures in AJAX
+testing specifically.</p>
+<p>The basic structure of Jasmine test cases is immediately evident in Figure 6.20: like RSpec, Jasmine uses it to specify
+a single example and nestable <code class="code docutils literal notranslate"><span class="pre">describe</span></code> blocks to group related sets of examples. Just as in RSpec, <code class="code docutils literal notranslate"><span class="pre">describe</span></code> and <code class="code docutils literal notranslate"><span class="pre">it</span></code> take
+a block of code as an argument, but whereas in Ruby code blocks are delimited by <code class="code docutils literal notranslate"><span class="pre">do...end</span></code>, in JavaScript they are
+anonymous functions (functions without a name) of zero arguments. The punctuation sequence <code class="code docutils literal notranslate"><span class="pre">});</span></code> is so prevalent because
+describe and it are JavaScript functions of two arguments, the second of which is a function of no arguments.</p>
+<p>The <code class="code docutils literal notranslate"><span class="pre">describe(’setup’)</span></code> examples check that the <code class="code docutils literal notranslate"><span class="pre">MoviePopup.setup</span></code> function correctly creates the <code class="code docutils literal notranslate"><span class="pre">#movieInfo</span></code> container but
+keeps it hidden from display. <code class="code docutils literal notranslate"><span class="pre">toExist</span></code> and <code class="code docutils literal notranslate"><span class="pre">toBeHidden</span></code> are expectation matchers provided by the Jasmine-jQuery add-on.
+Since Jasmine loads all your JavaScript files before running any examples, the call to <code class="code docutils literal notranslate"><span class="pre">setup</span></code> (line 34 of Figure 6.14)
+occurs before our tests run; hence it’s reasonable to test whether that function did its work.</p>
+<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;MoviePopup&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;setup&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;adds popup Div to main page&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#movieInfo&#39;</span><span class="p">)).</span><span class="nx">toExist</span><span class="p">();</span>
+        <span class="p">});</span>
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;hides the popup Div&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#movieInfo&#39;</span><span class="p">)).</span><span class="nx">toBeHidden</span><span class="p">();</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;clicking on movie link&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">beforeEach</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">loadFixtures</span><span class="p">(</span><span class="s1">&#39;movie_row.html&#39;</span><span class="p">);</span> <span class="p">});</span>
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;calls correct URL&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">spyOn</span><span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="s1">&#39;ajax&#39;</span><span class="p">);</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#movies a&#39;</span><span class="p">).</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">);</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">.</span><span class="nx">calls</span><span class="p">.</span><span class="nx">mostRecent</span><span class="p">().</span><span class="nx">args</span><span class="p">[</span><span class="mf">0</span><span class="p">][</span><span class="s1">&#39;url&#39;</span><span class="p">]).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">&#39;/movies/1&#39;</span><span class="p">);</span>
+        <span class="p">});</span>
+        <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;when successful server call&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">beforeEach</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">let</span> <span class="nx">htmlResponse</span> <span class="o">=</span> <span class="nx">readFixtures</span><span class="p">(</span><span class="s1">&#39;movie_info.html&#39;</span><span class="p">);</span>
+            <span class="nx">spyOn</span><span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="s1">&#39;ajax&#39;</span><span class="p">).</span><span class="nx">and</span><span class="p">.</span><span class="nx">callFake</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">ajaxArgs</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">ajaxArgs</span><span class="p">.</span><span class="nx">success</span><span class="p">(</span><span class="nx">htmlResponse</span><span class="p">,</span> <span class="s1">&#39;200&#39;</span><span class="p">);</span>
+            <span class="p">});</span>
+            <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#movies a&#39;</span><span class="p">).</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">);</span>
+        <span class="p">});</span>
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;makes #movieInfo visible&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#movieInfo&#39;</span><span class="p">)).</span><span class="nx">toBeVisible</span><span class="p">();</span>
+        <span class="p">});</span>
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;places movie title in #movieInfo&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#movieInfo&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">()).</span><span class="nx">toContain</span><span class="p">(</span><span class="s1">&#39;Casablanca&#39;</span><span class="p">);</span>
+        <span class="p">});</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+</td></tr></table></div>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;movies&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;row&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-8&quot;</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/movies/1&quot;</span><span class="p">&gt;</span>Casablanca<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-2&quot;</span><span class="p">&gt;</span>PG<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-2&quot;</span><span class="p">&gt;</span>1943-01-23<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>The <code class="code docutils literal notranslate"><span class="pre">describe(</span></code> ’AJAX call to server’ <code class="code docutils literal notranslate"><span class="pre">)</span></code> examples are more interesting because they use stubs and fixtures to isolate our
+client-side AJAX code from the server with which
+it communicates. Figure 6.19 summarizes the stubs and fixtures available in Jasmine and Jasmine-jQuery. Like RSpec, Jasmine
+allows us to run test setup and teardown code using <code class="code docutils literal notranslate"><span class="pre">beforeEach</span></code> and <code class="code docutils literal notranslate"><span class="pre">afterEach</span></code>. In this set of examples, our setup code loads
+the HTML fixture shown in Figure 6.21, to mimic the environment the <code class="code docutils literal notranslate"><span class="pre">getMovieInfo</span></code> handler would see if it was called after
+movie list was displayed. The fixtures functionality is provided by Jasmine-jQuery; each fixture is loaded inside of
+<code class="code docutils literal notranslate"><span class="pre">div#jasmine-fixtures</span></code>, which is inside of <code class="code docutils literal notranslate"><span class="pre">div#jasmine_content</span></code> on the main Jasmine page, and all the fixtures are cleared out
+after each spec to preserve test independence.</p>
+<p>The first example (line 12 of Figure 6.20) checks that the AJAX call uses the correct movie URL derived from the table.
+To do this, it uses Jasmine’s <code class="code docutils literal notranslate"><span class="pre">spyOn</span></code> to stub out the <code class="code docutils literal notranslate"><span class="pre">$.ajax</span></code> function. Like RSpec’s <code class="code docutils literal notranslate"><span class="pre">stub</span></code>, this call <em>replaces</em> any existing
+function of the same name, so when we manually <code class="code docutils literal notranslate"><span class="pre">trigger</span></code> the click action on the (only) a element in the <code class="code docutils literal notranslate"><span class="pre">#movies</span></code> table,
+if all is working well we should expect our spy function to have been called. Because in JavaScript it’s common for
+functions to be the values of object properties, <code class="code docutils literal notranslate"><span class="pre">spyOn</span></code> takes two arguments, an object (<code class="code docutils literal notranslate"><span class="pre">$</span></code>) and the name of the function-valued
+property of that object on which to spy (<code class="code docutils literal notranslate"><span class="pre">’ajax’</span></code>).</p>
+<p>Line 15 looks complex, but it’s straightforward. Each Jasmine spy remembers the argu- ments passed to it in each of its
+calls, e.g. <code class="code docutils literal notranslate"><span class="pre">calls.mostRecent()</span></code>, and as you recall from the explanation in Section 6.7, a <em>real</em> call to the AJAX function
+takes a single object (lines 9–15 of Figure 6.14) whose url property is the URL to which the AJAX call should go. Line 15
+of the spec is simply checking the value of this URL. In effect, it’s testing whether <code class="code docutils literal notranslate"><span class="pre">$(this).attr(’href’)</span></code> is the correct
+JavaScript code to extract the AJAX URL from the table.</p>
+<p>Figure 6.22 shows the similarity between the challenges of stubbing the Internet for testing AJAX and stubbing the Internet
+for testing code in a Service-Oriented Architecture (Section 8.4). As you can see, in both scenarios, the decision of where
+to stub depends on how much of the stack we want to exercise in our tests.</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Casablanca is a classic and iconic film starring
+    Humphrey Bogart and Ingrid Bergman.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;closeLink&quot;</span><span class="p">&gt;</span>Close <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;element sanitizer&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;removes IMG tags from evil HTML&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">setFixtures</span><span class="p">(</span><span class="nx">sandbox</span><span class="p">({</span><span class="kd">class</span><span class="o">:</span> <span class="s1">&#39;myTestClass&#39;</span><span class="p">}));</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.myTestClass&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Evil HTML! &lt;img src=&#39;http://evil.com/xss&#39;&gt;&quot;</span><span class="p">);</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.myTestClass&#39;</span><span class="p">).</span><span class="nx">sanitize</span><span class="p">();</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.myTestClass&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">()).</span><span class="nx">not</span><span class="p">.</span><span class="nx">toContain</span><span class="p">(</span><span class="s1">&#39;&lt;img&#39;</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>Line 19 reads in a fixture that will take the place of the ajax response from the movies controller show action,
+see Figure 6.23. In lines 20–22 we see the use fo the <code class="code docutils literal notranslate"><span class="pre">callFake</span></code> function to not only intercept an AJAX call, but
+also to fake a successful response using the fixture. This and the triggering of the AJAX call (line 23) is repeated
+for each of the following two tests which check that both the <code class="code docutils literal notranslate"><span class="pre">#movieInfo</span></code> popup is visible (line 26) and that it
+contains text from the movie description (line 29).</p>
+<p>This concise introduction, along with the summary tables in this section, should get you started using BDD for your
+JavaScript code. The best sources of complete documentation for these tools are the Jasmine documentation and the
+Jasmine jQuery add-on documentation.</p>
+<p><strong>Self-Check 6.8.1.</strong> <em>Jasmine-jQuery also supports toContain and toContainText to check if a string of text or HTML
+occurs within an element. In line 7 of Figure 6.20, why would it be incorrect to substitute</em> <code class="code docutils literal notranslate"><span class="pre">.not.toContain(’&lt;div</span> <span class="pre">id=&quot;movieInfo&quot;&gt;&lt;/div&gt;’)</span></code> <em>for</em>
+<code class="code docutils literal notranslate"><span class="pre">toBeHidden()</span></code> <em>?</em></p>
+<blockquote>
+<div><p>A hidden element is not visible, but it still contains the text or HTML associated with the element. Hence <code class="code docutils literal notranslate"><span class="pre">toContain</span></code> -style
+matchers can be used to test the <em>content</em> of an element but not its <em>visibility</em>. In addition, there are many ways for an
+element to be hidden—its CSS could include <code class="code docutils literal notranslate"><span class="pre">display:none</span></code> , it could have zero width and height, or its ancestor could be
+hidden—and the <code class="code docutils literal notranslate"><span class="pre">toBeHidden()</span></code> matcher checks all of these.</p>
+</div></blockquote>
+<p><strong>Self-Check 6.8.2.</strong> <em>Like RSpec, Jasmine supports</em> <code class="code docutils literal notranslate"><span class="pre">and.returnValue()</span></code> <em>for returning a canned value from a stub. In Figure 6.20,</em>
+<em>why why did we have to write</em> <code class="code docutils literal notranslate"><span class="pre">and.callFake</span></code> <em>to pass</em> <code class="code docutils literal notranslate"><span class="pre">ajaxArgs</span></code> <em>to a function as the result of stubbing ajax, rather than simply</em>
+<em>writing</em> <code class="code docutils literal notranslate"><span class="pre">and.returnValue(ajaxArgs)</span></code> <em>?</em></p>
+<blockquote>
+<div><p>Remember that AJAX calls are asynchronous. It’s <em>not</em> the case that the <code class="code docutils literal notranslate"><span class="pre">$.ajax</span></code> call returns data from the server: normally, it
+returns immediately, and sometime later, your callback is called with the data from from the server. <code class="code docutils literal notranslate"><span class="pre">and.callFake</span></code> simulates
+this behavior.</p>
+</div></blockquote>
 </div>
 
 

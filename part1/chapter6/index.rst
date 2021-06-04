@@ -1,5 +1,9 @@
 Mobile and Desktop SaaS Clients: JavaScript Introduction
 ====================================
+    *In programming, everything we do is a special case of something more general—and often we know it too quickly.*
+
+    —Alan Perlis
+    
 .. toctree::
     :maxdepth: 2
  

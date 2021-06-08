@@ -1,5 +1,9 @@
 Requirements: BDD and User Stories
 ====================================
+    Clearly, programming courses should teach methods of design and construction, and the selected 
+    examples should be such that a gradual development can be nicely demonstrated.
+
+    —Niklaus Wirth, “Program Development by Stepwise Refinement,” CACM 14(5), May 1971
 .. toctree::
     :maxdepth: 2
  

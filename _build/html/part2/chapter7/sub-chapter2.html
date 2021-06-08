@@ -83,7 +83,7 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../../intro/chapter1/sub-chapter1.html">
-     1.1. The Web’s Client–Server Architecture
+     1.1. Introduction
     </a>
    </li>
    <li class="toctree-l2">
@@ -948,6 +948,69 @@
                 
   <div class="section" id="smart-user-stories">
 <h1><span class="section-number">7.2. </span>SMART User Stories<a class="headerlink" href="#smart-user-stories" title="Permalink to this headline">¶</a></h1>
+<p>What makes a good user story versus a bad one? The SMART acronym offers concrete and (hopefully) memorable
+guidelines: Specific, Measurable, Achievable, Relevant, and Timeboxed.</p>
+<ul class="simple">
+<li><p><em>Specific</em>. Here are examples of a vague feature paired with a specific version:</p></li>
+</ul>
+<div class="highlight-cucumber notranslate"><div class="highlight"><pre><span></span><span class="k">Feature:</span><span class="nf"> User can search for a movie (vague)</span>
+<span class="nf">Feature: User can search for a movie by title (specific)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><em>Measurable</em>. Adding Measurable to Specific means that each story should be testable, which implies that there are known expected results for some good inputs. An example of a pair of an unmeasurable versus measurable feature is</p></li>
+</ul>
+<div class="highlight-cucumber notranslate"><div class="highlight"><pre><span></span><span class="k">Feature:</span><span class="nf"> RottenPotatoes should have good response time (unmeasurable)</span>
+<span class="nf">Feature: When adding a movie, 99% of Add Movie pages</span>
+<span class="nf">         should appear within 3 seconds (measurable)</span>
+</pre></div>
+</div>
+<p>Only the second case can be tested to see if the system fulfills the requirement.</p>
+<ul class="simple">
+<li><p><em>Achievable</em>. Ideally, you implement the user story in one Agile iteration. If you are getting less than one story per iteration, then they are too big and you need to subdi- vide these stories into smaller ones. As mentioned above, the tool <strong>Pivotal Tracker</strong> measures Velocity, which is the rate of completing stories of varying difficulty.</p></li>
+<li><p><em>Relevant</em>. A user story must have business value to one or more stakeholders. To drill down to the real business value, one technique is to keep asking “Why.” Using as an example a ticket-selling app for a regional theater, suppose the proposal is to add a Facebook linking feature. Here are the “Five Whys” in action with their recursive questions and answers:</p></li>
+</ul>
+<ol class="arabic simple">
+<li><p>Why add the Facebook feature? As box office manager, I think more people will go with friends and enjoy the show more.</p></li>
+<li><p>Why does it matter if they enjoy the show more? I think we will sell more tickets.</p></li>
+<li><p>Why do you want to sell more tickets? Because then the theater makes more money.</p></li>
+<li><p>Why does theater want to make more money? We want to make more money so that we don’t go out of business.</p></li>
+<li><p>Why does it matter that theater is in business next year? If not, I have no job.</p></li>
+</ol>
+<p>(We’re pretty sure the business value is now apparent to at least one stakeholder!)</p>
+<ul class="simple">
+<li><p><em>Timeboxed</em>. Timeboxing means that you stop developing a story once you’ve exceeded the time budget. Either you give up, divide the user story into smaller ones, or reschedule what is left according to a new estimate. If dividing looks like it won’t help, then you go back to the customers to find the highest value part of the story that you can do quickly. The reason for a time budget per user story is that it is extremely easy to underestimate the length of a software project. Without careful accounting of each iteration, the whole project could be late, and thus fail. Learning to budget a software project is a critical skill, and exceeding a story budget and then refactoring it is one way to acquire that skill.</p></li>
+</ul>
+<p>One important concept expands upon the R of SMART. The <strong>minimum viable product</strong> (MVP) is a subset of the full set of features
+that when completed has business value in the real world. Not only are the stories Relevant, but the combination of all of
+them makes the software product viable in the marketplace. Obviously, you can’t start selling the product if it’s not
+viable, so it makes sense to give priority to the stories that will let the product be shipped. The Epic or a Release point
+of Pivotal Tracker can help identify the stories of the MVP.</p>
+<p><strong>Self-Check 7.2.1.</strong> <em>Which SMART guideline(s) does the feature below
+violate?</em></p>
+<div class="highlight-cucumber notranslate"><div class="highlight"><pre><span></span><span class="k">Feature:</span><span class="nf"> RottenPotatoes should have a good User Interface</span>
+</pre></div>
+</div>
+<p></p>
+<blockquote>
+<div><p>It is not Specific, not Measurable, not Achievable (within 1 iteration), and not Timeboxed.
+While business Relevant, this feature goes just one for five.</p>
+</div></blockquote>
+<p><strong>Self-Check 7.2.2.</strong> <em>Rewrite this feature to make it
+SMART.</em></p>
+<div class="highlight-cucumber notranslate"><div class="highlight"><pre><span></span><span class="k">Feature:</span><span class="nf"> I want to see a sorted list of movies sold.</span>
+</pre></div>
+</div>
+<p></p>
+<blockquote>
+<div><p>Here is one SMART revision of this user story:</p>
+<div class="highlight-cucumber notranslate"><div class="highlight"><pre><span></span><span class="k">Feature:</span><span class="nf"> As a customer, I want to see the top 10 movies sold,</span>
+<span class="nf">        listed by price, so that I can buy the cheapest ones</span>
+<span class="nf">        first.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Given user stories as the work product from eliciting requirements of customers, we can introduce a metric and tool to measure productivity.</p>
 </div>
 
 

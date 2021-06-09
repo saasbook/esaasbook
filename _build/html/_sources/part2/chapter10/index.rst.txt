@@ -1,5 +1,9 @@
 Agile Teams 
 ====================================
+    *There are no winners on a losing team, and no losers on a winning team.*
+
+    —Fred Brooks, quoting North Carolina basketball coach Dean Smith, 1990
+    
 .. toctree::
     :maxdepth: 2
  

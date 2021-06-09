@@ -83,7 +83,7 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../../intro/chapter1/sub-chapter1.html">
-     1.1. The Web’s Client–Server Architecture
+     1.1. Introduction
     </a>
    </li>
    <li class="toctree-l2">
@@ -948,6 +948,70 @@
                 
   <div class="section" id="what-makes-code-legacy-and-how-can-agile-help">
 <h1><span class="section-number">9.1. </span>What Makes Code “Legacy” and How Can Agile Help?<a class="headerlink" href="#what-makes-code-legacy-and-how-can-agile-help" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p><em>1. Continuing Change: [software] systems must be continually adapted or they become
+progressively less satisfactory</em></p>
+<p class="attribution">—Lehman’s first law of software evolution</p>
+</div></blockquote>
+<p>As Chapter 1 explained, <strong>legacy code</strong> stays in use because it <em>still meets a customer need</em>,
+even though its design or implementation may be outdated or poorly understood. In this
+chapter we will show not only how to explore and come to understand a legacy codebase,
+but also how to apply Agile techniques to enhance and modify legacy code. Figure 9.1 highlights
+this topic in the context of the overall Agile lifecycle.</p>
+<p><em>Maintainability</em> is the ease with which a product can be improved. In software engineering,
+maintenance consists of four categories (Lientz et al. 1978):</p>
+<ul class="simple">
+<li><p>Corrective maintenance: repairing defects and bugs</p></li>
+<li><p>Perfective maintenance: expanding the software’s functionality to meet new customer requirements</p></li>
+<li><p>Adaptive maintenance: coping with a changing operational environment even if no new functionality is added; for example, adapting to changes in the production hosting environment</p></li>
+<li><p>Preventive maintenance: improving the software’s structure to increase future maintainability.</p></li>
+</ul>
+<p>Practicing these kinds of maintenance on legacy code is a skill learned by doing: we will
+provide a variety of techniques you can use, but there is no substitute for mileage. That
+said, a key component of all these maintenance activities is <strong>refactoring</strong>, a process that changes
+the structure of code (hopefully improving it) without changing the code’s functionality. The
+message of this chapter is that <em>continuous refactoring improves maintainability</em>. Therefore, a
+large part of this chapter will focus on refactoring.</p>
+<p>Any piece of software, however well-designed, can eventually evolve beyond what its original
+design can accommodate. This process leads to maintainability challenges, one of which is the
+challenge of working with legacy code. Some developers use the term “legacy” when the resulting
+code is poorly understood because the original designers are long gone and the software has
+accumulated many <strong>patches</strong> not explained by any current design documents. A more jaded view,
+shared by some experienced practitioners (Glass 2002), is that such documents wouldn’t be very
+useful anyway. Once development starts, necessary design changes cause the system to drift away
+from the original design documents, which don’t get updated. In such cases developers must rely
+on <em>informal</em> design documents such as those that Figure 9.2 lists.</p>
+<p>How can we enhance legacy software without good documentation? As Michael Feathers writes in
+<em>Working Effectively With Legacy Code</em> (Feathers 2004), there are two ways to make
+changes to existing software: <em>Edit and Pray or Cover and Modify</em>. The first method is sadly
+all too common: familiarize yourself with some small part of the software where you have to
+make your changes, edit the code, poke around manually to see if you broke anything (though
+it’s hard to be certain), then deploy and pray for the best.</p>
+<p>In contrast, <em>Cover and Modify</em> calls for creating tests (if they don’t already exist) that cover
+the code you’re going to modify and using them as a “safety net” to detect unintended behavioral
+changes caused by your modifications, just as regression tests detect failures in code that
+used to work. The cover and modify point of view leads to Feathers’s more precise definition
+of “legacy code”, which we will use: <em>code that lacks sufficient tests to modify with confidence,
+regardless of who wrote it and when</em>. In other words, code that you wrote three months ago on a
+different project and must now revisit and modify might as well be legacy code.</p>
+<p>Happily, the Agile techniques we’ve already learned for developing new software can also help
+with legacy code . Indeed, the task of understanding and evolving legacy software can be seen
+as an example of “embracing change” over longer timescales. If we inherit well-structured
+software with thorough tests, we can use BDD and TDD to drive addition of functionality in
+small but confident steps. If we inherit poorly-structured or undertested code, we need to
+“bootstrap” ourselves into the desired situation in four steps:</p>
+<ol class="arabic simple">
+<li><p>Identify the <em>change points</em>, or places where you will need to make changes in the legacy system. Section 9.2 describes some exploration techniques that can help, and introduces one type of Unified Modeling Language (UML) diagram for representing the relationships among the main classes in an application.</p></li>
+<li><p>If necessary, add <strong>characterization tests</strong> that capture how the code works now, to establish a baseline “ground truth” before making any changes. Section 9.3 explains what these tests are and how to create them using tools you’re already familiar with.</p></li>
+<li><p>Determine whether the change points require <strong>refactoring</strong> to make the existing code more testable or accommodate the required changes, for example, by breaking dependencies that make the code hard to test. Section 9.6 introduces a few of the most widely-used techniques from the many catalogs of refactorings that have evolved as part of the Agile movement.</p></li>
+<li><p>Once the code around the change points is well factored and well covered by tests, make the required changes, using your newly-created tests as regressions and adding tests for your new code as in Chapters 7 and 8.</p></li>
+</ol>
+<p><strong>Self-Check 9.1.1.</strong> <em>Why do many software engineers believe that when modifying legacy code,
+good test coverage is more important than detailed design documents or well-structured code?</em></p>
+<blockquote>
+<div><p>Without tests, you cannot be confident that your changes to the legacy code preserve its
+existing behaviors.</p>
+</div></blockquote>
 </div>
 
 

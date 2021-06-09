@@ -1,5 +1,11 @@
 Software Maintenance: Enhancing Legacy Software Using Refactoring and Agile Methods
-====================================
+====================================================================================
+    *There probably isn’t a “best” way to build the system, or even any major part of it; 
+    much more important is to avoid choosing a terrible way, and to have clear division of 
+    responsibilities among the parts.*
+
+    —Butler Lampson, Hints for Computer System Design, 1983
+
 .. toctree::
     :maxdepth: 2
  

@@ -83,7 +83,7 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../../intro/chapter1/sub-chapter1.html">
-     1.1. The Web’s Client–Server Architecture
+     1.1. Introduction
     </a>
    </li>
    <li class="toctree-l2">
@@ -948,6 +948,278 @@
                 
   <div class="section" id="method-level-refactoring-replacing-dependencies-with-seams">
 <h1><span class="section-number">9.6. </span>Method-Level Refactoring: Replacing Dependencies With Seams<a class="headerlink" href="#method-level-refactoring-replacing-dependencies-with-seams" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p><em>2. Increasing Complexity - As [a software] system evolves, its complexity increases
+unless work is done to maintain or reduce it.</em></p>
+<p class="attribution">—Lehman’s second law of software evolution</p>
+</div></blockquote>
+<p>With the characterization specs developed in Section 9.3, we have a solid foundation on
+which to base our refactoring to repair the problems identified in Section 9.5. The term
+<em>refactoring</em> refers not only to a general process, but also to an instance of a specific
+code transformation. Thus, just as with code smells, we speak of a catalog of refactorings,
+and there are many such catalogs to choose from. We prefer Fowler’s catalog, so the examples
+in this chapter follow Fowler’s terminology and are cross-referenced to Chapters 6, 8, 9,
+and 10 of his book <em>Refactoring: Ruby Edition</em> (Fields et al. 2009). While the correspondence
+between code smells and refactorings is not perfect, in general each of those chapters
+describes a group of method-level refactorings that address specific code smells or problems,
+and further chapters describe refactorings that affect multiple classes, which we’ll learn
+about in Chapter 11.</p>
+<p>Each refactoring consists of a descriptive name and a step-by-step process for transforming
+the code via small incremental steps, testing after each step. Most refactorings will cause
+at least temporary test failures, since unit tests usually depend on implementation, which
+is exactly what refactoring changes. A key goal of the refactoring process is to minimize t
+he amount of time that tests are failing (red); the idea is that each refactoring step is
+small enough that adjusting the tests to pass before moving on to the next step is not
+difficult. If you find that getting from red back to green is harder than expected, you must
+determine if your understanding of the code was incomplete, or if you have really broken
+something while refactoring.</p>
+<p>Getting started with refactoring can seem overwhelming: without knowing what refactorings
+exist, it may be hard to decide how to improve a piece of code. Until you have some experience
+improving pieces of code, it may be hard to understand the explanations of the refactorings
+or the motivations for when to use them. Don’t be discouraged by this apparent chicken-and-egg
+problem; like TDD and BDD, what seems overwhelming at first can quickly become familiar.</p>
+<p>As a start, Figure 9.15 shows four of Fowler’s refactorings that we will apply to our code.
+In his book, each refactoring is accompanied by an example and an extremely detailed list
+of mechanical steps for performing the refactoring, in some cases referring to other
+refactorings that may be necessary in order to apply this one. For example, Figure 9.16 shows
+the first few steps for applying the Extract Method refactoring. With these examples in
+mind, we can refactor Figure 9.6.</p>
+<p>Long method is the most obvious code smell in Figure 9.6, but that’s just an overall symptom
+to which various specific problems contribute. The high ABC score (23) of <code class="code docutils literal notranslate"><span class="pre">convert</span></code> suggests
+one place to start focusing our attention: the condition of the if in lines 6–7 is difficult
+to understand, and the conditional is nested two-deep. As Figure 9.15 suggests, a hard-to-read
+conditional expression can be improved by applying the very common refactoring <em>Decompose
+Conditional</em>, which in turn relies on <em>Extract Method</em>. We move some code
+into a new method with a descriptive name, as Figure 9.17 shows. Note that in addition to making
+the conditional more readable, the separate definition of <code class="code docutils literal notranslate"><span class="pre">leap_year?</span></code> makes the leap year
+calculation separately testable and provides a seam at line 6 where we could stub the method
+to simplify testing of <code class="code docutils literal notranslate"><span class="pre">convert</span></code>, similar to the example in the Elaboration at the end of
+Section 8.4. In general, when a method mixes code that says <em>what to do</em> with code that <em>says
+how to do it</em>, this may be a warning to check whether you need to use Extract Method in order
+to maintain a consistent level of <strong>A</strong>bstraction.</p>
+<div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># NOTE: line 7 fixes bug in original version</span>
+<span class="k">class</span> <span class="nc">TimeSetter</span>
+    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">convert</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="mi">1980</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">d</span> <span class="o">&gt;</span> <span class="mi">365</span><span class="p">)</span> <span class="k">do</span>
+        <span class="k">if</span> <span class="n">leap_year?</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">d</span> <span class="o">&gt;=</span> <span class="mi">366</span><span class="p">)</span>
+            <span class="n">d</span> <span class="o">-=</span> <span class="mi">366</span>
+            <span class="n">y</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">end</span>
+        <span class="k">else</span>
+            <span class="n">d</span> <span class="o">-=</span> <span class="mi">365</span>
+            <span class="n">y</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">end</span>
+        <span class="k">end</span>
+        <span class="k">return</span> <span class="n">y</span>
+    <span class="k">end</span>
+    <span class="kp">private</span>
+    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">leap_year?</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
+        <span class="n">year</span> <span class="o">%</span> <span class="mi">400</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span>
+        <span class="p">(</span><span class="n">year</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">year</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</td></tr></table></div>
+<p>The conditional is also nested two-deep, making it hard to understand and increasing <code class="code docutils literal notranslate"><span class="pre">convert</span></code>’s
+ABC score. The <em>Decompose Conditional</em> refactoring also breaks up the complex condition by
+replacing each arm of the conditional with an extracted method. Notice, though, that the two
+arms of the conditional correspond to lines 4 and 6 of the pseudocode in Figure 9.14, both
+of which have the <em>side effects</em> of changing the values of <code class="code docutils literal notranslate"><span class="pre">d</span></code> and <code class="code docutils literal notranslate"><span class="pre">y</span></code> (hence our use of <code class="code docutils literal notranslate"><span class="pre">!</span></code> in the
+names of the extracted methods). In order for those side effects to be visible to <code class="code docutils literal notranslate"><span class="pre">convert</span></code>, we
+must turn the local variables into class variables throughout <code class="code docutils literal notranslate"><span class="pre">TimeSetter</span></code>, giving them more
+descriptive names <code class="code docutils literal notranslate"><span class="pre">&#64;&#64;year</span></code> and <code class="code docutils literal notranslate"><span class="pre">&#64;&#64;days_remaining</span></code> while we’re at it. Finally, since <code class="code docutils literal notranslate"><span class="pre">&#64;&#64;year</span></code> is now
+a class variable, we no longer need to pass it as an explicit argument to <code class="code docutils literal notranslate"><span class="pre">leap_year?</span></code>. Figure
+9.18 shows the result.</p>
+<div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># NOTE: line 7 fixes bug in original version</span>
+<span class="k">class</span> <span class="nc">TimeSetter</span>
+    <span class="no">ORIGIN_YEAR</span> <span class="o">=</span> <span class="mi">1980</span>
+    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">calculate_current_year</span><span class="p">(</span><span class="n">days_since_origin</span><span class="p">)</span>
+        <span class="vc">@@year</span> <span class="o">=</span> <span class="no">ORIGIN_YEAR</span>
+        <span class="vc">@@days_remaining</span> <span class="o">=</span> <span class="n">days_since_origin</span>
+        <span class="k">while</span> <span class="p">(</span><span class="vc">@@days_remaining</span> <span class="o">&gt;</span> <span class="mi">365</span><span class="p">)</span> <span class="k">do</span>
+        <span class="k">if</span> <span class="n">leap_year?</span>
+            <span class="n">peel_off_leap_year!</span>
+        <span class="k">else</span>
+            <span class="n">peel_off_regular_year!</span>
+        <span class="k">end</span>
+        <span class="k">end</span>
+        <span class="k">return</span> <span class="vc">@@year</span>
+    <span class="k">end</span>
+    <span class="kp">private</span>
+    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">peel_off_leap_year!</span>
+        <span class="k">if</span> <span class="p">(</span><span class="vc">@@days_remaining</span> <span class="o">&gt;=</span> <span class="mi">366</span><span class="p">)</span>
+        <span class="vc">@@days_remaining</span> <span class="o">-=</span> <span class="mi">366</span> <span class="p">;</span> <span class="vc">@@year</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">peel_off_regular_year!</span>
+        <span class="vc">@@days_remaining</span> <span class="o">-=</span> <span class="mi">365</span> <span class="p">;</span> <span class="vc">@@year</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">end</span>
+    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">leap_year?</span>
+        <span class="vc">@@year</span> <span class="o">%</span> <span class="mi">400</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span>
+        <span class="p">(</span><span class="vc">@@year</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="vc">@@year</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</td></tr></table></div>
+<p>As long as we’re cleaning up, the code in Figure 9.18 also fixes two minor code
+smells. The first is uncommunicative variable names: <code class="code docutils literal notranslate"><span class="pre">convert</span></code> doesn’t describe very
+well what this method does, and the parameter name <code class="code docutils literal notranslate"><span class="pre">d</span></code> is not useful. The other is
+the use of “magic number” literal constants such as 1980 in line 4; we apply <em>Replace
+Magic Number with Symbolic Constant</em> (Fowler chapter 8) to replace it with the more
+descriptive constant name <code class="code docutils literal notranslate"><span class="pre">STARTING_YEAR</span></code>. What about the other constants such as 365
+and 366? In this example, they’re probably familiar enough to most programmers to
+leave as-is, but if you saw 351 rather than 365, and if line 26 (in <code class="code docutils literal notranslate"><span class="pre">leap_year?</span></code>) used
+the constant 19 rather than 4, you might not recognize the leap year calculation for
+the <strong>Hebrew calendar</strong>. Remember that refactoring only improves the code for human readers;
+the computer doesn’t care. So in such cases use your judgment as to how much refactoring is enough.</p>
+<p>In our case, re-running flog on the refactored code in Figure 9.18 brings the ABC score
+for the newly-renamed <code class="code docutils literal notranslate"><span class="pre">calculate_current_year</span></code> from 23.0 down to 6.6, which is well below
+the suggested NIST threshold of 10.0. Also, reek now reports only two smells. The first is
+“low cohesion” for the helper methods <code class="code docutils literal notranslate"><span class="pre">peel_off_leap_year</span></code> and <code class="code docutils literal notranslate"><span class="pre">peel_off_regular_year</span></code>; this
+is a design smell, and we will discuss what it means in Chapter 11. The second smell is
+declaration of class variables inside a method. When we applied Decompose Conditional and
+Extract Method, we turned local variables into class variables <code class="code docutils literal notranslate"><span class="pre">&#64;&#64;year</span></code> and <code class="code docutils literal notranslate"><span class="pre">&#64;&#64;days_remaining</span></code>
+so that the newly-extracted methods could successfully modify those variables’ values. Our
+solution is effective, but clumsier than <em>Replace Method with Method Object</em> (Fowler chapter 6).
+In that refactoring, the original method <code class="code docutils literal notranslate"><span class="pre">convert</span></code> is turned into an object <em>instance</em> (rather
+than a class) whose instance variables capture the object’s state; the helper methods then
+operate on the instance variables.</p>
+<div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># An example call would now be:</span>
+<span class="c1">#  year = TimeSetter.new(367).calculate_current_year</span>
+<span class="c1"># rather than:</span>
+<span class="c1">#  year = TimeSetter.calculate_current_year(367)</span>
+<span class="k">class</span> <span class="nc">TimeSetter</span>
+    <span class="no">ORIGIN_YEAR</span> <span class="o">=</span> <span class="mi">1980</span>
+    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">days_since_origin</span><span class="p">)</span>
+        <span class="vi">@year</span> <span class="o">=</span> <span class="no">ORIGIN_YEAR</span>
+        <span class="vi">@days_remaining</span> <span class="o">=</span> <span class="n">days_since_origin</span>
+    <span class="k">end</span>
+    <span class="k">def</span> <span class="nf">calculate_current_year</span>
+        <span class="k">while</span> <span class="p">(</span><span class="vi">@days_remaining</span> <span class="o">&gt;</span> <span class="mi">365</span><span class="p">)</span> <span class="k">do</span>
+        <span class="k">if</span> <span class="n">leap_year?</span>
+            <span class="n">peel_off_leap_year!</span>
+        <span class="k">else</span>
+            <span class="n">peel_off_regular_year!</span>
+        <span class="k">end</span>
+        <span class="k">end</span>
+        <span class="k">return</span> <span class="vi">@year</span>
+    <span class="k">end</span>
+    <span class="kp">private</span>
+    <span class="k">def</span> <span class="nf">peel_off_leap_year!</span>
+        <span class="k">if</span> <span class="p">(</span><span class="vi">@days_remaining</span> <span class="o">&gt;=</span> <span class="mi">366</span><span class="p">)</span>
+        <span class="vi">@days_remaining</span> <span class="o">-=</span> <span class="mi">366</span> <span class="p">;</span> <span class="vi">@year</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="k">def</span> <span class="nf">peel_off_regular_year!</span>
+        <span class="vi">@days_remaining</span> <span class="o">-=</span> <span class="mi">365</span> <span class="p">;</span> <span class="vi">@year</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">end</span>
+    <span class="k">def</span> <span class="nf">leap_year?</span>
+        <span class="vi">@year</span> <span class="o">%</span> <span class="mi">400</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span>
+        <span class="p">(</span><span class="vi">@year</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="vi">@year</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</td></tr></table></div>
+<p>Figure 9.19 shows the result of applying such a refactoring, but there is an important
+caveat. So far, none of our refactorings have caused our characterization specs to fail,
+since the specs were just calling <code class="code docutils literal notranslate"><span class="pre">TimeSetter.convert</span></code>. But applying <em>Replace Method With
+Method Object</em> changes the calling interface to <code class="code docutils literal notranslate"><span class="pre">convert</span></code> in a way that makes tests fail.
+If we were working with real legacy code, we would have to find every site that calls <code class="code docutils literal notranslate"><span class="pre">convert</span></code>,
+change it to use the new calling interface, and change any failing tests accordingly. In a
+real project, we’d want to avoid changes that needlessly break the calling interface, so we’d
+need to consider carefully whether the readability gained by applying this refactoring would
+outweigh the risk of introducing this breaking change.</p>
+<p><strong>Self-Check 9.6.1.</strong> <em>Which is not a goal of method-level refactoring: (a) reducing code
+complexity, (b) eliminating code smells, (c) eliminating bugs, (d) improving testability?</em></p>
+<blockquote>
+<div><p>(c). While debugging is important, the goal of refactoring is to preserve the code’s
+current behavior while changing its structure.</p>
+</div></blockquote>
 </div>
 
 

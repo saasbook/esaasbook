@@ -1,5 +1,10 @@
 Testing: Test-Driven Development
 ====================================
+    Let us change our traditional attitude to the construction of programs: Instead of imagining 
+    that our main task is to instruct a computer what to do, let us concentrate rather on explaining 
+    to human beings what we want a computer to do.
+
+    —Donald Knuth, Literate Programming, 1984
 .. toctree::
     :maxdepth: 2
  

@@ -1,2 +1,77 @@
 Concluding Remarks: Beyond PaaS Basics
-====================================
+=======================================
+The database abuses described in Section 12.7 reveal that object-relational mapping 
+layers such as ActiveRecord, like most abstractions, are *leaky*: they try to hide 
+implementation details for the sake of productivity, but concerns about security and 
+performance sometimes require the developer to have some understanding of how the 
+abstractions are implemented. For example, the :math:`n+1` select problem is not obvious 
+from looking at ActiveRecord queries, nor are queries that would be speeded up by eager 
+association loading.
+
+In Chapter 4 we emphasized the importance of keeping your development and production 
+environments as similar as possible. This is still good advice, but obviously if your 
+production environment involves multiple servers and a huge database, it may be impractical 
+to replicate in your development environment. So should you keep track of database 
+performance in development if your production environment will be different? Absolutely. 
+Heroku and other PaaS sites do a great job at tuning the baseline performance of their 
+databases and software stack, but no amount of tuning can compensate for an app that forces 
+the database to do inefficient queries or fails to use caching to ease the load on the database.
+
+Given limited space, we focused on aspects of operations that every SaaS developer should 
+know, even given the availability of PaaS. An excellent and more detailed book that focuses 
+on challenges specific to SaaS and is laced with real customer stories is Michael
+Nygard’s *Release It!* (Nygard 2007), which focuses more on the problems of “unexpected 
+success” (sudden traffic surges, stability issues, and so on) than on repelling malicious 
+attacks.
+
+Understanding what happens during deployment and operations (especially automated deployment) 
+is a prerequisite to debugging more complex performance problems. The vast majority of SaaS 
+apps today, including those hosted on Windows servers, run in an environ- ment based on the 
+original Unix model of processes and input/output, so an understanding of this environment 
+is crucial for debugging any nontrivial performance problems. *The Unix Programming Environment* 
+(Kernighan and Pike 1984), coauthored by one of Unix’s creators, offers a high-bandwidth, 
+learn-by-doing tour (using C!) of the Unix architecture and philosophy.
+
+**Sharding** and **replication** are powerful techniques for scaling a database that require a great 
+deal of design thinking up front. While most frameworks have libraries to help with both, 
+these techniques usually also require database-level configuration changes, which many PaaS 
+providers do not support. Sharding and replication have become particularly important with 
+the emergence of “NoSQL” databases, which trade the expressiveness and data format independence 
+of SQL for better scalability. *The NoSQL Ecosystem*, a chapter contributed by Adam Marcus to 
+*The Architecture of Open Source Applications* Marcus 2012, has a good treatment of these topics.
+
+Security is an extremely broad topic; our goal has been to help you avoid basic mistakes by using 
+built-in mechanisms to thwart common attacks against your app and your customers’ data. Of course, 
+an attacker who can’t compromise your app’s internal data can still cause harm by attacking the 
+infrastructure on which your app relies. Distributed **denial of service** (DDoS) floods a site with 
+so much traffic that it becomes unresponsive for its intended users. A malicious client can leave 
+your app server or Web server “hanging on the line” as it consumes output pathologically slowly, 
+unless your Web server (presentation tier) has built-in timeouts. **DNS spoofing** tries to steer you 
+to an impostor site by supplying an incorrect IP address when a browser looks up a host name, and 
+is often combined with a **person-in-the-middle attack** that falsifies the certificate attesting to 
+the server’s identity.
+
+The impostor site then looks and behaves like the real site, and can “prove” its falsified 
+identity to your browser, but can now collect sensitive information from users. Nonetheless, 
+despite occasional vulnerabilities, curated PaaS sites are more likely to employ experienced 
+professional system administrators who stay abreast of the latest techniques for avoiding such 
+vulnerabilities, making them the best first line of defense for your SaaS apps.
+
+Today’s best practices in SaaS security call for thinking in terms of DevSecOps, in which 
+security is a consideration throughout the entire process of development rather than a 
+“safety fence” around an existing app. Indeed, DevSecOps is the approach we advocate in this 
+book; its key recommendations include encapsulation of microservices, automated tests for 
+security-related features (input validation, login/authentication, and so on) in your test 
+suite, and automated patching of security vulnerabilities arising from libraries or other app 
+depen- dencies. This last service is provided by the free GitHub Dependabot, which scans your 
+code for dependency vulnerabilities on each push and can even open pull requests automatically 
+to update the vulnerable dependencies to a patched version.
+
+Finally, at some point the unthinkable will happen: your production system will enter a state 
+where some or all users receive no service. Whether the app has crashed or is “hung” (unable 
+to make forward progress), from a business perspective the two conditions look the same, because 
+the app is not generating revenue. In this scenario, the top priority is to restore
+service, which may require rebooting servers or doing other operations that destroy the 
+post-mortem state you want to examine to determine what caused the problem in the first place. 
+Generous logging can help, as the logs provide a semi-permanent record you can examine closely 
+after service is restored.

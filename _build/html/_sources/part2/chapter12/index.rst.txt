@@ -1,5 +1,9 @@
 Dev/Ops
 ====================================
+    *My response was “Congratulations, Ron, that should work.”*
+
+    —Len Adleman, reacting to Ron Rivest’s encryption proposal, 1977
+
 .. toctree::
     :maxdepth: 2
  

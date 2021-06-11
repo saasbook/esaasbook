@@ -32,6 +32,7 @@
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="12.8. CHIPS: Exploiting Caching and Indices" href="sub-chapter8.html" />
@@ -83,7 +84,7 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../../intro/chapter1/sub-chapter1.html">
-     1.1. The Web’s Client–Server Architecture
+     1.1. Introduction
     </a>
    </li>
    <li class="toctree-l2">
@@ -948,6 +949,114 @@
                 
   <div class="section" id="avoiding-abusive-database-queries">
 <h1><span class="section-number">12.7. </span>Avoiding Abusive Database Queries<a class="headerlink" href="#avoiding-abusive-database-queries" title="Permalink to this headline">¶</a></h1>
+<p>As we saw in Section 12.2, the database will ultimately limit horizontal
+scaling—not because you run out of space to store tables, but more likely
+because a single computer can no longer sustain the necessary number of
+queries per second while remaining responsive. When that happens, you will
+need to turn to techniques such as sharding and replication, which are beyond
+the scope of this book (but see To Learn More for some suggestions).</p>
+<p>Even on a single computer, database performance tuning is enormously complicated.
+The widely-used open source database MySQL has dozens of configuration parameters,
+and most database administrators (DBAs) will tell you that at least half a dozen of
+these are “critical” to getting good performance. Therefore, we focus on how to keep
+your database usage within the limit that will allow it to be hosted by a PaaS provider:
+Heroku, Amazon Web Services, Microsoft Azure, and others all offer hosted relational
+databases managed by professional DBAs responsible for baseline tuning. Many useful
+SaaS apps can be built at this scale—for example, all of Pivotal Tracker fits in a
+database on a single computer.</p>
+<p>One way to relieve pressure on your database is to avoid needlessly expensive queries.
+Two common mistakes for less-experienced SaaS authors arise in the presence of associations:</p>
+<ol class="arabic simple">
+<li><p>The <span class="math notranslate nohighlight">\(n+1\)</span> <em>queries</em> problem occurs when traversing an association performs more queries than necessary.</p></li>
+<li><p>The <em>table</em> scan problem occurs when your tables lack the proper <strong>indices</strong> to speed up certain queries.</p></li>
+</ol>
+<div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># assumes class Moviegoer with has_many :movies, :through =&gt; :reviews</span>
+
+<span class="c1"># in controller method:</span>
+<span class="vi">@fans</span> <span class="o">=</span> <span class="no">Moviegoer</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s2">&quot;zip = ?&quot;</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span> <span class="c1"># table scan if no index!</span>
+
+<span class="c1"># in view:</span>
+<span class="o">-</span> <span class="vi">@fans</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">fan</span><span class="o">|</span>
+  <span class="o">-</span> <span class="n">fan</span><span class="o">.</span><span class="n">movies</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">movie</span><span class="o">|</span>
+    <span class="sr">//</span> <span class="ss">BAD</span><span class="p">:</span> <span class="n">each</span> <span class="n">time</span> <span class="n">thru</span> <span class="n">this</span> <span class="kp">loop</span> <span class="n">causes</span> <span class="n">a</span> <span class="kp">new</span> <span class="n">database</span> <span class="n">query!</span>
+    <span class="o">%</span><span class="nb">p</span><span class="o">=</span> <span class="n">movie</span><span class="o">.</span><span class="n">title</span>
+
+<span class="c1"># better: eager loading of the association in controller.</span>
+<span class="c1"># Rails automatically traverses the through-association between</span>
+<span class="c1"># Moviegoers and Movies through Reviews</span>
+<span class="vi">@fans</span> <span class="o">=</span> <span class="no">Moviegoer</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s2">&quot;zip = ?&quot;</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span><span class="o">.</span><span class="n">includes</span><span class="p">(</span><span class="ss">:movies</span><span class="p">)</span>
+<span class="c1"># GOOD: preloading movies reviewed by fans avoids N queries in view.</span>
+
+<span class="c1"># BAD: preload association but don&#39;t use it in view:</span>
+<span class="o">-</span> <span class="vi">@fans</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">fan</span><span class="o">|</span>
+    <span class="o">%</span><span class="nb">p</span><span class="o">=</span> <span class="vi">@fan</span><span class="o">.</span><span class="n">name</span>
+    <span class="sr">//</span> <span class="ss">BAD</span><span class="p">:</span> <span class="n">we</span> <span class="n">never</span> <span class="n">used</span> <span class="n">the</span> <span class="ss">:movies</span> <span class="n">that</span> <span class="n">were</span> <span class="n">preloaded!</span>
+</pre></div>
+</td></tr></table></div>
+<p>Lines 1–17 of Figure 12.8 illustrate the so-called n+1 queries problem when traversing
+associations, and also show why the problem is more likely to arise when code creeps into
+your views: there would be no way for the view to know the damage it was causing. Of course,
+just as bad is eager loading of information you won’t use, as in lines 18–21 of Figure 12.8.
+The <code class="code docutils literal notranslate"><span class="pre">bullet</span></code> gem helps detect both problems.</p>
+<div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">AddEmailIndexToMoviegoers</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+    <span class="k">def</span> <span class="nf">change</span>
+        <span class="n">add_index</span> <span class="s1">&#39;moviegoers&#39;</span><span class="p">,</span> <span class="s1">&#39;email&#39;</span><span class="p">,</span> <span class="ss">:unique</span> <span class="o">=&gt;</span> <span class="kp">true</span>
+        <span class="c1"># :unique is optional - see text for important warning!</span>
+        <span class="n">add_index</span> <span class="s1">&#39;moviegoers&#39;</span><span class="p">,</span> <span class="s1">&#39;zip&#39;</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</td></tr></table></div>
+<p>Another database abuse to avoid is queries that result in a <strong>full table scan</strong>. Consider line 4
+of Figure 12.8: in the worst case, the database would have to examine every row of the
+<code class="code docutils literal notranslate"><span class="pre">moviegoers</span></code> table to find a match on the <code class="code docutils literal notranslate"><span class="pre">email</span></code> column, so the query will run more and more
+slowly as the table grows, taking time <span class="math notranslate nohighlight">\(O(n)\)</span> for a table with n rows. The solution is to add a
+<strong>database index</strong> on the <code class="code docutils literal notranslate"><span class="pre">moviegoers.email</span></code> column, as Figure 12.9 shows. An index is a separate
+data structure maintained by the database that uses <strong>hashing</strong> techniques over the column values
+to allow constant-time access to any row when that column is used as the constraint. You can
+have more than one index on a given table and even have indices based on the values of multiple
+columns. Besides obvious attributes named explicitly in <code class="code docutils literal notranslate"><span class="pre">where</span></code> queries, <em>foreign keys</em> (the subject
+of the association) should usually be indexed. For example, in the example in Figure 12.8, the
+<code class="code docutils literal notranslate"><span class="pre">moviegoer_id</span></code> field in the <code class="code docutils literal notranslate"><span class="pre">reviews</span></code> table would need an index in order to speed up the query
+implied by <code class="code docutils literal notranslate"><span class="pre">fan.movies</span></code>.</p>
+<p>Of course, indices aren’t free: each index takes up space proportional to the number of table
+rows, and since every index on a table must be updated when table rows are added or modified,
+updates to heavily-indexed tables may be slowed down. However, because of the read-mostly
+behavior of typical SaaS apps and their relatively simple queries compared to other
+database-backed systems such as Online Transaction Processing (OLTP), your app will likely
+run into many other bottlenecks before indices begin to limit its performance. Figure 12.10
+shows an example of the dramatic performance improvement provided by indices.</p>
+<p><strong>Self-Check 12.7.1.</strong> <em>An index on a database table usually speeds up ____ at the
+expense of ____ and ____.</em></p>
+<blockquote>
+<div><p>Query performance at the expense of space and table-update performance.</p>
+</div></blockquote>
 </div>
 
 

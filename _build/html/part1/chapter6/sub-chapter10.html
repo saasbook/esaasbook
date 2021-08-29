@@ -22,12 +22,12 @@
       
 
     
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" />
     
   <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
@@ -971,57 +971,33 @@ JavaScript object(s).</p>
 than an XML or HTML template by using render <code class="code docutils literal notranslate"><span class="pre">:json=&gt;</span></code> <em>object</em>, which sends a JSON representation of an object back to the client
 as the single response from the controller action. Like rendering a template, you are only allowed a single call to <code class="code docutils literal notranslate"><span class="pre">render</span></code>
 per action, so all the response data for a given controller action must be packed into a single JSON object.</p>
-<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">MoviePopupJson</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="c1">// &#39;setup&#39; function omitted for brevity</span>
-    <span class="nx">getMovieInfo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;GET&#39;</span><span class="p">,</span>
-                <span class="nx">dataType</span><span class="o">:</span> <span class="s1">&#39;json&#39;</span><span class="p">,</span>
-                <span class="nx">url</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">),</span>
-                <span class="nx">success</span><span class="o">:</span> <span class="nx">MoviePopupJson</span><span class="p">.</span><span class="nx">showMovieInfo</span>
-                <span class="c1">// &#39;timeout&#39; and &#39;error&#39; functions omitted for brevity</span>
-            <span class="p">});</span>
-        <span class="k">return</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="p">,</span><span class="nx">showMovieInfo</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">jsonData</span><span class="p">,</span> <span class="nx">requestStatus</span><span class="p">,</span> <span class="nx">xhrObject</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// center a floater 1/2 as wide and 1/4 as tall as screen</span>
-        <span class="kd">let</span> <span class="nx">oneFourth</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">ceil</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">width</span><span class="p">()</span> <span class="o">/</span> <span class="mf">4</span><span class="p">);</span>
-        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#movieInfo&#39;</span><span class="p">).</span>
-        <span class="nx">css</span><span class="p">({</span><span class="s1">&#39;left&#39;</span><span class="o">:</span> <span class="nx">oneFourth</span><span class="p">,</span>  <span class="s1">&#39;width&#39;</span><span class="o">:</span> <span class="mf">2</span><span class="o">*</span><span class="nx">oneFourth</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="o">:</span> <span class="mf">250</span><span class="p">}).</span>
-        <span class="nx">html</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;p&gt;&#39;</span> <span class="o">+</span> <span class="nx">jsonData</span><span class="p">.</span><span class="nx">description</span> <span class="o">+</span> <span class="s1">&#39;&lt;/p&gt;&#39;</span><span class="p">),</span>
-                <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;a id=&quot;closeLink&quot; href=&quot;#&quot;&gt;&lt;/a&gt;&#39;</span><span class="p">)).</span>
-        <span class="nx">show</span><span class="p">();</span>
-        <span class="c1">// make the Close link in the hidden element work</span>
-        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#closeLink&#39;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="nx">MoviePopupJson</span><span class="p">.</span><span class="nx">hideMovieInfo</span><span class="p">);</span>
-        <span class="k">return</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>  <span class="c1">// prevent default link action</span>
-    <span class="p">}</span>
-    <span class="c1">// hideMovieInfo omitted for brevity</span>
-<span class="p">};</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kd">let</span> <span class="nx">MoviePopupJson</span> <span class="o">=</span> <span class="p">{</span>
+<span class="linenos"> 2</span>    <span class="c1">// &#39;setup&#39; function omitted for brevity</span>
+<span class="linenos"> 3</span>    <span class="nx">getMovieInfo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="linenos"> 4</span>        <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;GET&#39;</span><span class="p">,</span>
+<span class="linenos"> 5</span>                <span class="nx">dataType</span><span class="o">:</span> <span class="s1">&#39;json&#39;</span><span class="p">,</span>
+<span class="linenos"> 6</span>                <span class="nx">url</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">),</span>
+<span class="linenos"> 7</span>                <span class="nx">success</span><span class="o">:</span> <span class="nx">MoviePopupJson</span><span class="p">.</span><span class="nx">showMovieInfo</span>
+<span class="linenos"> 8</span>                <span class="c1">// &#39;timeout&#39; and &#39;error&#39; functions omitted for brevity</span>
+<span class="linenos"> 9</span>            <span class="p">});</span>
+<span class="linenos">10</span>        <span class="k">return</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+<span class="linenos">11</span>    <span class="p">}</span>
+<span class="linenos">12</span>    <span class="p">,</span><span class="nx">showMovieInfo</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">jsonData</span><span class="p">,</span> <span class="nx">requestStatus</span><span class="p">,</span> <span class="nx">xhrObject</span><span class="p">)</span> <span class="p">{</span>
+<span class="linenos">13</span>        <span class="c1">// center a floater 1/2 as wide and 1/4 as tall as screen</span>
+<span class="linenos">14</span>        <span class="kd">let</span> <span class="nx">oneFourth</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">ceil</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">width</span><span class="p">()</span> <span class="o">/</span> <span class="mf">4</span><span class="p">);</span>
+<span class="linenos">15</span>        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#movieInfo&#39;</span><span class="p">).</span>
+<span class="linenos">16</span>        <span class="nx">css</span><span class="p">({</span><span class="s1">&#39;left&#39;</span><span class="o">:</span> <span class="nx">oneFourth</span><span class="p">,</span>  <span class="s1">&#39;width&#39;</span><span class="o">:</span> <span class="mf">2</span><span class="o">*</span><span class="nx">oneFourth</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="o">:</span> <span class="mf">250</span><span class="p">}).</span>
+<span class="linenos">17</span>        <span class="nx">html</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;p&gt;&#39;</span> <span class="o">+</span> <span class="nx">jsonData</span><span class="p">.</span><span class="nx">description</span> <span class="o">+</span> <span class="s1">&#39;&lt;/p&gt;&#39;</span><span class="p">),</span>
+<span class="linenos">18</span>                <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;a id=&quot;closeLink&quot; href=&quot;#&quot;&gt;&lt;/a&gt;&#39;</span><span class="p">)).</span>
+<span class="linenos">19</span>        <span class="nx">show</span><span class="p">();</span>
+<span class="linenos">20</span>        <span class="c1">// make the Close link in the hidden element work</span>
+<span class="linenos">21</span>        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#closeLink&#39;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="nx">MoviePopupJson</span><span class="p">.</span><span class="nx">hideMovieInfo</span><span class="p">);</span>
+<span class="linenos">22</span>        <span class="k">return</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>  <span class="c1">// prevent default link action</span>
+<span class="linenos">23</span>    <span class="p">}</span>
+<span class="linenos">24</span>    <span class="c1">// hideMovieInfo omitted for brevity</span>
+<span class="linenos">25</span><span class="p">};</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p><code class="code docutils literal notranslate"><span class="pre">render</span> <span class="pre">:json</span></code> works by calling <code class="code docutils literal notranslate"><span class="pre">to_json</span></code> on object to create the string to send back to the client.
 The default implementation of <code class="code docutils literal notranslate"><span class="pre">to_json</span></code> can serialize simple ActiveRecord objects, as Figure 6.25 shows.</p>
 <p>To make an AJAX call that expects a JSON-encoded response, we just ensure that the argument object passed to <code class="code docutils literal notranslate"><span class="pre">$.ajax</span></code> includes
@@ -1029,33 +1005,21 @@ a dataType property whose value is the string <code class="code docutils literal
 automatically call <code class="code docutils literal notranslate"><span class="pre">JSON.parse</span></code> on the returned data, so you don’t have to do so yourself.</p>
 <p>How can we test this code without calling the server every time? Happily, Jasmine- jQuery’s fixture mechanism allows us
 to specify JSON fixtures as well as HTML fixtures, as Figure 6.27 shows.</p>
-<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;MoviePopupJson&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;successful AJAX call&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">beforeEach</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">loadFixtures</span><span class="p">(</span><span class="s1">&#39;movie_row.html&#39;</span><span class="p">);</span>
-        <span class="kd">let</span> <span class="nx">jsonResponse</span> <span class="o">=</span> <span class="nx">getJSONFixture</span><span class="p">(</span><span class="s1">&#39;movie_info.json&#39;</span><span class="p">);</span>
-        <span class="nx">spyOn</span><span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="s1">&#39;ajax&#39;</span><span class="p">).</span><span class="nx">and</span><span class="p">.</span><span class="nx">callFake</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">ajaxArgs</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">ajaxArgs</span><span class="p">.</span><span class="nx">success</span><span class="p">(</span><span class="nx">jsonResponse</span><span class="p">,</span> <span class="s1">&#39;200&#39;</span><span class="p">);</span>
-        <span class="p">});</span>
-        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#movies a&#39;</span><span class="p">).</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">);</span>
-        <span class="p">});</span>
-        <span class="c1">// &#39;it&#39; clauses are same as in movie_popup_spec.js</span>
-    <span class="p">});</span>
-<span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;MoviePopupJson&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="linenos"> 2</span>    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;successful AJAX call&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="linenos"> 3</span>        <span class="nx">beforeEach</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="linenos"> 4</span>        <span class="nx">loadFixtures</span><span class="p">(</span><span class="s1">&#39;movie_row.html&#39;</span><span class="p">);</span>
+<span class="linenos"> 5</span>        <span class="kd">let</span> <span class="nx">jsonResponse</span> <span class="o">=</span> <span class="nx">getJSONFixture</span><span class="p">(</span><span class="s1">&#39;movie_info.json&#39;</span><span class="p">);</span>
+<span class="linenos"> 6</span>        <span class="nx">spyOn</span><span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="s1">&#39;ajax&#39;</span><span class="p">).</span><span class="nx">and</span><span class="p">.</span><span class="nx">callFake</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">ajaxArgs</span><span class="p">)</span> <span class="p">{</span>
+<span class="linenos"> 7</span>            <span class="nx">ajaxArgs</span><span class="p">.</span><span class="nx">success</span><span class="p">(</span><span class="nx">jsonResponse</span><span class="p">,</span> <span class="s1">&#39;200&#39;</span><span class="p">);</span>
+<span class="linenos"> 8</span>        <span class="p">});</span>
+<span class="linenos"> 9</span>        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#movies a&#39;</span><span class="p">).</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">);</span>
+<span class="linenos">10</span>        <span class="p">});</span>
+<span class="linenos">11</span>        <span class="c1">// &#39;it&#39; clauses are same as in movie_popup_spec.js</span>
+<span class="linenos">12</span>    <span class="p">});</span>
+<span class="linenos">13</span><span class="p">});</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p><strong>Self-Check 6.10.1.</strong> <em>In Figure 6.27 showing the use of a JSON fixture, why do we also still need the HTML
 fixture to be loaded in line 4?</em></p>
 <blockquote>
@@ -1084,9 +1048,9 @@ response from the server in response to that click.</p>
     <div class="container">
       <p>
         
-          By sm3<br/>
+          By sme777<br/>
         
-            &copy; Copyright 2021, UC Berkeley.<br/>
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
       </p>
     </div>
   </footer>

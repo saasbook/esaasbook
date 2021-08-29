@@ -22,12 +22,12 @@
       
 
     
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" />
     
   <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
@@ -953,31 +953,20 @@ between Movies and Reviews. But since any given Review is associated with both a
 we could say that there’s an <em>indirect</em> association between Moviegoers and Movies. For example, we might
 ask “What are all the movies Gloria has reviewed?” or “Which moviegoers have reviewed <em>Inception</em>?” Indeed,
 line 13 in Figure 5.11 essentially answers the second question.</p>
-<div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># Run &#39;rails generate migration create_reviews&#39; and then</span>
-<span class="c1">#   edit db/migrate/*_create_reviews.rb to look like this:</span>
-<span class="k">class</span> <span class="nc">CreateReviews</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
-    <span class="k">def</span> <span class="nf">change</span>
-        <span class="n">create_table</span> <span class="s1">&#39;reviews&#39;</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
-        <span class="n">t</span><span class="o">.</span><span class="n">integer</span>    <span class="s1">&#39;potatoes&#39;</span>
-        <span class="n">t</span><span class="o">.</span><span class="n">text</span>       <span class="s1">&#39;comments&#39;</span>
-        <span class="n">t</span><span class="o">.</span><span class="n">references</span> <span class="s1">&#39;moviegoer&#39;</span>
-        <span class="n">t</span><span class="o">.</span><span class="n">references</span> <span class="s1">&#39;movie&#39;</span>
-        <span class="k">end</span>
-    <span class="k">end</span>
-<span class="k">end</span>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># Run &#39;rails generate migration create_reviews&#39; and then</span>
+<span class="linenos"> 2</span><span class="c1">#   edit db/migrate/*_create_reviews.rb to look like this:</span>
+<span class="linenos"> 3</span><span class="k">class</span> <span class="nc">CreateReviews</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+<span class="linenos"> 4</span>    <span class="k">def</span> <span class="nf">change</span>
+<span class="linenos"> 5</span>        <span class="n">create_table</span> <span class="s1">&#39;reviews&#39;</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+<span class="linenos"> 6</span>        <span class="n">t</span><span class="o">.</span><span class="n">integer</span>    <span class="s1">&#39;potatoes&#39;</span>
+<span class="linenos"> 7</span>        <span class="n">t</span><span class="o">.</span><span class="n">text</span>       <span class="s1">&#39;comments&#39;</span>
+<span class="linenos"> 8</span>        <span class="n">t</span><span class="o">.</span><span class="n">references</span> <span class="s1">&#39;moviegoer&#39;</span>
+<span class="linenos"> 9</span>        <span class="n">t</span><span class="o">.</span><span class="n">references</span> <span class="s1">&#39;movie&#39;</span>
+<span class="linenos">10</span>        <span class="k">end</span>
+<span class="linenos">11</span>    <span class="k">end</span>
+<span class="linenos">12</span><span class="k">end</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>This kind of indirect association is so common that Rails and other frameworks provide an abstraction
 to simplify its use. It’s sometimes called a <em>through-association</em>, since Moviegoers are related to Movies
 <em>through</em> their reviews and vice versa. Figure 5.15 shows how to use the <code class="code docutils literal notranslate"><span class="pre">:through</span></code> option to Rails’ <code class="code docutils literal notranslate"><span class="pre">has_many</span></code>
@@ -989,42 +978,27 @@ table that conceptually has 27
 rows and 9 columns in our example. From this table we then select those rows for which the movie’s ID matches the
 review’s movie_id and the moviegoer’s ID matches the review’s moviegoer_id. Extending the explanation of Section 5.4,
 the SQL query might look like this:</p>
-<div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># in moviegoer.rb:</span>
-<span class="k">class</span> <span class="nc">Moviegoer</span>
-    <span class="n">has_many</span> <span class="ss">:reviews</span>
-    <span class="n">has_many</span> <span class="ss">:movies</span> <span class="p">,</span> <span class="ss">:through</span>
-    <span class="c1"># ... other moviegoer model code</span>
-<span class="k">end</span>
-<span class="n">gloria</span> <span class="o">=</span> <span class="no">Moviegoer</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s1">&#39;Gloria&#39;</span><span class="p">)</span>
-<span class="n">gloria_movies</span> <span class="o">=</span> <span class="n">gloria</span><span class="o">.</span><span class="n">movies</span>
-<span class="c1"># MAY work, but a bad idea - see caption:</span>
-<span class="n">gloria</span><span class="o">.</span><span class="n">movies</span> <span class="o">&lt;&lt;</span> <span class="no">Movie</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:title</span> <span class="o">=&gt;</span> <span class="s1">&#39;Inception&#39;</span><span class="p">)</span> <span class="c1"># Don&#39;t do this!</span>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># in moviegoer.rb:</span>
+<span class="linenos"> 2</span><span class="k">class</span> <span class="nc">Moviegoer</span>
+<span class="linenos"> 3</span>    <span class="n">has_many</span> <span class="ss">:reviews</span>
+<span class="linenos"> 4</span>    <span class="n">has_many</span> <span class="ss">:movies</span> <span class="p">,</span> <span class="ss">:through</span>
+<span class="linenos"> 5</span>    <span class="c1"># ... other moviegoer model code</span>
+<span class="linenos"> 6</span><span class="k">end</span>
+<span class="linenos"> 7</span><span class="n">gloria</span> <span class="o">=</span> <span class="no">Moviegoer</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s1">&#39;Gloria&#39;</span><span class="p">)</span>
+<span class="linenos"> 8</span><span class="n">gloria_movies</span> <span class="o">=</span> <span class="n">gloria</span><span class="o">.</span><span class="n">movies</span>
+<span class="linenos"> 9</span><span class="c1"># MAY work, but a bad idea - see caption:</span>
+<span class="linenos">10</span><span class="n">gloria</span><span class="o">.</span><span class="n">movies</span> <span class="o">&lt;&lt;</span> <span class="no">Movie</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:title</span> <span class="o">=&gt;</span> <span class="s1">&#39;Inception&#39;</span><span class="p">)</span> <span class="c1"># Don&#39;t do this!</span>
 </pre></div>
-</td></tr></table></div>
-<div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Review</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
-    <span class="c1"># review is valid only if it&#39;s associated with a movie:</span>
-    <span class="n">validates</span> <span class="ss">:movie_id</span> <span class="p">,</span> <span class="ss">:presence</span> <span class="o">=&gt;</span> <span class="kp">true</span>
-    <span class="c1"># can ALSO require that the referenced movie itself be valid</span>
-    <span class="c1"># in order for the review to be valid:</span>
-    <span class="n">validates_associated</span> <span class="ss">:movie</span>
-<span class="k">end</span>
+</div>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">class</span> <span class="nc">Review</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+<span class="linenos">2</span>    <span class="c1"># review is valid only if it&#39;s associated with a movie:</span>
+<span class="linenos">3</span>    <span class="n">validates</span> <span class="ss">:movie_id</span> <span class="p">,</span> <span class="ss">:presence</span> <span class="o">=&gt;</span> <span class="kp">true</span>
+<span class="linenos">4</span>    <span class="c1"># can ALSO require that the referenced movie itself be valid</span>
+<span class="linenos">5</span>    <span class="c1"># in order for the review to be valid:</span>
+<span class="linenos">6</span>    <span class="n">validates_associated</span> <span class="ss">:movie</span>
+<span class="linenos">7</span><span class="k">end</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">movies</span> <span class="p">.</span><span class="o">*</span>
     <span class="k">FROM</span> <span class="n">movies</span> <span class="k">JOIN</span> <span class="n">reviews</span> <span class="k">ON</span> <span class="n">movies</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">reviews</span><span class="p">.</span><span class="n">movie_id</span>
     <span class="k">JOIN</span> <span class="n">moviegoers</span> <span class="k">ON</span> <span class="n">moviegoers</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">reviews</span><span class="p">.</span><span class="n">moviegoer_id</span>
@@ -1074,9 +1048,9 @@ moviegoer whose <code class="code docutils literal notranslate"><span class="pre
     <div class="container">
       <p>
         
-          By sm3<br/>
+          By sme777<br/>
         
-            &copy; Copyright 2021, UC Berkeley.<br/>
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
       </p>
     </div>
   </footer>

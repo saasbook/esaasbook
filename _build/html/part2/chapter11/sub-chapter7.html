@@ -22,12 +22,12 @@
       
 
     
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" />
     
   <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
@@ -970,78 +970,45 @@ because <code class="code docutils literal notranslate"><span class="pre">Movieg
 arises in tests is the <em>mock trainwreck</em>, which occurs in lines 25–27 of Figure 11.21: to test
 code that violates Demeter, we find ourselves setting up a “chain” of mocks that will be used
 when we call the method under test.</p>
-<div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># Better: delegate credit_balance so MovieTheater only accesses Moviegoer</span>
-<span class="k">class</span> <span class="nc">Moviegoer</span>
-    <span class="k">def</span> <span class="nf">credit_balance</span>
-        <span class="nb">self</span><span class="o">.</span><span class="n">wallet</span><span class="o">.</span><span class="n">credit_balance</span>  <span class="c1"># delegation</span>
-    <span class="k">end</span>
-<span class="k">end</span>
-<span class="k">class</span> <span class="nc">MovieTheater</span>
-    <span class="k">def</span> <span class="nf">collect_money</span><span class="p">(</span><span class="n">moviegoer</span><span class="p">,</span><span class="n">amount</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">moviegoer</span><span class="o">.</span><span class="n">credit_balance</span> <span class="o">&gt;=</span> <span class="n">amount</span>
-        <span class="n">moviegoer</span><span class="o">.</span><span class="n">credit_balance</span> <span class="o">-=</span> <span class="n">due_amount</span>
-        <span class="vi">@collected_amount</span> <span class="o">+=</span> <span class="n">due_amount</span>
-        <span class="k">else</span>
-        <span class="k">raise</span> <span class="no">InsufficientFundsError</span>
-        <span class="k">end</span>
-    <span class="k">end</span>
-<span class="k">end</span>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># Better: delegate credit_balance so MovieTheater only accesses Moviegoer</span>
+<span class="linenos"> 2</span><span class="k">class</span> <span class="nc">Moviegoer</span>
+<span class="linenos"> 3</span>    <span class="k">def</span> <span class="nf">credit_balance</span>
+<span class="linenos"> 4</span>        <span class="nb">self</span><span class="o">.</span><span class="n">wallet</span><span class="o">.</span><span class="n">credit_balance</span>  <span class="c1"># delegation</span>
+<span class="linenos"> 5</span>    <span class="k">end</span>
+<span class="linenos"> 6</span><span class="k">end</span>
+<span class="linenos"> 7</span><span class="k">class</span> <span class="nc">MovieTheater</span>
+<span class="linenos"> 8</span>    <span class="k">def</span> <span class="nf">collect_money</span><span class="p">(</span><span class="n">moviegoer</span><span class="p">,</span><span class="n">amount</span><span class="p">)</span>
+<span class="linenos"> 9</span>        <span class="k">if</span> <span class="n">moviegoer</span><span class="o">.</span><span class="n">credit_balance</span> <span class="o">&gt;=</span> <span class="n">amount</span>
+<span class="linenos">10</span>        <span class="n">moviegoer</span><span class="o">.</span><span class="n">credit_balance</span> <span class="o">-=</span> <span class="n">due_amount</span>
+<span class="linenos">11</span>        <span class="vi">@collected_amount</span> <span class="o">+=</span> <span class="n">due_amount</span>
+<span class="linenos">12</span>        <span class="k">else</span>
+<span class="linenos">13</span>        <span class="k">raise</span> <span class="no">InsufficientFundsError</span>
+<span class="linenos">14</span>        <span class="k">end</span>
+<span class="linenos">15</span>    <span class="k">end</span>
+<span class="linenos">16</span><span class="k">end</span>
 </pre></div>
-</td></tr></table></div>
-<div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Wallet</span>
-    <span class="kp">attr_reader</span> <span class="ss">:credit_balance</span> <span class="c1"># no longer attr_accessor!</span>
-    <span class="k">def</span> <span class="nf">withdraw</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span>
-        <span class="k">raise</span> <span class="no">InsufficientFundsError</span> <span class="k">if</span> <span class="n">amount</span> <span class="o">&gt;</span> <span class="vi">@credit_balance</span>
-        <span class="vi">@credit_balance</span> <span class="o">-=</span> <span class="n">amount</span>
-        <span class="n">amount</span>
-    <span class="k">end</span>
-<span class="k">end</span>
-<span class="k">class</span> <span class="nc">Moviegoer</span>
-    <span class="c1"># behavior delegation</span>
-    <span class="k">def</span> <span class="nf">pay</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span>
-        <span class="n">wallet</span><span class="o">.</span><span class="n">withdraw</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span>
-    <span class="k">end</span>
-<span class="k">end</span>
-<span class="k">class</span> <span class="nc">MovieTheater</span>
-    <span class="k">def</span> <span class="nf">collect_money</span><span class="p">(</span><span class="n">moviegoer</span><span class="p">,</span> <span class="n">amount</span><span class="p">)</span>
-        <span class="vi">@collected_amount</span> <span class="o">+=</span> <span class="n">moviegoer</span><span class="o">.</span><span class="n">pay</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span>
-    <span class="k">end</span>
-<span class="k">end</span>
+</div>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">class</span> <span class="nc">Wallet</span>
+<span class="linenos"> 2</span>    <span class="kp">attr_reader</span> <span class="ss">:credit_balance</span> <span class="c1"># no longer attr_accessor!</span>
+<span class="linenos"> 3</span>    <span class="k">def</span> <span class="nf">withdraw</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span>
+<span class="linenos"> 4</span>        <span class="k">raise</span> <span class="no">InsufficientFundsError</span> <span class="k">if</span> <span class="n">amount</span> <span class="o">&gt;</span> <span class="vi">@credit_balance</span>
+<span class="linenos"> 5</span>        <span class="vi">@credit_balance</span> <span class="o">-=</span> <span class="n">amount</span>
+<span class="linenos"> 6</span>        <span class="n">amount</span>
+<span class="linenos"> 7</span>    <span class="k">end</span>
+<span class="linenos"> 8</span><span class="k">end</span>
+<span class="linenos"> 9</span><span class="k">class</span> <span class="nc">Moviegoer</span>
+<span class="linenos">10</span>    <span class="c1"># behavior delegation</span>
+<span class="linenos">11</span>    <span class="k">def</span> <span class="nf">pay</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span>
+<span class="linenos">12</span>        <span class="n">wallet</span><span class="o">.</span><span class="n">withdraw</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span>
+<span class="linenos">13</span>    <span class="k">end</span>
+<span class="linenos">14</span><span class="k">end</span>
+<span class="linenos">15</span><span class="k">class</span> <span class="nc">MovieTheater</span>
+<span class="linenos">16</span>    <span class="k">def</span> <span class="nf">collect_money</span><span class="p">(</span><span class="n">moviegoer</span><span class="p">,</span> <span class="n">amount</span><span class="p">)</span>
+<span class="linenos">17</span>        <span class="vi">@collected_amount</span> <span class="o">+=</span> <span class="n">moviegoer</span><span class="o">.</span><span class="n">pay</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span>
+<span class="linenos">18</span>    <span class="k">end</span>
+<span class="linenos">19</span><span class="k">end</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Once again, delegation comes to the rescue. A simple improvement comes from delegating the
 <code class="code docutils literal notranslate"><span class="pre">credit_balance</span></code> attribute, as Figure 11.22 (top) shows. But the best delegation is that in
 Figure 11.22 (bottom), since now the behavior of payment is entirely encapsulated within
@@ -1074,31 +1041,20 @@ of what each observer does with the information.</p>
 provides a more concise Observer that lets you observe any model’s ActiveRecord lifecycle hooks
 (<code class="code docutils literal notranslate"><span class="pre">after_save</span></code> and so on), introduced in Section 5.1. Figure 11.23 shows how easy it is to add
 an <code class="code docutils literal notranslate"><span class="pre">EmailList</span></code> class to RottenPotatoes that “subscribes” to two kinds of state changes:</p>
-<div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">EmailList</span>
-    <span class="n">observe</span> <span class="no">Review</span>
-    <span class="k">def</span> <span class="nf">after_create</span><span class="p">(</span><span class="n">review</span><span class="p">)</span>
-        <span class="n">moviegoers</span> <span class="o">=</span> <span class="n">review</span><span class="o">.</span><span class="n">moviegoers</span> <span class="c1"># from has_many :through, remember?</span>
-        <span class="nb">self</span><span class="o">.</span><span class="n">email</span><span class="p">(</span><span class="n">moviegoers</span><span class="p">,</span> <span class="s2">&quot;A new review for </span><span class="si">#{</span><span class="n">review</span><span class="o">.</span><span class="n">movie</span><span class="si">}</span><span class="s2"> is up.&quot;</span><span class="p">)</span>
-    <span class="k">end</span>
-    <span class="n">observe</span> <span class="no">Moviegoer</span>
-    <span class="k">def</span> <span class="nf">after_create</span><span class="p">(</span><span class="n">moviegoer</span><span class="p">)</span>
-        <span class="nb">self</span><span class="o">.</span><span class="n">email</span><span class="p">(</span><span class="o">[</span><span class="n">moviegoer</span><span class="o">]</span><span class="p">,</span> <span class="s2">&quot;Welcome, </span><span class="si">#{</span><span class="n">moviegoer</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">!&quot;</span><span class="p">)</span>
-    <span class="k">end</span>
-    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">email</span> <span class="p">;</span> <span class="o">...</span> <span class="p">;</span> <span class="k">end</span>
-<span class="k">end</span>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">class</span> <span class="nc">EmailList</span>
+<span class="linenos"> 2</span>    <span class="n">observe</span> <span class="no">Review</span>
+<span class="linenos"> 3</span>    <span class="k">def</span> <span class="nf">after_create</span><span class="p">(</span><span class="n">review</span><span class="p">)</span>
+<span class="linenos"> 4</span>        <span class="n">moviegoers</span> <span class="o">=</span> <span class="n">review</span><span class="o">.</span><span class="n">moviegoers</span> <span class="c1"># from has_many :through, remember?</span>
+<span class="linenos"> 5</span>        <span class="nb">self</span><span class="o">.</span><span class="n">email</span><span class="p">(</span><span class="n">moviegoers</span><span class="p">,</span> <span class="s2">&quot;A new review for </span><span class="si">#{</span><span class="n">review</span><span class="o">.</span><span class="n">movie</span><span class="si">}</span><span class="s2"> is up.&quot;</span><span class="p">)</span>
+<span class="linenos"> 6</span>    <span class="k">end</span>
+<span class="linenos"> 7</span>    <span class="n">observe</span> <span class="no">Moviegoer</span>
+<span class="linenos"> 8</span>    <span class="k">def</span> <span class="nf">after_create</span><span class="p">(</span><span class="n">moviegoer</span><span class="p">)</span>
+<span class="linenos"> 9</span>        <span class="nb">self</span><span class="o">.</span><span class="n">email</span><span class="p">(</span><span class="o">[</span><span class="n">moviegoer</span><span class="o">]</span><span class="p">,</span> <span class="s2">&quot;Welcome, </span><span class="si">#{</span><span class="n">moviegoer</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">!&quot;</span><span class="p">)</span>
+<span class="linenos">10</span>    <span class="k">end</span>
+<span class="linenos">11</span>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">email</span> <span class="p">;</span> <span class="o">...</span> <span class="p">;</span> <span class="k">end</span>
+<span class="linenos">12</span><span class="k">end</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <ol class="arabic simple">
 <li><p>When a new review is added, it emails all moviegoers who have already reviewed that same movie.</p></li>
 <li><p>When a new moviegoer signs up, it sends her a “Welcome” email.</p></li>
@@ -1126,31 +1082,20 @@ he objects to the expression</em> <code class="code docutils literal notranslate
 which shows a movie’s average review score. How would you placate Ben and fix this Demeter
 violation?</em></p>
 <blockquote>
-<div><div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># naive way:</span>
-<span class="k">class</span> <span class="nc">Movie</span>
-    <span class="n">has_many</span> <span class="ss">:reviews</span>
-    <span class="k">def</span> <span class="nf">average_rating</span>
-        <span class="nb">self</span><span class="o">.</span><span class="n">reviews</span><span class="o">.</span><span class="n">average_rating</span> <span class="c1"># delegate to Review#average_rating</span>
-    <span class="k">end</span>
-<span class="k">end</span>
-<span class="c1"># Rails shortcut:</span>
-<span class="k">class</span> <span class="nc">Movie</span>
-    <span class="n">has_many</span> <span class="ss">:reviews</span>
-    <span class="n">delegate</span> <span class="ss">:average_rating</span><span class="p">,</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="ss">:review</span>
-<span class="k">end</span>
+<div><div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># naive way:</span>
+<span class="linenos"> 2</span><span class="k">class</span> <span class="nc">Movie</span>
+<span class="linenos"> 3</span>    <span class="n">has_many</span> <span class="ss">:reviews</span>
+<span class="linenos"> 4</span>    <span class="k">def</span> <span class="nf">average_rating</span>
+<span class="linenos"> 5</span>        <span class="nb">self</span><span class="o">.</span><span class="n">reviews</span><span class="o">.</span><span class="n">average_rating</span> <span class="c1"># delegate to Review#average_rating</span>
+<span class="linenos"> 6</span>    <span class="k">end</span>
+<span class="linenos"> 7</span><span class="k">end</span>
+<span class="linenos"> 8</span><span class="c1"># Rails shortcut:</span>
+<span class="linenos"> 9</span><span class="k">class</span> <span class="nc">Movie</span>
+<span class="linenos">10</span>    <span class="n">has_many</span> <span class="ss">:reviews</span>
+<span class="linenos">11</span>    <span class="n">delegate</span> <span class="ss">:average_rating</span><span class="p">,</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="ss">:review</span>
+<span class="linenos">12</span><span class="k">end</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 </div></blockquote>
 <p><strong>Self-Check 11.7.2.</strong> <em>Notwithstanding that “delegation is the key mechanism” for resolving Demeter
 violations, why should you be concerned if you find yourself delegating many methods from class
@@ -1179,9 +1124,9 @@ responsibilities between A and B might need to be reengineered.</p>
     <div class="container">
       <p>
         
-          By sm3<br/>
+          By sme777<br/>
         
-            &copy; Copyright 2021, UC Berkeley.<br/>
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
       </p>
     </div>
   </footer>

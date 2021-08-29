@@ -22,17 +22,17 @@
       
 
     
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" />
     
   <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="11.7. Demeter Principle" href="sub-chapter7.html" />
@@ -956,31 +956,20 @@ it would be better for them to both depend on a separate abstract interface that
 <p>Suppose RottenPotatoes now adds email marketing—interested moviegoers can receive
 emails with discounts on their favorite movies. RottenPotatoes integrates with the external
 email marketing service MailerMonkey to do this job:</p>
-<div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">EmailList</span>
-    <span class="kp">attr_reader</span> <span class="ss">:mailer</span>
-    <span class="n">delegate</span> <span class="ss">:send_email</span><span class="p">,</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="ss">:mailer</span>
-    <span class="k">def</span> <span class="nf">initialize</span>
-        <span class="vi">@mailer</span> <span class="o">=</span> <span class="no">MailerMonkey</span><span class="o">.</span><span class="n">new</span>
-    <span class="k">end</span>
-<span class="k">end</span>
-<span class="c1"># in RottenPotatoes EmailListController:</span>
-<span class="k">def</span> <span class="nf">advertise_discount_for_movie</span>
-    <span class="n">moviegoers</span> <span class="o">=</span> <span class="no">Moviegoer</span><span class="o">.</span><span class="n">interested_in</span> <span class="n">params</span><span class="o">[</span><span class="ss">:movie_id</span><span class="o">]</span>
-    <span class="no">EmailList</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">send_email_to</span> <span class="n">moviegoers</span>
-<span class="k">end</span>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">class</span> <span class="nc">EmailList</span>
+<span class="linenos"> 2</span>    <span class="kp">attr_reader</span> <span class="ss">:mailer</span>
+<span class="linenos"> 3</span>    <span class="n">delegate</span> <span class="ss">:send_email</span><span class="p">,</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="ss">:mailer</span>
+<span class="linenos"> 4</span>    <span class="k">def</span> <span class="nf">initialize</span>
+<span class="linenos"> 5</span>        <span class="vi">@mailer</span> <span class="o">=</span> <span class="no">MailerMonkey</span><span class="o">.</span><span class="n">new</span>
+<span class="linenos"> 6</span>    <span class="k">end</span>
+<span class="linenos"> 7</span><span class="k">end</span>
+<span class="linenos"> 8</span><span class="c1"># in RottenPotatoes EmailListController:</span>
+<span class="linenos"> 9</span><span class="k">def</span> <span class="nf">advertise_discount_for_movie</span>
+<span class="linenos">10</span>    <span class="n">moviegoers</span> <span class="o">=</span> <span class="no">Moviegoer</span><span class="o">.</span><span class="n">interested_in</span> <span class="n">params</span><span class="o">[</span><span class="ss">:movie_id</span><span class="o">]</span>
+<span class="linenos">11</span>    <span class="no">EmailList</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">send_email_to</span> <span class="n">moviegoers</span>
+<span class="linenos">12</span><span class="k">end</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Suppose the feature is so successful that you decide to extend the mechanism so that
 moviegoers who are on the Amiko social network can opt to have these emails forwarded
 to their Amiko friends as well, using the new <span class="math notranslate nohighlight">\(\text{Amiko}\)</span> gem that wraps Amiko’s RESTful API
@@ -989,33 +978,21 @@ for friend lists, posting on walls, messaging, and so on. There are two problems
 sometimes need to use <span class="math notranslate nohighlight">\(\text{Amiko}\)</span> instead. This runtime variation is the problem solved by dependency
 injection—since we won’t know until runtime which type of mailer we’ll need, we modify
 <code class="code docutils literal notranslate"><span class="pre">EmailList#initialize</span></code> so we can “inject” the correct value at runtime:</p>
-<div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">EmailList</span>
-    <span class="kp">attr_reader</span> <span class="ss">:mailer</span>
-    <span class="n">delegate</span> <span class="ss">:send_email</span><span class="p">,</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="ss">:mailer</span>
-    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">mailer_type</span><span class="p">)</span>
-        <span class="vi">@mailer</span> <span class="o">=</span> <span class="n">mailer_type</span><span class="o">.</span><span class="n">new</span>
-    <span class="k">end</span>
-<span class="k">end</span>
-<span class="c1"># in RottenPotatoes EmailListController:</span>
-<span class="k">def</span> <span class="nf">advertise_discount_for_movie</span>
-    <span class="n">moviegoers</span> <span class="o">=</span> <span class="no">Moviegoer</span><span class="o">.</span><span class="n">interested_in</span> <span class="n">params</span><span class="o">[</span><span class="ss">:movie_id</span><span class="o">]</span>
-    <span class="n">mailer</span> <span class="o">=</span> <span class="k">if</span> <span class="no">Config</span><span class="o">.</span><span class="n">has_amiko?</span> <span class="k">then</span> <span class="no">Amiko</span> <span class="k">else</span> <span class="no">MailerMonkey</span> <span class="k">end</span>
-    <span class="no">EmailList</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">mailer</span><span class="p">)</span><span class="o">.</span><span class="n">send_email_to</span> <span class="n">moviegoers</span>
-<span class="k">end</span>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">class</span> <span class="nc">EmailList</span>
+<span class="linenos"> 2</span>    <span class="kp">attr_reader</span> <span class="ss">:mailer</span>
+<span class="linenos"> 3</span>    <span class="n">delegate</span> <span class="ss">:send_email</span><span class="p">,</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="ss">:mailer</span>
+<span class="linenos"> 4</span>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">mailer_type</span><span class="p">)</span>
+<span class="linenos"> 5</span>        <span class="vi">@mailer</span> <span class="o">=</span> <span class="n">mailer_type</span><span class="o">.</span><span class="n">new</span>
+<span class="linenos"> 6</span>    <span class="k">end</span>
+<span class="linenos"> 7</span><span class="k">end</span>
+<span class="linenos"> 8</span><span class="c1"># in RottenPotatoes EmailListController:</span>
+<span class="linenos"> 9</span><span class="k">def</span> <span class="nf">advertise_discount_for_movie</span>
+<span class="linenos">10</span>    <span class="n">moviegoers</span> <span class="o">=</span> <span class="no">Moviegoer</span><span class="o">.</span><span class="n">interested_in</span> <span class="n">params</span><span class="o">[</span><span class="ss">:movie_id</span><span class="o">]</span>
+<span class="linenos">11</span>    <span class="n">mailer</span> <span class="o">=</span> <span class="k">if</span> <span class="no">Config</span><span class="o">.</span><span class="n">has_amiko?</span> <span class="k">then</span> <span class="no">Amiko</span> <span class="k">else</span> <span class="no">MailerMonkey</span> <span class="k">end</span>
+<span class="linenos">12</span>    <span class="no">EmailList</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">mailer</span><span class="p">)</span><span class="o">.</span><span class="n">send_email_to</span> <span class="n">moviegoers</span>
+<span class="linenos">13</span><span class="k">end</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>You can think of DIP as injecting an additional seam between two classes, and indeed,
 in statically compiled languages DIP helps with testability. This benefit is less apparent
 in Ruby, since as we’ve seen we can create seams almost anywhere we want at runtime using
@@ -1027,33 +1004,21 @@ object. The <strong>Adapter pattern</strong> can help us here: it’s designed t
 one that’s compatible with an existing caller. In this case, we can define a new class
 <span class="math notranslate nohighlight">\(\text{AmikoAdapter}\)</span> that converts the more complex Amiko API into the simpler one that our controller
 expects, by providing the same <code class="code docutils literal notranslate"><span class="pre">send_email</span></code> method that <span class="math notranslate nohighlight">\(\text{MailerMonkey}\)</span> provides:</p>
-<div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">AmikoAdapter</span>
-    <span class="k">def</span> <span class="nf">initialize</span> <span class="p">;</span> <span class="vi">@amiko</span> <span class="o">=</span> <span class="no">Amiko</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="o">...</span><span class="p">)</span> <span class="p">;</span> <span class="k">end</span>
-    <span class="k">def</span> <span class="nf">send_email</span>
-        <span class="vi">@amiko</span><span class="o">.</span><span class="n">authenticate</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
-        <span class="vi">@amiko</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
-    <span class="k">end</span>
-<span class="k">end</span>
-<span class="c1"># Change the controller method to use the adapter:</span>
-<span class="k">def</span> <span class="nf">advertise_discount_for_movie</span>
-    <span class="n">moviegoers</span> <span class="o">=</span> <span class="no">Moviegoer</span><span class="o">.</span><span class="n">interested_in</span> <span class="n">params</span><span class="o">[</span><span class="ss">:movie_id</span><span class="o">]</span>
-    <span class="n">mailer</span> <span class="o">=</span> <span class="k">if</span> <span class="no">Config</span><span class="o">.</span><span class="n">has_amiko?</span> <span class="k">then</span> <span class="no">AmikoAdapter</span> <span class="k">else</span> <span class="no">MailerMonkey</span> <span class="k">end</span>
-    <span class="no">EmailList</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">mailer</span><span class="p">)</span><span class="o">.</span><span class="n">send_email_to</span> <span class="n">moviegoers</span>
-<span class="k">end</span>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">class</span> <span class="nc">AmikoAdapter</span>
+<span class="linenos"> 2</span>    <span class="k">def</span> <span class="nf">initialize</span> <span class="p">;</span> <span class="vi">@amiko</span> <span class="o">=</span> <span class="no">Amiko</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="o">...</span><span class="p">)</span> <span class="p">;</span> <span class="k">end</span>
+<span class="linenos"> 3</span>    <span class="k">def</span> <span class="nf">send_email</span>
+<span class="linenos"> 4</span>        <span class="vi">@amiko</span><span class="o">.</span><span class="n">authenticate</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="linenos"> 5</span>        <span class="vi">@amiko</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="linenos"> 6</span>    <span class="k">end</span>
+<span class="linenos"> 7</span><span class="k">end</span>
+<span class="linenos"> 8</span><span class="c1"># Change the controller method to use the adapter:</span>
+<span class="linenos"> 9</span><span class="k">def</span> <span class="nf">advertise_discount_for_movie</span>
+<span class="linenos">10</span>    <span class="n">moviegoers</span> <span class="o">=</span> <span class="no">Moviegoer</span><span class="o">.</span><span class="n">interested_in</span> <span class="n">params</span><span class="o">[</span><span class="ss">:movie_id</span><span class="o">]</span>
+<span class="linenos">11</span>    <span class="n">mailer</span> <span class="o">=</span> <span class="k">if</span> <span class="no">Config</span><span class="o">.</span><span class="n">has_amiko?</span> <span class="k">then</span> <span class="no">AmikoAdapter</span> <span class="k">else</span> <span class="no">MailerMonkey</span> <span class="k">end</span>
+<span class="linenos">12</span>    <span class="no">EmailList</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">mailer</span><span class="p">)</span><span class="o">.</span><span class="n">send_email_to</span> <span class="n">moviegoers</span>
+<span class="linenos">13</span><span class="k">end</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>When the Adapter pattern not only converts an existing API but also simplifies it—for
 example, the <span class="math notranslate nohighlight">\(\text{Amiko}\)</span> gem also provides many other Amiko functions unrelated to email, but
 AmikoAdapter only “adapts” the email-specific part of that API—it is sometimes called
@@ -1068,58 +1033,35 @@ alternative is the <strong>Null Object pattern</strong>, in which we create a �
 same behaviors as a real object but doesn’t do anything when those behaviors are called. Figure
 11.19 (bottom) applies the Null Object pattern to this example, avoiding the proliferation of
 conditionals throughout the code.</p>
-<div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Config</span>
-    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">email_enabled?</span> <span class="p">;</span> <span class="o">...</span> <span class="p">;</span> <span class="k">end</span>
-    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">emailer</span> <span class="p">;</span> <span class="k">if</span> <span class="n">has_amiko?</span> <span class="k">then</span> <span class="no">Amiko</span> <span class="k">else</span> <span class="no">MailerMonkey</span> <span class="k">end</span> <span class="p">;</span> <span class="k">end</span>
-<span class="k">end</span>
-<span class="k">def</span> <span class="nf">advertise_discount_for_movie</span>
-    <span class="k">if</span> <span class="no">Config</span><span class="o">.</span><span class="n">email_enabled?</span>
-        <span class="n">moviegoers</span> <span class="o">=</span> <span class="no">Moviegoer</span><span class="o">.</span><span class="n">interested_in</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:movie_id</span><span class="o">]</span><span class="p">)</span>
-        <span class="no">EmailList</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">Config</span><span class="o">.</span><span class="n">emailer</span><span class="p">)</span><span class="o">.</span><span class="n">send_email_to</span><span class="p">(</span><span class="n">moviegoers</span><span class="p">)</span>
-    <span class="k">end</span>
-<span class="k">end</span>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">class</span> <span class="nc">Config</span>
+<span class="linenos"> 2</span>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">email_enabled?</span> <span class="p">;</span> <span class="o">...</span> <span class="p">;</span> <span class="k">end</span>
+<span class="linenos"> 3</span>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">emailer</span> <span class="p">;</span> <span class="k">if</span> <span class="n">has_amiko?</span> <span class="k">then</span> <span class="no">Amiko</span> <span class="k">else</span> <span class="no">MailerMonkey</span> <span class="k">end</span> <span class="p">;</span> <span class="k">end</span>
+<span class="linenos"> 4</span><span class="k">end</span>
+<span class="linenos"> 5</span><span class="k">def</span> <span class="nf">advertise_discount_for_movie</span>
+<span class="linenos"> 6</span>    <span class="k">if</span> <span class="no">Config</span><span class="o">.</span><span class="n">email_enabled?</span>
+<span class="linenos"> 7</span>        <span class="n">moviegoers</span> <span class="o">=</span> <span class="no">Moviegoer</span><span class="o">.</span><span class="n">interested_in</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:movie_id</span><span class="o">]</span><span class="p">)</span>
+<span class="linenos"> 8</span>        <span class="no">EmailList</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">Config</span><span class="o">.</span><span class="n">emailer</span><span class="p">)</span><span class="o">.</span><span class="n">send_email_to</span><span class="p">(</span><span class="n">moviegoers</span><span class="p">)</span>
+<span class="linenos"> 9</span>    <span class="k">end</span>
+<span class="linenos">10</span><span class="k">end</span>
 </pre></div>
-</td></tr></table></div>
-<div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Config</span>
-    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">emailer</span>
-        <span class="k">if</span> <span class="n">email_disabled?</span> <span class="k">then</span> <span class="no">NullMailer</span> <span class="k">else</span>
-            <span class="k">if</span> <span class="n">has_amiko?</span> <span class="k">then</span> <span class="no">AmikoAdapter</span> <span class="k">else</span> <span class="no">MailerMonkey</span> <span class="k">end</span>
-        <span class="k">end</span>
-    <span class="k">end</span>
-<span class="k">end</span>
-<span class="k">class</span> <span class="nc">NullMailer</span>
-    <span class="k">def</span> <span class="nf">initialize</span> <span class="p">;</span> <span class="k">end</span>
-    <span class="k">def</span> <span class="nf">send_email</span> <span class="p">;</span> <span class="kp">true</span> <span class="p">;</span> <span class="k">end</span>
-<span class="k">end</span>
-<span class="k">def</span> <span class="nf">advertise_discount_for_movie</span>
-    <span class="n">moviegoers</span> <span class="o">=</span> <span class="no">Moviegoer</span><span class="o">.</span><span class="n">interested_in</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:movie_id</span><span class="o">]</span><span class="p">)</span>
-    <span class="no">EmailList</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">Config</span><span class="o">.</span><span class="n">emailer</span><span class="p">)</span><span class="o">.</span><span class="n">send_email_to</span><span class="p">(</span><span class="n">moviegoers</span><span class="p">)</span>
-<span class="k">end</span>
+</div>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">class</span> <span class="nc">Config</span>
+<span class="linenos"> 2</span>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">emailer</span>
+<span class="linenos"> 3</span>        <span class="k">if</span> <span class="n">email_disabled?</span> <span class="k">then</span> <span class="no">NullMailer</span> <span class="k">else</span>
+<span class="linenos"> 4</span>            <span class="k">if</span> <span class="n">has_amiko?</span> <span class="k">then</span> <span class="no">AmikoAdapter</span> <span class="k">else</span> <span class="no">MailerMonkey</span> <span class="k">end</span>
+<span class="linenos"> 5</span>        <span class="k">end</span>
+<span class="linenos"> 6</span>    <span class="k">end</span>
+<span class="linenos"> 7</span><span class="k">end</span>
+<span class="linenos"> 8</span><span class="k">class</span> <span class="nc">NullMailer</span>
+<span class="linenos"> 9</span>    <span class="k">def</span> <span class="nf">initialize</span> <span class="p">;</span> <span class="k">end</span>
+<span class="linenos">10</span>    <span class="k">def</span> <span class="nf">send_email</span> <span class="p">;</span> <span class="kp">true</span> <span class="p">;</span> <span class="k">end</span>
+<span class="linenos">11</span><span class="k">end</span>
+<span class="linenos">12</span><span class="k">def</span> <span class="nf">advertise_discount_for_movie</span>
+<span class="linenos">13</span>    <span class="n">moviegoers</span> <span class="o">=</span> <span class="no">Moviegoer</span><span class="o">.</span><span class="n">interested_in</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:movie_id</span><span class="o">]</span><span class="p">)</span>
+<span class="linenos">14</span>    <span class="no">EmailList</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">Config</span><span class="o">.</span><span class="n">emailer</span><span class="p">)</span><span class="o">.</span><span class="n">send_email_to</span><span class="p">(</span><span class="n">moviegoers</span><span class="p">)</span>
+<span class="linenos">15</span><span class="k">end</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Figure 11.20 shows the UML class diagrams corresponding to the various versions of our
 DIP example.</p>
 <p>An interesting relative of the Adapter and Façade patterns is the <strong>Proxy pattern</strong>, in which
@@ -1166,9 +1108,9 @@ injecting the dependency.</p>
     <div class="container">
       <p>
         
-          By sm3<br/>
+          By sme777<br/>
         
-            &copy; Copyright 2021, UC Berkeley.<br/>
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
       </p>
     </div>
   </footer>

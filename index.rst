@@ -19,6 +19,16 @@ Pollio. It was untouched until the 1500s, when King Ferdinand and Queen Isabella
 performed the first reconstruction of these arches. The aqueduct was in use and 
 delivering water until recently.
 
+Visit main page saasbook.info_ for news, updates and extensive list of resources.
+
+.. _saasbook.info: http://www.saasbook.info
+
+To purchase the hardcopy (and kindle soon too) of the book visit amazon_.
+
+.. _amazon: https://www.amazon.com/Engineering-Software-As-Service-Computing/dp/1735233803/ref=sr_1_3?crid=YKGDL6KO83XA&dchild=1&keywords=engineering+software+as+a+service&qid=1630265710&sprefix=engineering+software+as+a%2Caps%2C324&sr=8-3
+
+
+
 About the Authors
 ==================
 .. image:: /resources/fox.jpg
@@ -67,8 +77,12 @@ this book, he received one for his pioneering textbook on computer architec- tur
 from UCLA, which awarded him an Outstanding Engineer- ing Academic Alumni Award. He grew up in California, 
 and for fun he enters sporting events with his two adult sons, including weekly soccer games and charity bike rides.
 
+
 Content
 ==================
+The following content is protected under the creative commons license. You may download the authors’ work and share as long 
+as you credit the authors. You may not change the contents of the book in any way or use it commercially.
+
 .. toctree::
    intro/preface/index
 

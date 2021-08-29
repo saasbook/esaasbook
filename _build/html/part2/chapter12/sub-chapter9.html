@@ -22,12 +22,12 @@
       
 
     
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" />
     
   <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
@@ -1011,13 +1011,11 @@ cookie, and performing an illicit action on that site as the user. For example, 
 has recently logged into her MyBank.com account, so her browser now has a valid cookie for
 MyBank.com showing that she is logged in. Now Alice visits a chat forum where malicious
 Mallory has posted a message with the following embedded “image”:</p>
-<div class="highlight-html notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Here&#39;s a risque picture of me:
-    <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;http://mybank.com/transfer/mallory/5000&quot;</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Here&#39;s a risque picture of me:
+<span class="linenos">2</span>    <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;http://mybank.com/transfer/mallory/5000&quot;</span><span class="p">&gt;</span>
+<span class="linenos">3</span><span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>When Alice views the blog post, or if she receives an email with this link embedded in it,
 her browser will try to “fetch” the image from this RESTful URI, which happens to transfer
 $5000 into Mallory’s account. Alice will see a “broken image” icon without realizing the
@@ -1035,19 +1033,14 @@ rejected. Rails automates this defense: all you need to do is render <code class
 such view and add <code class="code docutils literal notranslate"><span class="pre">protect_from_forgery</span></code> to any controller that might handle a form submission.
 Indeed, when you use <code class="code docutils literal notranslate"><span class="pre">rails</span> <span class="pre">new</span></code> to generate a new app, these defenses are included in
 <code class="code docutils literal notranslate"><span class="pre">app/views/layouts/application.html.erb</span></code> and <code class="code docutils literal notranslate"><span class="pre">app/controllers/</span> <span class="pre">application_controller.rb</span></code> respectively.</p>
-<div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MoviesController</span>
-    <span class="k">def</span> <span class="nf">search</span>
-        <span class="n">movies</span> <span class="o">=</span> <span class="no">Movie</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s2">&quot;name = &#39;</span><span class="si">#{</span><span class="n">params</span><span class="o">[</span><span class="ss">:title</span><span class="o">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span> <span class="c1"># UNSAFE!</span>
-        <span class="c1"># movies = Movie.where(&quot;name = ?&quot;, params[:title]) # safe</span>
-    <span class="k">end</span>
-<span class="k">end</span>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">class</span> <span class="nc">MoviesController</span>
+<span class="linenos">2</span>    <span class="k">def</span> <span class="nf">search</span>
+<span class="linenos">3</span>        <span class="n">movies</span> <span class="o">=</span> <span class="no">Movie</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s2">&quot;name = &#39;</span><span class="si">#{</span><span class="n">params</span><span class="o">[</span><span class="ss">:title</span><span class="o">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span> <span class="c1"># UNSAFE!</span>
+<span class="linenos">4</span>        <span class="c1"># movies = Movie.where(&quot;name = ?&quot;, params[:title]) # safe</span>
+<span class="linenos">5</span>    <span class="k">end</span>
+<span class="linenos">6</span><span class="k">end</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p><strong>SQL injection and cross-site scripting.</strong> Both of these attacks exploit SaaS apps that handle
 attacker-provided content unsafely. Defending against both can be summarized by the same
 advice: <em>sanitize any content coming from the user.</em> In <strong>SQL injection</strong>, Mallory enters form
@@ -1067,21 +1060,18 @@ Erb renderer always escapes “dangerous” HTML characters by default, as the f
 prevent Erb from escaping a string <code class="code docutils literal notranslate"><span class="pre">s</span></code>, you must render <code class="code docutils literal notranslate"><span class="pre">raw(s)</span></code>, and if you do so, you’d better
 have a good reason for believing it is safe, such as having separately sanitized <code class="code docutils literal notranslate"><span class="pre">s</span></code> when it was
 first received from Mallory.</p>
-<div class="highlight-erb notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="x">&lt;h2&gt;</span><span class="cp">&lt;%=</span> <span class="n">movie</span><span class="o">.</span><span class="n">title</span> <span class="cp">%&gt;</span><span class="x">&lt;/h2&gt;</span>
-<span class="x">&lt;p&gt;Released on </span><span class="cp">&lt;%=</span> <span class="n">movie</span><span class="o">.</span><span class="n">release_date</span> <span class="cp">%&gt;</span><span class="x">. Rated </span><span class="cp">&lt;%=</span> <span class="n">movie</span><span class="o">.</span><span class="n">rating</span> <span class="cp">%&gt;</span><span class="x">.&lt;/p&gt;</span>
+<div class="highlight-erb notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="x">&lt;h2&gt;</span><span class="cp">&lt;%=</span> <span class="n">movie</span><span class="o">.</span><span class="n">title</span> <span class="cp">%&gt;</span><span class="x">&lt;/h2&gt;</span>
+<span class="linenos">2</span><span class="x">&lt;p&gt;Released on </span><span class="cp">&lt;%=</span> <span class="n">movie</span><span class="o">.</span><span class="n">release_date</span> <span class="cp">%&gt;</span><span class="x">. Rated </span><span class="cp">&lt;%=</span> <span class="n">movie</span><span class="o">.</span><span class="n">rating</span> <span class="cp">%&gt;</span><span class="x">.&lt;/p&gt;</span>
 </pre></div>
-</td></tr></table></div>
-<div class="highlight-html notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Danger!&quot;</span><span class="p">);&lt;/</span><span class="nt">script</span><span class="p">&gt;&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Released on 1992-11-25 00:00:00 UTC. Rated G.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</div>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Danger!&quot;</span><span class="p">);&lt;/</span><span class="nt">script</span><span class="p">&gt;&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<span class="linenos">2</span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Released on 1992-11-25 00:00:00 UTC. Rated G.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 </pre></div>
-</td></tr></table></div>
-<div class="highlight-html notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span><span class="ni">&amp;lt;</span>script<span class="ni">&amp;gt;</span>alert(&quot;Danger!&quot;);<span class="ni">&amp;lt;</span>/script<span class="ni">&amp;gt;</span><span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span> Released on 1992-11-25 00:00:00 UTC. Rated G.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</div>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span><span class="ni">&amp;lt;</span>script<span class="ni">&amp;gt;</span>alert(&quot;Danger!&quot;);<span class="ni">&amp;lt;</span>/script<span class="ni">&amp;gt;</span><span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<span class="linenos">2</span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span> Released on 1992-11-25 00:00:00 UTC. Rated G.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p><strong>Clickjacking</strong> or <em>UI redress attacks</em> are aimed at getting the user to take a UI action they
 normally wouldn’t take, by obfuscating that action in the UI. Like XSS, they rely on
 deceiving the user regarding which site is actually displaying what they’re seeing. For
@@ -1162,9 +1152,9 @@ HTTP request?</em></p>
     <div class="container">
       <p>
         
-          By sm3<br/>
+          By sme777<br/>
         
-            &copy; Copyright 2021, UC Berkeley.<br/>
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
       </p>
     </div>
   </footer>

@@ -22,12 +22,12 @@
       
 
     
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" />
     
   <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
@@ -992,55 +992,32 @@ allow special “admin” users to delete movies. Both examples involve specifyi
 although there might be many places in an app where such con- straints should be considered, the DRY philosophy urges us
 to centralize them in <em>one</em> place. Rails provides two analogous facilities for doing this: validations for models and filters
 for controllers.</p>
-<div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Movie</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
-    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">all_ratings</span> <span class="p">;</span> <span class="sx">%w[G PG PG-13 R NC-17]</span> <span class="p">;</span> <span class="k">end</span> <span class="c1">#  shortcut: array of strings</span>
-    <span class="n">validates</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">:presence</span> <span class="o">=&gt;</span> <span class="kp">true</span>
-    <span class="n">validates</span> <span class="ss">:release_date</span><span class="p">,</span> <span class="ss">:presence</span> <span class="o">=&gt;</span> <span class="kp">true</span>
-    <span class="n">validate</span> <span class="ss">:released_1930_or_later</span> <span class="c1"># uses custom validator below</span>
-    <span class="n">validates</span> <span class="ss">:rating</span><span class="p">,</span> <span class="ss">:inclusion</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:in</span> <span class="o">=&gt;</span> <span class="no">Movie</span><span class="o">.</span><span class="n">all_ratings</span><span class="p">},</span>
-        <span class="ss">:unless</span> <span class="o">=&gt;</span> <span class="ss">:grandfathered?</span>
-    <span class="k">def</span> <span class="nf">released_1930_or_later</span>
-        <span class="n">errors</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="ss">:release_date</span><span class="p">,</span> <span class="s1">&#39;must be 1930 or later&#39;</span><span class="p">)</span> <span class="k">if</span>
-        <span class="n">release_date</span> <span class="o">&amp;&amp;</span> <span class="n">release_date</span> <span class="o">&lt;</span> <span class="no">Date</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;1 Jan 1930&#39;</span><span class="p">)</span>
-    <span class="k">end</span>
-    <span class="vc">@@grandfathered_date</span> <span class="o">=</span> <span class="no">Date</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;1 Nov 1968&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">grandfathered?</span>
-        <span class="n">release_date</span> <span class="o">&amp;&amp;</span> <span class="n">release_date</span> <span class="o">&lt;</span> <span class="vc">@@grandfathered_date</span>
-    <span class="k">end</span>
-<span class="k">end</span>
-<span class="c1"># try in console:</span>
-<span class="n">m</span> <span class="o">=</span> <span class="no">Movie</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:title</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="ss">:rating</span> <span class="o">=&gt;</span> <span class="s1">&#39;RG&#39;</span><span class="p">,</span> <span class="ss">:release_date</span> <span class="o">=&gt;</span> <span class="s1">&#39;1929-01-01&#39;</span><span class="p">)</span>
-<span class="c1"># force validation checks to be performed:</span>
-<span class="n">m</span><span class="o">.</span><span class="n">valid?</span>  <span class="c1"># =&gt; false</span>
-<span class="n">m</span><span class="o">.</span><span class="n">errors</span><span class="o">[</span><span class="ss">:title</span><span class="o">]</span> <span class="c1"># =&gt; [&quot;can&#39;t be blank&quot;]</span>
-<span class="n">m</span><span class="o">.</span><span class="n">errors</span><span class="o">[</span><span class="ss">:rating</span><span class="o">]</span> <span class="c1"># =&gt; [] - validation skipped for grandfathered movies</span>
-<span class="n">m</span><span class="o">.</span><span class="n">errors</span><span class="o">[</span><span class="ss">:release_date</span><span class="o">]</span> <span class="c1"># =&gt; [&quot;must be 1930 or later&quot;]</span>
-<span class="n">m</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">full_messages</span> <span class="c1"># =&gt; [&quot;Title can&#39;t be blank&quot;, &quot;Release date must be 1930 or later&quot;]</span>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">class</span> <span class="nc">Movie</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+<span class="linenos"> 2</span>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">all_ratings</span> <span class="p">;</span> <span class="sx">%w[G PG PG-13 R NC-17]</span> <span class="p">;</span> <span class="k">end</span> <span class="c1">#  shortcut: array of strings</span>
+<span class="linenos"> 3</span>    <span class="n">validates</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">:presence</span> <span class="o">=&gt;</span> <span class="kp">true</span>
+<span class="linenos"> 4</span>    <span class="n">validates</span> <span class="ss">:release_date</span><span class="p">,</span> <span class="ss">:presence</span> <span class="o">=&gt;</span> <span class="kp">true</span>
+<span class="linenos"> 5</span>    <span class="n">validate</span> <span class="ss">:released_1930_or_later</span> <span class="c1"># uses custom validator below</span>
+<span class="linenos"> 6</span>    <span class="n">validates</span> <span class="ss">:rating</span><span class="p">,</span> <span class="ss">:inclusion</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:in</span> <span class="o">=&gt;</span> <span class="no">Movie</span><span class="o">.</span><span class="n">all_ratings</span><span class="p">},</span>
+<span class="linenos"> 7</span>        <span class="ss">:unless</span> <span class="o">=&gt;</span> <span class="ss">:grandfathered?</span>
+<span class="linenos"> 8</span>    <span class="k">def</span> <span class="nf">released_1930_or_later</span>
+<span class="linenos"> 9</span>        <span class="n">errors</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="ss">:release_date</span><span class="p">,</span> <span class="s1">&#39;must be 1930 or later&#39;</span><span class="p">)</span> <span class="k">if</span>
+<span class="linenos">10</span>        <span class="n">release_date</span> <span class="o">&amp;&amp;</span> <span class="n">release_date</span> <span class="o">&lt;</span> <span class="no">Date</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;1 Jan 1930&#39;</span><span class="p">)</span>
+<span class="linenos">11</span>    <span class="k">end</span>
+<span class="linenos">12</span>    <span class="vc">@@grandfathered_date</span> <span class="o">=</span> <span class="no">Date</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;1 Nov 1968&#39;</span><span class="p">)</span>
+<span class="linenos">13</span>    <span class="k">def</span> <span class="nf">grandfathered?</span>
+<span class="linenos">14</span>        <span class="n">release_date</span> <span class="o">&amp;&amp;</span> <span class="n">release_date</span> <span class="o">&lt;</span> <span class="vc">@@grandfathered_date</span>
+<span class="linenos">15</span>    <span class="k">end</span>
+<span class="linenos">16</span><span class="k">end</span>
+<span class="linenos">17</span><span class="c1"># try in console:</span>
+<span class="linenos">18</span><span class="n">m</span> <span class="o">=</span> <span class="no">Movie</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:title</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="ss">:rating</span> <span class="o">=&gt;</span> <span class="s1">&#39;RG&#39;</span><span class="p">,</span> <span class="ss">:release_date</span> <span class="o">=&gt;</span> <span class="s1">&#39;1929-01-01&#39;</span><span class="p">)</span>
+<span class="linenos">19</span><span class="c1"># force validation checks to be performed:</span>
+<span class="linenos">20</span><span class="n">m</span><span class="o">.</span><span class="n">valid?</span>  <span class="c1"># =&gt; false</span>
+<span class="linenos">21</span><span class="n">m</span><span class="o">.</span><span class="n">errors</span><span class="o">[</span><span class="ss">:title</span><span class="o">]</span> <span class="c1"># =&gt; [&quot;can&#39;t be blank&quot;]</span>
+<span class="linenos">22</span><span class="n">m</span><span class="o">.</span><span class="n">errors</span><span class="o">[</span><span class="ss">:rating</span><span class="o">]</span> <span class="c1"># =&gt; [] - validation skipped for grandfathered movies</span>
+<span class="linenos">23</span><span class="n">m</span><span class="o">.</span><span class="n">errors</span><span class="o">[</span><span class="ss">:release_date</span><span class="o">]</span> <span class="c1"># =&gt; [&quot;must be 1930 or later&quot;]</span>
+<span class="linenos">24</span><span class="n">m</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">full_messages</span> <span class="c1"># =&gt; [&quot;Title can&#39;t be blank&quot;, &quot;Release date must be 1930 or later&quot;]</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Model validations, like migrations, are expressed in a mini-DSL embedded in Ruby, as Figure 5.2 shows.
 Validation checks are triggered when you call the instance method <code class="code docutils literal notranslate"><span class="pre">valid?</span></code> or when you try to save the model
 to the database (which calls <code class="code docutils literal notranslate"><span class="pre">valid?</span></code> before doing so). Any validation errors are recorded in the
@@ -1058,46 +1035,29 @@ shows what callbacks are available; Figure 5.4 illustrates how to use this mecha
 format of)
 certain model fields before the model is saved. We will see another use of lifecycle callbacks when we discuss the Observer
 design pattern in Section 11.7 and caching in Chapter 12.6.</p>
-<div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Movie</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
-    <span class="n">before_save</span> <span class="ss">:capitalize_title</span>
-    <span class="k">def</span> <span class="nf">capitalize_title</span>
-        <span class="nb">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="nb">self</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sr">/\s+/</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:downcase</span><span class="p">)</span><span class="o">.</span>
-        <span class="n">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:capitalize</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
-    <span class="k">end</span>
-<span class="k">end</span>
-<span class="c1"># now try in console:</span>
-<span class="n">m</span> <span class="o">=</span> <span class="no">Movie</span><span class="o">.</span><span class="n">create!</span><span class="p">(</span><span class="ss">:title</span> <span class="o">=&gt;</span> <span class="s1">&#39;STAR  wars&#39;</span><span class="p">,</span> <span class="ss">:release_date</span> <span class="o">=&gt;</span> <span class="s1">&#39;27-5-1977&#39;</span><span class="p">,</span> <span class="ss">:rating</span> <span class="o">=&gt;</span> <span class="s1">&#39;PG&#39;</span><span class="p">)</span>
-<span class="n">m</span><span class="o">.</span><span class="n">title</span>  <span class="c1"># =&gt; &quot;Star Wars&quot;</span>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">class</span> <span class="nc">Movie</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+<span class="linenos"> 2</span>    <span class="n">before_save</span> <span class="ss">:capitalize_title</span>
+<span class="linenos"> 3</span>    <span class="k">def</span> <span class="nf">capitalize_title</span>
+<span class="linenos"> 4</span>        <span class="nb">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="nb">self</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sr">/\s+/</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:downcase</span><span class="p">)</span><span class="o">.</span>
+<span class="linenos"> 5</span>        <span class="n">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:capitalize</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+<span class="linenos"> 6</span>    <span class="k">end</span>
+<span class="linenos"> 7</span><span class="k">end</span>
+<span class="linenos"> 8</span><span class="c1"># now try in console:</span>
+<span class="linenos"> 9</span><span class="n">m</span> <span class="o">=</span> <span class="no">Movie</span><span class="o">.</span><span class="n">create!</span><span class="p">(</span><span class="ss">:title</span> <span class="o">=&gt;</span> <span class="s1">&#39;STAR  wars&#39;</span><span class="p">,</span> <span class="ss">:release_date</span> <span class="o">=&gt;</span> <span class="s1">&#39;27-5-1977&#39;</span><span class="p">,</span> <span class="ss">:rating</span> <span class="o">=&gt;</span> <span class="s1">&#39;PG&#39;</span><span class="p">)</span>
+<span class="linenos">10</span><span class="n">m</span><span class="o">.</span><span class="n">title</span>  <span class="c1"># =&gt; &quot;Star Wars&quot;</span>
 </pre></div>
-</td></tr></table></div>
-<div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ApplicationController</span> <span class="o">&lt;</span> <span class="no">ActionController</span><span class="o">::</span><span class="no">Base</span>
-    <span class="n">before_filter</span> <span class="ss">:set_current_user</span>
-    <span class="kp">protected</span> <span class="c1"># prevents method from being invoked by a route</span>
-    <span class="k">def</span> <span class="nf">set_current_user</span>
-        <span class="c1"># we exploit the fact that the below query may return nil</span>
-        <span class="vi">@current_user</span> <span class="o">||=</span> <span class="no">Moviegoer</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:id</span> <span class="o">=&gt;</span> <span class="n">session</span><span class="o">[</span><span class="ss">:user_id</span><span class="o">]</span><span class="p">)</span>
-        <span class="n">redirect_to</span> <span class="n">login_path</span> <span class="ow">and</span> <span class="k">return</span> <span class="k">unless</span> <span class="vi">@current_user</span>
-    <span class="k">end</span>
-<span class="k">end</span>
+</div>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">class</span> <span class="nc">ApplicationController</span> <span class="o">&lt;</span> <span class="no">ActionController</span><span class="o">::</span><span class="no">Base</span>
+<span class="linenos">2</span>    <span class="n">before_filter</span> <span class="ss">:set_current_user</span>
+<span class="linenos">3</span>    <span class="kp">protected</span> <span class="c1"># prevents method from being invoked by a route</span>
+<span class="linenos">4</span>    <span class="k">def</span> <span class="nf">set_current_user</span>
+<span class="linenos">5</span>        <span class="c1"># we exploit the fact that the below query may return nil</span>
+<span class="linenos">6</span>        <span class="vi">@current_user</span> <span class="o">||=</span> <span class="no">Moviegoer</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:id</span> <span class="o">=&gt;</span> <span class="n">session</span><span class="o">[</span><span class="ss">:user_id</span><span class="o">]</span><span class="p">)</span>
+<span class="linenos">7</span>        <span class="n">redirect_to</span> <span class="n">login_path</span> <span class="ow">and</span> <span class="k">return</span> <span class="k">unless</span> <span class="vi">@current_user</span>
+<span class="linenos">8</span>    <span class="k">end</span>
+<span class="linenos">9</span><span class="k">end</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Analogous to a validation is a controller filter—a method that checks whether certain conditions are true
 before an action is run, or sets up common conditions that many actions rely on. If the conditions are not
 fulfilled, the filter can choose to “stop the show” by rendering a view template or redirecting to another
@@ -1145,9 +1105,9 @@ validation is to occur.</p>
     <div class="container">
       <p>
         
-          By sm3<br/>
+          By sme777<br/>
         
-            &copy; Copyright 2021, UC Berkeley.<br/>
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
       </p>
     </div>
   </footer>

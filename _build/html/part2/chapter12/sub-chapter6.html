@@ -22,12 +22,12 @@
       
 
     
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" />
     
   <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
@@ -971,55 +971,35 @@ particular movie being displayed (the <code class="code docutils literal notrans
 template). Figure 12.5 shows how to cache the entire HTML page for a movie, so
 that future requests to that page neither access the database nor re-render the HTML, as
 in Figure 12.4(b).</p>
-<div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># In Gemfile, include gems for page and action caching</span>
-<span class="n">gem</span> <span class="s1">&#39;actionpack -page_caching&#39;</span>
-<span class="n">gem</span> <span class="s1">&#39;actionpack -action_caching&#39;</span>
-<span class="n">gem</span> <span class="s1">&#39;rails-observers&#39;</span>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># In Gemfile, include gems for page and action caching</span>
+<span class="linenos">2</span><span class="n">gem</span> <span class="s1">&#39;actionpack -page_caching&#39;</span>
+<span class="linenos">3</span><span class="n">gem</span> <span class="s1">&#39;actionpack -action_caching&#39;</span>
+<span class="linenos">4</span><span class="n">gem</span> <span class="s1">&#39;rails-observers&#39;</span>
 </pre></div>
-</td></tr></table></div>
-<div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MoviesController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
-    <span class="n">caches_page</span> <span class="ss">:show</span>
-    <span class="n">cache_sweeper</span> <span class="ss">:movie_sweeper</span>
-    <span class="k">def</span> <span class="nf">show</span>
-        <span class="vi">@movie</span> <span class="o">=</span> <span class="no">Movie</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
-    <span class="k">end</span>
-<span class="k">end</span>
+</div>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">class</span> <span class="nc">MoviesController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+<span class="linenos">2</span>    <span class="n">caches_page</span> <span class="ss">:show</span>
+<span class="linenos">3</span>    <span class="n">cache_sweeper</span> <span class="ss">:movie_sweeper</span>
+<span class="linenos">4</span>    <span class="k">def</span> <span class="nf">show</span>
+<span class="linenos">5</span>        <span class="vi">@movie</span> <span class="o">=</span> <span class="no">Movie</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+<span class="linenos">6</span>    <span class="k">end</span>
+<span class="linenos">7</span><span class="k">end</span>
 </pre></div>
-</td></tr></table></div>
-<div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MovieSweeper</span> <span class="o">&lt;</span> <span class="no">ActionController</span><span class="o">::</span><span class="no">Caching</span><span class="o">::</span><span class="no">Sweeper</span>
-    <span class="n">observe</span> <span class="no">Movie</span>
-    <span class="c1"># if a movie is created or deleted, movie list becomes invalid</span>
-    <span class="c1">#   and rendered partials become invalid</span>
-    <span class="k">def</span> <span class="nf">after_save</span><span class="p">(</span><span class="n">movie</span><span class="p">)</span>    <span class="p">;</span> <span class="n">invalidate</span> <span class="p">;</span> <span class="k">end</span>
-    <span class="k">def</span> <span class="nf">after_destroy</span><span class="p">(</span><span class="n">movie</span><span class="p">)</span> <span class="p">;</span> <span class="n">invalidate</span> <span class="p">;</span> <span class="k">end</span>
-    <span class="kp">private</span>
-    <span class="k">def</span> <span class="nf">invalidate</span>
-        <span class="n">expire_action</span> <span class="ss">:action</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="s1">&#39;show&#39;</span><span class="o">]</span>
-        <span class="n">expire_fragment</span> <span class="s1">&#39;movie&#39;</span>
-    <span class="k">end</span>
-<span class="k">end</span>
+</div>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">class</span> <span class="nc">MovieSweeper</span> <span class="o">&lt;</span> <span class="no">ActionController</span><span class="o">::</span><span class="no">Caching</span><span class="o">::</span><span class="no">Sweeper</span>
+<span class="linenos"> 2</span>    <span class="n">observe</span> <span class="no">Movie</span>
+<span class="linenos"> 3</span>    <span class="c1"># if a movie is created or deleted, movie list becomes invalid</span>
+<span class="linenos"> 4</span>    <span class="c1">#   and rendered partials become invalid</span>
+<span class="linenos"> 5</span>    <span class="k">def</span> <span class="nf">after_save</span><span class="p">(</span><span class="n">movie</span><span class="p">)</span>    <span class="p">;</span> <span class="n">invalidate</span> <span class="p">;</span> <span class="k">end</span>
+<span class="linenos"> 6</span>    <span class="k">def</span> <span class="nf">after_destroy</span><span class="p">(</span><span class="n">movie</span><span class="p">)</span> <span class="p">;</span> <span class="n">invalidate</span> <span class="p">;</span> <span class="k">end</span>
+<span class="linenos"> 7</span>    <span class="kp">private</span>
+<span class="linenos"> 8</span>    <span class="k">def</span> <span class="nf">invalidate</span>
+<span class="linenos"> 9</span>        <span class="n">expire_action</span> <span class="ss">:action</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="s1">&#39;show&#39;</span><span class="o">]</span>
+<span class="linenos">10</span>        <span class="n">expire_fragment</span> <span class="s1">&#39;movie&#39;</span>
+<span class="linenos">11</span>    <span class="k">end</span>
+<span class="linenos">12</span><span class="k">end</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Of course, this is unsuitable for controller actions protected by before-filters, such as
 pages that require the user to be logged in and therefore require executing the controller
 filter. In such cases, changing <code class="code docutils literal notranslate"><span class="pre">caches_page</span></code> to <code class="code docutils literal notranslate"><span class="pre">caches_action</span></code> will still execute any filters
@@ -1043,21 +1023,15 @@ depends only on the attributes of one specific movie. Indeed, that observation a
 factor out the code for one row into a partial, as Figure 5.1 (Section 5.1) showed. Figure 12.6
 shows how a trivial change to that partial caches the rendered HTML fragment corresponding to
 each movie.</p>
-<div class="highlight-erb notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;%</span> <span class="n">cache</span><span class="p">(</span><span class="n">movie</span><span class="p">)</span> <span class="k">do</span> <span class="cp">%&gt;</span><span class="x"></span>
-<span class="x">    &lt;div class=&quot;row&quot;&gt;</span>
-<span class="x">        &lt;div class=&quot;col-8&quot;&gt; </span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="n">movie</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="n">movie_path</span><span class="p">(</span><span class="n">movie</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x"> &lt;/div&gt;</span>
-<span class="x">        &lt;div class=&quot;col-2&quot;&gt; </span><span class="cp">&lt;%=</span> <span class="n">movie</span><span class="o">.</span><span class="n">rating</span> <span class="cp">%&gt;</span><span class="x"> &lt;/div&gt;</span>
-<span class="x">        &lt;div class=&quot;col-2&quot;&gt; </span><span class="cp">&lt;%=</span> <span class="n">movie</span><span class="o">.</span><span class="n">release_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%F&#39;</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x"> &lt;/div&gt;</span>
-<span class="x">        &lt;/div&gt;</span>
-<span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span><span class="x"></span>
+<div class="highlight-erb notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="cp">&lt;%</span> <span class="n">cache</span><span class="p">(</span><span class="n">movie</span><span class="p">)</span> <span class="k">do</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="linenos">2</span><span class="x">    &lt;div class=&quot;row&quot;&gt;</span>
+<span class="linenos">3</span><span class="x">        &lt;div class=&quot;col-8&quot;&gt; </span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="n">movie</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="n">movie_path</span><span class="p">(</span><span class="n">movie</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x"> &lt;/div&gt;</span>
+<span class="linenos">4</span><span class="x">        &lt;div class=&quot;col-2&quot;&gt; </span><span class="cp">&lt;%=</span> <span class="n">movie</span><span class="o">.</span><span class="n">rating</span> <span class="cp">%&gt;</span><span class="x"> &lt;/div&gt;</span>
+<span class="linenos">5</span><span class="x">        &lt;div class=&quot;col-2&quot;&gt; </span><span class="cp">&lt;%=</span> <span class="n">movie</span><span class="o">.</span><span class="n">release_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%F&#39;</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x"> &lt;/div&gt;</span>
+<span class="linenos">6</span><span class="x">        &lt;/div&gt;</span>
+<span class="linenos">7</span><span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span><span class="x"></span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>A convenient shortcut provided by Rails is that if the argument to cache is an ActiveRecord
 object whose table includes an <code class="code docutils literal notranslate"><span class="pre">updated_at</span></code> or <code class="code docutils literal notranslate"><span class="pre">updated_on</span></code> column, the cache will auto-expire a
 fragment if its table row has been updated since the fragment was first cached. Nonetheless,
@@ -1069,38 +1043,25 @@ cache occurs <em>after</em> the controller action has run. Given this fact, you 
 how fragment caching helps reduce the load on the database. For example, suppose we add a partial
 to the list of movies page to display the <code class="code docutils literal notranslate"><span class="pre">&#64;top_5</span></code> movies based on
 average review scores, and we add a line to the index controller action to set up the variable:</p>
-<div class="highlight-erb notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="x">&lt;!-- a cacheable partial for top movies --&gt;</span>
-<span class="cp">&lt;%-</span> <span class="n">cache</span><span class="p">(</span><span class="s1">&#39;top_moviegoers&#39;</span><span class="p">)</span> <span class="k">do</span> <span class="cp">%&gt;</span><span class="x"></span>
-<span class="x">    &lt;ul id=&quot;topmovies&quot;&gt;</span>
-<span class="x">        </span><span class="cp">&lt;%-</span> <span class="vi">@top_5</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">movie</span><span class="o">|</span> <span class="cp">%&gt;</span><span class="x"></span>
-<span class="x">        &lt;li&gt; </span><span class="cp">&lt;%=</span> <span class="n">moviegoer</span><span class="o">.</span><span class="n">name</span> <span class="cp">%&gt;</span><span class="x"> &lt;/li&gt;</span>
-<span class="x">        </span><span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span><span class="x"></span>
-<span class="x">    &lt;/ul&gt;</span>
-<span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span><span class="x"></span>
+<div class="highlight-erb notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="x">&lt;!-- a cacheable partial for top movies --&gt;</span>
+<span class="linenos">2</span><span class="cp">&lt;%-</span> <span class="n">cache</span><span class="p">(</span><span class="s1">&#39;top_moviegoers&#39;</span><span class="p">)</span> <span class="k">do</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="linenos">3</span><span class="x">    &lt;ul id=&quot;topmovies&quot;&gt;</span>
+<span class="linenos">4</span><span class="x">        </span><span class="cp">&lt;%-</span> <span class="vi">@top_5</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">movie</span><span class="o">|</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="linenos">5</span><span class="x">        &lt;li&gt; </span><span class="cp">&lt;%=</span> <span class="n">moviegoer</span><span class="o">.</span><span class="n">name</span> <span class="cp">%&gt;</span><span class="x"> &lt;/li&gt;</span>
+<span class="linenos">6</span><span class="x">        </span><span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="linenos">7</span><span class="x">    &lt;/ul&gt;</span>
+<span class="linenos">8</span><span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span><span class="x"></span>
 </pre></div>
-</td></tr></table></div>
-<div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MoviegoersController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
-    <span class="k">def</span> <span class="nf">index</span>
-        <span class="vi">@movies</span> <span class="o">=</span> <span class="no">Movie</span><span class="o">.</span><span class="n">all</span>
-        <span class="vi">@top_5</span> <span class="o">=</span> <span class="no">Movie</span><span class="o">.</span><span class="n">joins</span><span class="p">(</span><span class="ss">:reviews</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;movie_id&#39;</span><span class="p">)</span><span class="o">.</span>
-            <span class="n">order</span><span class="p">(</span><span class="s2">&quot;AVG(potatoes) DESC&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-    <span class="k">end</span>
-<span class="k">end</span>
+</div>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">class</span> <span class="nc">MoviegoersController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+<span class="linenos">2</span>    <span class="k">def</span> <span class="nf">index</span>
+<span class="linenos">3</span>        <span class="vi">@movies</span> <span class="o">=</span> <span class="no">Movie</span><span class="o">.</span><span class="n">all</span>
+<span class="linenos">4</span>        <span class="vi">@top_5</span> <span class="o">=</span> <span class="no">Movie</span><span class="o">.</span><span class="n">joins</span><span class="p">(</span><span class="ss">:reviews</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;movie_id&#39;</span><span class="p">)</span><span class="o">.</span>
+<span class="linenos">5</span>            <span class="n">order</span><span class="p">(</span><span class="s2">&quot;AVG(potatoes) DESC&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="linenos">6</span>    <span class="k">end</span>
+<span class="linenos">7</span><span class="k">end</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Action caching is now less useful, because the <code class="code docutils literal notranslate"><span class="pre">index</span></code> view may change when a new movie is
 added <em>or</em> when a review is added (which might change what the top 5 reviewed movies are).
 If the controller action is run before the fragment cache is checked, aren’t we negating
@@ -1153,9 +1114,9 @@ from rendering the action</p>
     <div class="container">
       <p>
         
-          By sm3<br/>
+          By sme777<br/>
         
-            &copy; Copyright 2021, UC Berkeley.<br/>
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
       </p>
     </div>
   </footer>

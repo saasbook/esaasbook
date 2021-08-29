@@ -22,17 +22,17 @@
       
 
     
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" />
     
   <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="12.5. Monitoring and Finding Bottlenecks" href="sub-chapter5.html" />
@@ -992,41 +992,25 @@ service offline, apply the migration to perform the schema change and copy the d
 new column, and bring the service back online. This approach is the simplest solution, but may
 cause unacceptable unavailability: a complex migration on a database of hundreds of thousands
 of rows can take tens of minutes or even hours to run.</p>
-<div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sr">/* in code paths for functionality that searches the database: */</span>
-<span class="k">if</span> <span class="p">(</span><span class="n">featureflag</span> <span class="n">is</span> <span class="n">on</span><span class="p">)</span>
-    <span class="n">results</span> <span class="o">=</span> <span class="n">union</span><span class="p">(</span><span class="n">query</span> <span class="n">using</span> <span class="n">old</span> <span class="n">schema</span><span class="p">,</span> <span class="n">query</span> <span class="n">using</span> <span class="kp">new</span> <span class="n">schema</span><span class="p">)</span>
-<span class="k">else</span> <span class="sr">/* featureflag is off */</span>
-    <span class="n">results</span> <span class="o">=</span> <span class="p">(</span><span class="n">query</span> <span class="n">using</span> <span class="n">old</span> <span class="n">schema</span><span class="p">)</span>
-<span class="k">end</span>
-
-<span class="sr">/* in code paths that write to the database */</span>
-<span class="k">if</span> <span class="p">(</span><span class="n">featureflag</span> <span class="n">is</span> <span class="n">on</span><span class="p">)</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">data</span> <span class="n">to</span> <span class="n">be</span> <span class="n">written</span> <span class="n">is</span> <span class="n">still</span> <span class="n">using</span> <span class="n">old</span> <span class="n">schema</span><span class="p">)</span>
-        <span class="p">(</span><span class="n">convert</span> <span class="n">existing</span> <span class="n">record</span> <span class="n">from</span> <span class="n">old</span> <span class="n">to</span> <span class="kp">new</span> <span class="n">schema</span><span class="p">)</span>
-        <span class="p">(</span><span class="n">mark</span> <span class="n">record</span> <span class="n">as</span> <span class="n">converted</span><span class="p">)</span>
-    <span class="k">end</span>
-    <span class="p">(</span><span class="n">update</span> <span class="n">data</span> <span class="n">according</span> <span class="n">to</span> <span class="kp">new</span> <span class="n">schema</span><span class="p">)</span>
-<span class="k">else</span>
-    <span class="p">(</span><span class="n">update</span> <span class="n">data</span> <span class="n">according</span> <span class="n">to</span> <span class="n">old</span> <span class="n">schema</span><span class="p">)</span>
-<span class="k">end</span>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="sr">/* in code paths for functionality that searches the database: */</span>
+<span class="linenos"> 2</span><span class="k">if</span> <span class="p">(</span><span class="n">featureflag</span> <span class="n">is</span> <span class="n">on</span><span class="p">)</span>
+<span class="linenos"> 3</span>    <span class="n">results</span> <span class="o">=</span> <span class="n">union</span><span class="p">(</span><span class="n">query</span> <span class="n">using</span> <span class="n">old</span> <span class="n">schema</span><span class="p">,</span> <span class="n">query</span> <span class="n">using</span> <span class="kp">new</span> <span class="n">schema</span><span class="p">)</span>
+<span class="linenos"> 4</span><span class="k">else</span> <span class="sr">/* featureflag is off */</span>
+<span class="linenos"> 5</span>    <span class="n">results</span> <span class="o">=</span> <span class="p">(</span><span class="n">query</span> <span class="n">using</span> <span class="n">old</span> <span class="n">schema</span><span class="p">)</span>
+<span class="linenos"> 6</span><span class="k">end</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="sr">/* in code paths that write to the database */</span>
+<span class="linenos"> 9</span><span class="k">if</span> <span class="p">(</span><span class="n">featureflag</span> <span class="n">is</span> <span class="n">on</span><span class="p">)</span>
+<span class="linenos">10</span>    <span class="k">if</span> <span class="p">(</span><span class="n">data</span> <span class="n">to</span> <span class="n">be</span> <span class="n">written</span> <span class="n">is</span> <span class="n">still</span> <span class="n">using</span> <span class="n">old</span> <span class="n">schema</span><span class="p">)</span>
+<span class="linenos">11</span>        <span class="p">(</span><span class="n">convert</span> <span class="n">existing</span> <span class="n">record</span> <span class="n">from</span> <span class="n">old</span> <span class="n">to</span> <span class="kp">new</span> <span class="n">schema</span><span class="p">)</span>
+<span class="linenos">12</span>        <span class="p">(</span><span class="n">mark</span> <span class="n">record</span> <span class="n">as</span> <span class="n">converted</span><span class="p">)</span>
+<span class="linenos">13</span>    <span class="k">end</span>
+<span class="linenos">14</span>    <span class="p">(</span><span class="n">update</span> <span class="n">data</span> <span class="n">according</span> <span class="n">to</span> <span class="kp">new</span> <span class="n">schema</span><span class="p">)</span>
+<span class="linenos">15</span><span class="k">else</span>
+<span class="linenos">16</span>    <span class="p">(</span><span class="n">update</span> <span class="n">data</span> <span class="n">according</span> <span class="n">to</span> <span class="n">old</span> <span class="n">schema</span><span class="p">)</span>
+<span class="linenos">17</span><span class="k">end</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>The second option is to split the change across multiple deployments using a <em>feature</em> <em>flag</em>—a configuration
 variable whose value can be changed <em>while the app is running</em> to control which code paths in
 the app are executed. Notice that each step in Figure 12.3 is nondestructive: as we did with
@@ -1071,9 +1055,9 @@ the production servers while the app is running.</p>
     <div class="container">
       <p>
         
-          By sm3<br/>
+          By sme777<br/>
         
-            &copy; Copyright 2021, UC Berkeley.<br/>
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
       </p>
     </div>
   </footer>

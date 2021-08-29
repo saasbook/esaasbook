@@ -22,12 +22,12 @@
       
 
     
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" />
     
   <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
@@ -966,47 +966,28 @@ global namespace—hardly beautiful. In general we want to minimize clutter in t
 create one or a few objects
 named by global variables associated with our app, and all of our JavaScript functions will be the values of properties
 of those objects.</p>
-<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">Movie</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">title</span><span class="p">,</span><span class="nx">year</span><span class="p">,</span><span class="nx">rating</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">title</span><span class="p">;</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">year</span> <span class="o">=</span> <span class="nx">year</span><span class="p">;</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">rating</span> <span class="o">=</span> <span class="nx">rating</span><span class="p">;</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">full_title</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="c1">// &quot;instance method&quot;</span>
-        <span class="k">return</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">title</span> <span class="o">+</span> <span class="s1">&#39; (&#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">year</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span><span class="p">);</span>
-    <span class="p">};</span>
-<span class="p">};</span>
-<span class="kd">function</span> <span class="nx">Movie</span><span class="p">(</span><span class="nx">title</span><span class="p">,</span><span class="nx">year</span><span class="p">,</span><span class="nx">rating</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">// this syntax may look familiar...</span>
-<span class="c1">// ...</span>
-<span class="p">}</span>
-<span class="c1">// using &#39;new&#39; makes Movie the new objects&#39; prototype:</span>
-<span class="nx">pianist</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Movie</span><span class="p">(</span><span class="s1">&#39;The Pianist&#39;</span><span class="p">,</span> <span class="mf">2002</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">);</span>
-<span class="nx">pianist</span><span class="p">.</span><span class="nx">full_title</span><span class="p">;</span>   <span class="c1">// =&gt; function() {...}</span>
-<span class="nx">pianist</span><span class="p">.</span><span class="nx">full_title</span><span class="p">();</span> <span class="c1">// =&gt; &quot;The Pianist (2002)&quot;</span>
-<span class="c1">// BAD: without &#39;new&#39;, &#39;this&#39; is bound to global object in Movie call!!</span>
-<span class="nx">juno</span> <span class="o">=</span> <span class="nx">Movie</span><span class="p">(</span><span class="s1">&#39;Juno&#39;</span><span class="p">,</span> <span class="mf">2007</span><span class="p">,</span> <span class="s1">&#39;PG-13&#39;</span><span class="p">);</span> <span class="c1">// DON&#39;T DO THIS!!</span>
-<span class="nx">juno</span><span class="p">;</span>               <span class="c1">// undefined</span>
-<span class="nx">juno</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>         <span class="c1">// error: &#39;undefined&#39; has no properties</span>
-<span class="nx">juno</span><span class="p">.</span><span class="nx">full_title</span><span class="p">();</span>  <span class="c1">// error: &#39;undefined&#39; has no properties</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kd">let</span> <span class="nx">Movie</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">title</span><span class="p">,</span><span class="nx">year</span><span class="p">,</span><span class="nx">rating</span><span class="p">)</span> <span class="p">{</span>
+<span class="linenos"> 2</span>    <span class="k">this</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">title</span><span class="p">;</span>
+<span class="linenos"> 3</span>    <span class="k">this</span><span class="p">.</span><span class="nx">year</span> <span class="o">=</span> <span class="nx">year</span><span class="p">;</span>
+<span class="linenos"> 4</span>    <span class="k">this</span><span class="p">.</span><span class="nx">rating</span> <span class="o">=</span> <span class="nx">rating</span><span class="p">;</span>
+<span class="linenos"> 5</span>    <span class="k">this</span><span class="p">.</span><span class="nx">full_title</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="c1">// &quot;instance method&quot;</span>
+<span class="linenos"> 6</span>        <span class="k">return</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">title</span> <span class="o">+</span> <span class="s1">&#39; (&#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">year</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span><span class="p">);</span>
+<span class="linenos"> 7</span>    <span class="p">};</span>
+<span class="linenos"> 8</span><span class="p">};</span>
+<span class="linenos"> 9</span><span class="kd">function</span> <span class="nx">Movie</span><span class="p">(</span><span class="nx">title</span><span class="p">,</span><span class="nx">year</span><span class="p">,</span><span class="nx">rating</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">// this syntax may look familiar...</span>
+<span class="linenos">10</span><span class="c1">// ...</span>
+<span class="linenos">11</span><span class="p">}</span>
+<span class="linenos">12</span><span class="c1">// using &#39;new&#39; makes Movie the new objects&#39; prototype:</span>
+<span class="linenos">13</span><span class="nx">pianist</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Movie</span><span class="p">(</span><span class="s1">&#39;The Pianist&#39;</span><span class="p">,</span> <span class="mf">2002</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">);</span>
+<span class="linenos">14</span><span class="nx">pianist</span><span class="p">.</span><span class="nx">full_title</span><span class="p">;</span>   <span class="c1">// =&gt; function() {...}</span>
+<span class="linenos">15</span><span class="nx">pianist</span><span class="p">.</span><span class="nx">full_title</span><span class="p">();</span> <span class="c1">// =&gt; &quot;The Pianist (2002)&quot;</span>
+<span class="linenos">16</span><span class="c1">// BAD: without &#39;new&#39;, &#39;this&#39; is bound to global object in Movie call!!</span>
+<span class="linenos">17</span><span class="nx">juno</span> <span class="o">=</span> <span class="nx">Movie</span><span class="p">(</span><span class="s1">&#39;Juno&#39;</span><span class="p">,</span> <span class="mf">2007</span><span class="p">,</span> <span class="s1">&#39;PG-13&#39;</span><span class="p">);</span> <span class="c1">// DON&#39;T DO THIS!!</span>
+<span class="linenos">18</span><span class="nx">juno</span><span class="p">;</span>               <span class="c1">// undefined</span>
+<span class="linenos">19</span><span class="nx">juno</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>         <span class="c1">// error: &#39;undefined&#39; has no properties</span>
+<span class="linenos">20</span><span class="nx">juno</span><span class="p">.</span><span class="nx">full_title</span><span class="p">();</span>  <span class="c1">// error: &#39;undefined&#39; has no properties</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>If we call the Movie function using JavaScript’s new keyword (line 13), the value of this in the function body
 will be a new JavaScript object that will eventually be returned by the function, similar to Ruby’s <code class="code docutils literal notranslate"><span class="pre">self</span></code> inside
 an <code class="code docutils literal notranslate"><span class="pre">initialize</span></code> constructor method. In this case, the returned object will have properties <code class="code docutils literal notranslate"><span class="pre">title</span></code>, <code class="code docutils literal notranslate"><span class="pre">year</span></code>,
@@ -1082,9 +1063,9 @@ value is the function itself, rather than a call to the function.</p>
     <div class="container">
       <p>
         
-          By sm3<br/>
+          By sme777<br/>
         
-            &copy; Copyright 2021, UC Berkeley.<br/>
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
       </p>
     </div>
   </footer>

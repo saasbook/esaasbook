@@ -22,12 +22,12 @@
       
 
     
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" />
     
   <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
@@ -985,63 +985,36 @@ two conditions are true:</p>
 <li><p><code class="code docutils literal notranslate"><span class="pre">&#64;current_user</span></code> is set (that is, someone is logged in and will “own” the new review).</p></li>
 <li><p>The movie captured from the route (Figure 5.17) as <code class="code docutils literal notranslate"><span class="pre">params[:movie_id]</span></code> exists in the database.</p></li>
 </ol>
-<div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ReviewsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
-    <span class="n">before_filter</span> <span class="ss">:has_moviegoer_and_movie</span> <span class="p">,</span> <span class="ss">:only</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:new</span><span class="p">,</span> <span class="ss">:create</span><span class="o">]</span>
-    <span class="kp">protected</span>
-    <span class="k">def</span> <span class="nf">has_moviegoer_and_movie</span>
-        <span class="k">unless</span> <span class="vi">@current_user</span>
-            <span class="n">flash</span><span class="o">[</span><span class="ss">:warning</span><span class="o">]</span> <span class="o">=</span> <span class="s1">&#39;You must be logged in to create a review.&#39;</span>
-            <span class="n">redirect_to</span> <span class="n">login_path</span>
-        <span class="k">end</span>
-        <span class="k">unless</span> <span class="p">(</span><span class="vi">@movie</span> <span class="o">=</span> <span class="no">Movie</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:id</span> <span class="o">=&gt;</span> <span class="n">params</span><span class="o">[</span><span class="ss">:movie_id</span><span class="o">]</span><span class="p">))</span>
-            <span class="n">flash</span><span class="o">[</span><span class="ss">:warning</span><span class="o">]</span> <span class="o">=</span> <span class="s1">&#39;Review must be for an existing movie.&#39;</span>
-            <span class="n">redirect_to</span> <span class="n">movies_path</span>
-        <span class="k">end</span>
-    <span class="k">end</span>
-
-    <span class="kp">public</span>
-    <span class="k">def</span> <span class="nf">new</span>
-        <span class="vi">@review</span> <span class="o">=</span> <span class="vi">@movie</span><span class="o">.</span><span class="n">reviews</span><span class="o">.</span><span class="n">build</span>
-    <span class="k">end</span>
-
-    <span class="k">def</span> <span class="nf">create</span>
-    <span class="c1"># since moviegoer_id is a protected attribute that won&#39;t get</span>
-    <span class="c1"># assigned by the mass-assignment from params[:review], we set it</span>
-    <span class="c1"># by using the &lt;&lt; method on the association. We could also</span>
-    <span class="c1"># set it manually with review.moviegoer = @current_user.</span>
-    <span class="vi">@current_user</span><span class="o">.</span><span class="n">reviews</span> <span class="o">&lt;&lt;</span> <span class="vi">@movie</span><span class="o">.</span><span class="n">reviews</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:review</span><span class="o">]</span><span class="p">)</span>
-    <span class="n">redirect_to</span> <span class="n">movie_path</span><span class="p">(</span><span class="vi">@movie</span><span class="p">)</span>
-    <span class="k">end</span>
-<span class="k">end</span>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">class</span> <span class="nc">ReviewsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+<span class="linenos"> 2</span>    <span class="n">before_filter</span> <span class="ss">:has_moviegoer_and_movie</span> <span class="p">,</span> <span class="ss">:only</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:new</span><span class="p">,</span> <span class="ss">:create</span><span class="o">]</span>
+<span class="linenos"> 3</span>    <span class="kp">protected</span>
+<span class="linenos"> 4</span>    <span class="k">def</span> <span class="nf">has_moviegoer_and_movie</span>
+<span class="linenos"> 5</span>        <span class="k">unless</span> <span class="vi">@current_user</span>
+<span class="linenos"> 6</span>            <span class="n">flash</span><span class="o">[</span><span class="ss">:warning</span><span class="o">]</span> <span class="o">=</span> <span class="s1">&#39;You must be logged in to create a review.&#39;</span>
+<span class="linenos"> 7</span>            <span class="n">redirect_to</span> <span class="n">login_path</span>
+<span class="linenos"> 8</span>        <span class="k">end</span>
+<span class="linenos"> 9</span>        <span class="k">unless</span> <span class="p">(</span><span class="vi">@movie</span> <span class="o">=</span> <span class="no">Movie</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:id</span> <span class="o">=&gt;</span> <span class="n">params</span><span class="o">[</span><span class="ss">:movie_id</span><span class="o">]</span><span class="p">))</span>
+<span class="linenos">10</span>            <span class="n">flash</span><span class="o">[</span><span class="ss">:warning</span><span class="o">]</span> <span class="o">=</span> <span class="s1">&#39;Review must be for an existing movie.&#39;</span>
+<span class="linenos">11</span>            <span class="n">redirect_to</span> <span class="n">movies_path</span>
+<span class="linenos">12</span>        <span class="k">end</span>
+<span class="linenos">13</span>    <span class="k">end</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span>    <span class="kp">public</span>
+<span class="linenos">16</span>    <span class="k">def</span> <span class="nf">new</span>
+<span class="linenos">17</span>        <span class="vi">@review</span> <span class="o">=</span> <span class="vi">@movie</span><span class="o">.</span><span class="n">reviews</span><span class="o">.</span><span class="n">build</span>
+<span class="linenos">18</span>    <span class="k">end</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span>    <span class="k">def</span> <span class="nf">create</span>
+<span class="linenos">21</span>    <span class="c1"># since moviegoer_id is a protected attribute that won&#39;t get</span>
+<span class="linenos">22</span>    <span class="c1"># assigned by the mass-assignment from params[:review], we set it</span>
+<span class="linenos">23</span>    <span class="c1"># by using the &lt;&lt; method on the association. We could also</span>
+<span class="linenos">24</span>    <span class="c1"># set it manually with review.moviegoer = @current_user.</span>
+<span class="linenos">25</span>    <span class="vi">@current_user</span><span class="o">.</span><span class="n">reviews</span> <span class="o">&lt;&lt;</span> <span class="vi">@movie</span><span class="o">.</span><span class="n">reviews</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:review</span><span class="o">]</span><span class="p">)</span>
+<span class="linenos">26</span>    <span class="n">redirect_to</span> <span class="n">movie_path</span><span class="p">(</span><span class="vi">@movie</span><span class="p">)</span>
+<span class="linenos">27</span>    <span class="k">end</span>
+<span class="linenos">28</span><span class="k">end</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <div class="highlight-erb notranslate"><div class="highlight"><pre><span></span><span class="x">&lt;h1&gt; New Review for </span><span class="cp">&lt;%=</span> <span class="vi">@movie</span><span class="o">.</span><span class="n">title</span> <span class="cp">%&gt;</span><span class="x"> &lt;/h1&gt;</span>
 
 <span class="cp">&lt;%=</span> <span class="n">form_tag</span> <span class="n">movie_reviews_path</span><span class="p">(</span><span class="vi">@movie</span><span class="p">),</span> <span class="ss">class</span><span class="p">:</span> <span class="s1">&#39;form&#39;</span> <span class="k">do</span> <span class="cp">%&gt;</span><span class="x"></span>
@@ -1083,9 +1056,9 @@ the associated movie and moviegoer.</p>
     <div class="container">
       <p>
         
-          By sm3<br/>
+          By sme777<br/>
         
-            &copy; Copyright 2021, UC Berkeley.<br/>
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
       </p>
     </div>
   </footer>

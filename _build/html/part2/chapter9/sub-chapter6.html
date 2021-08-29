@@ -22,12 +22,12 @@
       
 
     
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" />
     
   <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
@@ -997,53 +997,31 @@ to simplify testing of <code class="code docutils literal notranslate"><span cla
 Section 8.4. In general, when a method mixes code that says <em>what to do</em> with code that <em>says
 how to do it</em>, this may be a warning to check whether you need to use Extract Method in order
 to maintain a consistent level of <strong>A</strong>bstraction.</p>
-<div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># NOTE: line 7 fixes bug in original version</span>
-<span class="k">class</span> <span class="nc">TimeSetter</span>
-    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">convert</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="mi">1980</span>
-        <span class="k">while</span> <span class="p">(</span><span class="n">d</span> <span class="o">&gt;</span> <span class="mi">365</span><span class="p">)</span> <span class="k">do</span>
-        <span class="k">if</span> <span class="n">leap_year?</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">d</span> <span class="o">&gt;=</span> <span class="mi">366</span><span class="p">)</span>
-            <span class="n">d</span> <span class="o">-=</span> <span class="mi">366</span>
-            <span class="n">y</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="k">end</span>
-        <span class="k">else</span>
-            <span class="n">d</span> <span class="o">-=</span> <span class="mi">365</span>
-            <span class="n">y</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">end</span>
-        <span class="k">end</span>
-        <span class="k">return</span> <span class="n">y</span>
-    <span class="k">end</span>
-    <span class="kp">private</span>
-    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">leap_year?</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
-        <span class="n">year</span> <span class="o">%</span> <span class="mi">400</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span>
-        <span class="p">(</span><span class="n">year</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">year</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="k">end</span>
-<span class="k">end</span>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># NOTE: line 7 fixes bug in original version</span>
+<span class="linenos"> 2</span><span class="k">class</span> <span class="nc">TimeSetter</span>
+<span class="linenos"> 3</span>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">convert</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="linenos"> 4</span>        <span class="n">y</span> <span class="o">=</span> <span class="mi">1980</span>
+<span class="linenos"> 5</span>        <span class="k">while</span> <span class="p">(</span><span class="n">d</span> <span class="o">&gt;</span> <span class="mi">365</span><span class="p">)</span> <span class="k">do</span>
+<span class="linenos"> 6</span>        <span class="k">if</span> <span class="n">leap_year?</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="linenos"> 7</span>            <span class="k">if</span> <span class="p">(</span><span class="n">d</span> <span class="o">&gt;=</span> <span class="mi">366</span><span class="p">)</span>
+<span class="linenos"> 8</span>            <span class="n">d</span> <span class="o">-=</span> <span class="mi">366</span>
+<span class="linenos"> 9</span>            <span class="n">y</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">10</span>            <span class="k">end</span>
+<span class="linenos">11</span>        <span class="k">else</span>
+<span class="linenos">12</span>            <span class="n">d</span> <span class="o">-=</span> <span class="mi">365</span>
+<span class="linenos">13</span>            <span class="n">y</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">14</span>        <span class="k">end</span>
+<span class="linenos">15</span>        <span class="k">end</span>
+<span class="linenos">16</span>        <span class="k">return</span> <span class="n">y</span>
+<span class="linenos">17</span>    <span class="k">end</span>
+<span class="linenos">18</span>    <span class="kp">private</span>
+<span class="linenos">19</span>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">leap_year?</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
+<span class="linenos">20</span>        <span class="n">year</span> <span class="o">%</span> <span class="mi">400</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span>
+<span class="linenos">21</span>        <span class="p">(</span><span class="n">year</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">year</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="linenos">22</span>    <span class="k">end</span>
+<span class="linenos">23</span><span class="k">end</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>The conditional is also nested two-deep, making it hard to understand and increasing <code class="code docutils literal notranslate"><span class="pre">convert</span></code>’s
 ABC score. The <em>Decompose Conditional</em> refactoring also breaks up the complex condition by
 replacing each arm of the conditional with an extracted method. Notice, though, that the two
@@ -1054,65 +1032,37 @@ must turn the local variables into class variables throughout <code class="code 
 descriptive names <code class="code docutils literal notranslate"><span class="pre">&#64;&#64;year</span></code> and <code class="code docutils literal notranslate"><span class="pre">&#64;&#64;days_remaining</span></code> while we’re at it. Finally, since <code class="code docutils literal notranslate"><span class="pre">&#64;&#64;year</span></code> is now
 a class variable, we no longer need to pass it as an explicit argument to <code class="code docutils literal notranslate"><span class="pre">leap_year?</span></code>. Figure
 9.18 shows the result.</p>
-<div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># NOTE: line 7 fixes bug in original version</span>
-<span class="k">class</span> <span class="nc">TimeSetter</span>
-    <span class="no">ORIGIN_YEAR</span> <span class="o">=</span> <span class="mi">1980</span>
-    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">calculate_current_year</span><span class="p">(</span><span class="n">days_since_origin</span><span class="p">)</span>
-        <span class="vc">@@year</span> <span class="o">=</span> <span class="no">ORIGIN_YEAR</span>
-        <span class="vc">@@days_remaining</span> <span class="o">=</span> <span class="n">days_since_origin</span>
-        <span class="k">while</span> <span class="p">(</span><span class="vc">@@days_remaining</span> <span class="o">&gt;</span> <span class="mi">365</span><span class="p">)</span> <span class="k">do</span>
-        <span class="k">if</span> <span class="n">leap_year?</span>
-            <span class="n">peel_off_leap_year!</span>
-        <span class="k">else</span>
-            <span class="n">peel_off_regular_year!</span>
-        <span class="k">end</span>
-        <span class="k">end</span>
-        <span class="k">return</span> <span class="vc">@@year</span>
-    <span class="k">end</span>
-    <span class="kp">private</span>
-    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">peel_off_leap_year!</span>
-        <span class="k">if</span> <span class="p">(</span><span class="vc">@@days_remaining</span> <span class="o">&gt;=</span> <span class="mi">366</span><span class="p">)</span>
-        <span class="vc">@@days_remaining</span> <span class="o">-=</span> <span class="mi">366</span> <span class="p">;</span> <span class="vc">@@year</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">end</span>
-    <span class="k">end</span>
-    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">peel_off_regular_year!</span>
-        <span class="vc">@@days_remaining</span> <span class="o">-=</span> <span class="mi">365</span> <span class="p">;</span> <span class="vc">@@year</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">end</span>
-    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">leap_year?</span>
-        <span class="vc">@@year</span> <span class="o">%</span> <span class="mi">400</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span>
-        <span class="p">(</span><span class="vc">@@year</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="vc">@@year</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="k">end</span>
-<span class="k">end</span>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># NOTE: line 7 fixes bug in original version</span>
+<span class="linenos"> 2</span><span class="k">class</span> <span class="nc">TimeSetter</span>
+<span class="linenos"> 3</span>    <span class="no">ORIGIN_YEAR</span> <span class="o">=</span> <span class="mi">1980</span>
+<span class="linenos"> 4</span>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">calculate_current_year</span><span class="p">(</span><span class="n">days_since_origin</span><span class="p">)</span>
+<span class="linenos"> 5</span>        <span class="vc">@@year</span> <span class="o">=</span> <span class="no">ORIGIN_YEAR</span>
+<span class="linenos"> 6</span>        <span class="vc">@@days_remaining</span> <span class="o">=</span> <span class="n">days_since_origin</span>
+<span class="linenos"> 7</span>        <span class="k">while</span> <span class="p">(</span><span class="vc">@@days_remaining</span> <span class="o">&gt;</span> <span class="mi">365</span><span class="p">)</span> <span class="k">do</span>
+<span class="linenos"> 8</span>        <span class="k">if</span> <span class="n">leap_year?</span>
+<span class="linenos"> 9</span>            <span class="n">peel_off_leap_year!</span>
+<span class="linenos">10</span>        <span class="k">else</span>
+<span class="linenos">11</span>            <span class="n">peel_off_regular_year!</span>
+<span class="linenos">12</span>        <span class="k">end</span>
+<span class="linenos">13</span>        <span class="k">end</span>
+<span class="linenos">14</span>        <span class="k">return</span> <span class="vc">@@year</span>
+<span class="linenos">15</span>    <span class="k">end</span>
+<span class="linenos">16</span>    <span class="kp">private</span>
+<span class="linenos">17</span>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">peel_off_leap_year!</span>
+<span class="linenos">18</span>        <span class="k">if</span> <span class="p">(</span><span class="vc">@@days_remaining</span> <span class="o">&gt;=</span> <span class="mi">366</span><span class="p">)</span>
+<span class="linenos">19</span>        <span class="vc">@@days_remaining</span> <span class="o">-=</span> <span class="mi">366</span> <span class="p">;</span> <span class="vc">@@year</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">20</span>        <span class="k">end</span>
+<span class="linenos">21</span>    <span class="k">end</span>
+<span class="linenos">22</span>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">peel_off_regular_year!</span>
+<span class="linenos">23</span>        <span class="vc">@@days_remaining</span> <span class="o">-=</span> <span class="mi">365</span> <span class="p">;</span> <span class="vc">@@year</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">24</span>    <span class="k">end</span>
+<span class="linenos">25</span>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">leap_year?</span>
+<span class="linenos">26</span>        <span class="vc">@@year</span> <span class="o">%</span> <span class="mi">400</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span>
+<span class="linenos">27</span>        <span class="p">(</span><span class="vc">@@year</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="vc">@@year</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="linenos">28</span>    <span class="k">end</span>
+<span class="linenos">29</span><span class="k">end</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>As long as we’re cleaning up, the code in Figure 9.18 also fixes two minor code
 smells. The first is uncommunicative variable names: <code class="code docutils literal notranslate"><span class="pre">convert</span></code> doesn’t describe very
 well what this method does, and the parameter name <code class="code docutils literal notranslate"><span class="pre">d</span></code> is not useful. The other is
@@ -1136,75 +1086,42 @@ solution is effective, but clumsier than <em>Replace Method with Method Object</
 In that refactoring, the original method <code class="code docutils literal notranslate"><span class="pre">convert</span></code> is turned into an object <em>instance</em> (rather
 than a class) whose instance variables capture the object’s state; the helper methods then
 operate on the instance variables.</p>
-<div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># An example call would now be:</span>
-<span class="c1">#  year = TimeSetter.new(367).calculate_current_year</span>
-<span class="c1"># rather than:</span>
-<span class="c1">#  year = TimeSetter.calculate_current_year(367)</span>
-<span class="k">class</span> <span class="nc">TimeSetter</span>
-    <span class="no">ORIGIN_YEAR</span> <span class="o">=</span> <span class="mi">1980</span>
-    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">days_since_origin</span><span class="p">)</span>
-        <span class="vi">@year</span> <span class="o">=</span> <span class="no">ORIGIN_YEAR</span>
-        <span class="vi">@days_remaining</span> <span class="o">=</span> <span class="n">days_since_origin</span>
-    <span class="k">end</span>
-    <span class="k">def</span> <span class="nf">calculate_current_year</span>
-        <span class="k">while</span> <span class="p">(</span><span class="vi">@days_remaining</span> <span class="o">&gt;</span> <span class="mi">365</span><span class="p">)</span> <span class="k">do</span>
-        <span class="k">if</span> <span class="n">leap_year?</span>
-            <span class="n">peel_off_leap_year!</span>
-        <span class="k">else</span>
-            <span class="n">peel_off_regular_year!</span>
-        <span class="k">end</span>
-        <span class="k">end</span>
-        <span class="k">return</span> <span class="vi">@year</span>
-    <span class="k">end</span>
-    <span class="kp">private</span>
-    <span class="k">def</span> <span class="nf">peel_off_leap_year!</span>
-        <span class="k">if</span> <span class="p">(</span><span class="vi">@days_remaining</span> <span class="o">&gt;=</span> <span class="mi">366</span><span class="p">)</span>
-        <span class="vi">@days_remaining</span> <span class="o">-=</span> <span class="mi">366</span> <span class="p">;</span> <span class="vi">@year</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">end</span>
-    <span class="k">end</span>
-    <span class="k">def</span> <span class="nf">peel_off_regular_year!</span>
-        <span class="vi">@days_remaining</span> <span class="o">-=</span> <span class="mi">365</span> <span class="p">;</span> <span class="vi">@year</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">end</span>
-    <span class="k">def</span> <span class="nf">leap_year?</span>
-        <span class="vi">@year</span> <span class="o">%</span> <span class="mi">400</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span>
-        <span class="p">(</span><span class="vi">@year</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="vi">@year</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="k">end</span>
-<span class="k">end</span>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># An example call would now be:</span>
+<span class="linenos"> 2</span><span class="c1">#  year = TimeSetter.new(367).calculate_current_year</span>
+<span class="linenos"> 3</span><span class="c1"># rather than:</span>
+<span class="linenos"> 4</span><span class="c1">#  year = TimeSetter.calculate_current_year(367)</span>
+<span class="linenos"> 5</span><span class="k">class</span> <span class="nc">TimeSetter</span>
+<span class="linenos"> 6</span>    <span class="no">ORIGIN_YEAR</span> <span class="o">=</span> <span class="mi">1980</span>
+<span class="linenos"> 7</span>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">days_since_origin</span><span class="p">)</span>
+<span class="linenos"> 8</span>        <span class="vi">@year</span> <span class="o">=</span> <span class="no">ORIGIN_YEAR</span>
+<span class="linenos"> 9</span>        <span class="vi">@days_remaining</span> <span class="o">=</span> <span class="n">days_since_origin</span>
+<span class="linenos">10</span>    <span class="k">end</span>
+<span class="linenos">11</span>    <span class="k">def</span> <span class="nf">calculate_current_year</span>
+<span class="linenos">12</span>        <span class="k">while</span> <span class="p">(</span><span class="vi">@days_remaining</span> <span class="o">&gt;</span> <span class="mi">365</span><span class="p">)</span> <span class="k">do</span>
+<span class="linenos">13</span>        <span class="k">if</span> <span class="n">leap_year?</span>
+<span class="linenos">14</span>            <span class="n">peel_off_leap_year!</span>
+<span class="linenos">15</span>        <span class="k">else</span>
+<span class="linenos">16</span>            <span class="n">peel_off_regular_year!</span>
+<span class="linenos">17</span>        <span class="k">end</span>
+<span class="linenos">18</span>        <span class="k">end</span>
+<span class="linenos">19</span>        <span class="k">return</span> <span class="vi">@year</span>
+<span class="linenos">20</span>    <span class="k">end</span>
+<span class="linenos">21</span>    <span class="kp">private</span>
+<span class="linenos">22</span>    <span class="k">def</span> <span class="nf">peel_off_leap_year!</span>
+<span class="linenos">23</span>        <span class="k">if</span> <span class="p">(</span><span class="vi">@days_remaining</span> <span class="o">&gt;=</span> <span class="mi">366</span><span class="p">)</span>
+<span class="linenos">24</span>        <span class="vi">@days_remaining</span> <span class="o">-=</span> <span class="mi">366</span> <span class="p">;</span> <span class="vi">@year</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">25</span>        <span class="k">end</span>
+<span class="linenos">26</span>    <span class="k">end</span>
+<span class="linenos">27</span>    <span class="k">def</span> <span class="nf">peel_off_regular_year!</span>
+<span class="linenos">28</span>        <span class="vi">@days_remaining</span> <span class="o">-=</span> <span class="mi">365</span> <span class="p">;</span> <span class="vi">@year</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">29</span>    <span class="k">end</span>
+<span class="linenos">30</span>    <span class="k">def</span> <span class="nf">leap_year?</span>
+<span class="linenos">31</span>        <span class="vi">@year</span> <span class="o">%</span> <span class="mi">400</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span>
+<span class="linenos">32</span>        <span class="p">(</span><span class="vi">@year</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="vi">@year</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="linenos">33</span>    <span class="k">end</span>
+<span class="linenos">34</span><span class="k">end</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Figure 9.19 shows the result of applying such a refactoring, but there is an important
 caveat. So far, none of our refactorings have caused our characterization specs to fail,
 since the specs were just calling <code class="code docutils literal notranslate"><span class="pre">TimeSetter.convert</span></code>. But applying <em>Replace Method With
@@ -1239,9 +1156,9 @@ current behavior while changing its structure.</p>
     <div class="container">
       <p>
         
-          By sm3<br/>
+          By sme777<br/>
         
-            &copy; Copyright 2021, UC Berkeley.<br/>
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
       </p>
     </div>
   </footer>

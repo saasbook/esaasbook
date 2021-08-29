@@ -18,8 +18,8 @@
 # -- Project information -----------------------------------------------------
 
 project = 'saasbook'
-copyright = '2021, UC Berkeley'
-author = 'sm3'
+copyright = '2021, Armando Fox and David Patterson'
+author = 'sme777'
 
 
 # -- General configuration ---------------------------------------------------

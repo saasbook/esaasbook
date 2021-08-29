@@ -22,12 +22,12 @@
       
 
     
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" />
     
   <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
@@ -991,73 +991,41 @@ describe and it are JavaScript functions of two arguments, the second of which i
 keeps it hidden from display. <code class="code docutils literal notranslate"><span class="pre">toExist</span></code> and <code class="code docutils literal notranslate"><span class="pre">toBeHidden</span></code> are expectation matchers provided by the Jasmine-jQuery add-on.
 Since Jasmine loads all your JavaScript files before running any examples, the call to <code class="code docutils literal notranslate"><span class="pre">setup</span></code> (line 34 of Figure 6.14)
 occurs before our tests run; hence it’s reasonable to test whether that function did its work.</p>
-<div class="highlight-javascript notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;MoviePopup&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;setup&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;adds popup Div to main page&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#movieInfo&#39;</span><span class="p">)).</span><span class="nx">toExist</span><span class="p">();</span>
-        <span class="p">});</span>
-        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;hides the popup Div&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#movieInfo&#39;</span><span class="p">)).</span><span class="nx">toBeHidden</span><span class="p">();</span>
-        <span class="p">});</span>
-    <span class="p">});</span>
-    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;clicking on movie link&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">beforeEach</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">loadFixtures</span><span class="p">(</span><span class="s1">&#39;movie_row.html&#39;</span><span class="p">);</span> <span class="p">});</span>
-        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;calls correct URL&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">spyOn</span><span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="s1">&#39;ajax&#39;</span><span class="p">);</span>
-        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#movies a&#39;</span><span class="p">).</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">);</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">.</span><span class="nx">calls</span><span class="p">.</span><span class="nx">mostRecent</span><span class="p">().</span><span class="nx">args</span><span class="p">[</span><span class="mf">0</span><span class="p">][</span><span class="s1">&#39;url&#39;</span><span class="p">]).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">&#39;/movies/1&#39;</span><span class="p">);</span>
-        <span class="p">});</span>
-        <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;when successful server call&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">beforeEach</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-            <span class="kd">let</span> <span class="nx">htmlResponse</span> <span class="o">=</span> <span class="nx">readFixtures</span><span class="p">(</span><span class="s1">&#39;movie_info.html&#39;</span><span class="p">);</span>
-            <span class="nx">spyOn</span><span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="s1">&#39;ajax&#39;</span><span class="p">).</span><span class="nx">and</span><span class="p">.</span><span class="nx">callFake</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">ajaxArgs</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">ajaxArgs</span><span class="p">.</span><span class="nx">success</span><span class="p">(</span><span class="nx">htmlResponse</span><span class="p">,</span> <span class="s1">&#39;200&#39;</span><span class="p">);</span>
-            <span class="p">});</span>
-            <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#movies a&#39;</span><span class="p">).</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">);</span>
-        <span class="p">});</span>
-        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;makes #movieInfo visible&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-            <span class="nx">expect</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#movieInfo&#39;</span><span class="p">)).</span><span class="nx">toBeVisible</span><span class="p">();</span>
-        <span class="p">});</span>
-        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;places movie title in #movieInfo&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-            <span class="nx">expect</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#movieInfo&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">()).</span><span class="nx">toContain</span><span class="p">(</span><span class="s1">&#39;Casablanca&#39;</span><span class="p">);</span>
-        <span class="p">});</span>
-        <span class="p">});</span>
-    <span class="p">});</span>
-<span class="p">});</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;MoviePopup&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="linenos"> 2</span>    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;setup&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="linenos"> 3</span>        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;adds popup Div to main page&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="linenos"> 4</span>        <span class="nx">expect</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#movieInfo&#39;</span><span class="p">)).</span><span class="nx">toExist</span><span class="p">();</span>
+<span class="linenos"> 5</span>        <span class="p">});</span>
+<span class="linenos"> 6</span>        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;hides the popup Div&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="linenos"> 7</span>        <span class="nx">expect</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#movieInfo&#39;</span><span class="p">)).</span><span class="nx">toBeHidden</span><span class="p">();</span>
+<span class="linenos"> 8</span>        <span class="p">});</span>
+<span class="linenos"> 9</span>    <span class="p">});</span>
+<span class="linenos">10</span>    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;clicking on movie link&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="linenos">11</span>        <span class="nx">beforeEach</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">loadFixtures</span><span class="p">(</span><span class="s1">&#39;movie_row.html&#39;</span><span class="p">);</span> <span class="p">});</span>
+<span class="linenos">12</span>        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;calls correct URL&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="linenos">13</span>        <span class="nx">spyOn</span><span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="s1">&#39;ajax&#39;</span><span class="p">);</span>
+<span class="linenos">14</span>        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#movies a&#39;</span><span class="p">).</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">);</span>
+<span class="linenos">15</span>        <span class="nx">expect</span><span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">.</span><span class="nx">calls</span><span class="p">.</span><span class="nx">mostRecent</span><span class="p">().</span><span class="nx">args</span><span class="p">[</span><span class="mf">0</span><span class="p">][</span><span class="s1">&#39;url&#39;</span><span class="p">]).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">&#39;/movies/1&#39;</span><span class="p">);</span>
+<span class="linenos">16</span>        <span class="p">});</span>
+<span class="linenos">17</span>        <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;when successful server call&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="linenos">18</span>        <span class="nx">beforeEach</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="linenos">19</span>            <span class="kd">let</span> <span class="nx">htmlResponse</span> <span class="o">=</span> <span class="nx">readFixtures</span><span class="p">(</span><span class="s1">&#39;movie_info.html&#39;</span><span class="p">);</span>
+<span class="linenos">20</span>            <span class="nx">spyOn</span><span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="s1">&#39;ajax&#39;</span><span class="p">).</span><span class="nx">and</span><span class="p">.</span><span class="nx">callFake</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">ajaxArgs</span><span class="p">)</span> <span class="p">{</span>
+<span class="linenos">21</span>            <span class="nx">ajaxArgs</span><span class="p">.</span><span class="nx">success</span><span class="p">(</span><span class="nx">htmlResponse</span><span class="p">,</span> <span class="s1">&#39;200&#39;</span><span class="p">);</span>
+<span class="linenos">22</span>            <span class="p">});</span>
+<span class="linenos">23</span>            <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#movies a&#39;</span><span class="p">).</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">);</span>
+<span class="linenos">24</span>        <span class="p">});</span>
+<span class="linenos">25</span>        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;makes #movieInfo visible&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="linenos">26</span>            <span class="nx">expect</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#movieInfo&#39;</span><span class="p">)).</span><span class="nx">toBeVisible</span><span class="p">();</span>
+<span class="linenos">27</span>        <span class="p">});</span>
+<span class="linenos">28</span>        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;places movie title in #movieInfo&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="linenos">29</span>            <span class="nx">expect</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#movieInfo&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">()).</span><span class="nx">toContain</span><span class="p">(</span><span class="s1">&#39;Casablanca&#39;</span><span class="p">);</span>
+<span class="linenos">30</span>        <span class="p">});</span>
+<span class="linenos">31</span>        <span class="p">});</span>
+<span class="linenos">32</span>    <span class="p">});</span>
+<span class="linenos">33</span><span class="p">});</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;movies&quot;</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;row&quot;</span><span class="p">&gt;</span>
         <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-8&quot;</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/movies/1&quot;</span><span class="p">&gt;</span>Casablanca<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
@@ -1148,9 +1116,9 @@ this behavior.</p>
     <div class="container">
       <p>
         
-          By sm3<br/>
+          By sme777<br/>
         
-            &copy; Copyright 2021, UC Berkeley.<br/>
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
       </p>
     </div>
   </footer>

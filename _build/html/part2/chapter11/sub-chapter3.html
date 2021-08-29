@@ -22,12 +22,12 @@
       
 
     
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" />
     
   <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
@@ -984,57 +984,33 @@ of the phone number. If you add these methods to <code class="code docutils lite
 because they form a “clique” of methods that only deal with specific instance variables. The
 alternative is to use the <em>Extract Class</em> refactoring to put these methods into a new <code class="code docutils literal notranslate"><span class="pre">Address</span></code>
 class, as Figure 11.8 shows.</p>
-<div class="highlight-ruby notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Moviegoer</span>
-    <span class="kp">attr_accessor</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:street</span><span class="p">,</span> <span class="ss">:phone_number</span><span class="p">,</span> <span class="ss">:zipcode</span>
-    <span class="n">validates</span> <span class="ss">:phone_number</span><span class="p">,</span> <span class="c1"># ...</span>
-    <span class="n">validates</span> <span class="ss">:zipcode</span><span class="p">,</span> <span class="c1"># ...</span>
-    <span class="k">def</span> <span class="nf">format_phone_number</span> <span class="p">;</span> <span class="o">...</span> <span class="p">;</span> <span class="k">end</span>
-    <span class="k">def</span> <span class="nf">verify_zipcode</span> <span class="p">;</span> <span class="o">...</span> <span class="p">;</span> <span class="k">end</span>
-    <span class="k">def</span> <span class="nf">format_address</span><span class="p">(</span><span class="n">street</span><span class="p">,</span> <span class="n">phone_number</span><span class="p">,</span> <span class="n">zipcode</span><span class="p">)</span> <span class="c1"># data clump</span>
-        <span class="c1"># do formatting, calling format_phone_number and verify_zipcode</span>
-    <span class="k">end</span>
-<span class="k">end</span>
-<span class="c1"># After applying Extract Class:</span>
-<span class="k">class</span> <span class="nc">Moviegoer</span>
-    <span class="kp">attr_accessor</span> <span class="ss">:name</span>
-    <span class="n">has_one</span> <span class="ss">:address</span>
-<span class="k">end</span>
-<span class="k">class</span> <span class="nc">Address</span>
-    <span class="n">belongs_to</span> <span class="ss">:moviegoer</span>
-    <span class="kp">attr_accessor</span> <span class="ss">:phone_number</span><span class="p">,</span> <span class="ss">:zipcode</span>
-    <span class="n">validates</span> <span class="ss">:phone_number</span><span class="p">,</span> <span class="c1"># ...</span>
-    <span class="n">validates</span> <span class="ss">:zipcode</span><span class="p">,</span> <span class="c1"># ...</span>
-    <span class="k">def</span> <span class="nf">format_address</span> <span class="p">;</span> <span class="o">...</span> <span class="p">;</span> <span class="k">end</span> <span class="c1"># no arguments - operates on &#39;self&#39;</span>
-    <span class="kp">private</span>  <span class="c1"># no need to expose these now:</span>
-    <span class="k">def</span> <span class="nf">format_phone_number</span> <span class="p">;</span> <span class="o">...</span> <span class="p">;</span> <span class="k">end</span>
-    <span class="k">def</span> <span class="nf">verify_zipcode</span> <span class="p">;</span> <span class="o">...</span> <span class="p">;</span> <span class="k">end</span>
-<span class="k">end</span>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">class</span> <span class="nc">Moviegoer</span>
+<span class="linenos"> 2</span>    <span class="kp">attr_accessor</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:street</span><span class="p">,</span> <span class="ss">:phone_number</span><span class="p">,</span> <span class="ss">:zipcode</span>
+<span class="linenos"> 3</span>    <span class="n">validates</span> <span class="ss">:phone_number</span><span class="p">,</span> <span class="c1"># ...</span>
+<span class="linenos"> 4</span>    <span class="n">validates</span> <span class="ss">:zipcode</span><span class="p">,</span> <span class="c1"># ...</span>
+<span class="linenos"> 5</span>    <span class="k">def</span> <span class="nf">format_phone_number</span> <span class="p">;</span> <span class="o">...</span> <span class="p">;</span> <span class="k">end</span>
+<span class="linenos"> 6</span>    <span class="k">def</span> <span class="nf">verify_zipcode</span> <span class="p">;</span> <span class="o">...</span> <span class="p">;</span> <span class="k">end</span>
+<span class="linenos"> 7</span>    <span class="k">def</span> <span class="nf">format_address</span><span class="p">(</span><span class="n">street</span><span class="p">,</span> <span class="n">phone_number</span><span class="p">,</span> <span class="n">zipcode</span><span class="p">)</span> <span class="c1"># data clump</span>
+<span class="linenos"> 8</span>        <span class="c1"># do formatting, calling format_phone_number and verify_zipcode</span>
+<span class="linenos"> 9</span>    <span class="k">end</span>
+<span class="linenos">10</span><span class="k">end</span>
+<span class="linenos">11</span><span class="c1"># After applying Extract Class:</span>
+<span class="linenos">12</span><span class="k">class</span> <span class="nc">Moviegoer</span>
+<span class="linenos">13</span>    <span class="kp">attr_accessor</span> <span class="ss">:name</span>
+<span class="linenos">14</span>    <span class="n">has_one</span> <span class="ss">:address</span>
+<span class="linenos">15</span><span class="k">end</span>
+<span class="linenos">16</span><span class="k">class</span> <span class="nc">Address</span>
+<span class="linenos">17</span>    <span class="n">belongs_to</span> <span class="ss">:moviegoer</span>
+<span class="linenos">18</span>    <span class="kp">attr_accessor</span> <span class="ss">:phone_number</span><span class="p">,</span> <span class="ss">:zipcode</span>
+<span class="linenos">19</span>    <span class="n">validates</span> <span class="ss">:phone_number</span><span class="p">,</span> <span class="c1"># ...</span>
+<span class="linenos">20</span>    <span class="n">validates</span> <span class="ss">:zipcode</span><span class="p">,</span> <span class="c1"># ...</span>
+<span class="linenos">21</span>    <span class="k">def</span> <span class="nf">format_address</span> <span class="p">;</span> <span class="o">...</span> <span class="p">;</span> <span class="k">end</span> <span class="c1"># no arguments - operates on &#39;self&#39;</span>
+<span class="linenos">22</span>    <span class="kp">private</span>  <span class="c1"># no need to expose these now:</span>
+<span class="linenos">23</span>    <span class="k">def</span> <span class="nf">format_phone_number</span> <span class="p">;</span> <span class="o">...</span> <span class="p">;</span> <span class="k">end</span>
+<span class="linenos">24</span>    <span class="k">def</span> <span class="nf">verify_zipcode</span> <span class="p">;</span> <span class="o">...</span> <span class="p">;</span> <span class="k">end</span>
+<span class="linenos">25</span><span class="k">end</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p><strong>Self-Check 11.3.1.</strong> <em>Draw the UML class diagrams showing class architecture before and after
 the refactoring in Figure 11.8.</em></p>
 <blockquote>
@@ -1059,9 +1035,9 @@ the refactoring in Figure 11.8.</em></p>
     <div class="container">
       <p>
         
-          By sm3<br/>
+          By sme777<br/>
         
-            &copy; Copyright 2021, UC Berkeley.<br/>
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
       </p>
     </div>
   </footer>

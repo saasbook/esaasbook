@@ -1,0 +1,28 @@
+project:
+  name: 'Esaasbook'
+  owner: 'CS169L-22'
+  teamId: 'Interactive Textbook for CS169/ESaaS'
+  identities:
+    pivotal: 'https://www.pivotaltracker.com/n/projects/2553320/'
+  notifications: {}
+  members:
+    member1:
+      name: 'Hellen'
+      surname: 'Wang'
+      githubUsername: 'whellen0112'
+    member2:
+      name: 'Sibo'
+      surname: 'Ma'
+      githubUsername: 'ChuanHuoGe'
+    member3:
+      name: 'Christopher'
+      surname: 'Thomas'
+      githubUsername: ' '
+    member4:
+      name: 'Ethan'
+      surname: 'Gnibus'
+      githubUsername: 'ethangnibus'
+    member5:
+      name: 'Joshua'
+      surname: 'Delrosario'
+      githubUsername: 'JDDelrosario'

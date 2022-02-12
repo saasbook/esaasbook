@@ -7,7 +7,6 @@ jobs:
     env:
       CCTR: ./cc-test-reporter
       BUNDLE_WITHOUT: production
-      BUNDLE_BUILD__NOKOGIRI: --use-system-libraries
       TZ: America/Los_Angeles
       
     steps:
@@ -24,7 +23,12 @@ jobs:
       with:
         ruby-version: 2.6.6
         bundler-cache: true
-          
+    
+    - name: Run bundle install
+      run: |
+          gem install bundler
+          bundle install --jobs 4 --retry 2
+    
     - name: run RSpec tests and capture coverage
       run: |
         bundle exec rspec

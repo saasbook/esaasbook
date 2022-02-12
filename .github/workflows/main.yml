@@ -19,6 +19,12 @@ jobs:
         chmod +x $CCTR
         $CCTR before-build
         
+    - name: Install Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.6.6
+        bundler-cache: true
+        
     - name: Run bundle install
       run: |
         gem install bundler

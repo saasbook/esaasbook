@@ -18,6 +18,12 @@ jobs:
         curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > $CCTR
         chmod +x $CCTR
         $CCTR before-build
+        
+    - name: Run bundle install
+      run: |
+        gem install bundler
+        bundle install --jobs 4 --retry 2
+          
     - name: run RSpec tests and capture coverage
       run: |
         bundle exec rspec

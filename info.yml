@@ -10,7 +10,19 @@ project:
       name: 'Hellen'
       surname: 'Wang'
       githubUsername: 'whellen0112'
-  member1:
+    member2:
       name: 'Sibo'
       surname: 'Ma'
       githubUsername: 'ChuanHuoGe'
+    member3:
+      name: 'Christopher'
+      surname: 'Thomas'
+      githubUsername: ' '
+    member4:
+      name: 'Ethan'
+      surname: 'Gnibus'
+      githubUsername: 'ethangnibus'
+    member5:
+      name: 'Joshua'
+      surname: 'Delrosario'
+      githubUsername: 'JDDelrosario'

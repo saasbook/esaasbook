@@ -50,5 +50,5 @@ jobs:
       run: |
         export GIT_BRANCH="${GITHUB_REF/refs\/heads\//}"
         $CCTR sum-coverage coverage/codeclimate.*.json
-        $CCTR upload-coverage
+        $CCTR upload-coverage -r 7a9538a8a8f2fa88c9fe5416165132f9c62b066b37459128886f322a3fed501d
         $CCTR after-build

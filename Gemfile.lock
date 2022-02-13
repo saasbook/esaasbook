@@ -307,7 +307,7 @@ DEPENDENCIES
   rails (~> 6.1.4, >= 6.1.4.6)
   rspec-rails
   sass-rails (>= 6)
-  simplecov
+  simplecov (~> 0.17)
   sqlite3 (~> 1.4)
   tzinfo-data
   web-console (>= 4.1.0)

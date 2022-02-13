@@ -43,7 +43,7 @@ end
 group :test do
   gem 'rspec-rails'
   gem 'guard-rspec'
-  gem 'simplecov', :require => false
+  gem 'simplecov', "~> 0.17" , :require => false
   gem 'cucumber-rails', :require => false
   gem 'cucumber-rails-training-wheels' # basic imperative step defs like "Then I should see..."
   gem 'database_cleaner' # required by Cucumber

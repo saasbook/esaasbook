@@ -39,7 +39,7 @@ jobs:
     - name: run RSpec tests and capture coverage
       run: |
         bundle exec rspec
-        # $CCTR format-coverage --input-type simplecov --output coverage/codeclimate.$SUITE.json "/home/runner/work/esaasbook/esaasbook/coverage/.resultset.json" 
+        $CCTR format-coverage --input-type simplecov --output coverage/codeclimate.$SUITE.json "/home/runner/work/esaasbook/esaasbook/coverage/.resultset.json" 
     
     - uses: actions/upload-artifact@v2
       with:

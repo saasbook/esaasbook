@@ -31,21 +31,22 @@ jobs:
         chmod +x $CCTR
         $CCTR before-build
         
-    - name: run RSpec tests and capture coverage
-      run: |
-        bundle exec rspec
-        $CCTR format-coverage --input-type simplecov --output coverage/codeclimate.$SUITE.json "/home/runner/work/esaasbook/esaasbook/coverage/.resultset.json" 
-        
-    - uses: actions/upload-artifact@v2
-      with:
-        name: my-artifact
-        path: "/home/runner/work/esaasbook/esaasbook/coverage" 
-        
+
         
     - name: run Cucumber tests and capture coverage
       run: |
         bundle exec cucumber --retry 2
         $CCTR format-coverage --input-type simplecov --output "coverage/codeclimate.$SUITE.json" "/home/runner/work/esaasbook/esaasbook/coverage/.resultset.json" 
+        
+    - name: run RSpec tests and capture coverage
+      run: |
+        bundle exec rspec
+        # $CCTR format-coverage --input-type simplecov --output coverage/codeclimate.$SUITE.json "/home/runner/work/esaasbook/esaasbook/coverage/.resultset.json" 
+    
+    - uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact
+        path: "/home/runner/work/esaasbook/esaasbook/coverage" 
   
     - name: Publish code coverage
       run: |

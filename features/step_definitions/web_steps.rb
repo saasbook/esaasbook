@@ -46,6 +46,9 @@ Given(/^(?:|I )am on (.+)$/) do |page_name|
   visit path_to(page_name)
 end
 
+Given(/I am on chapter [0-9]+ section [0-9]+/) do |chapter, section|
+  visit path_to("chapter#{chapter}section#{section}")
+
 When(/^(?:|I )go to (.+)$/) do |page_name|
   visit path_to(page_name)
 end

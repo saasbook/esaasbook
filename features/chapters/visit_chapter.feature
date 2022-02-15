@@ -6,7 +6,7 @@ Feature: Customer can visit each chapter/section page
 
 Scenario Outline: Visit chapter <chapter> section <section>
 
-	Given I am on chapter <chapter> secion <section>
+	Given I am on chapter <chapter> section <section>
 	Then I should see <text>
 
 	Examples:

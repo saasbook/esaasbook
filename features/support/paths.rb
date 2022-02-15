@@ -17,6 +17,7 @@ module NavigationHelpers
 
     when /^the home\s?page$/
       '/'
+      
     when /chapter([0-9]+)section([0-9]+)/
       if $2 == 0
         "/chapter/#{$1}"

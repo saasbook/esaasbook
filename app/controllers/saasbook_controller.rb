@@ -2,9 +2,11 @@
 
 # Controller for the Saasbook website. Temporary maybe?
 class SaasbookController < ApplicationController
-  def index; end
+  def index
+    # Do Nothing
+  end
 
-  def show_secton
+  def show_section
     @chapter_id = params[:chapter_id]
     @section_id = params[:section_id]
 

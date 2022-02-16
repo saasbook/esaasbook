@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>1.2. Software Development Processes: Plan and Document &#8212; saasbook  documentation</title>
+    <title>12.3. Responsiveness, Service Level Objectives, and Apdex &#8212; saasbook  documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -32,10 +32,11 @@
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="1.3. Software Development Processes: The Agile Manifesto" href="3" />
-    <link rel="prev" title="1.1. Introduction" href="1" />
+    <link rel="next" title="12.4. Releases and Feature Flags" href="4" />
+    <link rel="prev" title="12.2. Three-Tier Architecture" href="2" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -65,79 +66,79 @@
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../preface/index.html">
+  <a class="reference internal" href="../../../preface">
    Preface
   </a>
  </li>
 </ul>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="..">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/1">
    1. Introduction to Software as a Service, Agile Development, and Cloud Computing
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="current">
+  <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="1">
+    <a class="reference internal" href="../../../chapter/1/section/1">
      1.1. Introduction
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/2">
      1.2. Software Development Processes: Plan and Document
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="3">
+    <a class="reference internal" href="../../../chapter/1/section/3">
      1.3. Software Development Processes: The Agile Manifesto
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="4">
+    <a class="reference internal" href="../../../chapter/1/section/4">
      1.4. Software Quality Assurance: Testing
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="5">
+    <a class="reference internal" href="../../../chapter/1/section/5">
      1.5. Productivity: Conciseness, Synthesis, Reuse, and Tools
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="6">
+    <a class="reference internal" href="../../../chapter/1/section/6">
      1.6. SaaS and Service Oriented Architecture
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="7">
+    <a class="reference internal" href="../../../chapter/1/section/7">
      1.7. Deploying SaaS: Cloud Computing
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="8">
+    <a class="reference internal" href="../../../chapter/1/section/8">
      1.8. Deploying SaaS: Browsers and Mobile
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="9">
+    <a class="reference internal" href="../../../chapter/1/section/9">
      1.9. Beautiful vs. Legacy Code
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="10">
+    <a class="reference internal" href="../../../chapter/1/section/10">
      1.10. Guided Tour and How To Use This Book
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="11">
+    <a class="reference internal" href="../../../chapter/1/section/11">
      1.11. Fallacies and Pitfalls
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="12">
+    <a class="reference internal" href="../../../chapter/1/section/12">
      1.12. Concluding Remarks: Software Engineering Is More Than Programming
     </a>
    </li>
@@ -768,73 +769,73 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../chapter/12">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="..">
    12. Dev/Ops
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
   <label for="toctree-checkbox-12">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/12/section/1">
+    <a class="reference internal" href="1">
      12.1. From Development to Deployment
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/12/section/2">
+    <a class="reference internal" href="2">
      12.2. Three-Tier Architecture
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/12/section/3">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      12.3. Responsiveness, Service Level Objectives, and Apdex
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/12/section/4">
+    <a class="reference internal" href="4">
      12.4. Releases and Feature Flags
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/12/section/5">
+    <a class="reference internal" href="5">
      12.5. Monitoring and Finding Bottlenecks
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/12/section/6">
+    <a class="reference internal" href="6">
      12.6. Improving Rendering and Database Performance With Caching
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/12/section/7">
+    <a class="reference internal" href="7">
      12.7. Avoiding Abusive Database Queries
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/12/section/8">
+    <a class="reference internal" href="8">
      12.8. CHIPS: Exploiting Caching and Indices
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/12/section/9">
+    <a class="reference internal" href="9">
      12.9. Security: Defending Customer Data in Your App
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/12/section/10">
+    <a class="reference internal" href="10">
      12.10. The Plan-And-Document Perspective on Operations
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/12/section/11">
+    <a class="reference internal" href="11">
      12.11. Fallacies and Pitfalls
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/12/section/12">
+    <a class="reference internal" href="12">
      12.12. Concluding Remarks: Beyond PaaS Basics
     </a>
    </li>
@@ -913,7 +914,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/intro/chapter1/sub-chapter2.rst.txt"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/part2/chapter12/sub-chapter3.rst.txt"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.rst</button></a>
         <!-- Download PDF via print -->
@@ -946,133 +947,121 @@
         
               <div>
                 
-  <div class="section" id="software-development-processes-plan-and-document">
-<h1><span class="section-number">1.2. </span>Software Development Processes: Plan and Document<a class="headerlink" href="#software-development-processes-plan-and-document" title="Permalink to this headline">¶</a></h1>
-<p><em>If builders built buildings the way programmers wrote programs, then the first
-woodpecker that came along would destroy civilization.</em></p>
+  <div class="section" id="responsiveness-service-level-objectives-and-apdex">
+<h1><span class="section-number">12.3. </span>Responsiveness, Service Level Objectives, and Apdex<a class="headerlink" href="#responsiveness-service-level-objectives-and-apdex" title="Permalink to this headline">¶</a></h1>
 <blockquote>
-<div><p>—Weinberg’s Second Law, 1978, attributed to Gerald Weinberg, University of Nebraska computer scientist</p>
+<div><p><em>Speed is a feature.</em></p>
+<p class="attribution">—Adam De Boor, Gmail software engineer, Google</p>
 </div></blockquote>
-<p>The general unpredictability of software development in the late 1960s, along with
-the software disasters similar to ACA, led to the study of how high-quality software
-could be developed on a predictable schedule and budget. Drawing the analogy to other
-engineering fields, the term software engineering was coined (Naur and Randell 1969).
-The goal was to discover methods to build software that were as predictable in quality,
-cost, and time as those used to build bridges in civil engineering.</p>
-<p>One thrust of software engineering was to bring an engineering discipline to what was
-often unplanned software development. Before starting to code, come up with a plan for
-the project, including extensive, detailed documentation of all phases of that plan.
-Progress is then measured against the plan. Changes to the project must be reflected in
-the documentation and possibly to the plan.</p>
-<p>The goal of all these “Plan-and-Document” software development processes is to improve
-predictability via extensive documentation, which must be changed whenever the goals change.
-Here is how textbook authors put it (Lethbridge and Laganiere 2002; Braude 2001):</p>
-<p><em>Documentation should be written at all stages of development, and includes requirements,
-designs, user manuals, instructions for testers and project plans.</em></p>
 <blockquote>
-<div><p>—Timothy Lethbridge and Robert Laganiere, 2002</p>
+<div><p><em>Performance is a feature.</em></p>
+<p class="attribution">—Jeff Atwood, co-founder of StackOverflow</p>
 </div></blockquote>
-<p><em>Documentation is the lifeblood of software
-engineering.</em></p>
 <blockquote>
-<div><p>—Eric Braude, 2001</p>
+<div><p><em>The best performance improvement is the transition from the nonworking
+state to the working state.</em></p>
+<p class="attribution">—John Ousterhout, designer of <em>magic</em> and Tcl/Tk</p>
 </div></blockquote>
-<p>This process is even embraced with an official standard of documentation: IEEE/ANSI stan- dard 830/1993.</p>
-<p>Governments like that of the US have elaborate regulations to prevent corruption when acquiring new equipment,
-which lead to lengthy specifications and contracts. Since the goal of software engineering was to make software
-development as predictable as building bridges, including elaborate specifications, government contracts were a
-natural match to Plan-and- Document software development. Thus, like many countries, US acquisition regulations
-left the ACA developers little choice but to follow a Plan-and-Document lifecycle.</p>
-<p>Of course, like other engineering fields, the government has escape clauses in the contracts that let it still
-acquire the product even if it is late. Ironically, the contractor makes more money the longer it takes to develop
-the software. Thus, the art is in negotiating the contract and the penalty clauses. As one commentator on ACA noted
-(Howard 2013), “The firms that typically get contracts are the firms that are good at getting contracts, not
-typically good at executing on them.” Another noted that the Plan-and-Document approach is not well suited to modern
-practices, especially when government contractors focus on maximizing profits (Chung 2013).</p>
-<p>An early version of this Plan-and-Document software development process was devel- oped in 1970 (Royce 1970).
-It follows this sequence of phases:</p>
-<ol class="arabic simple">
-<li><p>Requirements analysis and specification</p></li>
-<li><p>Architectural design</p></li>
-<li><p>Implementation and Integration</p></li>
-<li><p>Verification</p></li>
-<li><p>Operation and Maintenance</p></li>
-</ol>
-<p>Given that the earlier you find an error the cheaper it is to fix, the philosophy of this process is to complete a
-phase before going on to the next one, thereby removing as many errors as early as possible. Getting the early phases
-right could also prevent unnecessary work downstream. As this process could take years, the extensive documentation
-helps to ensure that important information is not lost if a person leaves the project and that new people can get up
-to speed quickly when they join the project.</p>
-<p>Because it flows from the top down to completion, this process is called the <strong>Waterfall</strong> software development process or
-Waterfall software development <strong>lifecycle</strong>. Understandably, given the complexity of each stage in the Waterfall lifecycle,
-product releases are major events towardwhichengineersworkedfeverishlyandwhichareaccompaniedbymuchfanfare. In the Waterfall
-lifecycle, the long life of software is acknowledged by a maintenance phase that repairs errors as they are discovered.
-New versions of software developed in the Waterfall model go through the same several phases, and take typically between
-6 and 18 months.</p>
-<p>The Waterfall model can work well with well-specified tasks like NASA space flights, but it runs into trouble when customers
-change their minds about what they want. A Turing Award winner captures this observation:</p>
-<p><em>Plan to throw one [implementation] away; you will,
-anyhow.</em></p>
+<p>As we learned in Section 1.7, <strong>availability</strong> refers to the fraction of time your site is
+available and working correctly. For example, Google Apps guarantees its enterprise
+customers a minimum of “three nines” or 99.9% availability, though Nygard wryly notes
+(Nygard 2007) that less-disciplined sites provide closer to “two eights” (88.0%).</p>
+<p>Why might your app be unavailable? For one thing, it may have crashed because of an unexpected
+error. While most PaaS services automatically restart a crashed app, restarting can induce
+delays and harm availability. One way to improve the reliability of software is to make it more
+robust. <strong>Defensive programming</strong> is a philosophy that tries to anticipate potential software flaws
+and write code to handle them. Here are three examples:</p>
+<ul class="simple">
+<li><p><em>Check input values.</em> A common cause of problems is for the user to input values that the developer doesn’t expect. Checking that the input is in a reasonable range for individual values, that it is not too big for a series of data, and that the collection of inputs are logically consistent can reduce the chances of outages.</p></li>
+<li><p><em>Check input data type.</em> Another mistake users can make is to enter an unexpected type of data in response to a query. Making sure the user enters a valid type of data increases the chances of success for the app.</p></li>
+<li><p><em>Catch exceptions.</em> Modern programming languages offer the ability to execute code when exceptions occur, such as arithmetic overflow. Offering code that can catch any exception increases the chances of the app continuing to run well even when unexpected events occur.</p></li>
+</ul>
+<p>Another availability challenge is a bug that leads to outages but only appears after a long
+time or under heavy load. A classic example is a resource leak: a long-running process eventually
+runs out of a resource, such as memory, because it cannot reclaim 100% of the unused resource
+due to either an application bug or the inherent design of a language or framework. <strong>Software
+rejuvenation</strong> is a long-established way to alleviate a resource leak: the Apache web server
+runs a number of identical worker processes, and when a given worker process has “aged” enough,
+that process stops accepting requests and dies, to be replaced by a fresh worker. Since only
+one worker (1/n of total capacity) is “rejuvenated” at a time, this process is sometimes called
+<em>rolling reboot</em>, and most PaaS platforms employ some variant of it.</p>
+<p>Overprovisioning is often used in anticipation of crash recovery and rolling reboot. The idea
+is to provide more servers in a tier at any given time than you think you’ll need. For example,
+by deploying <span class="math notranslate nohighlight">\(n + 1\)</span> servers in a tier, temporarily losing one server degrades performance by
+only <span class="math notranslate nohighlight">\(1/n\)</span>. Good values for <span class="math notranslate nohighlight">\(n\)</span> can sometimes be determined empirically by monitoring, as the rest
+of this chapter describes. However, at large scale, systematic overpro- visioning is both
+economically unattractive and may be insufficient by itself. For example, in an app whose
+database queries are poorly constructed, the database will quickly become the bottleneck, and
+as Section 12.2 reminds us, databases are generally <em>not</em> amenable to shared-nothing horizontal
+scaling. In such a situation, overprovisioning the other tiers won’t help. The lesson is that
+in the end, there’s no substitute for a design that is free of gratuitous bottlenecks to
+scalability. Later in this chapter we identify some common bottlenecks and how to avoid them.</p>
+<p>Of course, it’s not much good if your app is technically “available” but so sluggish that
+users don’t want to use it. <strong>Responsiveness</strong> is the perceived delay between when a user takes
+an action such as clicking on a link and when the user perceives a response, such as new
+content appearing on the page. Technically, responsiveness has two components: <strong>latency</strong>, the
+initial delay to start receiving new content, and <strong>throughput</strong>, the time it takes for all the
+content to be delivered. As recently as the mid-1990s, many home users connected to the Internet
+using telephone modems that took 100 ms (milliseconds) to deliver the first packet of information
+and show part of the Web page. Telephone modems could sustain at most 56 Kbps (56 × 103 bits per
+second), so loading a complete Web page or image 50 KBytes in size or 400 Kbits could take more
+than eight seconds. Since today’s home customers increasingly use broadband connections whose
+throughput is 1–20 Mbps, responsiveness for Web pages is dominated by latency rather than
+throughput.</p>
+<p>Since responsiveness has such a large effect on user behavior, SaaS operators carefully monitor
+the responsiveness of their sites. Of course, in practice, not every user interaction with the
+site takes the same amount of time, so evaluating performance requires appropriately
+characterizing a distribution of response times. Consider a site on which 8 out of 10 requests
+complete in 100 ms, 1 out of 10 completes in 250 ms, and the remaining 1 out of 10 completes
+in 850 ms. If the user satisfaction threshold <span class="math notranslate nohighlight">\(T\)</span> for this site is 200 ms, it is true that the
+<em>average</em> response time of <span class="math notranslate nohighlight">\((8(100) + 1(250) + 1(850))/10 = 190\)</span> ms is below the satisfaction
+threshold. But on the other hand, 20% of requests (and therefore, up to 20% of users) are
+receiving unsatisfactory service. Two definitions are used to measure latency in a way that
+makes it impossible to ignore the bad experience of even a small number of users:</p>
+<ul class="simple">
+<li><p>A <strong>service level objective</strong> (SLO) usually takes the form of a quantitative statement about the quantiles of the latency distribution over a time window of a given width. For example, “95% of requests within any 5-minute window should have a latency below 100 ms.” In statistical terms, the 95th quantile of the latency distribution must not exceed 100 ms.</p></li>
+<li><p>The <strong>Apdex</strong> score (Application Performance Index) is an open standard that computes a simplified SLO as a number between 0 and 1 inclusive representing the fraction of satisfied users. Given a user satisfaction threshold latency <span class="math notranslate nohighlight">\(T\)</span> selected by the application operator, a request is <em>satisfactory</em> if it completes within time <span class="math notranslate nohighlight">\(T\)</span>, <em>tolerable</em> if it takes longer than <span class="math notranslate nohighlight">\(T\)</span> but less than <span class="math notranslate nohighlight">\(4T\)</span>, and <em>unsatisfactory</em> otherwise. The Apdex score is then (Satisfactory +0.5(Tolerable)) / (Number of samples). In the example above, the Apdex score would be <span class="math notranslate nohighlight">\((8 + 0.5(1))/10 = 0.85\)</span>.</p></li>
+</ul>
+<p>Of course, the total response time perceived by the users includes many factors beyond your
+SaaS app’s control. It includes DNS lookup, time to set up the TCP connection and send the
+HTTP request to the server, and Internet-induced latency in receiving a response containing
+enough content that the browser can start to draw something (so-called “time to glass,” a
+term that will soon seem as quaint as “counterclockwise”). Especially when using curated PaaS,
+SaaS developer/operators have the most control over the code paths in their own apps: routing
+and dispatch, controller actions, model methods, and database access. We will therefore focus
+on measuring and improving responsiveness in those components.</p>
+<p>For small sites, a perfectly reasonable way to mitigate latency is to <em>overprovision</em> (provide
+excess resources relative to steady-state) at one or more tiers, as Section 12.2 suggested for
+the presentation and logic tiers. A few years ago, overprovisioning meant purchasing additional
+hardware that might sit idle, but pay-as-you-go cloud computing lets you “rent” the extra
+servers for pennies per hour only when needed. Indeed, companies like RightScale offer just
+this service on top of Amazon EC2.</p>
+<p>As we will see, a key insight that helps us is that <em>the same problems that push us out of the
+“PaaS-friendly” tier are the ones that will hinder scalability of our post-PaaS solutions,</em>
+so understanding what kinds of problems they are and how to solve them will serve you well
+in either situation.</p>
+<p>What are the thresholds for user satisfaction on responsiveness? A classic 1968 study from the
+human-computer interaction literature (Miller 1968) found three interesting thresholds: if a
+computer system responds to a user action within 100 ms, it’s perceived as instantaneous;
+within 1 second, the user will still perceive a cause-and-effect connection between their
+action and the response, but will perceive the system as sluggish; and after about 8 seconds,
+the user’s attention drifts away from the task while waiting for a response. Surprisingly,
+more than thirty years later, a scholarly study in 2000 (Bhatti et al. 2000) and another by
+independent firm Zona Research in 2001 affirmed the “eight second rule.” While many believe
+that a faster Internet and faster computers have raised users’ expectations, the eight-second
+rule is still used as a general guideline. New Relic, whose monitoring service we introduce
+later, reported in March 2012 that the average page load for all pages they monitor worldwide
+is 5.3 seconds and the average Apdex score is 0.86.</p>
+<p><strong>Self-Check 12.3.1.</strong> <em>For a SaaS app to scale to large numbers of users, it must maintain
+its ____ and ____ as the number of users increases, without increasing the ____.</em></p>
 <blockquote>
-<div><p>—Fred Brooks, Jr.</p>
+<div><p>Availability; responsiveness; cost per user</p>
 </div></blockquote>
-<p>That is, it’s easier for customers to understand what they want once they see a prototype and for engineers to understand how
-to build it better once they’ve done it the first time.</p>
-<p>This observation led to a software development lifecycle developed in the 1980s that combines prototypes with the Waterfall
-model (Boehm 1986). The idea is to iterate through a sequence of four phases, with each iteration resulting in a prototype that
-is a refinement of the previous version. Figure 1.2 illustrates this model of development across the four phases, which gives
-this lifecycle its name: the <strong>Spiral model</strong>. The phases are:</p>
-<ol class="arabic simple">
-<li><p>Determine objectives and constraints of this iteration</p></li>
-<li><p>Evaluate alternatives and identify and resolve risks</p></li>
-<li><p>Develop and verify the prototype for this iteration</p></li>
-<li><p>Plan the next iteration</p></li>
-</ol>
-<p>Rather than document all the requirements at the beginning, as in the Waterfall model, the requirement documents are developed
-across the iteration as they are needed and evolve with the project. Iterations involve the customer before the product is completed,
-which reduces chances of misunderstandings. However, as originally envisioned, these iterations were 6 to 24 months long, so there is
-plenty of time for customers to change their minds during an iteration! Thus, Spiral still relies on planning and extensive
-documentation, but the plan is expected to evolve on each iteration.</p>
-<p>Given the importance of software development, many variations of Plan-and-Document methodologies were proposed beyond these two.
-A recent one is called the <strong>Rational Unified Process (RUP)</strong> (Kruchten 2003), developed during the 1990s, which combines features of both
-Waterfall and Spiral lifecycles as well standards for diagrams and documentation. We’ll use RUP as a representative of the latest thinking
-in Plan-and-Document lifecycles. Unlike Waterfall and Spiral, it is more closely allied to business issues than to technical issues.</p>
-<p>Like Waterfall and Spiral, RUP has phases:</p>
-<ol class="arabic simple">
-<li><p>Inception: makes the business case for the software and scopes the project to set the schedule and budget, which is used to judge progress and justify expenditures, and initial assessment of risks to schedule and budget.</p></li>
-<li><p>Elaboration: works with stakeholders to identify use cases, designs a software archi- tecture, sets the development plan, and builds an initial prototype.</p></li>
-<li><p>Construction: codes and tests the product, resulting in the first external release.</p></li>
-<li><p>Transition:moves the product from development to production in the real environment, including customer acceptance testing and user training.</p></li>
-</ol>
-<p>Unlike Waterfall, each phase involves iteration. For example, a project might have one inception phase iteration, two elaboration phase
-iterations, four construction phase iterations, and two transition phase iterations. Like Spiral, a project could also iterate across
-all four phases repeatedly.</p>
-<p>In addition to the dynamically changing phases of the project, RUP identifies six “engineering disciplines” (also known as workflows)
-that people working on the project should collectively cover:</p>
-<ol class="arabic simple">
-<li><p>Business Modeling</p></li>
-<li><p>Requirements</p></li>
-<li><p>Analysis and Design</p></li>
-<li><p>Implementation</p></li>
-<li><p>Test</p></li>
-<li><p>Deployment</p></li>
-</ol>
-<p>These disciplines are more static than the phases, in that they nominally exist over the whole lifetime of the project. However, some disciplines
-get used more in earlier phases (like business modeling), some periodically throughout the process (like test), and some more towards the end
-(deployment). Figure 1.3 shows the relationship of the phases and the disciplines, with the area indicating the amount of effort in each
-discipline over time.</p>
-<p>An unfortunate downside to teaching a Plan-and-Document approach is that students may find software development tedious (Nawrocki et al. 2002; Estler et al. 2012).
-Of course, this is hardly a strong enough reason not to teach it; the good news is that there are alternatives that work just as well for many projects that are a
-better fit to the classroom, as we describe in the next section.</p>
-<p><strong>Self-Check 1.2.1.</strong> <em>What are a major similarity and a major difference between processes like Spiral and RUP versus
-Waterfall?</em></p>
+<p><strong>Self-Check 12.3.2.</strong> <em>True or False: From the perspective of responsiveness, faster
+is always better.</em></p>
 <blockquote>
-<div><p>All rely on planning and documentation, but Spiral and RUP use iteration and prototypes to improve them over time versus a single long path to the product.</p>
-</div></blockquote>
-<p><strong>Self-Check 1.2.2.</strong> <em>What are the differences between the phases of these Plan-and-Document
-processes?</em></p>
-<blockquote>
-<div><p>Waterfall phases separate planning (requirements and architectural design) from implemen- tation. Testing the product before release is next, followed by a separate operations phase. The Spiral phases are aimed at an iteration: set the goals for an iteration; explore alternatives; develop and verify the prototype for this iteration; and plan the next iteration. RUP phases are tied closer to business objectives: inception makes business case and sets schedule and budget; elaboration works with customers to build an initial prototype; construction builds and test the first version; and transition deploys the product.</p>
+<div><p>False. Faster than 100 ms is not perceptible to people, and people abandon sites only when
+responsiveness is slows to 8 seconds or worse.</p>
 </div></blockquote>
 </div>
 
@@ -1082,8 +1071,8 @@ processes?</em></p>
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="1" title="previous page"><span class="section-number">1.1. </span>Introduction</a>
-    <a class='right-next' id="next-link" href="3" title="next page"><span class="section-number">1.3. </span>Software Development Processes: The Agile Manifesto</a>
+    <a class='left-prev' id="prev-link" href="2" title="previous page"><span class="section-number">12.2. </span>Three-Tier Architecture</a>
+    <a class='right-next' id="next-link" href="4" title="next page"><span class="section-number">12.4. </span>Releases and Feature Flags</a>
 
         </div>
         

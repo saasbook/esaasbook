@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>1.2. Software Development Processes: Plan and Document &#8212; saasbook  documentation</title>
+    <title>5.1. DRYing Out MVC: Partials, Validations and Filters &#8212; saasbook  documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -34,8 +34,8 @@
     <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="1.3. Software Development Processes: The Agile Manifesto" href="3" />
-    <link rel="prev" title="1.1. Introduction" href="1" />
+    <link rel="next" title="5.2. Single Sign-On and Third-Party Authentication" href="2" />
+    <link rel="prev" title="5. SaaS Framework: Advanced Programming Abstractions for SaaS" href=".." />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -65,79 +65,79 @@
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../preface/index.html">
+  <a class="reference internal" href="../../../preface">
    Preface
   </a>
  </li>
 </ul>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="..">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/1">
    1. Introduction to Software as a Service, Agile Development, and Cloud Computing
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="current">
+  <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="1">
+    <a class="reference internal" href="../../../chapter/1/section/1">
      1.1. Introduction
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/2">
      1.2. Software Development Processes: Plan and Document
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="3">
+    <a class="reference internal" href="../../../chapter/1/section/3">
      1.3. Software Development Processes: The Agile Manifesto
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="4">
+    <a class="reference internal" href="../../../chapter/1/section/4">
      1.4. Software Quality Assurance: Testing
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="5">
+    <a class="reference internal" href="../../../chapter/1/section/5">
      1.5. Productivity: Conciseness, Synthesis, Reuse, and Tools
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="6">
+    <a class="reference internal" href="../../../chapter/1/section/6">
      1.6. SaaS and Service Oriented Architecture
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="7">
+    <a class="reference internal" href="../../../chapter/1/section/7">
      1.7. Deploying SaaS: Cloud Computing
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="8">
+    <a class="reference internal" href="../../../chapter/1/section/8">
      1.8. Deploying SaaS: Browsers and Mobile
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="9">
+    <a class="reference internal" href="../../../chapter/1/section/9">
      1.9. Beautiful vs. Legacy Code
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="10">
+    <a class="reference internal" href="../../../chapter/1/section/10">
      1.10. Guided Tour and How To Use This Book
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="11">
+    <a class="reference internal" href="../../../chapter/1/section/11">
      1.11. Fallacies and Pitfalls
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="12">
+    <a class="reference internal" href="../../../chapter/1/section/12">
      1.12. Concluding Remarks: Software Engineering Is More Than Programming
     </a>
    </li>
@@ -319,63 +319,63 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../chapter/5">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="..">
    5. SaaS Framework: Advanced Programming Abstractions for SaaS
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
   <label for="toctree-checkbox-5">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/5/section/1">
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      5.1. DRYing Out MVC: Partials, Validations and Filters
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/5/section/2">
+    <a class="reference internal" href="2">
      5.2. Single Sign-On and Third-Party Authentication
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/5/section/3">
+    <a class="reference internal" href="3">
      5.3. CHIPS: Rails Intro
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/5/section/4">
+    <a class="reference internal" href="4">
      5.4. Associations and Foreign Keys
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/5/section/5">
+    <a class="reference internal" href="5">
      5.5. Through-Associations
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/5/section/6">
+    <a class="reference internal" href="6">
      5.6. RESTful Routes for Associations
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/5/section/7">
+    <a class="reference internal" href="7">
      5.7. CHIPS: Associations
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/5/section/8">
+    <a class="reference internal" href="8">
      5.8. Other Types of Code
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/5/section/9">
+    <a class="reference internal" href="9">
      5.9. Fallacies and Pitfalls
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/5/section/10">
+    <a class="reference internal" href="10">
      5.10. Concluding Remarks: Languages, Productivity, and Beauty
     </a>
    </li>
@@ -913,7 +913,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/intro/chapter1/sub-chapter2.rst.txt"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/part1/chapter5/sub-chapter1.rst.txt"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.rst</button></a>
         <!-- Download PDF via print -->
@@ -946,133 +946,145 @@
         
               <div>
                 
-  <div class="section" id="software-development-processes-plan-and-document">
-<h1><span class="section-number">1.2. </span>Software Development Processes: Plan and Document<a class="headerlink" href="#software-development-processes-plan-and-document" title="Permalink to this headline">¶</a></h1>
-<p><em>If builders built buildings the way programmers wrote programs, then the first
-woodpecker that came along would destroy civilization.</em></p>
+  <div class="section" id="drying-out-mvc-partials-validations-and-filters">
+<h1><span class="section-number">5.1. </span>DRYing Out MVC: Partials, Validations and Filters<a class="headerlink" href="#drying-out-mvc-partials-validations-and-filters" title="Permalink to this headline">¶</a></h1>
+<p>One of the core tenets of Rails is DRY—Don’t Repeat Yourself. In this section we introduce three mechanisms Rails
+provides to help you DRY out your code: model validations, view partials, and controller filters.</p>
+<p>We start with views. A <em>partial</em> is Rails’ name for a reusable chunk of a view. When similar content must appear in
+different views, putting that content in a partial and “including” it in the separate files helps DRY out repetition.
+Our simple app already presents one opportunity: the Index (list all movies) view includes a chunk of HTML that is
+repeated for each movie in the list. We can factor out that code into a partial, and include it by reference, as
+Figure 5.1 shows.</p>
+<div class="highlight-erb notranslate"><div class="highlight"><pre><span></span><span class="x">&lt;!--  ...other code from index.html.erb here... --&gt;</span>
+<span class="x">&lt;div class=&quot;row bg-dark text-white&quot;&gt;</span>
+<span class="x">    &lt;div class=&quot;col-6 text-center&quot;&gt;Title and More Info&lt;/div&gt;</span>
+<span class="x">    &lt;div class=&quot;col-2 text-center&quot;&gt;Rating&lt;/div&gt;</span>
+<span class="x">    &lt;div class=&quot;col-4 text-center&quot;&gt;Release Date&lt;/div&gt;</span>
+<span class="x">&lt;/div&gt;</span>
+<span class="cp">&lt;%=</span> <span class="n">render</span> <span class="ss">partial</span><span class="p">:</span> <span class="s1">&#39;movie&#39;</span><span class="p">,</span> <span class="ss">collection</span><span class="p">:</span> <span class="vi">@movies</span> <span class="cp">%&gt;</span><span class="x"></span>
+</pre></div>
+</div>
+<div class="highlight-erb notranslate"><div class="highlight"><pre><span></span><span class="x">&lt;div class=&quot;row&quot;&gt;</span>
+<span class="x">    &lt;div class=&quot;col-8&quot;&gt; </span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="n">movie</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="n">movie_path</span><span class="p">(</span><span class="n">movie</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x"> &lt;/div&gt;</span>
+<span class="x">    &lt;div class=&quot;col-2&quot;&gt; </span><span class="cp">&lt;%=</span> <span class="n">movie</span><span class="o">.</span><span class="n">rating</span> <span class="cp">%&gt;</span><span class="x"> &lt;/div&gt;</span>
+<span class="x">    &lt;div class=&quot;col-2&quot;&gt; </span><span class="cp">&lt;%=</span> <span class="n">movie</span><span class="o">.</span><span class="n">release_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%F&#39;</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x"> &lt;/div&gt;</span>
+<span class="x">&lt;/div&gt;</span>
+</pre></div>
+</div>
+<p>Partials rely heavily on convention over configuration. Their names must begin with an underscore
+(we used <code class="code docutils literal notranslate"><span class="pre">_movie_form.html.erb</span></code>) which is <em>absent from</em> the code that references the partial. A partial may
+be in a different directory as the view that uses it, in which case a path such as <strong>’layouts/footer’</strong> would
+cause Rails to look for <code class="code docutils literal notranslate"><span class="pre">app/views/layouts/_footer.html.erb</span></code>. A partial can access all the same instance
+variables as the view that in- cludes it, but partials that may be used from different views usually do
+not reference controller instance variables, since those may be set differently (or not at all) by different
+controller actions. A particularly nice use of a partial is to render a table or other collection in which
+all elements are the same, as Figure 5.1 demonstrates.</p>
+<p>Partials are simple and straightforward, but the mechanisms provided by Rails for DRYing out models and controllers
+are more subtle and sophisticated. It’s common in SaaS apps to want to enforce certain validity constraints on a
+given type of model object or constraints on when certain actions can be performed. For example, when a new movie
+is added to RottenPotatoes, we may want to check that the title isn’t blank, that the release year is a valid date,
+and that the rating is one of the allowed ratings. (You may think there’s no way for the user to specify an invalid
+rating if they’re choosing it from a dropdown menu, but the request might be constructed by a malicious user or a <strong>bot</strong>.)
+With SaaS, you can’t trust anyone: the server must <em>always</em> check its inputs rather than trust them, or risk attack by
+methods we’ll see in Chapter 12.</p>
+<p>As another example, perhaps we want to allow any user to add new movies, but only
+allow special “admin” users to delete movies. Both examples involve specifying constraints on entities or actions, and
+although there might be many places in an app where such con- straints should be considered, the DRY philosophy urges us
+to centralize them in <em>one</em> place. Rails provides two analogous facilities for doing this: validations for models and filters
+for controllers.</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">class</span> <span class="nc">Movie</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+<span class="linenos"> 2</span>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">all_ratings</span> <span class="p">;</span> <span class="sx">%w[G PG PG-13 R NC-17]</span> <span class="p">;</span> <span class="k">end</span> <span class="c1">#  shortcut: array of strings</span>
+<span class="linenos"> 3</span>    <span class="n">validates</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">:presence</span> <span class="o">=&gt;</span> <span class="kp">true</span>
+<span class="linenos"> 4</span>    <span class="n">validates</span> <span class="ss">:release_date</span><span class="p">,</span> <span class="ss">:presence</span> <span class="o">=&gt;</span> <span class="kp">true</span>
+<span class="linenos"> 5</span>    <span class="n">validate</span> <span class="ss">:released_1930_or_later</span> <span class="c1"># uses custom validator below</span>
+<span class="linenos"> 6</span>    <span class="n">validates</span> <span class="ss">:rating</span><span class="p">,</span> <span class="ss">:inclusion</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:in</span> <span class="o">=&gt;</span> <span class="no">Movie</span><span class="o">.</span><span class="n">all_ratings</span><span class="p">},</span>
+<span class="linenos"> 7</span>        <span class="ss">:unless</span> <span class="o">=&gt;</span> <span class="ss">:grandfathered?</span>
+<span class="linenos"> 8</span>    <span class="k">def</span> <span class="nf">released_1930_or_later</span>
+<span class="linenos"> 9</span>        <span class="n">errors</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="ss">:release_date</span><span class="p">,</span> <span class="s1">&#39;must be 1930 or later&#39;</span><span class="p">)</span> <span class="k">if</span>
+<span class="linenos">10</span>        <span class="n">release_date</span> <span class="o">&amp;&amp;</span> <span class="n">release_date</span> <span class="o">&lt;</span> <span class="no">Date</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;1 Jan 1930&#39;</span><span class="p">)</span>
+<span class="linenos">11</span>    <span class="k">end</span>
+<span class="linenos">12</span>    <span class="vc">@@grandfathered_date</span> <span class="o">=</span> <span class="no">Date</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;1 Nov 1968&#39;</span><span class="p">)</span>
+<span class="linenos">13</span>    <span class="k">def</span> <span class="nf">grandfathered?</span>
+<span class="linenos">14</span>        <span class="n">release_date</span> <span class="o">&amp;&amp;</span> <span class="n">release_date</span> <span class="o">&lt;</span> <span class="vc">@@grandfathered_date</span>
+<span class="linenos">15</span>    <span class="k">end</span>
+<span class="linenos">16</span><span class="k">end</span>
+<span class="linenos">17</span><span class="c1"># try in console:</span>
+<span class="linenos">18</span><span class="n">m</span> <span class="o">=</span> <span class="no">Movie</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:title</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="ss">:rating</span> <span class="o">=&gt;</span> <span class="s1">&#39;RG&#39;</span><span class="p">,</span> <span class="ss">:release_date</span> <span class="o">=&gt;</span> <span class="s1">&#39;1929-01-01&#39;</span><span class="p">)</span>
+<span class="linenos">19</span><span class="c1"># force validation checks to be performed:</span>
+<span class="linenos">20</span><span class="n">m</span><span class="o">.</span><span class="n">valid?</span>  <span class="c1"># =&gt; false</span>
+<span class="linenos">21</span><span class="n">m</span><span class="o">.</span><span class="n">errors</span><span class="o">[</span><span class="ss">:title</span><span class="o">]</span> <span class="c1"># =&gt; [&quot;can&#39;t be blank&quot;]</span>
+<span class="linenos">22</span><span class="n">m</span><span class="o">.</span><span class="n">errors</span><span class="o">[</span><span class="ss">:rating</span><span class="o">]</span> <span class="c1"># =&gt; [] - validation skipped for grandfathered movies</span>
+<span class="linenos">23</span><span class="n">m</span><span class="o">.</span><span class="n">errors</span><span class="o">[</span><span class="ss">:release_date</span><span class="o">]</span> <span class="c1"># =&gt; [&quot;must be 1930 or later&quot;]</span>
+<span class="linenos">24</span><span class="n">m</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">full_messages</span> <span class="c1"># =&gt; [&quot;Title can&#39;t be blank&quot;, &quot;Release date must be 1930 or later&quot;]</span>
+</pre></div>
+</div>
+<p>Model validations, like migrations, are expressed in a mini-DSL embedded in Ruby, as Figure 5.2 shows.
+Validation checks are triggered when you call the instance method <code class="code docutils literal notranslate"><span class="pre">valid?</span></code> or when you try to save the model
+to the database (which calls <code class="code docutils literal notranslate"><span class="pre">valid?</span></code> before doing so). Any validation errors are recorded in the
+<code class="code docutils literal notranslate"><span class="pre">ActiveModel::Errors</span></code> object associated with each model; this object is returned by the instance method errors.
+As line 6 shows,validations can be conditional: the movie’s rating is validated <em>unless</em> the movie was released
+before the ratings system went into effect (in the USA, 1 November 1968).</p>
+<p>We can now understand lines 10–12 and 23–25 from Figure 4.9 in the last chapter. When creating or updating a movie
+fails (as indicated by a falsy return value from <code class="code docutils literal notranslate"><span class="pre">create</span></code> or <code class="code docutils literal notranslate"><span class="pre">update_attributes</span></code>), we set <code class="code docutils literal notranslate"><span class="pre">flash[:alert]</span></code> to an error message
+informed by the contents of the movie errors object. We then <code class="code docutils literal notranslate"><span class="pre">render</span></code> (<em>not</em> redirect to) the form that brought us here,
+with <code class="code docutils literal notranslate"><span class="pre">&#64;movie</span></code> still holding the values the user entered the first time, so the form will be prepopulated with those
+values. A redirect would start an entire new request cycle, and <code class="code docutils literal notranslate"><span class="pre">&#64;movie</span></code> would not be preserved.</p>
+<p>In fact, validations are just a special case of a more general mechanism, Active Record lifecycle callbacks, which
+allow you to provide methods that “intercept” a model object at various relevant points in its lifecycle. Figure 5.3
+shows what callbacks are available; Figure 5.4 illustrates how to use this mechanism to “canonicalize” (standardize the
+format of)
+certain model fields before the model is saved. We will see another use of lifecycle callbacks when we discuss the Observer
+design pattern in Section 11.7 and caching in Chapter 12.6.</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">class</span> <span class="nc">Movie</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+<span class="linenos"> 2</span>    <span class="n">before_save</span> <span class="ss">:capitalize_title</span>
+<span class="linenos"> 3</span>    <span class="k">def</span> <span class="nf">capitalize_title</span>
+<span class="linenos"> 4</span>        <span class="nb">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="nb">self</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sr">/\s+/</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:downcase</span><span class="p">)</span><span class="o">.</span>
+<span class="linenos"> 5</span>        <span class="n">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:capitalize</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+<span class="linenos"> 6</span>    <span class="k">end</span>
+<span class="linenos"> 7</span><span class="k">end</span>
+<span class="linenos"> 8</span><span class="c1"># now try in console:</span>
+<span class="linenos"> 9</span><span class="n">m</span> <span class="o">=</span> <span class="no">Movie</span><span class="o">.</span><span class="n">create!</span><span class="p">(</span><span class="ss">:title</span> <span class="o">=&gt;</span> <span class="s1">&#39;STAR  wars&#39;</span><span class="p">,</span> <span class="ss">:release_date</span> <span class="o">=&gt;</span> <span class="s1">&#39;27-5-1977&#39;</span><span class="p">,</span> <span class="ss">:rating</span> <span class="o">=&gt;</span> <span class="s1">&#39;PG&#39;</span><span class="p">)</span>
+<span class="linenos">10</span><span class="n">m</span><span class="o">.</span><span class="n">title</span>  <span class="c1"># =&gt; &quot;Star Wars&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">class</span> <span class="nc">ApplicationController</span> <span class="o">&lt;</span> <span class="no">ActionController</span><span class="o">::</span><span class="no">Base</span>
+<span class="linenos">2</span>    <span class="n">before_filter</span> <span class="ss">:set_current_user</span>
+<span class="linenos">3</span>    <span class="kp">protected</span> <span class="c1"># prevents method from being invoked by a route</span>
+<span class="linenos">4</span>    <span class="k">def</span> <span class="nf">set_current_user</span>
+<span class="linenos">5</span>        <span class="c1"># we exploit the fact that the below query may return nil</span>
+<span class="linenos">6</span>        <span class="vi">@current_user</span> <span class="o">||=</span> <span class="no">Moviegoer</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:id</span> <span class="o">=&gt;</span> <span class="n">session</span><span class="o">[</span><span class="ss">:user_id</span><span class="o">]</span><span class="p">)</span>
+<span class="linenos">7</span>        <span class="n">redirect_to</span> <span class="n">login_path</span> <span class="ow">and</span> <span class="k">return</span> <span class="k">unless</span> <span class="vi">@current_user</span>
+<span class="linenos">8</span>    <span class="k">end</span>
+<span class="linenos">9</span><span class="k">end</span>
+</pre></div>
+</div>
+<p>Analogous to a validation is a controller filter—a method that checks whether certain conditions are true
+before an action is run, or sets up common conditions that many actions rely on. If the conditions are not
+fulfilled, the filter can choose to “stop the show” by rendering a view template or redirecting to another
+action. If the filter allows the action to proceed, it will be the action’s responsibility to provide a
+response, as usual.</p>
+<p>As an example, an extremely common use of filters is to enforce the requirement that a user be logged in before
+certain actions can be performed. Assume for the mo- ment that we have verified the identity of some user and
+stored her primary key (ID) in <code class="code docutils literal notranslate"><span class="pre">session[:user_id]</span></code> to remember the fact that she has logged in. Figure 5.5 shows a
+filter that enforces that a valid user is logged in. In Section 5.2 we will show how to combine this filter with
+the other “moving parts” involved in dealing with logged-in users.</p>
+<p>Filters normally apply to all actions in the controller, but as the documentation on filters states, <code class="code docutils literal notranslate"><span class="pre">:only</span></code>
+or <code class="code docutils literal notranslate"><span class="pre">:except</span></code> can be used to restrict a filter to guarding only certain actions. You can define multiple filters:
+they are run in the order in which they are declared. You can also define after-filters, which run after certain actions
+are completed, and around-filters, which specify actions to run before and after, as you might do for auditing or timing.</p>
+<p><strong>Self-Check 5.1.1.</strong> <em>Why didn’t the Rails designers choose to trigger validation when you first instantiate a
+movie using</em> <code class="code docutils literal notranslate"><span class="pre">Movie#new</span></code> <em>, rather than waiting until you try to persist the object?</em></p>
 <blockquote>
-<div><p>—Weinberg’s Second Law, 1978, attributed to Gerald Weinberg, University of Nebraska computer scientist</p>
+<div><p>As you’re filling in the attributes of the new object, it might be in a temporarily invalid state, so triggering
+validation at that time might make it difficult to manipulate the object. Persisting the object tells Rails “I believe
+this object is ready to be saved.”</p>
 </div></blockquote>
-<p>The general unpredictability of software development in the late 1960s, along with
-the software disasters similar to ACA, led to the study of how high-quality software
-could be developed on a predictable schedule and budget. Drawing the analogy to other
-engineering fields, the term software engineering was coined (Naur and Randell 1969).
-The goal was to discover methods to build software that were as predictable in quality,
-cost, and time as those used to build bridges in civil engineering.</p>
-<p>One thrust of software engineering was to bring an engineering discipline to what was
-often unplanned software development. Before starting to code, come up with a plan for
-the project, including extensive, detailed documentation of all phases of that plan.
-Progress is then measured against the plan. Changes to the project must be reflected in
-the documentation and possibly to the plan.</p>
-<p>The goal of all these “Plan-and-Document” software development processes is to improve
-predictability via extensive documentation, which must be changed whenever the goals change.
-Here is how textbook authors put it (Lethbridge and Laganiere 2002; Braude 2001):</p>
-<p><em>Documentation should be written at all stages of development, and includes requirements,
-designs, user manuals, instructions for testers and project plans.</em></p>
+<p><strong>Self-Check 5.1.2.</strong> <em>In line 5 of Figure 5.2, why can’t we write</em> <code class="code docutils literal notranslate"><span class="pre">validate</span> <span class="pre">released_1930_or_later</span></code> <em>, that is, why must the argument to</em> <code class="code docutils literal notranslate"><span class="pre">validate</span></code>
+<em>be either a symbol or a string?</em></p>
 <blockquote>
-<div><p>—Timothy Lethbridge and Robert Laganiere, 2002</p>
-</div></blockquote>
-<p><em>Documentation is the lifeblood of software
-engineering.</em></p>
-<blockquote>
-<div><p>—Eric Braude, 2001</p>
-</div></blockquote>
-<p>This process is even embraced with an official standard of documentation: IEEE/ANSI stan- dard 830/1993.</p>
-<p>Governments like that of the US have elaborate regulations to prevent corruption when acquiring new equipment,
-which lead to lengthy specifications and contracts. Since the goal of software engineering was to make software
-development as predictable as building bridges, including elaborate specifications, government contracts were a
-natural match to Plan-and- Document software development. Thus, like many countries, US acquisition regulations
-left the ACA developers little choice but to follow a Plan-and-Document lifecycle.</p>
-<p>Of course, like other engineering fields, the government has escape clauses in the contracts that let it still
-acquire the product even if it is late. Ironically, the contractor makes more money the longer it takes to develop
-the software. Thus, the art is in negotiating the contract and the penalty clauses. As one commentator on ACA noted
-(Howard 2013), “The firms that typically get contracts are the firms that are good at getting contracts, not
-typically good at executing on them.” Another noted that the Plan-and-Document approach is not well suited to modern
-practices, especially when government contractors focus on maximizing profits (Chung 2013).</p>
-<p>An early version of this Plan-and-Document software development process was devel- oped in 1970 (Royce 1970).
-It follows this sequence of phases:</p>
-<ol class="arabic simple">
-<li><p>Requirements analysis and specification</p></li>
-<li><p>Architectural design</p></li>
-<li><p>Implementation and Integration</p></li>
-<li><p>Verification</p></li>
-<li><p>Operation and Maintenance</p></li>
-</ol>
-<p>Given that the earlier you find an error the cheaper it is to fix, the philosophy of this process is to complete a
-phase before going on to the next one, thereby removing as many errors as early as possible. Getting the early phases
-right could also prevent unnecessary work downstream. As this process could take years, the extensive documentation
-helps to ensure that important information is not lost if a person leaves the project and that new people can get up
-to speed quickly when they join the project.</p>
-<p>Because it flows from the top down to completion, this process is called the <strong>Waterfall</strong> software development process or
-Waterfall software development <strong>lifecycle</strong>. Understandably, given the complexity of each stage in the Waterfall lifecycle,
-product releases are major events towardwhichengineersworkedfeverishlyandwhichareaccompaniedbymuchfanfare. In the Waterfall
-lifecycle, the long life of software is acknowledged by a maintenance phase that repairs errors as they are discovered.
-New versions of software developed in the Waterfall model go through the same several phases, and take typically between
-6 and 18 months.</p>
-<p>The Waterfall model can work well with well-specified tasks like NASA space flights, but it runs into trouble when customers
-change their minds about what they want. A Turing Award winner captures this observation:</p>
-<p><em>Plan to throw one [implementation] away; you will,
-anyhow.</em></p>
-<blockquote>
-<div><p>—Fred Brooks, Jr.</p>
-</div></blockquote>
-<p>That is, it’s easier for customers to understand what they want once they see a prototype and for engineers to understand how
-to build it better once they’ve done it the first time.</p>
-<p>This observation led to a software development lifecycle developed in the 1980s that combines prototypes with the Waterfall
-model (Boehm 1986). The idea is to iterate through a sequence of four phases, with each iteration resulting in a prototype that
-is a refinement of the previous version. Figure 1.2 illustrates this model of development across the four phases, which gives
-this lifecycle its name: the <strong>Spiral model</strong>. The phases are:</p>
-<ol class="arabic simple">
-<li><p>Determine objectives and constraints of this iteration</p></li>
-<li><p>Evaluate alternatives and identify and resolve risks</p></li>
-<li><p>Develop and verify the prototype for this iteration</p></li>
-<li><p>Plan the next iteration</p></li>
-</ol>
-<p>Rather than document all the requirements at the beginning, as in the Waterfall model, the requirement documents are developed
-across the iteration as they are needed and evolve with the project. Iterations involve the customer before the product is completed,
-which reduces chances of misunderstandings. However, as originally envisioned, these iterations were 6 to 24 months long, so there is
-plenty of time for customers to change their minds during an iteration! Thus, Spiral still relies on planning and extensive
-documentation, but the plan is expected to evolve on each iteration.</p>
-<p>Given the importance of software development, many variations of Plan-and-Document methodologies were proposed beyond these two.
-A recent one is called the <strong>Rational Unified Process (RUP)</strong> (Kruchten 2003), developed during the 1990s, which combines features of both
-Waterfall and Spiral lifecycles as well standards for diagrams and documentation. We’ll use RUP as a representative of the latest thinking
-in Plan-and-Document lifecycles. Unlike Waterfall and Spiral, it is more closely allied to business issues than to technical issues.</p>
-<p>Like Waterfall and Spiral, RUP has phases:</p>
-<ol class="arabic simple">
-<li><p>Inception: makes the business case for the software and scopes the project to set the schedule and budget, which is used to judge progress and justify expenditures, and initial assessment of risks to schedule and budget.</p></li>
-<li><p>Elaboration: works with stakeholders to identify use cases, designs a software archi- tecture, sets the development plan, and builds an initial prototype.</p></li>
-<li><p>Construction: codes and tests the product, resulting in the first external release.</p></li>
-<li><p>Transition:moves the product from development to production in the real environment, including customer acceptance testing and user training.</p></li>
-</ol>
-<p>Unlike Waterfall, each phase involves iteration. For example, a project might have one inception phase iteration, two elaboration phase
-iterations, four construction phase iterations, and two transition phase iterations. Like Spiral, a project could also iterate across
-all four phases repeatedly.</p>
-<p>In addition to the dynamically changing phases of the project, RUP identifies six “engineering disciplines” (also known as workflows)
-that people working on the project should collectively cover:</p>
-<ol class="arabic simple">
-<li><p>Business Modeling</p></li>
-<li><p>Requirements</p></li>
-<li><p>Analysis and Design</p></li>
-<li><p>Implementation</p></li>
-<li><p>Test</p></li>
-<li><p>Deployment</p></li>
-</ol>
-<p>These disciplines are more static than the phases, in that they nominally exist over the whole lifetime of the project. However, some disciplines
-get used more in earlier phases (like business modeling), some periodically throughout the process (like test), and some more towards the end
-(deployment). Figure 1.3 shows the relationship of the phases and the disciplines, with the area indicating the amount of effort in each
-discipline over time.</p>
-<p>An unfortunate downside to teaching a Plan-and-Document approach is that students may find software development tedious (Nawrocki et al. 2002; Estler et al. 2012).
-Of course, this is hardly a strong enough reason not to teach it; the good news is that there are alternatives that work just as well for many projects that are a
-better fit to the classroom, as we describe in the next section.</p>
-<p><strong>Self-Check 1.2.1.</strong> <em>What are a major similarity and a major difference between processes like Spiral and RUP versus
-Waterfall?</em></p>
-<blockquote>
-<div><p>All rely on planning and documentation, but Spiral and RUP use iteration and prototypes to improve them over time versus a single long path to the product.</p>
-</div></blockquote>
-<p><strong>Self-Check 1.2.2.</strong> <em>What are the differences between the phases of these Plan-and-Document
-processes?</em></p>
-<blockquote>
-<div><p>Waterfall phases separate planning (requirements and architectural design) from implemen- tation. Testing the product before release is next, followed by a separate operations phase. The Spiral phases are aimed at an iteration: set the goals for an iteration; explore alternatives; develop and verify the prototype for this iteration; and plan the next iteration. RUP phases are tied closer to business objectives: inception makes business case and sets schedule and budget; elaboration works with customers to build an initial prototype; construction builds and test the first version; and transition deploys the product.</p>
+<div><p>If the argument is just the “bare” name of the method, Ruby will try to evaluate it at the moment it executes
+<code class="code docutils literal notranslate"><span class="pre">validate</span></code>, which isn’t what we want—we want <code class="code docutils literal notranslate"><span class="pre">released_1930_or_later</span></code> to be called at the time any
+validation is to occur.</p>
 </div></blockquote>
 </div>
 
@@ -1082,8 +1094,8 @@ processes?</em></p>
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="1" title="previous page"><span class="section-number">1.1. </span>Introduction</a>
-    <a class='right-next' id="next-link" href="3" title="next page"><span class="section-number">1.3. </span>Software Development Processes: The Agile Manifesto</a>
+    <a class='left-prev' id="prev-link" href=".." title="previous page"><span class="section-number">5. </span>SaaS Framework: Advanced Programming Abstractions for SaaS</a>
+    <a class='right-next' id="next-link" href="2" title="next page"><span class="section-number">5.2. </span>Single Sign-On and Third-Party Authentication</a>
 
         </div>
         

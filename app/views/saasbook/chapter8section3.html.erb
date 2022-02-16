@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>1.2. Software Development Processes: Plan and Document &#8212; saasbook  documentation</title>
+    <title>8.3. Isolating Code: Doubles and Seams &#8212; saasbook  documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -34,8 +34,8 @@
     <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="1.3. Software Development Processes: The Agile Manifesto" href="3" />
-    <link rel="prev" title="1.1. Introduction" href="1" />
+    <link rel="next" title="8.4. Stubbing the Internet" href="4" />
+    <link rel="prev" title="8.2. Anatomy of a Test Case: Arrange, Act, Assert" href="2" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -65,79 +65,79 @@
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../preface/index.html">
+  <a class="reference internal" href="../../../preface">
    Preface
   </a>
  </li>
 </ul>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="..">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/1">
    1. Introduction to Software as a Service, Agile Development, and Cloud Computing
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="current">
+  <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="1">
+    <a class="reference internal" href="../../../chapter/1/section/1">
      1.1. Introduction
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/2">
      1.2. Software Development Processes: Plan and Document
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="3">
+    <a class="reference internal" href="../../../chapter/1/section/3">
      1.3. Software Development Processes: The Agile Manifesto
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="4">
+    <a class="reference internal" href="../../../chapter/1/section/4">
      1.4. Software Quality Assurance: Testing
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="5">
+    <a class="reference internal" href="../../../chapter/1/section/5">
      1.5. Productivity: Conciseness, Synthesis, Reuse, and Tools
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="6">
+    <a class="reference internal" href="../../../chapter/1/section/6">
      1.6. SaaS and Service Oriented Architecture
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="7">
+    <a class="reference internal" href="../../../chapter/1/section/7">
      1.7. Deploying SaaS: Cloud Computing
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="8">
+    <a class="reference internal" href="../../../chapter/1/section/8">
      1.8. Deploying SaaS: Browsers and Mobile
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="9">
+    <a class="reference internal" href="../../../chapter/1/section/9">
      1.9. Beautiful vs. Legacy Code
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="10">
+    <a class="reference internal" href="../../../chapter/1/section/10">
      1.10. Guided Tour and How To Use This Book
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="11">
+    <a class="reference internal" href="../../../chapter/1/section/11">
      1.11. Fallacies and Pitfalls
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="12">
+    <a class="reference internal" href="../../../chapter/1/section/12">
      1.12. Concluding Remarks: Software Engineering Is More Than Programming
     </a>
    </li>
@@ -520,73 +520,73 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../chapter/8">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="..">
    8. Testing: Test-Driven Development
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
   <label for="toctree-checkbox-8">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/8/section/1">
+    <a class="reference internal" href="1">
      8.1. FIRST, TDD, and Red–Green–Refactor
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/8/section/2">
+    <a class="reference internal" href="2">
      8.2. Anatomy of a Test Case: Arrange, Act, Assert
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/8/section/3">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      8.3. Isolating Code: Doubles and Seams
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/8/section/4">
+    <a class="reference internal" href="4">
      8.4. Stubbing the Internet
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/8/section/5">
+    <a class="reference internal" href="5">
      8.5. CHIPS: Intro to RSpec on Rails
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/8/section/6">
+    <a class="reference internal" href="6">
      8.6. Fixtures and Factories
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/8/section/7">
+    <a class="reference internal" href="7">
      8.7. Coverage Concepts and Types of Tests
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/8/section/8">
+    <a class="reference internal" href="8">
      8.8. Other Testing Approaches and Terminology
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/8/section/9">
+    <a class="reference internal" href="9">
      8.9. CHIPS:The Acceptance Test/Unit Test Cycle
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/8/section/10">
+    <a class="reference internal" href="10">
      8.10. The Plan-And-Document Perspective on Testing
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/8/section/11">
+    <a class="reference internal" href="11">
      8.11. Fallacies and Pitfalls
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/8/section/12">
+    <a class="reference internal" href="12">
      8.12. Concluding Remarks: TDD vs. Conventional Debugging
     </a>
    </li>
@@ -913,7 +913,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/intro/chapter1/sub-chapter2.rst.txt"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/part2/chapter8/sub-chapter3.rst.txt"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.rst</button></a>
         <!-- Download PDF via print -->
@@ -946,133 +946,157 @@
         
               <div>
                 
-  <div class="section" id="software-development-processes-plan-and-document">
-<h1><span class="section-number">1.2. </span>Software Development Processes: Plan and Document<a class="headerlink" href="#software-development-processes-plan-and-document" title="Permalink to this headline">¶</a></h1>
-<p><em>If builders built buildings the way programmers wrote programs, then the first
-woodpecker that came along would destroy civilization.</em></p>
-<blockquote>
-<div><p>—Weinberg’s Second Law, 1978, attributed to Gerald Weinberg, University of Nebraska computer scientist</p>
-</div></blockquote>
-<p>The general unpredictability of software development in the late 1960s, along with
-the software disasters similar to ACA, led to the study of how high-quality software
-could be developed on a predictable schedule and budget. Drawing the analogy to other
-engineering fields, the term software engineering was coined (Naur and Randell 1969).
-The goal was to discover methods to build software that were as predictable in quality,
-cost, and time as those used to build bridges in civil engineering.</p>
-<p>One thrust of software engineering was to bring an engineering discipline to what was
-often unplanned software development. Before starting to code, come up with a plan for
-the project, including extensive, detailed documentation of all phases of that plan.
-Progress is then measured against the plan. Changes to the project must be reflected in
-the documentation and possibly to the plan.</p>
-<p>The goal of all these “Plan-and-Document” software development processes is to improve
-predictability via extensive documentation, which must be changed whenever the goals change.
-Here is how textbook authors put it (Lethbridge and Laganiere 2002; Braude 2001):</p>
-<p><em>Documentation should be written at all stages of development, and includes requirements,
-designs, user manuals, instructions for testers and project plans.</em></p>
-<blockquote>
-<div><p>—Timothy Lethbridge and Robert Laganiere, 2002</p>
-</div></blockquote>
-<p><em>Documentation is the lifeblood of software
-engineering.</em></p>
-<blockquote>
-<div><p>—Eric Braude, 2001</p>
-</div></blockquote>
-<p>This process is even embraced with an official standard of documentation: IEEE/ANSI stan- dard 830/1993.</p>
-<p>Governments like that of the US have elaborate regulations to prevent corruption when acquiring new equipment,
-which lead to lengthy specifications and contracts. Since the goal of software engineering was to make software
-development as predictable as building bridges, including elaborate specifications, government contracts were a
-natural match to Plan-and- Document software development. Thus, like many countries, US acquisition regulations
-left the ACA developers little choice but to follow a Plan-and-Document lifecycle.</p>
-<p>Of course, like other engineering fields, the government has escape clauses in the contracts that let it still
-acquire the product even if it is late. Ironically, the contractor makes more money the longer it takes to develop
-the software. Thus, the art is in negotiating the contract and the penalty clauses. As one commentator on ACA noted
-(Howard 2013), “The firms that typically get contracts are the firms that are good at getting contracts, not
-typically good at executing on them.” Another noted that the Plan-and-Document approach is not well suited to modern
-practices, especially when government contractors focus on maximizing profits (Chung 2013).</p>
-<p>An early version of this Plan-and-Document software development process was devel- oped in 1970 (Royce 1970).
-It follows this sequence of phases:</p>
+  <div class="section" id="isolating-code-doubles-and-seams">
+<h1><span class="section-number">8.3. </span>Isolating Code: Doubles and Seams<a class="headerlink" href="#isolating-code-doubles-and-seams" title="Permalink to this headline">¶</a></h1>
+<p>Unit tests can be more complex if the SUT is either not a leaf method or not a pure function. We can distinguish three cases:</p>
+<ul class="simple">
+<li><p>The SUT has one or more <em>depended-on components</em> (DOCs), such as other methods it calls to help do its work. Test cases should isolate the SUT from those dependencies.</p></li>
+<li><p>The SUT has side effects when executed, that is, it causes a change in application state visible outside the test code itself. Test cases should verify that the correct side effect occurred, which involves inspecting app state outside the SUT.</p></li>
+<li><p>The SUT is not a pure function because its output depends not only on its input but other implicit factors, such as the time of day or a random event. Test cases should control the values of these factors to force the SUT to traverse predictable code paths.</p></li>
+</ul>
+<p>There are two characteristics of a method that can complicate the task of creating unit tests for it. The first is
+that it has side effects The second is that it has dependencies—it calls other methods as part of doing its job.</p>
+<p>As an example, consider testing a controller action. By design, as we have seen, controller actions shouldn’t contain
+“business logic”—instead they manage communication with
+the model, calling model methods to do the real work and setting up variables to display information in the view. To
+make our example relevant to SaaS, consider a hypothetical SaaS app that allows the user to look up a movie in another
+service’s movie database, and display the movie info so the user can write a review. Here is how our hypothetical app works:</p>
 <ol class="arabic simple">
-<li><p>Requirements analysis and specification</p></li>
-<li><p>Architectural design</p></li>
-<li><p>Implementation and Integration</p></li>
-<li><p>Verification</p></li>
-<li><p>Operation and Maintenance</p></li>
+<li><p>The <code class="code docutils literal notranslate"><span class="pre">Movie</span></code> model has a class (static) method <code class="code docutils literal notranslate"><span class="pre">find_in_tmdb</span></code> that makes a call to the API of the external service The Movie Database (TMDb) and returns an array of <code class="code docutils literal notranslate"><span class="pre">Movie</span></code> objects, which may be empty if there were no matches.</p></li>
+<li><p>If there are no matches, the controller action should redirect the user back to the search page with an appropriate message.</p></li>
+<li><p>If there is exactly one match, the controller should render a view that allows the user to enter a review for that movie.</p></li>
+<li><p>Ifthereismorethanonematch,thecontrollershouldrenderadifferentviewthatallows the user to specify which movie they want to review.</p></li>
+<li><p>Because the model method relies on calling an external service, the call might fail if the service doesn’t respond for some reason. In that case, we assume <code class="code docutils literal notranslate"><span class="pre">Movie.find_in_tmdb</span></code> will raise the exception <code class="code docutils literal notranslate"><span class="pre">Movie::ConnectionError</span></code>.</p></li>
 </ol>
-<p>Given that the earlier you find an error the cheaper it is to fix, the philosophy of this process is to complete a
-phase before going on to the next one, thereby removing as many errors as early as possible. Getting the early phases
-right could also prevent unnecessary work downstream. As this process could take years, the extensive documentation
-helps to ensure that important information is not lost if a person leaves the project and that new people can get up
-to speed quickly when they join the project.</p>
-<p>Because it flows from the top down to completion, this process is called the <strong>Waterfall</strong> software development process or
-Waterfall software development <strong>lifecycle</strong>. Understandably, given the complexity of each stage in the Waterfall lifecycle,
-product releases are major events towardwhichengineersworkedfeverishlyandwhichareaccompaniedbymuchfanfare. In the Waterfall
-lifecycle, the long life of software is acknowledged by a maintenance phase that repairs errors as they are discovered.
-New versions of software developed in the Waterfall model go through the same several phases, and take typically between
-6 and 18 months.</p>
-<p>The Waterfall model can work well with well-specified tasks like NASA space flights, but it runs into trouble when customers
-change their minds about what they want. A Turing Award winner captures this observation:</p>
-<p><em>Plan to throw one [implementation] away; you will,
-anyhow.</em></p>
+<p>Figure 8.4 shows what the above controller action might look like.</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MoviesController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+    <span class="k">def</span> <span class="nf">review_movie</span>
+        <span class="n">search_string</span> <span class="o">=</span> <span class="n">params</span><span class="o">[</span><span class="ss">:search</span><span class="o">]</span>
+        <span class="k">begin</span>
+        <span class="n">matches</span> <span class="o">=</span> <span class="no">Movie</span><span class="o">.</span><span class="n">find_in_tmdb</span><span class="p">(</span><span class="n">search_string</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">matches</span><span class="o">.</span><span class="n">empty?</span> <span class="c1"># nothing was found</span>
+            <span class="n">redirect_to</span> <span class="n">review_movie_path</span><span class="p">,</span> <span class="ss">:alert</span> <span class="o">=&gt;</span> <span class="s2">&quot;No matches.&quot;</span>
+        <span class="k">elsif</span> <span class="n">matches</span><span class="o">.</span><span class="n">length</span> <span class="o">==</span> <span class="mi">1</span>
+            <span class="vi">@movie</span> <span class="o">=</span> <span class="n">matches</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+            <span class="n">render</span> <span class="s1">&#39;review_movie&#39;</span>
+        <span class="k">else</span> <span class="c1"># more than 1 match</span>
+            <span class="vi">@movies</span> <span class="o">=</span> <span class="n">matches</span>
+            <span class="n">render</span> <span class="s1">&#39;select_movie&#39;</span>
+        <span class="k">end</span>
+        <span class="k">rescue</span> <span class="no">Movie</span><span class="o">::</span><span class="no">ConnectionError</span> <span class="o">=&gt;</span> <span class="n">err</span>
+        <span class="n">redirect_to</span> <span class="n">review_movie_path</span><span class="p">,</span> <span class="ss">:alert</span> <span class="o">=&gt;</span> <span class="s2">&quot;Error contacting TMDb: </span><span class="si">#{</span><span class="n">err</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<p>How would we unit-test this controller action? The Arrange step consists of preparing <code class="code docutils literal notranslate"><span class="pre">params</span></code>
+to hold some search string. The Act step consists of calling the controller action with that
+search string. But the Assert step depends on whether the call to <code class="code docutils literal notranslate"><span class="pre">find_in_tmdb</span></code> returns an
+empty array, an array of exactly one match, an array containing more than one match, or
+raises an exception because of an error communicating with The Movie Database. Indeed, as
+items 2–5 in the list above show, there are really four test cases required here, and to
+test each of them, we essentially need to be able to control the <em>behavior of the call</em> to
+<code class="code docutils literal notranslate"><span class="pre">find_in_tmdb</span></code>.</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="n">describe</span> <span class="no">MoviesController</span> <span class="k">do</span>
+    <span class="n">describe</span> <span class="s1">&#39;looking up movie&#39;</span> <span class="k">do</span>
+        <span class="n">it</span> <span class="s1">&#39;redirects to search page if no match&#39;</span> <span class="k">do</span>
+        <span class="n">allow</span><span class="p">(</span><span class="no">Movie</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:find_in_tmdb</span><span class="p">)</span><span class="o">.</span><span class="n">and_return</span><span class="p">(</span> <span class="o">[]</span> <span class="p">)</span>
+        <span class="n">post</span> <span class="s1">&#39;review_movie&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;search_string&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;I Am Big Bird&#39;</span><span class="p">}</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">redirect_to</span><span class="p">(</span><span class="n">review_movie_path</span><span class="p">)</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<p>Michael Feathers (Feathers 2004) defines a seam as “a place where you can alter
+behavior in your program without editing in that place.” In our case, we want to
+alter (control) the behavior of <code class="code docutils literal notranslate"><span class="pre">find_in_tmdb</span></code> but without changing the source code
+of the controller action. Recall that one ability afforded by metaprogramming is
+being able to modify code while a program is running. In this case, the strategy
+would be to <em>temporarily</em> modify <code class="code docutils literal notranslate"><span class="pre">find_in_tmdb</span></code> so that <em>instead of calling the real method,
+it calls a “fake” method whose behavior we control</em> and can change for each test case.</p>
+<p>Such a construction is called a <strong>method stub</strong>, and is easy to implement in languages that
+support metaprogramming. The RSpec testing framework provides direct support for this,
+as Figure 8.5 shows: the Arrange part of a test now includes setting up a stub for the
+method, and specifying that when the stub is called, it should return an empty array,
+ensuring that <code class="code docutils literal notranslate"><span class="pre">matches.empty?</span></code> in line 6 of Figure 8.4 will be true, causing line 7 to
+be executed next. As is typical for a testing framework, RSpec “un-registers” any stubs
+after each example (test case), making the stub visible only to that test case and thereby
+keeping tests <strong>I</strong>ndependent. Later we will show how to group together sets of examples that
+rely on the same precondition setup, so that tests can be DRY as well.</p>
+<p>Keeping in mind that every Ruby function call is a method call on an object, line 4 of
+Figure 8.5 can be read as follows: “Allow the <code class="code docutils literal notranslate"><span class="pre">Movie</span></code> class (which is itself an object) to
+receive a call to its (class) method <code class="code docutils literal notranslate"><span class="pre">find_in_tmdb</span></code>, and return an empty array as the return
+value of that call.” Note that it is <em>not an error</em> for <code class="code docutils literal notranslate"><span class="pre">find_in_tmdb</span></code> not to be called: the
+stub setup only specifies what should happen <em>if</em> that method is called. If we wanted to
+express the test condition that the method <em>must</em> be called, we would replace <code class="code docutils literal notranslate"><span class="pre">allow</span></code> with
+<code class="code docutils literal notranslate"><span class="pre">expect</span></code>. In that case, line 4 would be both an Arrange step defining a stub and an Assert
+step specifying that the test should fail if the stub isn’t actually called. RSpec
+automatically verifies <code class="code docutils literal notranslate"><span class="pre">expect...to</span> <span class="pre">receive</span></code> assertions at the end of each example, so the
+test wouldn’t need an extra line to check if the stub was called—simply using <code class="code docutils literal notranslate"><span class="pre">expect</span></code>
+rather than <code class="code docutils literal notranslate"><span class="pre">allow</span></code> to set up the stub distinguishes the two cases.</p>
+<p>In this case, <code class="code docutils literal notranslate"><span class="pre">receive()</span></code> creates a seam by overriding a method in place, without us having to
+edit the file containing the original method (although in this case, the original method
+doesn’t even exist yet). Seams are also important when it comes to adding new code to your
+application, but in the rest of this chapter we will see many more examples of seams in
+testing. Seams are useful in testing because they let us break dependencies between a piece
+of code we want to test and its collaborators, allowing the collaborators to behave differently
+under test than they would in real life.</p>
+<p>The kind of seam we just described is called a <strong>method stub</strong> or simply <em>stub</em>, because it is a
+piece of code that replaces the real method’s code with a controllable or fixed behavior
+for testing purposes. A <strong>mock object</strong> or simply <em>mock</em> is a simplified “stunt double” of an object
+that can only mimic a few fixed behaviors of the object, such as returning fixed values for
+specific attributes. Mocks are useful when a real object would be complex to instantiate
+because it has other dependencies, yet only a few specific properties of the object are
+necessary for the SUT to work properly. The term <strong>test double</strong> generically covers these and a
+few other types of seams. Figure 8.6 summarizes typical strategies for using these doubles in
+various unit-testing scenarios, and Figure 8.7 shows examples of each strategy using RSpec.</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Pure leaf function: test critical values and noncritical regions</span>
+<span class="n">it</span> <span class="s1">&#39;occurs when multiple of 4 but not 100&#39;</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">leap?</span><span class="p">(</span><span class="mi">2008</span><span class="p">))</span><span class="o">.</span><span class="n">to</span> <span class="n">be_truthy</span>
+    <span class="k">end</span>
+<span class="n">it</span> <span class="s1">&#39;does not occur when multiple of 400&#39;</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">leap?</span><span class="p">(</span><span class="mi">2000</span><span class="p">))</span><span class="o">.</span><span class="n">to</span> <span class="n">be_falsy</span>
+<span class="k">end</span>
+
+<span class="c1"># 2. Using doubles for explicit dependencies such as collaborators</span>
+<span class="c1">#    UI.background() calls Defcon.level() to determine display color</span>
+<span class="n">it</span> <span class="s1">&#39;colors the UI red if Defcon is 2 or lower&#39;</span> <span class="k">do</span>
+    <span class="c1"># Arrange: stub Defcon to return 2</span>
+    <span class="n">allow</span><span class="p">(</span><span class="no">Defcon</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:level</span><span class="p">)</span><span class="o">.</span><span class="n">and_return</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="no">UI</span><span class="o">.</span><span class="n">background</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">eq</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>        <span class="c1"># Act and Assert</span>
+<span class="k">end</span>
+
+<span class="c1"># 3. Has implicit dependencies such as time</span>
+<span class="n">it</span> <span class="s1">&#39;runs backups on Tuesdays&#39;</span> <span class="k">do</span>
+    <span class="c1"># Arrange: stub Date.today to return Tues 2020-02-04</span>
+    <span class="n">allow</span><span class="p">(</span><span class="no">Date</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:today</span><span class="p">)</span><span class="o">.</span><span class="n">and_return</span><span class="p">(</span><span class="no">Time</span><span class="o">.</span><span class="n">local</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">run_backups_today?</span><span class="p">())</span><span class="o">.</span><span class="n">to</span> <span class="n">be_truthy</span>  <span class="c1"># Act and Assert</span>
+<span class="k">end</span>
+
+<span class="c1"># 4. Has side effects (verbose version)</span>
+<span class="n">it</span> <span class="s1">&#39;lowers Defcon level by 1&#39;</span> <span class="k">do</span>
+    <span class="c1"># Arrange: check previous value of state</span>
+    <span class="n">before</span> <span class="o">=</span> <span class="no">Defcon</span><span class="o">.</span><span class="n">level</span><span class="p">()</span>
+    <span class="n">post_alert</span><span class="p">(</span><span class="s2">&quot;Hostile craft detected&quot;</span><span class="p">)</span>    <span class="c1"># Act</span>
+    <span class="n">expect</span><span class="p">(</span><span class="no">Defcon</span><span class="o">.</span><span class="n">level</span><span class="p">())</span><span class="o">.</span><span class="n">to</span> <span class="n">eq</span><span class="p">(</span><span class="n">before</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># Asset</span>
+<span class="k">end</span>
+
+<span class="c1"># Shortcut version passing a callable to `expect`</span>
+<span class="n">it</span> <span class="s1">&#39;lowers Defcon level by 1&#39;</span> <span class="k">do</span>
+    <span class="n">expect</span> <span class="p">{</span> <span class="n">post_alert</span><span class="p">(</span><span class="s2">&quot;Hostile craft detected&quot;</span><span class="p">)</span> <span class="p">}</span><span class="o">.</span>
+        <span class="n">to</span> <span class="n">change</span> <span class="p">{</span> <span class="no">Defcon</span><span class="o">.</span><span class="n">level</span><span class="p">()</span> <span class="p">}</span><span class="o">.</span><span class="n">by</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<p><strong>Self-Check 8.3.1.</strong> <em>Name two likely violations of FIRST that arise when unit tests
+actually call an external service as part of testing.</em></p>
 <blockquote>
-<div><p>—Fred Brooks, Jr.</p>
-</div></blockquote>
-<p>That is, it’s easier for customers to understand what they want once they see a prototype and for engineers to understand how
-to build it better once they’ve done it the first time.</p>
-<p>This observation led to a software development lifecycle developed in the 1980s that combines prototypes with the Waterfall
-model (Boehm 1986). The idea is to iterate through a sequence of four phases, with each iteration resulting in a prototype that
-is a refinement of the previous version. Figure 1.2 illustrates this model of development across the four phases, which gives
-this lifecycle its name: the <strong>Spiral model</strong>. The phases are:</p>
-<ol class="arabic simple">
-<li><p>Determine objectives and constraints of this iteration</p></li>
-<li><p>Evaluate alternatives and identify and resolve risks</p></li>
-<li><p>Develop and verify the prototype for this iteration</p></li>
-<li><p>Plan the next iteration</p></li>
-</ol>
-<p>Rather than document all the requirements at the beginning, as in the Waterfall model, the requirement documents are developed
-across the iteration as they are needed and evolve with the project. Iterations involve the customer before the product is completed,
-which reduces chances of misunderstandings. However, as originally envisioned, these iterations were 6 to 24 months long, so there is
-plenty of time for customers to change their minds during an iteration! Thus, Spiral still relies on planning and extensive
-documentation, but the plan is expected to evolve on each iteration.</p>
-<p>Given the importance of software development, many variations of Plan-and-Document methodologies were proposed beyond these two.
-A recent one is called the <strong>Rational Unified Process (RUP)</strong> (Kruchten 2003), developed during the 1990s, which combines features of both
-Waterfall and Spiral lifecycles as well standards for diagrams and documentation. We’ll use RUP as a representative of the latest thinking
-in Plan-and-Document lifecycles. Unlike Waterfall and Spiral, it is more closely allied to business issues than to technical issues.</p>
-<p>Like Waterfall and Spiral, RUP has phases:</p>
-<ol class="arabic simple">
-<li><p>Inception: makes the business case for the software and scopes the project to set the schedule and budget, which is used to judge progress and justify expenditures, and initial assessment of risks to schedule and budget.</p></li>
-<li><p>Elaboration: works with stakeholders to identify use cases, designs a software archi- tecture, sets the development plan, and builds an initial prototype.</p></li>
-<li><p>Construction: codes and tests the product, resulting in the first external release.</p></li>
-<li><p>Transition:moves the product from development to production in the real environment, including customer acceptance testing and user training.</p></li>
-</ol>
-<p>Unlike Waterfall, each phase involves iteration. For example, a project might have one inception phase iteration, two elaboration phase
-iterations, four construction phase iterations, and two transition phase iterations. Like Spiral, a project could also iterate across
-all four phases repeatedly.</p>
-<p>In addition to the dynamically changing phases of the project, RUP identifies six “engineering disciplines” (also known as workflows)
-that people working on the project should collectively cover:</p>
-<ol class="arabic simple">
-<li><p>Business Modeling</p></li>
-<li><p>Requirements</p></li>
-<li><p>Analysis and Design</p></li>
-<li><p>Implementation</p></li>
-<li><p>Test</p></li>
-<li><p>Deployment</p></li>
-</ol>
-<p>These disciplines are more static than the phases, in that they nominally exist over the whole lifetime of the project. However, some disciplines
-get used more in earlier phases (like business modeling), some periodically throughout the process (like test), and some more towards the end
-(deployment). Figure 1.3 shows the relationship of the phases and the disciplines, with the area indicating the amount of effort in each
-discipline over time.</p>
-<p>An unfortunate downside to teaching a Plan-and-Document approach is that students may find software development tedious (Nawrocki et al. 2002; Estler et al. 2012).
-Of course, this is hardly a strong enough reason not to teach it; the good news is that there are alternatives that work just as well for many projects that are a
-better fit to the classroom, as we describe in the next section.</p>
-<p><strong>Self-Check 1.2.1.</strong> <em>What are a major similarity and a major difference between processes like Spiral and RUP versus
-Waterfall?</em></p>
-<blockquote>
-<div><p>All rely on planning and documentation, but Spiral and RUP use iteration and prototypes to improve them over time versus a single long path to the product.</p>
-</div></blockquote>
-<p><strong>Self-Check 1.2.2.</strong> <em>What are the differences between the phases of these Plan-and-Document
-processes?</em></p>
-<blockquote>
-<div><p>Waterfall phases separate planning (requirements and architectural design) from implemen- tation. Testing the product before release is next, followed by a separate operations phase. The Spiral phases are aimed at an iteration: set the goals for an iteration; explore alternatives; develop and verify the prototype for this iteration; and plan the next iteration. RUP phases are tied closer to business objectives: inception makes business case and sets schedule and budget; elaboration works with customers to build an initial prototype; construction builds and test the first version; and transition deploys the product.</p>
+<div><p>The test may no longer be Fast, since it takes much longer to call an external
+service than to compute locally. The test may no longer be Repeatable, since
+circumstances beyond our control could affect its outcome, such as the temporary
+unavailability of the external service.</p>
 </div></blockquote>
 </div>
 
@@ -1082,8 +1106,8 @@ processes?</em></p>
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="1" title="previous page"><span class="section-number">1.1. </span>Introduction</a>
-    <a class='right-next' id="next-link" href="3" title="next page"><span class="section-number">1.3. </span>Software Development Processes: The Agile Manifesto</a>
+    <a class='left-prev' id="prev-link" href="2" title="previous page"><span class="section-number">8.2. </span>Anatomy of a Test Case: Arrange, Act, Assert</a>
+    <a class='right-next' id="next-link" href="4" title="next page"><span class="section-number">8.4. </span>Stubbing the Internet</a>
 
         </div>
         

@@ -6,6 +6,10 @@ class SaasbookController < ApplicationController
     # Do Nothing
   end
 
+  def preface
+    # Do Nothing
+  end
+
   def show_section
     @chapter_id = params[:chapter_id]
     @section_id = params[:section_id]

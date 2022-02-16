@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>1.2. Software Development Processes: Plan and Document &#8212; saasbook  documentation</title>
+    <title>2.4. Ruby Idioms: Poetry Mode, Blocks, Duck Typing &#8212; saasbook  documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -34,8 +34,8 @@
     <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="1.3. Software Development Processes: The Agile Manifesto" href="3" />
-    <link rel="prev" title="1.1. Introduction" href="1" />
+    <link rel="next" title="2.5. CHIPS: Ruby Intro" href="5" />
+    <link rel="prev" title="2.3. Introducing Ruby,an Object-Oriented Language" href="3" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -65,131 +65,131 @@
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../preface/index.html">
+  <a class="reference internal" href="../../../preface">
    Preface
   </a>
  </li>
 </ul>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="..">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/1">
    1. Introduction to Software as a Service, Agile Development, and Cloud Computing
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/1">
+     1.1. Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/2">
+     1.2. Software Development Processes: Plan and Document
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/3">
+     1.3. Software Development Processes: The Agile Manifesto
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/4">
+     1.4. Software Quality Assurance: Testing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/5">
+     1.5. Productivity: Conciseness, Synthesis, Reuse, and Tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/6">
+     1.6. SaaS and Service Oriented Architecture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/7">
+     1.7. Deploying SaaS: Cloud Computing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/8">
+     1.8. Deploying SaaS: Browsers and Mobile
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/9">
+     1.9. Beautiful vs. Legacy Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/10">
+     1.10. Guided Tour and How To Use This Book
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/11">
+     1.11. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/12">
+     1.12. Concluding Remarks: Software Engineering Is More Than Programming
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="..">
+   2. How to Learn a New Language
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
   </label>
   <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="1">
-     1.1. Introduction
-    </a>
-   </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     1.2. Software Development Processes: Plan and Document
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="3">
-     1.3. Software Development Processes: The Agile Manifesto
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4">
-     1.4. Software Quality Assurance: Testing
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="5">
-     1.5. Productivity: Conciseness, Synthesis, Reuse, and Tools
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="6">
-     1.6. SaaS and Service Oriented Architecture
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="7">
-     1.7. Deploying SaaS: Cloud Computing
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="8">
-     1.8. Deploying SaaS: Browsers and Mobile
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="9">
-     1.9. Beautiful vs. Legacy Code
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="10">
-     1.10. Guided Tour and How To Use This Book
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="11">
-     1.11. Fallacies and Pitfalls
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="12">
-     1.12. Concluding Remarks: Software Engineering Is More Than Programming
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../chapter/2">
-   2. How to Learn a New Language
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/2/section/1">
      2.1. Prelude: Learning to Learn Languages and Frameworks
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/2/section/2">
+    <a class="reference internal" href="2">
      2.2. Pair Programming
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/2/section/3">
+    <a class="reference internal" href="3">
      2.3. Introducing Ruby,an Object-Oriented Language
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/2/section/4">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      2.4. Ruby Idioms: Poetry Mode, Blocks, Duck Typing
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/2/section/5">
+    <a class="reference internal" href="5">
      2.5. CHIPS: Ruby Intro
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/2/section/6">
+    <a class="reference internal" href="6">
      2.6. Gems and Bundler: Library Management in Ruby
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/2/section/7">
+    <a class="reference internal" href="7">
      2.7. Fallacies and Pitfalls
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../chapter/2/section/8">
+    <a class="reference internal" href="8">
      2.8. Concluding Remarks: How (Not) To Learn a Language By Googling
     </a>
    </li>
@@ -913,7 +913,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/intro/chapter1/sub-chapter2.rst.txt"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/part1/chapter2/sub-chapter4.rst.txt"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.rst</button></a>
         <!-- Download PDF via print -->
@@ -946,133 +946,132 @@
         
               <div>
                 
-  <div class="section" id="software-development-processes-plan-and-document">
-<h1><span class="section-number">1.2. </span>Software Development Processes: Plan and Document<a class="headerlink" href="#software-development-processes-plan-and-document" title="Permalink to this headline">¶</a></h1>
-<p><em>If builders built buildings the way programmers wrote programs, then the first
-woodpecker that came along would destroy civilization.</em></p>
+  <div class="section" id="ruby-idioms-poetry-mode-blocks-duck-typing">
+<h1><span class="section-number">2.4. </span>Ruby Idioms: Poetry Mode, Blocks, Duck Typing<a class="headerlink" href="#ruby-idioms-poetry-mode-blocks-duck-typing" title="Permalink to this headline">¶</a></h1>
+<p>A <strong>programming idiom</strong> is a way of doing or expressing something that occurs frequently in code
+written by experienced users of a given programming language. While there may be other ways to
+accomplish the same task, the idiomatic way is the one that is most readily intention-revealing
+to other experienced users of the language. Your goal when learning a new language should be to
+learn to “think in” that language by understanding and using its idioms well, or in other words,
+to avoid the well-known pitfall that “you can write FORTRAN in any language”. In this section we
+explore three key Ruby idioms: passing arguments to methods (“poetry mode” and named parameters),
+blocks, and duck typing.</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="n">link_to</span><span class="p">(</span><span class="s1">&#39;Edit&#39;</span><span class="p">,</span> <span class="p">{</span><span class="ss">:controller</span> <span class="o">=&gt;</span> <span class="s1">&#39;students&#39;</span><span class="p">,</span> <span class="ss">:action</span> <span class="o">=&gt;</span> <span class="s1">&#39;edit&#39;</span><span class="p">})</span>
+<span class="n">link_to</span> <span class="s1">&#39;Edit&#39;</span><span class="p">,</span>  <span class="ss">:controller</span> <span class="o">=&gt;</span> <span class="s1">&#39;students&#39;</span><span class="p">,</span> <span class="ss">:action</span> <span class="o">=&gt;</span> <span class="s1">&#39;edit&#39;</span>
+<span class="n">link_to</span> <span class="s1">&#39;Edit&#39;</span><span class="p">,</span> <span class="ss">controller</span><span class="p">:</span> <span class="s1">&#39;students&#39;</span><span class="p">,</span> <span class="ss">action</span><span class="p">:</span> <span class="s1">&#39;edit&#39;</span>
+</pre></div>
+</div>
+<p><strong>Poetry mode and named parameters.</strong> Figures 2.7 and 2.8 show two pervasive idioms related to Ruby
+method calls. The first, <em>poetry mode</em>, allows omitting parentheses around the arguments to a method
+call when the parsing is unambiguous. In addition, when the last argument to a method call is a
+hash, the curly braces around the hash literal can be omitted.</p>
+<p>In early versions of Ruby, hash arguments were often used to emulate the <strong>named parameter</strong> feature
+(also called <em>keyword</em> <em>arguments</em>) available in languages such as Python, C#, and others. For example,
+the documentation for the <code class="code docutils literal notranslate"><span class="pre">link_to</span></code> method used in Figure 2.7 tells us that <code class="code docutils literal notranslate"><span class="pre">:controller</span></code> and <code class="code docutils literal notranslate"><span class="pre">:action</span></code> are
+just two of many possible additional (and optional) values that can be passed to the method. True named
+parameters became available in Ruby 2.0, as Figure 2.8 shows; nonetheless, a great deal of Ruby code written
+prior to Ruby 2.0 still uses hashes to pass optional arguments or provide default values for arguments.</p>
+<p><strong>Blocks.</strong> Ruby uses the term <em>block</em> somewhat differently than other languages do. In Ruby, a block is just a
+method without a name, or an <strong>anonymous lambda expression</strong> in programming-language terminology. Like a regular
+named method, it has arguments and can use local variables.</p>
+<p>As Figure 2.9 shows, one of the most common uses of blocks is to implement data structure traversal. The instance method
+<code class="code docutils literal notranslate"><span class="pre">each</span></code>, available in all Ruby classes that are collection-like, takes a single argument consisting of a block (anonymous lambda)
+to which each member of the collection will be passed. <code class="code docutils literal notranslate"><span class="pre">each</span></code> is an example of an <strong>internal iterator</strong>. Rubyists like to say
+that Ruby collections “manage their own traversal,” because it’s up to the receiver
+of <code class="code docutils literal notranslate"><span class="pre">each</span></code> to decide how to implement that method to yield each collection element. (Indeed, in Figure 2.9, we can’t even tell what
+the underlying type of <code class="code docutils literal notranslate"><span class="pre">movie_list</span></code> is.)</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using &#39;named keyword&#39; arguments</span>
+<span class="k">def</span> <span class="nf">greet</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="ss">last_name</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="ss">greeting</span><span class="p">:</span> <span class="s2">&quot;Hi&quot;</span><span class="p">)</span>
+    <span class="s2">&quot;</span><span class="si">#{</span><span class="n">greeting</span><span class="si">}</span><span class="s2">, </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2"> </span><span class="si">#{</span><span class="n">last_name</span><span class="si">}</span><span class="s2">!&quot;</span>
+<span class="k">end</span>
+<span class="n">greet</span><span class="p">(</span><span class="s2">&quot;Dave&quot;</span><span class="p">)</span>               <span class="c1"># =&gt; &quot;Hi, Dave! &quot;</span>
+<span class="n">greet</span><span class="p">(</span><span class="s2">&quot;Dave&quot;</span><span class="p">,</span> <span class="ss">last_name</span><span class="p">:</span> <span class="s2">&quot;Fox&quot;</span><span class="p">)</span> <span class="c1"># =&gt; &quot;Hi, Dave Fox!&quot;</span>
+<span class="n">greet</span><span class="p">(</span><span class="s2">&quot;Dave&quot;</span><span class="p">,</span> <span class="ss">greeting</span><span class="p">:</span> <span class="s2">&quot;Yo&quot;</span><span class="p">)</span>   <span class="c1"># =&gt; &quot;Yo, Dave!&quot;</span>
+<span class="n">greet</span><span class="p">(</span><span class="s2">&quot;Dave&quot;</span><span class="p">,</span> <span class="ss">greeting</span><span class="p">:</span> <span class="s2">&quot;Hey&quot;</span><span class="p">,</span> <span class="ss">last_name</span><span class="p">:</span> <span class="s2">&quot;Patterson&quot;</span><span class="p">)</span>
+        <span class="c1"># =&gt; &quot;Hey, Dave Patterson!&quot; - order of keyword args irrelevant</span>
+<span class="n">greet</span><span class="p">(</span><span class="ss">greeting</span><span class="p">:</span> <span class="s2">&quot;Yo&quot;</span><span class="p">)</span>              <span class="c1"># ArgumentError, since first arg is required</span>
+</pre></div>
+</div>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_movies</span><span class="p">(</span><span class="n">movie_list</span><span class="p">)</span>
+    <span class="n">movie_list</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">m</span><span class="o">|</span>
+        <span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">m</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="s2"> (rated: </span><span class="si">#{</span><span class="n">m</span><span class="o">.</span><span class="n">rating</span><span class="si">}</span><span class="s2">)&quot;</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<p>Figure 2.10 shows a simple example of such a collection operator, which can be used with any collection that
+implements <code class="code docutils literal notranslate"><span class="pre">each</span></code> as a way of traversing itself. Note once again that we have no idea how the collection is
+implemented: all we need to know is that it implements the instance method <code class="code docutils literal notranslate"><span class="pre">each</span></code> to enumerate its elements.
+Ruby provides a wide variety of such collection methods; Figure 2.11 lists some of the most useful. With some
+practice, you will automatically start to express operations on collections in terms of these functional idioms
+rather than in terms of imperative loops. Although Ruby allows <code class="code docutils literal notranslate"><span class="pre">for</span> <span class="pre">i</span> <span class="pre">in</span> <span class="pre">collection</span></code>, <code class="code docutils literal notranslate"><span class="pre">each</span></code> allows us to take better
+advantage of <strong>duck typing</strong>, which we’ll see shortly, to improve code reuse.</p>
+<p><strong>Duck Typing.</strong> You may be surprised to learn, though, that the collection methods summarized in Figure 2.11 (and several
+others not in the figure) aren’t part of Ruby’s <code class="code docutils literal notranslate"><span class="pre">Array</span></code> class. In fact, they aren’t even part of any superclass from which
+Array and other collection types inherit. Instead, they take advantage of an even more powerful reuse mechanism: A <strong>mix-in</strong>
+is a named collection of related methods that can be added to any class fulfilling some “contract” with the mixed-in methods.
+A <em>module</em> is Ruby’s method for packaging together a group of methods as a mix-in. The Ruby statement include <code class="code docutils literal notranslate"><span class="pre">ModuleName</span></code> inside
+a class definition mixes the instance methods, class methods, and variables of the module into that class. The collection methods
+in Figure 2.11 are defined in a module called <code class="code docutils literal notranslate"><span class="pre">Enumerable</span></code> that is part of Ruby’s standard library and is mixed in to all of Ruby’s
+collection classes. As its documentation states, <code class="code docutils literal notranslate"><span class="pre">Enumerable</span></code> requires the class mixing it in to provide an <code class="code docutils literal notranslate"><span class="pre">each</span></code> method, since
+<code class="code docutils literal notranslate"><span class="pre">Enumerable</span></code>’s collection methods are implemented in terms of <code class="code docutils literal notranslate"><span class="pre">each</span></code>. It doesn’t matter what class you mix it into as long as that
+class defines the <code class="code docutils literal notranslate"><span class="pre">each</span></code> instance method, and neither the class nor the mix-in have to declare their intentions in advance. For
+example, the <code class="code docutils literal notranslate"><span class="pre">each</span></code>
+method in Ruby’s <code class="code docutils literal notranslate"><span class="pre">Array</span></code> class iterates over the array elements, whereas the <code class="code docutils literal notranslate"><span class="pre">each</span></code> method in the <code class="code docutils literal notranslate"><span class="pre">IO</span></code> class iterates over the lines of a
+file or other I/O stream. Mix-ins thereby allow reusing whole collections of behaviors across classes that are otherwise unrelated.</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="c1"># find largest element in a collection</span>
+<span class="k">def</span> <span class="nf">maximum</span><span class="p">(</span><span class="n">collection</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">collection</span><span class="o">.</span><span class="n">first</span>
+    <span class="n">collection</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">item</span><span class="o">|</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">item</span> <span class="k">if</span> <span class="n">item</span> <span class="o">&gt;</span> <span class="n">result</span>
+    <span class="k">end</span>
+    <span class="n">result</span>
+<span class="k">end</span>
+<span class="n">maximum</span><span class="p">(</span><span class="o">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="o">]</span><span class="p">)</span>     <span class="c1"># =&gt; 4</span>
+<span class="n">maximum</span><span class="p">(</span><span class="o">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span><span class="s2">&quot;x&quot;</span><span class="p">,</span><span class="s2">&quot;b&quot;</span><span class="o">]</span><span class="p">)</span> <span class="c1"># =&gt; &quot;x&quot;</span>
+<span class="n">max</span><span class="p">(</span><span class="o">[</span><span class="no">RomanNumeral</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;XL&#39;</span><span class="p">),</span> <span class="no">RomanNumeral</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;LI&#39;</span><span class="p">)</span><span class="o">]</span> <span class="c1"># =&gt; &#39;LI&#39;</span>
+
+<span class="k">class</span> <span class="nc">RomanNumeral</span>
+    <span class="kp">include</span> <span class="no">Comparable</span>
+    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">roman_numeral_string</span><span class="p">)</span>
+        <span class="vi">@orig_string</span> <span class="o">=</span> <span class="n">roman_numeral_string</span>
+        <span class="vi">@value</span> <span class="o">=</span> <span class="no">RomanNumeral</span><span class="o">.</span><span class="n">convert_from_roman</span><span class="p">(</span><span class="n">roman_numeral_string</span><span class="p">)</span>
+    <span class="k">end</span>
+    <span class="k">def</span> <span class="nf">&lt;=&gt;</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="vi">@value</span> <span class="o">&lt;=&gt;</span> <span class="n">other</span>
+    <span class="k">end</span>
+    <span class="k">def</span> <span class="nf">to_s</span>
+        <span class="vi">@orig_string</span>
+    <span class="k">end</span>
+    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">convert_from_roman</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
+        <span class="c1"># ...code to convert Roman numerals from strings...</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<p>Similarly, a class that defines the “spaceship operator” <code class="code docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code>, which returns −1,0,1 depending on whether its second argument
+is less than, equal to, or greater than its first argument, can mix in the <code class="code docutils literal notranslate"><span class="pre">Comparable</span></code> module, which defines <code class="code docutils literal notranslate"><span class="pre">&lt;,</span> <span class="pre">&lt;=,</span> <span class="pre">&gt;,</span> <span class="pre">&gt;=,</span> <span class="pre">==,</span></code>
+and <code class="code docutils literal notranslate"><span class="pre">between?</span></code> in terms of <code class="code docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code>. For example, the <code class="code docutils literal notranslate"><span class="pre">Time</span></code> class defines <code class="code docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code> and mixes in <code class="code docutils literal notranslate"><span class="pre">Comparable</span></code>, allowing you
+to write <code class="code docutils literal notranslate"><span class="pre">Time.now.between?(Time.parse(&quot;19:00&quot;),</span> <span class="pre">Time.parse(&quot;23:15&quot;))</span></code>.</p>
+<p>The term “duck typing” is a popular description of this capability, because “if something looks like a duck and quacks like a duck, it might
+as well be a duck.” From <code class="code docutils literal notranslate"><span class="pre">Enumerable</span></code>’s point of view, if a class has an <code class="code docutils literal notranslate"><span class="pre">each</span></code> method, it might as well be a collection, thus allowing <code class="code docutils literal notranslate"><span class="pre">Enumerable</span></code>
+to provide other methods implemented in terms of <code class="code docutils literal notranslate"><span class="pre">each</span></code>. When Ruby programmers say that some class “quacks like an <code class="code docutils literal notranslate"><span class="pre">Array</span></code>,” they usually mean that
+it’s not necessarily an <code class="code docutils literal notranslate"><span class="pre">Array</span></code> nor a descendant of <code class="code docutils literal notranslate"><span class="pre">Array</span></code>, but it responds to most of the same methods as <code class="code docutils literal notranslate"><span class="pre">Array</span></code> and can therefore be used wherever
+an <code class="code docutils literal notranslate"><span class="pre">Array</span></code> would be used.</p>
+<p><strong>Self-Check 2.4.1.</strong> <em>Write one line of Ruby that checks whether a string s is a palindrome, that is, it reads the same backwards as forwards.</em> <strong>Hint:</strong>
+<em>Use the methods in Figure 2.11, and don’t forget that upper vs. lowercase shouldn’t matter: ReDivider is a palindrome.</em></p>
 <blockquote>
-<div><p>—Weinberg’s Second Law, 1978, attributed to Gerald Weinberg, University of Nebraska computer scientist</p>
+<div><p><code class="code docutils literal notranslate"><span class="pre">s.downcase</span> <span class="pre">==</span> <span class="pre">s.downcase.reverse</span></code></p>
 </div></blockquote>
-<p>The general unpredictability of software development in the late 1960s, along with
-the software disasters similar to ACA, led to the study of how high-quality software
-could be developed on a predictable schedule and budget. Drawing the analogy to other
-engineering fields, the term software engineering was coined (Naur and Randell 1969).
-The goal was to discover methods to build software that were as predictable in quality,
-cost, and time as those used to build bridges in civil engineering.</p>
-<p>One thrust of software engineering was to bring an engineering discipline to what was
-often unplanned software development. Before starting to code, come up with a plan for
-the project, including extensive, detailed documentation of all phases of that plan.
-Progress is then measured against the plan. Changes to the project must be reflected in
-the documentation and possibly to the plan.</p>
-<p>The goal of all these “Plan-and-Document” software development processes is to improve
-predictability via extensive documentation, which must be changed whenever the goals change.
-Here is how textbook authors put it (Lethbridge and Laganiere 2002; Braude 2001):</p>
-<p><em>Documentation should be written at all stages of development, and includes requirements,
-designs, user manuals, instructions for testers and project plans.</em></p>
+<p>You might think you could say <code class="code docutils literal notranslate"><span class="pre">s.reverse=~Regexp.new(s)</span></code>, but that would fail if s happens to contain regexp metacharacters such as $.</p>
+<p><strong>Self-Check 2.4.2.</strong> <em>Suppose you mix</em> <code class="code docutils literal notranslate"><span class="pre">Enumerable</span></code> <em>into a class</em> <code class="code docutils literal notranslate"><span class="pre">Foo</span></code> <em>that does not provide the</em> <code class="code docutils literal notranslate"><span class="pre">each</span></code> <em>method. What error will be</em>
+<em>raised when you call</em> <code class="code docutils literal notranslate"><span class="pre">Foo.new.map</span> <span class="pre">{</span> <span class="pre">|elt|</span> <span class="pre">puts</span> <span class="pre">elt</span> <span class="pre">}</span></code> <em>?</em></p>
 <blockquote>
-<div><p>—Timothy Lethbridge and Robert Laganiere, 2002</p>
+<div><p>The map method in <code class="code docutils literal notranslate"><span class="pre">Enumerable</span></code> will attempt to call each on its receiver, but since the new <code class="code docutils literal notranslate"><span class="pre">Foo</span></code> object doesn’t define each, Ruby will raise an Undefined Method error.</p>
 </div></blockquote>
-<p><em>Documentation is the lifeblood of software
-engineering.</em></p>
+<p><strong>Self-Check 2.4.3.</strong> <em>Which statement is correct and why: (a) include ’enumerable’ (b) include</em> <code class="code docutils literal notranslate"><span class="pre">Enumerable</span></code></p>
 <blockquote>
-<div><p>—Eric Braude, 2001</p>
-</div></blockquote>
-<p>This process is even embraced with an official standard of documentation: IEEE/ANSI stan- dard 830/1993.</p>
-<p>Governments like that of the US have elaborate regulations to prevent corruption when acquiring new equipment,
-which lead to lengthy specifications and contracts. Since the goal of software engineering was to make software
-development as predictable as building bridges, including elaborate specifications, government contracts were a
-natural match to Plan-and- Document software development. Thus, like many countries, US acquisition regulations
-left the ACA developers little choice but to follow a Plan-and-Document lifecycle.</p>
-<p>Of course, like other engineering fields, the government has escape clauses in the contracts that let it still
-acquire the product even if it is late. Ironically, the contractor makes more money the longer it takes to develop
-the software. Thus, the art is in negotiating the contract and the penalty clauses. As one commentator on ACA noted
-(Howard 2013), “The firms that typically get contracts are the firms that are good at getting contracts, not
-typically good at executing on them.” Another noted that the Plan-and-Document approach is not well suited to modern
-practices, especially when government contractors focus on maximizing profits (Chung 2013).</p>
-<p>An early version of this Plan-and-Document software development process was devel- oped in 1970 (Royce 1970).
-It follows this sequence of phases:</p>
-<ol class="arabic simple">
-<li><p>Requirements analysis and specification</p></li>
-<li><p>Architectural design</p></li>
-<li><p>Implementation and Integration</p></li>
-<li><p>Verification</p></li>
-<li><p>Operation and Maintenance</p></li>
-</ol>
-<p>Given that the earlier you find an error the cheaper it is to fix, the philosophy of this process is to complete a
-phase before going on to the next one, thereby removing as many errors as early as possible. Getting the early phases
-right could also prevent unnecessary work downstream. As this process could take years, the extensive documentation
-helps to ensure that important information is not lost if a person leaves the project and that new people can get up
-to speed quickly when they join the project.</p>
-<p>Because it flows from the top down to completion, this process is called the <strong>Waterfall</strong> software development process or
-Waterfall software development <strong>lifecycle</strong>. Understandably, given the complexity of each stage in the Waterfall lifecycle,
-product releases are major events towardwhichengineersworkedfeverishlyandwhichareaccompaniedbymuchfanfare. In the Waterfall
-lifecycle, the long life of software is acknowledged by a maintenance phase that repairs errors as they are discovered.
-New versions of software developed in the Waterfall model go through the same several phases, and take typically between
-6 and 18 months.</p>
-<p>The Waterfall model can work well with well-specified tasks like NASA space flights, but it runs into trouble when customers
-change their minds about what they want. A Turing Award winner captures this observation:</p>
-<p><em>Plan to throw one [implementation] away; you will,
-anyhow.</em></p>
-<blockquote>
-<div><p>—Fred Brooks, Jr.</p>
-</div></blockquote>
-<p>That is, it’s easier for customers to understand what they want once they see a prototype and for engineers to understand how
-to build it better once they’ve done it the first time.</p>
-<p>This observation led to a software development lifecycle developed in the 1980s that combines prototypes with the Waterfall
-model (Boehm 1986). The idea is to iterate through a sequence of four phases, with each iteration resulting in a prototype that
-is a refinement of the previous version. Figure 1.2 illustrates this model of development across the four phases, which gives
-this lifecycle its name: the <strong>Spiral model</strong>. The phases are:</p>
-<ol class="arabic simple">
-<li><p>Determine objectives and constraints of this iteration</p></li>
-<li><p>Evaluate alternatives and identify and resolve risks</p></li>
-<li><p>Develop and verify the prototype for this iteration</p></li>
-<li><p>Plan the next iteration</p></li>
-</ol>
-<p>Rather than document all the requirements at the beginning, as in the Waterfall model, the requirement documents are developed
-across the iteration as they are needed and evolve with the project. Iterations involve the customer before the product is completed,
-which reduces chances of misunderstandings. However, as originally envisioned, these iterations were 6 to 24 months long, so there is
-plenty of time for customers to change their minds during an iteration! Thus, Spiral still relies on planning and extensive
-documentation, but the plan is expected to evolve on each iteration.</p>
-<p>Given the importance of software development, many variations of Plan-and-Document methodologies were proposed beyond these two.
-A recent one is called the <strong>Rational Unified Process (RUP)</strong> (Kruchten 2003), developed during the 1990s, which combines features of both
-Waterfall and Spiral lifecycles as well standards for diagrams and documentation. We’ll use RUP as a representative of the latest thinking
-in Plan-and-Document lifecycles. Unlike Waterfall and Spiral, it is more closely allied to business issues than to technical issues.</p>
-<p>Like Waterfall and Spiral, RUP has phases:</p>
-<ol class="arabic simple">
-<li><p>Inception: makes the business case for the software and scopes the project to set the schedule and budget, which is used to judge progress and justify expenditures, and initial assessment of risks to schedule and budget.</p></li>
-<li><p>Elaboration: works with stakeholders to identify use cases, designs a software archi- tecture, sets the development plan, and builds an initial prototype.</p></li>
-<li><p>Construction: codes and tests the product, resulting in the first external release.</p></li>
-<li><p>Transition:moves the product from development to production in the real environment, including customer acceptance testing and user training.</p></li>
-</ol>
-<p>Unlike Waterfall, each phase involves iteration. For example, a project might have one inception phase iteration, two elaboration phase
-iterations, four construction phase iterations, and two transition phase iterations. Like Spiral, a project could also iterate across
-all four phases repeatedly.</p>
-<p>In addition to the dynamically changing phases of the project, RUP identifies six “engineering disciplines” (also known as workflows)
-that people working on the project should collectively cover:</p>
-<ol class="arabic simple">
-<li><p>Business Modeling</p></li>
-<li><p>Requirements</p></li>
-<li><p>Analysis and Design</p></li>
-<li><p>Implementation</p></li>
-<li><p>Test</p></li>
-<li><p>Deployment</p></li>
-</ol>
-<p>These disciplines are more static than the phases, in that they nominally exist over the whole lifetime of the project. However, some disciplines
-get used more in earlier phases (like business modeling), some periodically throughout the process (like test), and some more towards the end
-(deployment). Figure 1.3 shows the relationship of the phases and the disciplines, with the area indicating the amount of effort in each
-discipline over time.</p>
-<p>An unfortunate downside to teaching a Plan-and-Document approach is that students may find software development tedious (Nawrocki et al. 2002; Estler et al. 2012).
-Of course, this is hardly a strong enough reason not to teach it; the good news is that there are alternatives that work just as well for many projects that are a
-better fit to the classroom, as we describe in the next section.</p>
-<p><strong>Self-Check 1.2.1.</strong> <em>What are a major similarity and a major difference between processes like Spiral and RUP versus
-Waterfall?</em></p>
-<blockquote>
-<div><p>All rely on planning and documentation, but Spiral and RUP use iteration and prototypes to improve them over time versus a single long path to the product.</p>
-</div></blockquote>
-<p><strong>Self-Check 1.2.2.</strong> <em>What are the differences between the phases of these Plan-and-Document
-processes?</em></p>
-<blockquote>
-<div><p>Waterfall phases separate planning (requirements and architectural design) from implemen- tation. Testing the product before release is next, followed by a separate operations phase. The Spiral phases are aimed at an iteration: set the goals for an iteration; explore alternatives; develop and verify the prototype for this iteration; and plan the next iteration. RUP phases are tied closer to business objectives: inception makes business case and sets schedule and budget; elaboration works with customers to build an initial prototype; construction builds and test the first version; and transition deploys the product.</p>
+<div><p><strong>(b)</strong> is correct, since include expects the name of a module, which (like a class name) is a constant rather than a string.</p>
 </div></blockquote>
 </div>
 
@@ -1082,8 +1081,8 @@ processes?</em></p>
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="1" title="previous page"><span class="section-number">1.1. </span>Introduction</a>
-    <a class='right-next' id="next-link" href="3" title="next page"><span class="section-number">1.3. </span>Software Development Processes: The Agile Manifesto</a>
+    <a class='left-prev' id="prev-link" href="3" title="previous page"><span class="section-number">2.3. </span>Introducing Ruby,an Object-Oriented Language</a>
+    <a class='right-next' id="next-link" href="5" title="next page"><span class="section-number">2.5. </span>CHIPS: Ruby Intro</a>
 
         </div>
         

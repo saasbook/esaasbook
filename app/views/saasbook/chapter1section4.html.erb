@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>1.2. Software Development Processes: Plan and Document &#8212; saasbook  documentation</title>
+    <title>1.4. Software Quality Assurance: Testing &#8212; saasbook  documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -34,8 +34,8 @@
     <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="1.3. Software Development Processes: The Agile Manifesto" href="3" />
-    <link rel="prev" title="1.1. Introduction" href="1" />
+    <link rel="next" title="1.5. Productivity: Conciseness, Synthesis, Reuse, and Tools" href="5" />
+    <link rel="prev" title="1.3. Software Development Processes: The Agile Manifesto" href="3" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -86,8 +86,8 @@
      1.1. Introduction
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="2">
      1.2. Software Development Processes: Plan and Document
     </a>
    </li>
@@ -96,8 +96,8 @@
      1.3. Software Development Processes: The Agile Manifesto
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      1.4. Software Quality Assurance: Testing
     </a>
    </li>
@@ -913,7 +913,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/intro/chapter1/sub-chapter2.rst.txt"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/intro/chapter1/sub-chapter4.rst.txt"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.rst</button></a>
         <!-- Download PDF via print -->
@@ -946,133 +946,47 @@
         
               <div>
                 
-  <div class="section" id="software-development-processes-plan-and-document">
-<h1><span class="section-number">1.2. </span>Software Development Processes: Plan and Document<a class="headerlink" href="#software-development-processes-plan-and-document" title="Permalink to this headline">¶</a></h1>
-<p><em>If builders built buildings the way programmers wrote programs, then the first
-woodpecker that came along would destroy civilization.</em></p>
+  <div class="section" id="software-quality-assurance-testing">
+<h1><span class="section-number">1.4. </span>Software Quality Assurance: Testing<a class="headerlink" href="#software-quality-assurance-testing" title="Permalink to this headline">¶</a></h1>
+<p><em>And the users exclaimed with a laugh and a taunt: “It’s just what we asked for,
+but not what we want.”</em></p>
 <blockquote>
-<div><p>—Weinberg’s Second Law, 1978, attributed to Gerald Weinberg, University of Nebraska computer scientist</p>
+<div><p>—Anonymous</p>
 </div></blockquote>
-<p>The general unpredictability of software development in the late 1960s, along with
-the software disasters similar to ACA, led to the study of how high-quality software
-could be developed on a predictable schedule and budget. Drawing the analogy to other
-engineering fields, the term software engineering was coined (Naur and Randell 1969).
-The goal was to discover methods to build software that were as predictable in quality,
-cost, and time as those used to build bridges in civil engineering.</p>
-<p>One thrust of software engineering was to bring an engineering discipline to what was
-often unplanned software development. Before starting to code, come up with a plan for
-the project, including extensive, detailed documentation of all phases of that plan.
-Progress is then measured against the plan. Changes to the project must be reflected in
-the documentation and possibly to the plan.</p>
-<p>The goal of all these “Plan-and-Document” software development processes is to improve
-predictability via extensive documentation, which must be changed whenever the goals change.
-Here is how textbook authors put it (Lethbridge and Laganiere 2002; Braude 2001):</p>
-<p><em>Documentation should be written at all stages of development, and includes requirements,
-designs, user manuals, instructions for testers and project plans.</em></p>
+<p>A standard definition of <strong>quality</strong> for any product is “fitness for use,” which must
+provide business value for both the customer and the manufacturer (Juran and Gryna 1998).
+For software, quality means both satisfying the customer’s needs—easy to use, gets correct
+answers, does not crash, and so on—<em>and</em> being easy for the developer to debug and enhance. <strong>Quality
+Assurance (QA)</strong> also comes from manufacturing, and refers to processes and standards that lead
+to manufacture of high-quality products and to the introduction of manufacturing processes that
+improve quality. Software QA, then, means both ensuring that products under development have high
+quality and creating processes and standards in an organization that lead to high quality software.
+As we shall see, some Plan-and-Document software processes even use a separate QA team that tests
+software quality (Section 8.10).</p>
+<p>Determining software quality involves two terms that are commonly interchanged but have subtle distinctions (Boehm 1979):</p>
+<p><strong>• Verification</strong>: Did you build the thing <em>right</em>? (Did you meet the specification?)</p>
+<p><strong>• Validation</strong>: Did you build the right <em>thing</em>? (Is this what the customer wants? That is, is the specification correct?)</p>
+<p>Software prototypes that are the lifeblood of Agile typically help with validation rather than verification, since customers
+often change their minds on what they want once they begin to see the product work.</p>
+<p>The main approach to verification and validation is <strong>testing</strong>; the motivation for testing is that the earlier developers
+find mistakes, the cheaper it is to repair them. Given the vast number of different combinations of inputs, testing
+cannot be exhaustive. One way to reduce the space is to perform different tests at different phases of software development.
+Starting bottom up, <strong>unit testing</strong> makes sure that a single procedure or method does what was expected. The next level up
+is <em>module testing</em>, which tests across individual units. For example, unit testing works within a single class whereas module
+testing works across classes. Above this level is <strong>integration testing</strong>, which ensures that the interfaces between the units have
+consistent assumptions and communicate correctly. This level does not test the functionality of the units. At the top level is
+<strong>system testing</strong> or <strong>acceptance testing</strong>, which tests to see if the integrated program meets its specifications. In Chapter 8, we’ll
+describe an alternative to testing, called <strong>formal methods</strong>.</p>
+<p>As mentioned briefly in Section 1.3, the approach to testing for the XP version of Agile is to write the tests <em>before</em> you write the
+code. You then write the minimum code you need to pass the test, which ensures that your code is always tested and reduces the chances
+of writing code that will be later discarded. XP splits this test-first philosophy into two parts, depending on the level of the testing.
+For system, acceptance, and integration tests, XP uses <em>Behavior-Driven Design (BDD)</em>, which is the topic of Chapter 7. For unit and module
+tests, XP uses <em>Test-Driven Development (TDD)</em>, which is the topic of Chapter 8.</p>
+<p><strong>Self-Check 1.4.1.</strong> <em>While all of the following help with verification, which form of testing is most likely to help with validation:
+Unit, Module, Integration, or Acceptance?</em></p>
 <blockquote>
-<div><p>—Timothy Lethbridge and Robert Laganiere, 2002</p>
-</div></blockquote>
-<p><em>Documentation is the lifeblood of software
-engineering.</em></p>
-<blockquote>
-<div><p>—Eric Braude, 2001</p>
-</div></blockquote>
-<p>This process is even embraced with an official standard of documentation: IEEE/ANSI stan- dard 830/1993.</p>
-<p>Governments like that of the US have elaborate regulations to prevent corruption when acquiring new equipment,
-which lead to lengthy specifications and contracts. Since the goal of software engineering was to make software
-development as predictable as building bridges, including elaborate specifications, government contracts were a
-natural match to Plan-and- Document software development. Thus, like many countries, US acquisition regulations
-left the ACA developers little choice but to follow a Plan-and-Document lifecycle.</p>
-<p>Of course, like other engineering fields, the government has escape clauses in the contracts that let it still
-acquire the product even if it is late. Ironically, the contractor makes more money the longer it takes to develop
-the software. Thus, the art is in negotiating the contract and the penalty clauses. As one commentator on ACA noted
-(Howard 2013), “The firms that typically get contracts are the firms that are good at getting contracts, not
-typically good at executing on them.” Another noted that the Plan-and-Document approach is not well suited to modern
-practices, especially when government contractors focus on maximizing profits (Chung 2013).</p>
-<p>An early version of this Plan-and-Document software development process was devel- oped in 1970 (Royce 1970).
-It follows this sequence of phases:</p>
-<ol class="arabic simple">
-<li><p>Requirements analysis and specification</p></li>
-<li><p>Architectural design</p></li>
-<li><p>Implementation and Integration</p></li>
-<li><p>Verification</p></li>
-<li><p>Operation and Maintenance</p></li>
-</ol>
-<p>Given that the earlier you find an error the cheaper it is to fix, the philosophy of this process is to complete a
-phase before going on to the next one, thereby removing as many errors as early as possible. Getting the early phases
-right could also prevent unnecessary work downstream. As this process could take years, the extensive documentation
-helps to ensure that important information is not lost if a person leaves the project and that new people can get up
-to speed quickly when they join the project.</p>
-<p>Because it flows from the top down to completion, this process is called the <strong>Waterfall</strong> software development process or
-Waterfall software development <strong>lifecycle</strong>. Understandably, given the complexity of each stage in the Waterfall lifecycle,
-product releases are major events towardwhichengineersworkedfeverishlyandwhichareaccompaniedbymuchfanfare. In the Waterfall
-lifecycle, the long life of software is acknowledged by a maintenance phase that repairs errors as they are discovered.
-New versions of software developed in the Waterfall model go through the same several phases, and take typically between
-6 and 18 months.</p>
-<p>The Waterfall model can work well with well-specified tasks like NASA space flights, but it runs into trouble when customers
-change their minds about what they want. A Turing Award winner captures this observation:</p>
-<p><em>Plan to throw one [implementation] away; you will,
-anyhow.</em></p>
-<blockquote>
-<div><p>—Fred Brooks, Jr.</p>
-</div></blockquote>
-<p>That is, it’s easier for customers to understand what they want once they see a prototype and for engineers to understand how
-to build it better once they’ve done it the first time.</p>
-<p>This observation led to a software development lifecycle developed in the 1980s that combines prototypes with the Waterfall
-model (Boehm 1986). The idea is to iterate through a sequence of four phases, with each iteration resulting in a prototype that
-is a refinement of the previous version. Figure 1.2 illustrates this model of development across the four phases, which gives
-this lifecycle its name: the <strong>Spiral model</strong>. The phases are:</p>
-<ol class="arabic simple">
-<li><p>Determine objectives and constraints of this iteration</p></li>
-<li><p>Evaluate alternatives and identify and resolve risks</p></li>
-<li><p>Develop and verify the prototype for this iteration</p></li>
-<li><p>Plan the next iteration</p></li>
-</ol>
-<p>Rather than document all the requirements at the beginning, as in the Waterfall model, the requirement documents are developed
-across the iteration as they are needed and evolve with the project. Iterations involve the customer before the product is completed,
-which reduces chances of misunderstandings. However, as originally envisioned, these iterations were 6 to 24 months long, so there is
-plenty of time for customers to change their minds during an iteration! Thus, Spiral still relies on planning and extensive
-documentation, but the plan is expected to evolve on each iteration.</p>
-<p>Given the importance of software development, many variations of Plan-and-Document methodologies were proposed beyond these two.
-A recent one is called the <strong>Rational Unified Process (RUP)</strong> (Kruchten 2003), developed during the 1990s, which combines features of both
-Waterfall and Spiral lifecycles as well standards for diagrams and documentation. We’ll use RUP as a representative of the latest thinking
-in Plan-and-Document lifecycles. Unlike Waterfall and Spiral, it is more closely allied to business issues than to technical issues.</p>
-<p>Like Waterfall and Spiral, RUP has phases:</p>
-<ol class="arabic simple">
-<li><p>Inception: makes the business case for the software and scopes the project to set the schedule and budget, which is used to judge progress and justify expenditures, and initial assessment of risks to schedule and budget.</p></li>
-<li><p>Elaboration: works with stakeholders to identify use cases, designs a software archi- tecture, sets the development plan, and builds an initial prototype.</p></li>
-<li><p>Construction: codes and tests the product, resulting in the first external release.</p></li>
-<li><p>Transition:moves the product from development to production in the real environment, including customer acceptance testing and user training.</p></li>
-</ol>
-<p>Unlike Waterfall, each phase involves iteration. For example, a project might have one inception phase iteration, two elaboration phase
-iterations, four construction phase iterations, and two transition phase iterations. Like Spiral, a project could also iterate across
-all four phases repeatedly.</p>
-<p>In addition to the dynamically changing phases of the project, RUP identifies six “engineering disciplines” (also known as workflows)
-that people working on the project should collectively cover:</p>
-<ol class="arabic simple">
-<li><p>Business Modeling</p></li>
-<li><p>Requirements</p></li>
-<li><p>Analysis and Design</p></li>
-<li><p>Implementation</p></li>
-<li><p>Test</p></li>
-<li><p>Deployment</p></li>
-</ol>
-<p>These disciplines are more static than the phases, in that they nominally exist over the whole lifetime of the project. However, some disciplines
-get used more in earlier phases (like business modeling), some periodically throughout the process (like test), and some more towards the end
-(deployment). Figure 1.3 shows the relationship of the phases and the disciplines, with the area indicating the amount of effort in each
-discipline over time.</p>
-<p>An unfortunate downside to teaching a Plan-and-Document approach is that students may find software development tedious (Nawrocki et al. 2002; Estler et al. 2012).
-Of course, this is hardly a strong enough reason not to teach it; the good news is that there are alternatives that work just as well for many projects that are a
-better fit to the classroom, as we describe in the next section.</p>
-<p><strong>Self-Check 1.2.1.</strong> <em>What are a major similarity and a major difference between processes like Spiral and RUP versus
-Waterfall?</em></p>
-<blockquote>
-<div><p>All rely on planning and documentation, but Spiral and RUP use iteration and prototypes to improve them over time versus a single long path to the product.</p>
-</div></blockquote>
-<p><strong>Self-Check 1.2.2.</strong> <em>What are the differences between the phases of these Plan-and-Document
-processes?</em></p>
-<blockquote>
-<div><p>Waterfall phases separate planning (requirements and architectural design) from implemen- tation. Testing the product before release is next, followed by a separate operations phase. The Spiral phases are aimed at an iteration: set the goals for an iteration; explore alternatives; develop and verify the prototype for this iteration; and plan the next iteration. RUP phases are tied closer to business objectives: inception makes business case and sets schedule and budget; elaboration works with customers to build an initial prototype; construction builds and test the first version; and transition deploys the product.</p>
+<div><p>Validation is concerned with doing what the customer really wants versus whether code met the specification, so acceptance testing is most
+likely to point out the difference between doing the thing right and doing the right thing.</p>
 </div></blockquote>
 </div>
 
@@ -1082,8 +996,8 @@ processes?</em></p>
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="1" title="previous page"><span class="section-number">1.1. </span>Introduction</a>
-    <a class='right-next' id="next-link" href="3" title="next page"><span class="section-number">1.3. </span>Software Development Processes: The Agile Manifesto</a>
+    <a class='left-prev' id="prev-link" href="3" title="previous page"><span class="section-number">1.3. </span>Software Development Processes: The Agile Manifesto</a>
+    <a class='right-next' id="next-link" href="5" title="next page"><span class="section-number">1.5. </span>Productivity: Conciseness, Synthesis, Reuse, and Tools</a>
 
         </div>
         

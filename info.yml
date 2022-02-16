@@ -1,9 +1,10 @@
 project:
   name: 'Esaasbook'
   owner: 'CS169L-22'
-  teamId: 'Interactive Textbook for CS169/ESaaS'
+  teamId: 'Interactive_Textbook_for_CS169/ESaaS'
   identities:
     pivotal: 'https://www.pivotaltracker.com/n/projects/2553320/'
+    heroku: 'https://esaas169l.herokuapp.com/'
   notifications: {}
   members:
     member1:

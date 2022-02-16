@@ -1,0 +1,1175 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>9.6. Method-Level Refactoring: Replacing Dependencies With Seams &#8212; saasbook  documentation</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="9.7. The Plan-And-Document Perspective on Working With Legacy Code" href="7" />
+    <link rel="prev" title="9.5. Metrics, CodeSmells, and SOFA" href="5" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../..">
+      
+      
+      <h1 class="site-logo" id="site-title">saasbook  documentation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../preface">
+   Preface
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/1">
+   1. Introduction to Software as a Service, Agile Development, and Cloud Computing
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/1">
+     1.1. Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/2">
+     1.2. Software Development Processes: Plan and Document
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/3">
+     1.3. Software Development Processes: The Agile Manifesto
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/4">
+     1.4. Software Quality Assurance: Testing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/5">
+     1.5. Productivity: Conciseness, Synthesis, Reuse, and Tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/6">
+     1.6. SaaS and Service Oriented Architecture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/7">
+     1.7. Deploying SaaS: Cloud Computing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/8">
+     1.8. Deploying SaaS: Browsers and Mobile
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/9">
+     1.9. Beautiful vs. Legacy Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/10">
+     1.10. Guided Tour and How To Use This Book
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/11">
+     1.11. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/12">
+     1.12. Concluding Remarks: Software Engineering Is More Than Programming
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/2">
+   2. How to Learn a New Language
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/1">
+     2.1. Prelude: Learning to Learn Languages and Frameworks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/2">
+     2.2. Pair Programming
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/3">
+     2.3. Introducing Ruby,an Object-Oriented Language
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/4">
+     2.4. Ruby Idioms: Poetry Mode, Blocks, Duck Typing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/5">
+     2.5. CHIPS: Ruby Intro
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/6">
+     2.6. Gems and Bundler: Library Management in Ruby
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/7">
+     2.7. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/8">
+     2.8. Concluding Remarks: How (Not) To Learn a Language By Googling
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/3">
+   3. SaaS Application Architecture: Microservices, APIs, and REST
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/1">
+     3.1. Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/2">
+     3.2. SaaS Communication Uses HTTP Routes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/3">
+     3.3. CHIPS: HTTP and URIs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/4">
+     3.4. From Web Sites to Microservices: Service-Oriented Architecture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/5">
+     3.5. RESTful APIs: Everything is a Resource
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/6">
+     3.6. RESTful URIs, API Calls, and JSON
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/7">
+     3.7. CHIPS: Create and Deploy a Simple SaaS App
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/8">
+     3.8. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/9">
+     3.9. Concluding Remarks: Continuity From CGI to SOA
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/4">
+   4. SaaS Framework: Rails as a Model–View–Controller Framework
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/1">
+     4.1. The Model–View–Controller (MVC) Architecture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/2">
+     4.2. Rails Models: Databases and Active Record
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/3">
+     4.3. CHIPS: ActiveRecord Basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/4">
+     4.4. Routes, Controllers, and Views
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/5">
+     4.5. CHIPS: Rails Routes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/6">
+     4.6. Forms
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/7">
+     4.7. CHIPS: Hangperson on Rails
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/8">
+     4.8. Debugging: When Things Go Wrong
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/9">
+     4.9. CHIPS: Hello Rails
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/10">
+     4.10. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/11">
+     4.11. Concluding Remarks: Rails as a Service Framework
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/5">
+   5. SaaS Framework: Advanced Programming Abstractions for SaaS
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/1">
+     5.1. DRYing Out MVC: Partials, Validations and Filters
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/2">
+     5.2. Single Sign-On and Third-Party Authentication
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/3">
+     5.3. CHIPS: Rails Intro
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/4">
+     5.4. Associations and Foreign Keys
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/5">
+     5.5. Through-Associations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/6">
+     5.6. RESTful Routes for Associations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/7">
+     5.7. CHIPS: Associations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/8">
+     5.8. Other Types of Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/9">
+     5.9. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/10">
+     5.10. Concluding Remarks: Languages, Productivity, and Beauty
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/6">
+   6. Mobile and Desktop SaaS Clients: JavaScript Introduction
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/1">
+     6.1. JavaScript: The Big Picture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/2">
+     6.2. Introducing ECMAScript
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/3">
+     6.3. Classes, Functions and Constructors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/4">
+     6.4. The Document Object Model (DOM) and jQuery
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/5">
+     6.5. The DOM and Accessibility
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/6">
+     6.6. Events and Callbacks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/7">
+     6.7. AJAX: Asynchronous JavaScript And XML
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/8">
+     6.8. Testing Java Script and AJAX
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/9">
+     6.9. CHIPS: AJAX Enhancements to RottenPotatoes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/10">
+     6.10. Single-Page Apps and JSON APIs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/11">
+     6.11. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/12">
+     6.12. Concluding Remarks: JavaScript Past, Present and Future
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/7">
+   7. Requirements: BDD and User Stories
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/1">
+     7.1. Behavior-Driven Design and User Stories
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/2">
+     7.2. SMART User Stories
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/3">
+     7.3. Lo-Fi User Interface Sketches and Storyboards
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/4">
+     7.4. Points and Velocity
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/5">
+     7.5. Agile Cost Estimation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/6">
+     7.6. Cucumber: From User Stories to Acceptance Tests
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/7">
+     7.7. CHIPS: Intro to BDD and Cucumber
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/8">
+     7.8. Explicit vs. Implicit and Imperative vs. Declarative Scenarios
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/9">
+     7.9. The Plan-And-Document Perspective on Documentation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/10">
+     7.10. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/11">
+     7.11. Concluding Remarks: Pros and Cons of BDD
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/8">
+   8. Testing: Test-Driven Development
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/1">
+     8.1. FIRST, TDD, and Red–Green–Refactor
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/2">
+     8.2. Anatomy of a Test Case: Arrange, Act, Assert
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/3">
+     8.3. Isolating Code: Doubles and Seams
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/4">
+     8.4. Stubbing the Internet
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/5">
+     8.5. CHIPS: Intro to RSpec on Rails
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/6">
+     8.6. Fixtures and Factories
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/7">
+     8.7. Coverage Concepts and Types of Tests
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/8">
+     8.8. Other Testing Approaches and Terminology
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/9">
+     8.9. CHIPS:The Acceptance Test/Unit Test Cycle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/10">
+     8.10. The Plan-And-Document Perspective on Testing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/11">
+     8.11. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/12">
+     8.12. Concluding Remarks: TDD vs. Conventional Debugging
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="..">
+   9. Software Maintenance: Enhancing Legacy Software Using Refactoring and Agile Methods
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="1">
+     9.1. What Makes Code “Legacy” and How Can Agile Help?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2">
+     9.2. Exploring a Legacy Codebase
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="3">
+     9.3. Establishing Ground Truth With Characterization Tests
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4">
+     9.4. Comments and Commits: Documenting Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="5">
+     9.5. Metrics, CodeSmells, and SOFA
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     9.6. Method-Level Refactoring: Replacing Dependencies With Seams
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="7">
+     9.7. The Plan-And-Document Perspective on Working With Legacy Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="8">
+     9.8. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="9">
+     9.9. Concluding Remarks: Continuous Refactoring
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/10">
+   10. Agile Teams
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/1">
+     10.1. It Takes a Team: Two-Pizza and Scrum
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/2">
+     10.2. Using Branches Effectively
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/3">
+     10.3. Pull Requests and Code Reviews
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/4">
+     10.4. Delivering the Backlog Using Continuous Integration
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/5">
+     10.5. CHIPS: Agile Iterations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/6">
+     10.6. Reporting and Fixing Bugs: The Five R’s
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/7">
+     10.7. The Plan-And-Document Perspective on Managing Teams
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/8">
+     10.8. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/9">
+     10.9. Concluding Remarks: From Solo Developer to Teams of Teams
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/11">
+   11. Design Patterns for SaaS Apps
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/1">
+     11.1. Patterns, Antipatterns, and SOLID Class Architecture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/2">
+     11.2. Just Enough UML
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/3">
+     11.3. Single Responsibility Principle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/4">
+     11.4. Open/Closed Principle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/5">
+     11.5. Liskov Substitution Principle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/6">
+     11.6. Dependency Injection Principle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/7">
+     11.7. Demeter Principle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/8">
+     11.8. The Plan-And-Document Perspective on Design Patterns
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/9">
+     11.9. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/10">
+     11.10. Concluding Remarks: Frameworks Capture Design Patterns
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/12">
+   12. Dev/Ops
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/1">
+     12.1. From Development to Deployment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/2">
+     12.2. Three-Tier Architecture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/3">
+     12.3. Responsiveness, Service Level Objectives, and Apdex
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/4">
+     12.4. Releases and Feature Flags
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/5">
+     12.5. Monitoring and Finding Bottlenecks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/6">
+     12.6. Improving Rendering and Database Performance With Caching
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/7">
+     12.7. Avoiding Abusive Database Queries
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/8">
+     12.8. CHIPS: Exploiting Caching and Indices
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/9">
+     12.9. Security: Defending Customer Data in Your App
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/10">
+     12.10. The Plan-And-Document Perspective on Operations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/11">
+     12.11. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/12">
+     12.12. Concluding Remarks: Beyond PaaS Basics
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/13">
+   13. Afterword
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+  <label for="toctree-checkbox-13">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/13/section/1">
+     13.1. Looking Backwards
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/13/section/2">
+     13.2. Looking Forwards
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/13/section/3">
+     13.3. Essential Readings
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/13/section/4">
+     13.4. Last Words
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/part2/chapter9/sub-chapter6.rst.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="method-level-refactoring-replacing-dependencies-with-seams">
+<h1><span class="section-number">9.6. </span>Method-Level Refactoring: Replacing Dependencies With Seams<a class="headerlink" href="#method-level-refactoring-replacing-dependencies-with-seams" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p><em>2. Increasing Complexity - As [a software] system evolves, its complexity increases
+unless work is done to maintain or reduce it.</em></p>
+<p class="attribution">—Lehman’s second law of software evolution</p>
+</div></blockquote>
+<p>With the characterization specs developed in Section 9.3, we have a solid foundation on
+which to base our refactoring to repair the problems identified in Section 9.5. The term
+<em>refactoring</em> refers not only to a general process, but also to an instance of a specific
+code transformation. Thus, just as with code smells, we speak of a catalog of refactorings,
+and there are many such catalogs to choose from. We prefer Fowler’s catalog, so the examples
+in this chapter follow Fowler’s terminology and are cross-referenced to Chapters 6, 8, 9,
+and 10 of his book <em>Refactoring: Ruby Edition</em> (Fields et al. 2009). While the correspondence
+between code smells and refactorings is not perfect, in general each of those chapters
+describes a group of method-level refactorings that address specific code smells or problems,
+and further chapters describe refactorings that affect multiple classes, which we’ll learn
+about in Chapter 11.</p>
+<p>Each refactoring consists of a descriptive name and a step-by-step process for transforming
+the code via small incremental steps, testing after each step. Most refactorings will cause
+at least temporary test failures, since unit tests usually depend on implementation, which
+is exactly what refactoring changes. A key goal of the refactoring process is to minimize t
+he amount of time that tests are failing (red); the idea is that each refactoring step is
+small enough that adjusting the tests to pass before moving on to the next step is not
+difficult. If you find that getting from red back to green is harder than expected, you must
+determine if your understanding of the code was incomplete, or if you have really broken
+something while refactoring.</p>
+<p>Getting started with refactoring can seem overwhelming: without knowing what refactorings
+exist, it may be hard to decide how to improve a piece of code. Until you have some experience
+improving pieces of code, it may be hard to understand the explanations of the refactorings
+or the motivations for when to use them. Don’t be discouraged by this apparent chicken-and-egg
+problem; like TDD and BDD, what seems overwhelming at first can quickly become familiar.</p>
+<p>As a start, Figure 9.15 shows four of Fowler’s refactorings that we will apply to our code.
+In his book, each refactoring is accompanied by an example and an extremely detailed list
+of mechanical steps for performing the refactoring, in some cases referring to other
+refactorings that may be necessary in order to apply this one. For example, Figure 9.16 shows
+the first few steps for applying the Extract Method refactoring. With these examples in
+mind, we can refactor Figure 9.6.</p>
+<p>Long method is the most obvious code smell in Figure 9.6, but that’s just an overall symptom
+to which various specific problems contribute. The high ABC score (23) of <code class="code docutils literal notranslate"><span class="pre">convert</span></code> suggests
+one place to start focusing our attention: the condition of the if in lines 6–7 is difficult
+to understand, and the conditional is nested two-deep. As Figure 9.15 suggests, a hard-to-read
+conditional expression can be improved by applying the very common refactoring <em>Decompose
+Conditional</em>, which in turn relies on <em>Extract Method</em>. We move some code
+into a new method with a descriptive name, as Figure 9.17 shows. Note that in addition to making
+the conditional more readable, the separate definition of <code class="code docutils literal notranslate"><span class="pre">leap_year?</span></code> makes the leap year
+calculation separately testable and provides a seam at line 6 where we could stub the method
+to simplify testing of <code class="code docutils literal notranslate"><span class="pre">convert</span></code>, similar to the example in the Elaboration at the end of
+Section 8.4. In general, when a method mixes code that says <em>what to do</em> with code that <em>says
+how to do it</em>, this may be a warning to check whether you need to use Extract Method in order
+to maintain a consistent level of <strong>A</strong>bstraction.</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># NOTE: line 7 fixes bug in original version</span>
+<span class="linenos"> 2</span><span class="k">class</span> <span class="nc">TimeSetter</span>
+<span class="linenos"> 3</span>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">convert</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="linenos"> 4</span>        <span class="n">y</span> <span class="o">=</span> <span class="mi">1980</span>
+<span class="linenos"> 5</span>        <span class="k">while</span> <span class="p">(</span><span class="n">d</span> <span class="o">&gt;</span> <span class="mi">365</span><span class="p">)</span> <span class="k">do</span>
+<span class="linenos"> 6</span>        <span class="k">if</span> <span class="n">leap_year?</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="linenos"> 7</span>            <span class="k">if</span> <span class="p">(</span><span class="n">d</span> <span class="o">&gt;=</span> <span class="mi">366</span><span class="p">)</span>
+<span class="linenos"> 8</span>            <span class="n">d</span> <span class="o">-=</span> <span class="mi">366</span>
+<span class="linenos"> 9</span>            <span class="n">y</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">10</span>            <span class="k">end</span>
+<span class="linenos">11</span>        <span class="k">else</span>
+<span class="linenos">12</span>            <span class="n">d</span> <span class="o">-=</span> <span class="mi">365</span>
+<span class="linenos">13</span>            <span class="n">y</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">14</span>        <span class="k">end</span>
+<span class="linenos">15</span>        <span class="k">end</span>
+<span class="linenos">16</span>        <span class="k">return</span> <span class="n">y</span>
+<span class="linenos">17</span>    <span class="k">end</span>
+<span class="linenos">18</span>    <span class="kp">private</span>
+<span class="linenos">19</span>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">leap_year?</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
+<span class="linenos">20</span>        <span class="n">year</span> <span class="o">%</span> <span class="mi">400</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span>
+<span class="linenos">21</span>        <span class="p">(</span><span class="n">year</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">year</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="linenos">22</span>    <span class="k">end</span>
+<span class="linenos">23</span><span class="k">end</span>
+</pre></div>
+</div>
+<p>The conditional is also nested two-deep, making it hard to understand and increasing <code class="code docutils literal notranslate"><span class="pre">convert</span></code>’s
+ABC score. The <em>Decompose Conditional</em> refactoring also breaks up the complex condition by
+replacing each arm of the conditional with an extracted method. Notice, though, that the two
+arms of the conditional correspond to lines 4 and 6 of the pseudocode in Figure 9.14, both
+of which have the <em>side effects</em> of changing the values of <code class="code docutils literal notranslate"><span class="pre">d</span></code> and <code class="code docutils literal notranslate"><span class="pre">y</span></code> (hence our use of <code class="code docutils literal notranslate"><span class="pre">!</span></code> in the
+names of the extracted methods). In order for those side effects to be visible to <code class="code docutils literal notranslate"><span class="pre">convert</span></code>, we
+must turn the local variables into class variables throughout <code class="code docutils literal notranslate"><span class="pre">TimeSetter</span></code>, giving them more
+descriptive names <code class="code docutils literal notranslate"><span class="pre">&#64;&#64;year</span></code> and <code class="code docutils literal notranslate"><span class="pre">&#64;&#64;days_remaining</span></code> while we’re at it. Finally, since <code class="code docutils literal notranslate"><span class="pre">&#64;&#64;year</span></code> is now
+a class variable, we no longer need to pass it as an explicit argument to <code class="code docutils literal notranslate"><span class="pre">leap_year?</span></code>. Figure
+9.18 shows the result.</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># NOTE: line 7 fixes bug in original version</span>
+<span class="linenos"> 2</span><span class="k">class</span> <span class="nc">TimeSetter</span>
+<span class="linenos"> 3</span>    <span class="no">ORIGIN_YEAR</span> <span class="o">=</span> <span class="mi">1980</span>
+<span class="linenos"> 4</span>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">calculate_current_year</span><span class="p">(</span><span class="n">days_since_origin</span><span class="p">)</span>
+<span class="linenos"> 5</span>        <span class="vc">@@year</span> <span class="o">=</span> <span class="no">ORIGIN_YEAR</span>
+<span class="linenos"> 6</span>        <span class="vc">@@days_remaining</span> <span class="o">=</span> <span class="n">days_since_origin</span>
+<span class="linenos"> 7</span>        <span class="k">while</span> <span class="p">(</span><span class="vc">@@days_remaining</span> <span class="o">&gt;</span> <span class="mi">365</span><span class="p">)</span> <span class="k">do</span>
+<span class="linenos"> 8</span>        <span class="k">if</span> <span class="n">leap_year?</span>
+<span class="linenos"> 9</span>            <span class="n">peel_off_leap_year!</span>
+<span class="linenos">10</span>        <span class="k">else</span>
+<span class="linenos">11</span>            <span class="n">peel_off_regular_year!</span>
+<span class="linenos">12</span>        <span class="k">end</span>
+<span class="linenos">13</span>        <span class="k">end</span>
+<span class="linenos">14</span>        <span class="k">return</span> <span class="vc">@@year</span>
+<span class="linenos">15</span>    <span class="k">end</span>
+<span class="linenos">16</span>    <span class="kp">private</span>
+<span class="linenos">17</span>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">peel_off_leap_year!</span>
+<span class="linenos">18</span>        <span class="k">if</span> <span class="p">(</span><span class="vc">@@days_remaining</span> <span class="o">&gt;=</span> <span class="mi">366</span><span class="p">)</span>
+<span class="linenos">19</span>        <span class="vc">@@days_remaining</span> <span class="o">-=</span> <span class="mi">366</span> <span class="p">;</span> <span class="vc">@@year</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">20</span>        <span class="k">end</span>
+<span class="linenos">21</span>    <span class="k">end</span>
+<span class="linenos">22</span>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">peel_off_regular_year!</span>
+<span class="linenos">23</span>        <span class="vc">@@days_remaining</span> <span class="o">-=</span> <span class="mi">365</span> <span class="p">;</span> <span class="vc">@@year</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">24</span>    <span class="k">end</span>
+<span class="linenos">25</span>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">leap_year?</span>
+<span class="linenos">26</span>        <span class="vc">@@year</span> <span class="o">%</span> <span class="mi">400</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span>
+<span class="linenos">27</span>        <span class="p">(</span><span class="vc">@@year</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="vc">@@year</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="linenos">28</span>    <span class="k">end</span>
+<span class="linenos">29</span><span class="k">end</span>
+</pre></div>
+</div>
+<p>As long as we’re cleaning up, the code in Figure 9.18 also fixes two minor code
+smells. The first is uncommunicative variable names: <code class="code docutils literal notranslate"><span class="pre">convert</span></code> doesn’t describe very
+well what this method does, and the parameter name <code class="code docutils literal notranslate"><span class="pre">d</span></code> is not useful. The other is
+the use of “magic number” literal constants such as 1980 in line 4; we apply <em>Replace
+Magic Number with Symbolic Constant</em> (Fowler chapter 8) to replace it with the more
+descriptive constant name <code class="code docutils literal notranslate"><span class="pre">STARTING_YEAR</span></code>. What about the other constants such as 365
+and 366? In this example, they’re probably familiar enough to most programmers to
+leave as-is, but if you saw 351 rather than 365, and if line 26 (in <code class="code docutils literal notranslate"><span class="pre">leap_year?</span></code>) used
+the constant 19 rather than 4, you might not recognize the leap year calculation for
+the <strong>Hebrew calendar</strong>. Remember that refactoring only improves the code for human readers;
+the computer doesn’t care. So in such cases use your judgment as to how much refactoring is enough.</p>
+<p>In our case, re-running flog on the refactored code in Figure 9.18 brings the ABC score
+for the newly-renamed <code class="code docutils literal notranslate"><span class="pre">calculate_current_year</span></code> from 23.0 down to 6.6, which is well below
+the suggested NIST threshold of 10.0. Also, reek now reports only two smells. The first is
+“low cohesion” for the helper methods <code class="code docutils literal notranslate"><span class="pre">peel_off_leap_year</span></code> and <code class="code docutils literal notranslate"><span class="pre">peel_off_regular_year</span></code>; this
+is a design smell, and we will discuss what it means in Chapter 11. The second smell is
+declaration of class variables inside a method. When we applied Decompose Conditional and
+Extract Method, we turned local variables into class variables <code class="code docutils literal notranslate"><span class="pre">&#64;&#64;year</span></code> and <code class="code docutils literal notranslate"><span class="pre">&#64;&#64;days_remaining</span></code>
+so that the newly-extracted methods could successfully modify those variables’ values. Our
+solution is effective, but clumsier than <em>Replace Method with Method Object</em> (Fowler chapter 6).
+In that refactoring, the original method <code class="code docutils literal notranslate"><span class="pre">convert</span></code> is turned into an object <em>instance</em> (rather
+than a class) whose instance variables capture the object’s state; the helper methods then
+operate on the instance variables.</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># An example call would now be:</span>
+<span class="linenos"> 2</span><span class="c1">#  year = TimeSetter.new(367).calculate_current_year</span>
+<span class="linenos"> 3</span><span class="c1"># rather than:</span>
+<span class="linenos"> 4</span><span class="c1">#  year = TimeSetter.calculate_current_year(367)</span>
+<span class="linenos"> 5</span><span class="k">class</span> <span class="nc">TimeSetter</span>
+<span class="linenos"> 6</span>    <span class="no">ORIGIN_YEAR</span> <span class="o">=</span> <span class="mi">1980</span>
+<span class="linenos"> 7</span>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">days_since_origin</span><span class="p">)</span>
+<span class="linenos"> 8</span>        <span class="vi">@year</span> <span class="o">=</span> <span class="no">ORIGIN_YEAR</span>
+<span class="linenos"> 9</span>        <span class="vi">@days_remaining</span> <span class="o">=</span> <span class="n">days_since_origin</span>
+<span class="linenos">10</span>    <span class="k">end</span>
+<span class="linenos">11</span>    <span class="k">def</span> <span class="nf">calculate_current_year</span>
+<span class="linenos">12</span>        <span class="k">while</span> <span class="p">(</span><span class="vi">@days_remaining</span> <span class="o">&gt;</span> <span class="mi">365</span><span class="p">)</span> <span class="k">do</span>
+<span class="linenos">13</span>        <span class="k">if</span> <span class="n">leap_year?</span>
+<span class="linenos">14</span>            <span class="n">peel_off_leap_year!</span>
+<span class="linenos">15</span>        <span class="k">else</span>
+<span class="linenos">16</span>            <span class="n">peel_off_regular_year!</span>
+<span class="linenos">17</span>        <span class="k">end</span>
+<span class="linenos">18</span>        <span class="k">end</span>
+<span class="linenos">19</span>        <span class="k">return</span> <span class="vi">@year</span>
+<span class="linenos">20</span>    <span class="k">end</span>
+<span class="linenos">21</span>    <span class="kp">private</span>
+<span class="linenos">22</span>    <span class="k">def</span> <span class="nf">peel_off_leap_year!</span>
+<span class="linenos">23</span>        <span class="k">if</span> <span class="p">(</span><span class="vi">@days_remaining</span> <span class="o">&gt;=</span> <span class="mi">366</span><span class="p">)</span>
+<span class="linenos">24</span>        <span class="vi">@days_remaining</span> <span class="o">-=</span> <span class="mi">366</span> <span class="p">;</span> <span class="vi">@year</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">25</span>        <span class="k">end</span>
+<span class="linenos">26</span>    <span class="k">end</span>
+<span class="linenos">27</span>    <span class="k">def</span> <span class="nf">peel_off_regular_year!</span>
+<span class="linenos">28</span>        <span class="vi">@days_remaining</span> <span class="o">-=</span> <span class="mi">365</span> <span class="p">;</span> <span class="vi">@year</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">29</span>    <span class="k">end</span>
+<span class="linenos">30</span>    <span class="k">def</span> <span class="nf">leap_year?</span>
+<span class="linenos">31</span>        <span class="vi">@year</span> <span class="o">%</span> <span class="mi">400</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span>
+<span class="linenos">32</span>        <span class="p">(</span><span class="vi">@year</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="vi">@year</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="linenos">33</span>    <span class="k">end</span>
+<span class="linenos">34</span><span class="k">end</span>
+</pre></div>
+</div>
+<p>Figure 9.19 shows the result of applying such a refactoring, but there is an important
+caveat. So far, none of our refactorings have caused our characterization specs to fail,
+since the specs were just calling <code class="code docutils literal notranslate"><span class="pre">TimeSetter.convert</span></code>. But applying <em>Replace Method With
+Method Object</em> changes the calling interface to <code class="code docutils literal notranslate"><span class="pre">convert</span></code> in a way that makes tests fail.
+If we were working with real legacy code, we would have to find every site that calls <code class="code docutils literal notranslate"><span class="pre">convert</span></code>,
+change it to use the new calling interface, and change any failing tests accordingly. In a
+real project, we’d want to avoid changes that needlessly break the calling interface, so we’d
+need to consider carefully whether the readability gained by applying this refactoring would
+outweigh the risk of introducing this breaking change.</p>
+<p><strong>Self-Check 9.6.1.</strong> <em>Which is not a goal of method-level refactoring: (a) reducing code
+complexity, (b) eliminating code smells, (c) eliminating bugs, (d) improving testability?</em></p>
+<blockquote>
+<div><p>(c). While debugging is important, the goal of refactoring is to preserve the code’s
+current behavior while changing its structure.</p>
+</div></blockquote>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="5" title="previous page"><span class="section-number">9.5. </span>Metrics, CodeSmells, and SOFA</a>
+    <a class='right-next' id="next-link" href="7" title="next page"><span class="section-number">9.7. </span>The Plan-And-Document Perspective on Working With Legacy Code</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By sme777<br/>
+        
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

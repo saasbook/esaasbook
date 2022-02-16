@@ -1,0 +1,1136 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>8.3. Isolating Code: Doubles and Seams &#8212; saasbook  documentation</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="8.4. Stubbing the Internet" href="4" />
+    <link rel="prev" title="8.2. Anatomy of a Test Case: Arrange, Act, Assert" href="2" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../..">
+      
+      
+      <h1 class="site-logo" id="site-title">saasbook  documentation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../preface">
+   Preface
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/1">
+   1. Introduction to Software as a Service, Agile Development, and Cloud Computing
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/1">
+     1.1. Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/2">
+     1.2. Software Development Processes: Plan and Document
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/3">
+     1.3. Software Development Processes: The Agile Manifesto
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/4">
+     1.4. Software Quality Assurance: Testing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/5">
+     1.5. Productivity: Conciseness, Synthesis, Reuse, and Tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/6">
+     1.6. SaaS and Service Oriented Architecture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/7">
+     1.7. Deploying SaaS: Cloud Computing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/8">
+     1.8. Deploying SaaS: Browsers and Mobile
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/9">
+     1.9. Beautiful vs. Legacy Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/10">
+     1.10. Guided Tour and How To Use This Book
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/11">
+     1.11. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/12">
+     1.12. Concluding Remarks: Software Engineering Is More Than Programming
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/2">
+   2. How to Learn a New Language
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/1">
+     2.1. Prelude: Learning to Learn Languages and Frameworks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/2">
+     2.2. Pair Programming
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/3">
+     2.3. Introducing Ruby,an Object-Oriented Language
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/4">
+     2.4. Ruby Idioms: Poetry Mode, Blocks, Duck Typing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/5">
+     2.5. CHIPS: Ruby Intro
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/6">
+     2.6. Gems and Bundler: Library Management in Ruby
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/7">
+     2.7. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/8">
+     2.8. Concluding Remarks: How (Not) To Learn a Language By Googling
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/3">
+   3. SaaS Application Architecture: Microservices, APIs, and REST
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/1">
+     3.1. Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/2">
+     3.2. SaaS Communication Uses HTTP Routes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/3">
+     3.3. CHIPS: HTTP and URIs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/4">
+     3.4. From Web Sites to Microservices: Service-Oriented Architecture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/5">
+     3.5. RESTful APIs: Everything is a Resource
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/6">
+     3.6. RESTful URIs, API Calls, and JSON
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/7">
+     3.7. CHIPS: Create and Deploy a Simple SaaS App
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/8">
+     3.8. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/9">
+     3.9. Concluding Remarks: Continuity From CGI to SOA
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/4">
+   4. SaaS Framework: Rails as a Model–View–Controller Framework
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/1">
+     4.1. The Model–View–Controller (MVC) Architecture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/2">
+     4.2. Rails Models: Databases and Active Record
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/3">
+     4.3. CHIPS: ActiveRecord Basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/4">
+     4.4. Routes, Controllers, and Views
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/5">
+     4.5. CHIPS: Rails Routes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/6">
+     4.6. Forms
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/7">
+     4.7. CHIPS: Hangperson on Rails
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/8">
+     4.8. Debugging: When Things Go Wrong
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/9">
+     4.9. CHIPS: Hello Rails
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/10">
+     4.10. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/11">
+     4.11. Concluding Remarks: Rails as a Service Framework
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/5">
+   5. SaaS Framework: Advanced Programming Abstractions for SaaS
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/1">
+     5.1. DRYing Out MVC: Partials, Validations and Filters
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/2">
+     5.2. Single Sign-On and Third-Party Authentication
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/3">
+     5.3. CHIPS: Rails Intro
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/4">
+     5.4. Associations and Foreign Keys
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/5">
+     5.5. Through-Associations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/6">
+     5.6. RESTful Routes for Associations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/7">
+     5.7. CHIPS: Associations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/8">
+     5.8. Other Types of Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/9">
+     5.9. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/10">
+     5.10. Concluding Remarks: Languages, Productivity, and Beauty
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/6">
+   6. Mobile and Desktop SaaS Clients: JavaScript Introduction
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/1">
+     6.1. JavaScript: The Big Picture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/2">
+     6.2. Introducing ECMAScript
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/3">
+     6.3. Classes, Functions and Constructors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/4">
+     6.4. The Document Object Model (DOM) and jQuery
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/5">
+     6.5. The DOM and Accessibility
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/6">
+     6.6. Events and Callbacks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/7">
+     6.7. AJAX: Asynchronous JavaScript And XML
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/8">
+     6.8. Testing Java Script and AJAX
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/9">
+     6.9. CHIPS: AJAX Enhancements to RottenPotatoes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/10">
+     6.10. Single-Page Apps and JSON APIs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/11">
+     6.11. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/12">
+     6.12. Concluding Remarks: JavaScript Past, Present and Future
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/7">
+   7. Requirements: BDD and User Stories
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/1">
+     7.1. Behavior-Driven Design and User Stories
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/2">
+     7.2. SMART User Stories
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/3">
+     7.3. Lo-Fi User Interface Sketches and Storyboards
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/4">
+     7.4. Points and Velocity
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/5">
+     7.5. Agile Cost Estimation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/6">
+     7.6. Cucumber: From User Stories to Acceptance Tests
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/7">
+     7.7. CHIPS: Intro to BDD and Cucumber
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/8">
+     7.8. Explicit vs. Implicit and Imperative vs. Declarative Scenarios
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/9">
+     7.9. The Plan-And-Document Perspective on Documentation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/10">
+     7.10. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/11">
+     7.11. Concluding Remarks: Pros and Cons of BDD
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="..">
+   8. Testing: Test-Driven Development
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="1">
+     8.1. FIRST, TDD, and Red–Green–Refactor
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2">
+     8.2. Anatomy of a Test Case: Arrange, Act, Assert
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     8.3. Isolating Code: Doubles and Seams
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4">
+     8.4. Stubbing the Internet
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="5">
+     8.5. CHIPS: Intro to RSpec on Rails
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="6">
+     8.6. Fixtures and Factories
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="7">
+     8.7. Coverage Concepts and Types of Tests
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="8">
+     8.8. Other Testing Approaches and Terminology
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="9">
+     8.9. CHIPS:The Acceptance Test/Unit Test Cycle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="10">
+     8.10. The Plan-And-Document Perspective on Testing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="11">
+     8.11. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="12">
+     8.12. Concluding Remarks: TDD vs. Conventional Debugging
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/9">
+   9. Software Maintenance: Enhancing Legacy Software Using Refactoring and Agile Methods
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/1">
+     9.1. What Makes Code “Legacy” and How Can Agile Help?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/2">
+     9.2. Exploring a Legacy Codebase
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/3">
+     9.3. Establishing Ground Truth With Characterization Tests
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/4">
+     9.4. Comments and Commits: Documenting Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/5">
+     9.5. Metrics, CodeSmells, and SOFA
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/6">
+     9.6. Method-Level Refactoring: Replacing Dependencies With Seams
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/7">
+     9.7. The Plan-And-Document Perspective on Working With Legacy Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/8">
+     9.8. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/9">
+     9.9. Concluding Remarks: Continuous Refactoring
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/10">
+   10. Agile Teams
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/1">
+     10.1. It Takes a Team: Two-Pizza and Scrum
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/2">
+     10.2. Using Branches Effectively
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/3">
+     10.3. Pull Requests and Code Reviews
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/4">
+     10.4. Delivering the Backlog Using Continuous Integration
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/5">
+     10.5. CHIPS: Agile Iterations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/6">
+     10.6. Reporting and Fixing Bugs: The Five R’s
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/7">
+     10.7. The Plan-And-Document Perspective on Managing Teams
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/8">
+     10.8. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/9">
+     10.9. Concluding Remarks: From Solo Developer to Teams of Teams
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/11">
+   11. Design Patterns for SaaS Apps
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/1">
+     11.1. Patterns, Antipatterns, and SOLID Class Architecture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/2">
+     11.2. Just Enough UML
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/3">
+     11.3. Single Responsibility Principle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/4">
+     11.4. Open/Closed Principle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/5">
+     11.5. Liskov Substitution Principle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/6">
+     11.6. Dependency Injection Principle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/7">
+     11.7. Demeter Principle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/8">
+     11.8. The Plan-And-Document Perspective on Design Patterns
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/9">
+     11.9. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/10">
+     11.10. Concluding Remarks: Frameworks Capture Design Patterns
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/12">
+   12. Dev/Ops
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/1">
+     12.1. From Development to Deployment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/2">
+     12.2. Three-Tier Architecture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/3">
+     12.3. Responsiveness, Service Level Objectives, and Apdex
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/4">
+     12.4. Releases and Feature Flags
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/5">
+     12.5. Monitoring and Finding Bottlenecks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/6">
+     12.6. Improving Rendering and Database Performance With Caching
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/7">
+     12.7. Avoiding Abusive Database Queries
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/8">
+     12.8. CHIPS: Exploiting Caching and Indices
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/9">
+     12.9. Security: Defending Customer Data in Your App
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/10">
+     12.10. The Plan-And-Document Perspective on Operations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/11">
+     12.11. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/12">
+     12.12. Concluding Remarks: Beyond PaaS Basics
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/13">
+   13. Afterword
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+  <label for="toctree-checkbox-13">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/13/section/1">
+     13.1. Looking Backwards
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/13/section/2">
+     13.2. Looking Forwards
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/13/section/3">
+     13.3. Essential Readings
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/13/section/4">
+     13.4. Last Words
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/part2/chapter8/sub-chapter3.rst.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="isolating-code-doubles-and-seams">
+<h1><span class="section-number">8.3. </span>Isolating Code: Doubles and Seams<a class="headerlink" href="#isolating-code-doubles-and-seams" title="Permalink to this headline">¶</a></h1>
+<p>Unit tests can be more complex if the SUT is either not a leaf method or not a pure function. We can distinguish three cases:</p>
+<ul class="simple">
+<li><p>The SUT has one or more <em>depended-on components</em> (DOCs), such as other methods it calls to help do its work. Test cases should isolate the SUT from those dependencies.</p></li>
+<li><p>The SUT has side effects when executed, that is, it causes a change in application state visible outside the test code itself. Test cases should verify that the correct side effect occurred, which involves inspecting app state outside the SUT.</p></li>
+<li><p>The SUT is not a pure function because its output depends not only on its input but other implicit factors, such as the time of day or a random event. Test cases should control the values of these factors to force the SUT to traverse predictable code paths.</p></li>
+</ul>
+<p>There are two characteristics of a method that can complicate the task of creating unit tests for it. The first is
+that it has side effects The second is that it has dependencies—it calls other methods as part of doing its job.</p>
+<p>As an example, consider testing a controller action. By design, as we have seen, controller actions shouldn’t contain
+“business logic”—instead they manage communication with
+the model, calling model methods to do the real work and setting up variables to display information in the view. To
+make our example relevant to SaaS, consider a hypothetical SaaS app that allows the user to look up a movie in another
+service’s movie database, and display the movie info so the user can write a review. Here is how our hypothetical app works:</p>
+<ol class="arabic simple">
+<li><p>The <code class="code docutils literal notranslate"><span class="pre">Movie</span></code> model has a class (static) method <code class="code docutils literal notranslate"><span class="pre">find_in_tmdb</span></code> that makes a call to the API of the external service The Movie Database (TMDb) and returns an array of <code class="code docutils literal notranslate"><span class="pre">Movie</span></code> objects, which may be empty if there were no matches.</p></li>
+<li><p>If there are no matches, the controller action should redirect the user back to the search page with an appropriate message.</p></li>
+<li><p>If there is exactly one match, the controller should render a view that allows the user to enter a review for that movie.</p></li>
+<li><p>Ifthereismorethanonematch,thecontrollershouldrenderadifferentviewthatallows the user to specify which movie they want to review.</p></li>
+<li><p>Because the model method relies on calling an external service, the call might fail if the service doesn’t respond for some reason. In that case, we assume <code class="code docutils literal notranslate"><span class="pre">Movie.find_in_tmdb</span></code> will raise the exception <code class="code docutils literal notranslate"><span class="pre">Movie::ConnectionError</span></code>.</p></li>
+</ol>
+<p>Figure 8.4 shows what the above controller action might look like.</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MoviesController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+    <span class="k">def</span> <span class="nf">review_movie</span>
+        <span class="n">search_string</span> <span class="o">=</span> <span class="n">params</span><span class="o">[</span><span class="ss">:search</span><span class="o">]</span>
+        <span class="k">begin</span>
+        <span class="n">matches</span> <span class="o">=</span> <span class="no">Movie</span><span class="o">.</span><span class="n">find_in_tmdb</span><span class="p">(</span><span class="n">search_string</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">matches</span><span class="o">.</span><span class="n">empty?</span> <span class="c1"># nothing was found</span>
+            <span class="n">redirect_to</span> <span class="n">review_movie_path</span><span class="p">,</span> <span class="ss">:alert</span> <span class="o">=&gt;</span> <span class="s2">&quot;No matches.&quot;</span>
+        <span class="k">elsif</span> <span class="n">matches</span><span class="o">.</span><span class="n">length</span> <span class="o">==</span> <span class="mi">1</span>
+            <span class="vi">@movie</span> <span class="o">=</span> <span class="n">matches</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+            <span class="n">render</span> <span class="s1">&#39;review_movie&#39;</span>
+        <span class="k">else</span> <span class="c1"># more than 1 match</span>
+            <span class="vi">@movies</span> <span class="o">=</span> <span class="n">matches</span>
+            <span class="n">render</span> <span class="s1">&#39;select_movie&#39;</span>
+        <span class="k">end</span>
+        <span class="k">rescue</span> <span class="no">Movie</span><span class="o">::</span><span class="no">ConnectionError</span> <span class="o">=&gt;</span> <span class="n">err</span>
+        <span class="n">redirect_to</span> <span class="n">review_movie_path</span><span class="p">,</span> <span class="ss">:alert</span> <span class="o">=&gt;</span> <span class="s2">&quot;Error contacting TMDb: </span><span class="si">#{</span><span class="n">err</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<p>How would we unit-test this controller action? The Arrange step consists of preparing <code class="code docutils literal notranslate"><span class="pre">params</span></code>
+to hold some search string. The Act step consists of calling the controller action with that
+search string. But the Assert step depends on whether the call to <code class="code docutils literal notranslate"><span class="pre">find_in_tmdb</span></code> returns an
+empty array, an array of exactly one match, an array containing more than one match, or
+raises an exception because of an error communicating with The Movie Database. Indeed, as
+items 2–5 in the list above show, there are really four test cases required here, and to
+test each of them, we essentially need to be able to control the <em>behavior of the call</em> to
+<code class="code docutils literal notranslate"><span class="pre">find_in_tmdb</span></code>.</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="n">describe</span> <span class="no">MoviesController</span> <span class="k">do</span>
+    <span class="n">describe</span> <span class="s1">&#39;looking up movie&#39;</span> <span class="k">do</span>
+        <span class="n">it</span> <span class="s1">&#39;redirects to search page if no match&#39;</span> <span class="k">do</span>
+        <span class="n">allow</span><span class="p">(</span><span class="no">Movie</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:find_in_tmdb</span><span class="p">)</span><span class="o">.</span><span class="n">and_return</span><span class="p">(</span> <span class="o">[]</span> <span class="p">)</span>
+        <span class="n">post</span> <span class="s1">&#39;review_movie&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;search_string&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;I Am Big Bird&#39;</span><span class="p">}</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">redirect_to</span><span class="p">(</span><span class="n">review_movie_path</span><span class="p">)</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<p>Michael Feathers (Feathers 2004) defines a seam as “a place where you can alter
+behavior in your program without editing in that place.” In our case, we want to
+alter (control) the behavior of <code class="code docutils literal notranslate"><span class="pre">find_in_tmdb</span></code> but without changing the source code
+of the controller action. Recall that one ability afforded by metaprogramming is
+being able to modify code while a program is running. In this case, the strategy
+would be to <em>temporarily</em> modify <code class="code docutils literal notranslate"><span class="pre">find_in_tmdb</span></code> so that <em>instead of calling the real method,
+it calls a “fake” method whose behavior we control</em> and can change for each test case.</p>
+<p>Such a construction is called a <strong>method stub</strong>, and is easy to implement in languages that
+support metaprogramming. The RSpec testing framework provides direct support for this,
+as Figure 8.5 shows: the Arrange part of a test now includes setting up a stub for the
+method, and specifying that when the stub is called, it should return an empty array,
+ensuring that <code class="code docutils literal notranslate"><span class="pre">matches.empty?</span></code> in line 6 of Figure 8.4 will be true, causing line 7 to
+be executed next. As is typical for a testing framework, RSpec “un-registers” any stubs
+after each example (test case), making the stub visible only to that test case and thereby
+keeping tests <strong>I</strong>ndependent. Later we will show how to group together sets of examples that
+rely on the same precondition setup, so that tests can be DRY as well.</p>
+<p>Keeping in mind that every Ruby function call is a method call on an object, line 4 of
+Figure 8.5 can be read as follows: “Allow the <code class="code docutils literal notranslate"><span class="pre">Movie</span></code> class (which is itself an object) to
+receive a call to its (class) method <code class="code docutils literal notranslate"><span class="pre">find_in_tmdb</span></code>, and return an empty array as the return
+value of that call.” Note that it is <em>not an error</em> for <code class="code docutils literal notranslate"><span class="pre">find_in_tmdb</span></code> not to be called: the
+stub setup only specifies what should happen <em>if</em> that method is called. If we wanted to
+express the test condition that the method <em>must</em> be called, we would replace <code class="code docutils literal notranslate"><span class="pre">allow</span></code> with
+<code class="code docutils literal notranslate"><span class="pre">expect</span></code>. In that case, line 4 would be both an Arrange step defining a stub and an Assert
+step specifying that the test should fail if the stub isn’t actually called. RSpec
+automatically verifies <code class="code docutils literal notranslate"><span class="pre">expect...to</span> <span class="pre">receive</span></code> assertions at the end of each example, so the
+test wouldn’t need an extra line to check if the stub was called—simply using <code class="code docutils literal notranslate"><span class="pre">expect</span></code>
+rather than <code class="code docutils literal notranslate"><span class="pre">allow</span></code> to set up the stub distinguishes the two cases.</p>
+<p>In this case, <code class="code docutils literal notranslate"><span class="pre">receive()</span></code> creates a seam by overriding a method in place, without us having to
+edit the file containing the original method (although in this case, the original method
+doesn’t even exist yet). Seams are also important when it comes to adding new code to your
+application, but in the rest of this chapter we will see many more examples of seams in
+testing. Seams are useful in testing because they let us break dependencies between a piece
+of code we want to test and its collaborators, allowing the collaborators to behave differently
+under test than they would in real life.</p>
+<p>The kind of seam we just described is called a <strong>method stub</strong> or simply <em>stub</em>, because it is a
+piece of code that replaces the real method’s code with a controllable or fixed behavior
+for testing purposes. A <strong>mock object</strong> or simply <em>mock</em> is a simplified “stunt double” of an object
+that can only mimic a few fixed behaviors of the object, such as returning fixed values for
+specific attributes. Mocks are useful when a real object would be complex to instantiate
+because it has other dependencies, yet only a few specific properties of the object are
+necessary for the SUT to work properly. The term <strong>test double</strong> generically covers these and a
+few other types of seams. Figure 8.6 summarizes typical strategies for using these doubles in
+various unit-testing scenarios, and Figure 8.7 shows examples of each strategy using RSpec.</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Pure leaf function: test critical values and noncritical regions</span>
+<span class="n">it</span> <span class="s1">&#39;occurs when multiple of 4 but not 100&#39;</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">leap?</span><span class="p">(</span><span class="mi">2008</span><span class="p">))</span><span class="o">.</span><span class="n">to</span> <span class="n">be_truthy</span>
+    <span class="k">end</span>
+<span class="n">it</span> <span class="s1">&#39;does not occur when multiple of 400&#39;</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">leap?</span><span class="p">(</span><span class="mi">2000</span><span class="p">))</span><span class="o">.</span><span class="n">to</span> <span class="n">be_falsy</span>
+<span class="k">end</span>
+
+<span class="c1"># 2. Using doubles for explicit dependencies such as collaborators</span>
+<span class="c1">#    UI.background() calls Defcon.level() to determine display color</span>
+<span class="n">it</span> <span class="s1">&#39;colors the UI red if Defcon is 2 or lower&#39;</span> <span class="k">do</span>
+    <span class="c1"># Arrange: stub Defcon to return 2</span>
+    <span class="n">allow</span><span class="p">(</span><span class="no">Defcon</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:level</span><span class="p">)</span><span class="o">.</span><span class="n">and_return</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="no">UI</span><span class="o">.</span><span class="n">background</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">eq</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>        <span class="c1"># Act and Assert</span>
+<span class="k">end</span>
+
+<span class="c1"># 3. Has implicit dependencies such as time</span>
+<span class="n">it</span> <span class="s1">&#39;runs backups on Tuesdays&#39;</span> <span class="k">do</span>
+    <span class="c1"># Arrange: stub Date.today to return Tues 2020-02-04</span>
+    <span class="n">allow</span><span class="p">(</span><span class="no">Date</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:today</span><span class="p">)</span><span class="o">.</span><span class="n">and_return</span><span class="p">(</span><span class="no">Time</span><span class="o">.</span><span class="n">local</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">run_backups_today?</span><span class="p">())</span><span class="o">.</span><span class="n">to</span> <span class="n">be_truthy</span>  <span class="c1"># Act and Assert</span>
+<span class="k">end</span>
+
+<span class="c1"># 4. Has side effects (verbose version)</span>
+<span class="n">it</span> <span class="s1">&#39;lowers Defcon level by 1&#39;</span> <span class="k">do</span>
+    <span class="c1"># Arrange: check previous value of state</span>
+    <span class="n">before</span> <span class="o">=</span> <span class="no">Defcon</span><span class="o">.</span><span class="n">level</span><span class="p">()</span>
+    <span class="n">post_alert</span><span class="p">(</span><span class="s2">&quot;Hostile craft detected&quot;</span><span class="p">)</span>    <span class="c1"># Act</span>
+    <span class="n">expect</span><span class="p">(</span><span class="no">Defcon</span><span class="o">.</span><span class="n">level</span><span class="p">())</span><span class="o">.</span><span class="n">to</span> <span class="n">eq</span><span class="p">(</span><span class="n">before</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># Asset</span>
+<span class="k">end</span>
+
+<span class="c1"># Shortcut version passing a callable to `expect`</span>
+<span class="n">it</span> <span class="s1">&#39;lowers Defcon level by 1&#39;</span> <span class="k">do</span>
+    <span class="n">expect</span> <span class="p">{</span> <span class="n">post_alert</span><span class="p">(</span><span class="s2">&quot;Hostile craft detected&quot;</span><span class="p">)</span> <span class="p">}</span><span class="o">.</span>
+        <span class="n">to</span> <span class="n">change</span> <span class="p">{</span> <span class="no">Defcon</span><span class="o">.</span><span class="n">level</span><span class="p">()</span> <span class="p">}</span><span class="o">.</span><span class="n">by</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<p><strong>Self-Check 8.3.1.</strong> <em>Name two likely violations of FIRST that arise when unit tests
+actually call an external service as part of testing.</em></p>
+<blockquote>
+<div><p>The test may no longer be Fast, since it takes much longer to call an external
+service than to compute locally. The test may no longer be Repeatable, since
+circumstances beyond our control could affect its outcome, such as the temporary
+unavailability of the external service.</p>
+</div></blockquote>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="2" title="previous page"><span class="section-number">8.2. </span>Anatomy of a Test Case: Arrange, Act, Assert</a>
+    <a class='right-next' id="next-link" href="4" title="next page"><span class="section-number">8.4. </span>Stubbing the Internet</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By sme777<br/>
+        
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

@@ -1,0 +1,1095 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>5.4. Associations and Foreign Keys &#8212; saasbook  documentation</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="5.5. Through-Associations" href="5" />
+    <link rel="prev" title="5.3. CHIPS: Rails Intro" href="3" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../..">
+      
+      
+      <h1 class="site-logo" id="site-title">saasbook  documentation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../preface">
+   Preface
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/1">
+   1. Introduction to Software as a Service, Agile Development, and Cloud Computing
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/1">
+     1.1. Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/2">
+     1.2. Software Development Processes: Plan and Document
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/3">
+     1.3. Software Development Processes: The Agile Manifesto
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/4">
+     1.4. Software Quality Assurance: Testing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/5">
+     1.5. Productivity: Conciseness, Synthesis, Reuse, and Tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/6">
+     1.6. SaaS and Service Oriented Architecture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/7">
+     1.7. Deploying SaaS: Cloud Computing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/8">
+     1.8. Deploying SaaS: Browsers and Mobile
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/9">
+     1.9. Beautiful vs. Legacy Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/10">
+     1.10. Guided Tour and How To Use This Book
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/11">
+     1.11. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/12">
+     1.12. Concluding Remarks: Software Engineering Is More Than Programming
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/2">
+   2. How to Learn a New Language
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/1">
+     2.1. Prelude: Learning to Learn Languages and Frameworks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/2">
+     2.2. Pair Programming
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/3">
+     2.3. Introducing Ruby,an Object-Oriented Language
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/4">
+     2.4. Ruby Idioms: Poetry Mode, Blocks, Duck Typing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/5">
+     2.5. CHIPS: Ruby Intro
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/6">
+     2.6. Gems and Bundler: Library Management in Ruby
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/7">
+     2.7. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/8">
+     2.8. Concluding Remarks: How (Not) To Learn a Language By Googling
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/3">
+   3. SaaS Application Architecture: Microservices, APIs, and REST
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/1">
+     3.1. Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/2">
+     3.2. SaaS Communication Uses HTTP Routes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/3">
+     3.3. CHIPS: HTTP and URIs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/4">
+     3.4. From Web Sites to Microservices: Service-Oriented Architecture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/5">
+     3.5. RESTful APIs: Everything is a Resource
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/6">
+     3.6. RESTful URIs, API Calls, and JSON
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/7">
+     3.7. CHIPS: Create and Deploy a Simple SaaS App
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/8">
+     3.8. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/9">
+     3.9. Concluding Remarks: Continuity From CGI to SOA
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/4">
+   4. SaaS Framework: Rails as a Model–View–Controller Framework
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/1">
+     4.1. The Model–View–Controller (MVC) Architecture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/2">
+     4.2. Rails Models: Databases and Active Record
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/3">
+     4.3. CHIPS: ActiveRecord Basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/4">
+     4.4. Routes, Controllers, and Views
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/5">
+     4.5. CHIPS: Rails Routes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/6">
+     4.6. Forms
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/7">
+     4.7. CHIPS: Hangperson on Rails
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/8">
+     4.8. Debugging: When Things Go Wrong
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/9">
+     4.9. CHIPS: Hello Rails
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/10">
+     4.10. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/11">
+     4.11. Concluding Remarks: Rails as a Service Framework
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="..">
+   5. SaaS Framework: Advanced Programming Abstractions for SaaS
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="1">
+     5.1. DRYing Out MVC: Partials, Validations and Filters
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2">
+     5.2. Single Sign-On and Third-Party Authentication
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="3">
+     5.3. CHIPS: Rails Intro
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     5.4. Associations and Foreign Keys
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="5">
+     5.5. Through-Associations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="6">
+     5.6. RESTful Routes for Associations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="7">
+     5.7. CHIPS: Associations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="8">
+     5.8. Other Types of Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="9">
+     5.9. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="10">
+     5.10. Concluding Remarks: Languages, Productivity, and Beauty
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/6">
+   6. Mobile and Desktop SaaS Clients: JavaScript Introduction
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/1">
+     6.1. JavaScript: The Big Picture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/2">
+     6.2. Introducing ECMAScript
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/3">
+     6.3. Classes, Functions and Constructors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/4">
+     6.4. The Document Object Model (DOM) and jQuery
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/5">
+     6.5. The DOM and Accessibility
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/6">
+     6.6. Events and Callbacks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/7">
+     6.7. AJAX: Asynchronous JavaScript And XML
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/8">
+     6.8. Testing Java Script and AJAX
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/9">
+     6.9. CHIPS: AJAX Enhancements to RottenPotatoes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/10">
+     6.10. Single-Page Apps and JSON APIs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/11">
+     6.11. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/12">
+     6.12. Concluding Remarks: JavaScript Past, Present and Future
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/7">
+   7. Requirements: BDD and User Stories
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/1">
+     7.1. Behavior-Driven Design and User Stories
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/2">
+     7.2. SMART User Stories
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/3">
+     7.3. Lo-Fi User Interface Sketches and Storyboards
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/4">
+     7.4. Points and Velocity
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/5">
+     7.5. Agile Cost Estimation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/6">
+     7.6. Cucumber: From User Stories to Acceptance Tests
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/7">
+     7.7. CHIPS: Intro to BDD and Cucumber
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/8">
+     7.8. Explicit vs. Implicit and Imperative vs. Declarative Scenarios
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/9">
+     7.9. The Plan-And-Document Perspective on Documentation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/10">
+     7.10. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/11">
+     7.11. Concluding Remarks: Pros and Cons of BDD
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/8">
+   8. Testing: Test-Driven Development
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/1">
+     8.1. FIRST, TDD, and Red–Green–Refactor
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/2">
+     8.2. Anatomy of a Test Case: Arrange, Act, Assert
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/3">
+     8.3. Isolating Code: Doubles and Seams
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/4">
+     8.4. Stubbing the Internet
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/5">
+     8.5. CHIPS: Intro to RSpec on Rails
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/6">
+     8.6. Fixtures and Factories
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/7">
+     8.7. Coverage Concepts and Types of Tests
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/8">
+     8.8. Other Testing Approaches and Terminology
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/9">
+     8.9. CHIPS:The Acceptance Test/Unit Test Cycle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/10">
+     8.10. The Plan-And-Document Perspective on Testing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/11">
+     8.11. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/12">
+     8.12. Concluding Remarks: TDD vs. Conventional Debugging
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/9">
+   9. Software Maintenance: Enhancing Legacy Software Using Refactoring and Agile Methods
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/1">
+     9.1. What Makes Code “Legacy” and How Can Agile Help?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/2">
+     9.2. Exploring a Legacy Codebase
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/3">
+     9.3. Establishing Ground Truth With Characterization Tests
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/4">
+     9.4. Comments and Commits: Documenting Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/5">
+     9.5. Metrics, CodeSmells, and SOFA
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/6">
+     9.6. Method-Level Refactoring: Replacing Dependencies With Seams
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/7">
+     9.7. The Plan-And-Document Perspective on Working With Legacy Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/8">
+     9.8. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/9">
+     9.9. Concluding Remarks: Continuous Refactoring
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/10">
+   10. Agile Teams
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/1">
+     10.1. It Takes a Team: Two-Pizza and Scrum
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/2">
+     10.2. Using Branches Effectively
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/3">
+     10.3. Pull Requests and Code Reviews
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/4">
+     10.4. Delivering the Backlog Using Continuous Integration
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/5">
+     10.5. CHIPS: Agile Iterations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/6">
+     10.6. Reporting and Fixing Bugs: The Five R’s
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/7">
+     10.7. The Plan-And-Document Perspective on Managing Teams
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/8">
+     10.8. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/9">
+     10.9. Concluding Remarks: From Solo Developer to Teams of Teams
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/11">
+   11. Design Patterns for SaaS Apps
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/1">
+     11.1. Patterns, Antipatterns, and SOLID Class Architecture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/2">
+     11.2. Just Enough UML
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/3">
+     11.3. Single Responsibility Principle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/4">
+     11.4. Open/Closed Principle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/5">
+     11.5. Liskov Substitution Principle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/6">
+     11.6. Dependency Injection Principle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/7">
+     11.7. Demeter Principle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/8">
+     11.8. The Plan-And-Document Perspective on Design Patterns
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/9">
+     11.9. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/10">
+     11.10. Concluding Remarks: Frameworks Capture Design Patterns
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/12">
+   12. Dev/Ops
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/1">
+     12.1. From Development to Deployment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/2">
+     12.2. Three-Tier Architecture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/3">
+     12.3. Responsiveness, Service Level Objectives, and Apdex
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/4">
+     12.4. Releases and Feature Flags
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/5">
+     12.5. Monitoring and Finding Bottlenecks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/6">
+     12.6. Improving Rendering and Database Performance With Caching
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/7">
+     12.7. Avoiding Abusive Database Queries
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/8">
+     12.8. CHIPS: Exploiting Caching and Indices
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/9">
+     12.9. Security: Defending Customer Data in Your App
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/10">
+     12.10. The Plan-And-Document Perspective on Operations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/11">
+     12.11. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/12">
+     12.12. Concluding Remarks: Beyond PaaS Basics
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/13">
+   13. Afterword
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+  <label for="toctree-checkbox-13">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/13/section/1">
+     13.1. Looking Backwards
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/13/section/2">
+     13.2. Looking Forwards
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/13/section/3">
+     13.3. Essential Readings
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/13/section/4">
+     13.4. Last Words
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/part1/chapter5/sub-chapter4.rst.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="associations-and-foreign-keys">
+<h1><span class="section-number">5.4. </span>Associations and Foreign Keys<a class="headerlink" href="#associations-and-foreign-keys" title="Permalink to this headline">¶</a></h1>
+<p>An <em>association</em> is a logical relationship between two types of entities in a software architecture.
+For example, the previous CHIPS added a <code class="code docutils literal notranslate"><span class="pre">Moviegoer</span></code> class to RottenPotatoes; we could now add a <code class="code docutils literal notranslate"><span class="pre">Review</span></code>
+class to allow a moviegoer to write reviews of their favorite movies. Because each review is about
+exactly one movie, but a single movie can have many reviews, we say that there is a one-to-many association
+from reviews to movies. Similarly, there is a one-to-many association from moviegoers to reviews. Figure 5.9
+shows these associations us- ing one type of <strong>Unified Modeling Language (UML)</strong> diagram. We will see more examples
+of UML in Chapter 11.</p>
+<p>In Rails parlance, Figure 5.9 shows that:</p>
+<ul class="simple">
+<li><p>A Moviegoer has many Reviews</p></li>
+<li><p>A Movie has many Reviews</p></li>
+<li><p>A Review belongs to one Moviegoer and to one Movie</p></li>
+</ul>
+<p>In Rails, the “permanent home” for our model objects is the database, so we need a way to represent associations
+for objects stored there. Fortunately, associations are so common that relational databases provide a special mechanism
+to support them: <strong>foreign keys</strong>. A foreign key is a column in one table whose job is to reference the primary key of
+another table to establish an association between the objects represented by those tables. Recall that by default,
+Rails migrations create tables whose primary key column is called <code class="code docutils literal notranslate"><span class="pre">id</span></code>. Figure 5.10 shows a Moviegoers table to keep
+track of different users and a Reviews table with foreign key columns <code class="code docutils literal notranslate"><span class="pre">moviegoer_id</span></code> and <code class="code docutils literal notranslate"><span class="pre">movie_id</span></code>, allowing each review
+to refer to the primary keys (ids) of the user who authored it and the movie it’s about.</p>
+<p>For example, to find all reviews for Star Wars, we would first form the <strong>Cartesian product</strong> of all the rows of the
+<code class="code docutils literal notranslate"><span class="pre">movies</span></code> and <code class="code docutils literal notranslate"><span class="pre">reviews</span></code> tables by concatenating each row of the
+<code class="code docutils literal notranslate"><span class="pre">movies</span></code> table with each possible row of the <code class="code docutils literal notranslate"><span class="pre">reviews</span></code> table. This would give us a new table with 9 rows (since there
+are 3 movies and 3 reviews) and 7 columns (3 from the <code class="code docutils literal notranslate"><span class="pre">movies</span></code> table and 4 from the <code class="code docutils literal notranslate"><span class="pre">reviews</span></code> table). From this large
+table, we then select only those rows for which the <code class="code docutils literal notranslate"><span class="pre">id</span></code> from the <code class="code docutils literal notranslate"><span class="pre">movies</span></code> table equals the <code class="code docutils literal notranslate"><span class="pre">movie_id</span></code> from the <code class="code docutils literal notranslate"><span class="pre">reviews</span></code>
+table, that is, only those movie-review pairs in which the review is about that movie. Finally, we select only those
+rows for which the movie <code class="code docutils literal notranslate"><span class="pre">id</span></code> (and therefore the review’s <code class="code docutils literal notranslate"><span class="pre">movie_id</span></code>) are equal to 41, the primary key ID for <em>Star Wars</em>.
+This simple example (called a <strong>join</strong> in relational database parlance) illustrates how complex relationships can be
+represented and manipulated using a small set of operations (relational algebra) on a collection of tables with uniform
+data layout. In SQL, the Structured Query Language used by substantially all relational databases,
+the query would look something like this:</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="c1"># it would be nice if we could do this:</span>
+<span class="n">inception</span> <span class="o">=</span> <span class="no">Movie</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:title</span> <span class="o">=&gt;</span> <span class="s1">&#39;Inception&#39;</span><span class="p">)</span>
+<span class="n">alice</span><span class="p">,</span><span class="n">bob</span> <span class="o">=</span> <span class="no">Moviegoer</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">alice_id</span><span class="p">,</span> <span class="n">bob_id</span><span class="p">)</span>
+<span class="c1"># alice likes Inception, bob less so</span>
+<span class="n">alice_review</span> <span class="o">=</span> <span class="no">Review</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:potatoes</span> <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">bob_review</span>   <span class="o">=</span> <span class="no">Review</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:potatoes</span> <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">)</span>
+<span class="c1"># a movie has many reviews:</span>
+<span class="n">inception</span><span class="o">.</span><span class="n">reviews</span> <span class="o">=</span> <span class="o">[</span><span class="n">alice_review</span><span class="p">,</span> <span class="n">bob_review</span><span class="o">]</span>
+<span class="c1"># a moviegoer has many reviews:</span>
+<span class="n">alice</span><span class="o">.</span><span class="n">reviews</span> <span class="o">&lt;&lt;</span> <span class="n">alice_review</span>
+<span class="n">bob</span><span class="o">.</span><span class="n">reviews</span> <span class="o">&lt;&lt;</span> <span class="n">bob_review</span>
+<span class="c1"># can we find out who wrote each review?</span>
+<span class="n">inception</span><span class="o">.</span><span class="n">reviews</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">r</span><span class="o">|</span> <span class="n">r</span><span class="o">.</span><span class="n">moviegoer</span><span class="o">.</span><span class="n">name</span> <span class="p">}</span> <span class="c1"># =&gt; [&#39;alice&#39;,&#39;bob&#39;]</span>
+</pre></div>
+</div>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">reviews</span><span class="p">.</span><span class="o">*</span>
+    <span class="k">FROM</span> <span class="n">movies</span> <span class="k">JOIN</span> <span class="n">reviews</span> <span class="k">ON</span> <span class="n">movies</span><span class="p">.</span><span class="n">id</span><span class="o">=</span><span class="n">reviews</span><span class="p">.</span><span class="n">movie_id</span>
+    <span class="k">WHERE</span> <span class="n">movies</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="mi">41</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>If we weren’t working with a database, though, we’d probably come up with a design in which each object of a class has
+“direct references” to its associated objects, rather than constructing the query plan above. A Moviegoer object would
+maintain an array of references to Reviews authored by that moviegoer; a Review object would maintain a reference to the
+Moviegoer who wrote it; and so on. Such a design would allow us to write code that looks like Figure 5.11.</p>
+<p>Rails’ <code class="code docutils literal notranslate"><span class="pre">ActiveRecord::Associations</span></code> module supports exactly this design, as we’ll learn by doing. Apply the code changes
+in Figure 5.12 as directed in the caption, and you should then be able to start rails console and successfully execute
+the examples in Fig- ure 5.11.</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run &#39;rails generate migration create_reviews&#39; and then</span>
+<span class="c1">#   edit db/migrate/*_create_reviews.rb to look like this:</span>
+<span class="k">class</span> <span class="nc">CreateReviews</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+    <span class="k">def</span> <span class="nf">change</span>
+        <span class="n">create_table</span> <span class="s1">&#39;reviews&#39;</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">integer</span>    <span class="s1">&#39;potatoes&#39;</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">text</span>       <span class="s1">&#39;comments&#39;</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">references</span> <span class="s1">&#39;moviegoer&#39;</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">references</span> <span class="s1">&#39;movie&#39;</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Review</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+    <span class="n">belongs_to</span> <span class="ss">:movie</span>
+    <span class="n">belongs_to</span> <span class="ss">:moviegoer</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="c1"># place a copy of the following line anywhere inside the Movie class</span>
+<span class="c1">#  AND inside the Moviegoer class (idiomatically, it should go right</span>
+<span class="c1">#  after &#39;class Movie&#39; or &#39;class Moviegoer&#39;):</span>
+<span class="n">has_many</span> <span class="ss">:reviews</span>
+</pre></div>
+</div>
+<p>How does this work? Since everything in Ruby is a method call, we know that Line 8 in Figure 5.11 is really
+a call to the instance method <code class="code docutils literal notranslate"><span class="pre">reviews=</span></code> on a <strong>Movie</strong> object. This instance method remembers its assigned value
+(an array of Alice’s and Bob’s reviews) in memory. Recall, though, that since a Review is on the “belongs to”
+side of the association (Review belongs to a Movie), to associate a review with a movie we must set the <code class="code docutils literal notranslate"><span class="pre">movie_id</span></code>
+field for that review. <em>We don’t actually have to modify the movies table.</em> So in this simple example, the call
+to <code class="code docutils literal notranslate"><span class="pre">inception.reviews=</span></code> isn’t actually updating the movie record for <em>Inception</em> at all: it’s setting the <code class="code docutils literal notranslate"><span class="pre">movie_id</span></code>
+field of both Alice’s and Bob’s reviews to “link” them to <em>Inception</em>.</p>
+<p>Figure 5.13 lists some of the most useful methods added to a <code class="code docutils literal notranslate"><span class="pre">movie</span></code> object by virtue of declaring that it <code class="code docutils literal notranslate"><span class="pre">has_many</span></code> reviews.
+Of particular interest is that since <code class="code docutils literal notranslate"><span class="pre">has_many</span></code> implies a <em>collection</em> of the owned object (Reviews), the <code class="code docutils literal notranslate"><span class="pre">reviews</span></code> method quacks
+like a collection. That is, you can use all the collection idioms of Figure 2.11 on it—iterate over its elements with <code class="code docutils literal notranslate"><span class="pre">each</span></code>,
+use functional idioms like <code class="code docutils literal notranslate"><span class="pre">sort</span></code>, <code class="code docutils literal notranslate"><span class="pre">map</span></code>, and so on, as in lines 8, 10 and 13 of Figure 5.11.</p>
+<p>What about the <code class="code docutils literal notranslate"><span class="pre">belongs_to</span></code> method calls in <code class="code docutils literal notranslate"><span class="pre">review.rb</span></code>? As you might guess, <code class="code docutils literal notranslate"><span class="pre">belongs_to</span> <span class="pre">:movie</span></code> gives <strong>Review</strong> objects a movie
+instance method that looks up and returns the movie to which this review belongs. Since a review belongs to at most one
+movie, the method name is singular rather than plural, and returns a single object rather than an enumerable.</p>
+<p><strong>Self-Check 5.4.1.</strong> <em>In Figure 5.12(a), why did we add foreign keys (references) only to the</em> <code class="code docutils literal notranslate"><span class="pre">reviews</span></code> <em>table and not to the</em>
+<code class="code docutils literal notranslate"><span class="pre">moviegoers</span></code> <em>or</em> <code class="code docutils literal notranslate"><span class="pre">movies</span></code> <em>tables?</em></p>
+<blockquote>
+<div><p>Since we need to associate many reviews with a single movie or moviegoer, the foreign keys must be part of the model on
+the “owned” side of the association, in this case Reviews.</p>
+</div></blockquote>
+<p><strong>Self-Check 5.4.2.</strong> <em>In Figure 5.13, are the association accessors and setters (such as</em> <code class="code docutils literal notranslate"><span class="pre">m.reviews</span></code> <em>and</em> <code class="code docutils literal notranslate"><span class="pre">r.movie</span></code>
+<em>) instance methods or class methods?</em></p>
+<blockquote>
+<div><p>Instance methods, since a collection of reviews is associated with a particular movie, not with movies in general.</p>
+</div></blockquote>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="3" title="previous page"><span class="section-number">5.3. </span>CHIPS: Rails Intro</a>
+    <a class='right-next' id="next-link" href="5" title="next page"><span class="section-number">5.5. </span>Through-Associations</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By sme777<br/>
+        
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

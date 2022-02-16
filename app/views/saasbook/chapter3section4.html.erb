@@ -1,0 +1,1064 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3.4. From Web Sites to Microservices: Service-Oriented Architecture &#8212; saasbook  documentation</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="3.5. RESTful APIs: Everything is a Resource" href="5" />
+    <link rel="prev" title="3.3. CHIPS: HTTP and URIs" href="3" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../..">
+      
+      
+      <h1 class="site-logo" id="site-title">saasbook  documentation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../preface">
+   Preface
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/1">
+   1. Introduction to Software as a Service, Agile Development, and Cloud Computing
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/1">
+     1.1. Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/2">
+     1.2. Software Development Processes: Plan and Document
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/3">
+     1.3. Software Development Processes: The Agile Manifesto
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/4">
+     1.4. Software Quality Assurance: Testing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/5">
+     1.5. Productivity: Conciseness, Synthesis, Reuse, and Tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/6">
+     1.6. SaaS and Service Oriented Architecture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/7">
+     1.7. Deploying SaaS: Cloud Computing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/8">
+     1.8. Deploying SaaS: Browsers and Mobile
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/9">
+     1.9. Beautiful vs. Legacy Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/10">
+     1.10. Guided Tour and How To Use This Book
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/11">
+     1.11. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/12">
+     1.12. Concluding Remarks: Software Engineering Is More Than Programming
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/2">
+   2. How to Learn a New Language
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/1">
+     2.1. Prelude: Learning to Learn Languages and Frameworks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/2">
+     2.2. Pair Programming
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/3">
+     2.3. Introducing Ruby,an Object-Oriented Language
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/4">
+     2.4. Ruby Idioms: Poetry Mode, Blocks, Duck Typing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/5">
+     2.5. CHIPS: Ruby Intro
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/6">
+     2.6. Gems and Bundler: Library Management in Ruby
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/7">
+     2.7. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/8">
+     2.8. Concluding Remarks: How (Not) To Learn a Language By Googling
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="..">
+   3. SaaS Application Architecture: Microservices, APIs, and REST
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="1">
+     3.1. Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2">
+     3.2. SaaS Communication Uses HTTP Routes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="3">
+     3.3. CHIPS: HTTP and URIs
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     3.4. From Web Sites to Microservices: Service-Oriented Architecture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="5">
+     3.5. RESTful APIs: Everything is a Resource
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="6">
+     3.6. RESTful URIs, API Calls, and JSON
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="7">
+     3.7. CHIPS: Create and Deploy a Simple SaaS App
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="8">
+     3.8. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="9">
+     3.9. Concluding Remarks: Continuity From CGI to SOA
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/4">
+   4. SaaS Framework: Rails as a Model–View–Controller Framework
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/1">
+     4.1. The Model–View–Controller (MVC) Architecture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/2">
+     4.2. Rails Models: Databases and Active Record
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/3">
+     4.3. CHIPS: ActiveRecord Basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/4">
+     4.4. Routes, Controllers, and Views
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/5">
+     4.5. CHIPS: Rails Routes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/6">
+     4.6. Forms
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/7">
+     4.7. CHIPS: Hangperson on Rails
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/8">
+     4.8. Debugging: When Things Go Wrong
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/9">
+     4.9. CHIPS: Hello Rails
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/10">
+     4.10. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/4/section/11">
+     4.11. Concluding Remarks: Rails as a Service Framework
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/5">
+   5. SaaS Framework: Advanced Programming Abstractions for SaaS
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/1">
+     5.1. DRYing Out MVC: Partials, Validations and Filters
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/2">
+     5.2. Single Sign-On and Third-Party Authentication
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/3">
+     5.3. CHIPS: Rails Intro
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/4">
+     5.4. Associations and Foreign Keys
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/5">
+     5.5. Through-Associations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/6">
+     5.6. RESTful Routes for Associations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/7">
+     5.7. CHIPS: Associations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/8">
+     5.8. Other Types of Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/9">
+     5.9. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/10">
+     5.10. Concluding Remarks: Languages, Productivity, and Beauty
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/6">
+   6. Mobile and Desktop SaaS Clients: JavaScript Introduction
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/1">
+     6.1. JavaScript: The Big Picture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/2">
+     6.2. Introducing ECMAScript
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/3">
+     6.3. Classes, Functions and Constructors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/4">
+     6.4. The Document Object Model (DOM) and jQuery
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/5">
+     6.5. The DOM and Accessibility
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/6">
+     6.6. Events and Callbacks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/7">
+     6.7. AJAX: Asynchronous JavaScript And XML
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/8">
+     6.8. Testing Java Script and AJAX
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/9">
+     6.9. CHIPS: AJAX Enhancements to RottenPotatoes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/10">
+     6.10. Single-Page Apps and JSON APIs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/11">
+     6.11. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/12">
+     6.12. Concluding Remarks: JavaScript Past, Present and Future
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/7">
+   7. Requirements: BDD and User Stories
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/1">
+     7.1. Behavior-Driven Design and User Stories
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/2">
+     7.2. SMART User Stories
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/3">
+     7.3. Lo-Fi User Interface Sketches and Storyboards
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/4">
+     7.4. Points and Velocity
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/5">
+     7.5. Agile Cost Estimation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/6">
+     7.6. Cucumber: From User Stories to Acceptance Tests
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/7">
+     7.7. CHIPS: Intro to BDD and Cucumber
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/8">
+     7.8. Explicit vs. Implicit and Imperative vs. Declarative Scenarios
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/9">
+     7.9. The Plan-And-Document Perspective on Documentation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/10">
+     7.10. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/11">
+     7.11. Concluding Remarks: Pros and Cons of BDD
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/8">
+   8. Testing: Test-Driven Development
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/1">
+     8.1. FIRST, TDD, and Red–Green–Refactor
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/2">
+     8.2. Anatomy of a Test Case: Arrange, Act, Assert
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/3">
+     8.3. Isolating Code: Doubles and Seams
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/4">
+     8.4. Stubbing the Internet
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/5">
+     8.5. CHIPS: Intro to RSpec on Rails
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/6">
+     8.6. Fixtures and Factories
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/7">
+     8.7. Coverage Concepts and Types of Tests
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/8">
+     8.8. Other Testing Approaches and Terminology
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/9">
+     8.9. CHIPS:The Acceptance Test/Unit Test Cycle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/10">
+     8.10. The Plan-And-Document Perspective on Testing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/11">
+     8.11. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/12">
+     8.12. Concluding Remarks: TDD vs. Conventional Debugging
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/9">
+   9. Software Maintenance: Enhancing Legacy Software Using Refactoring and Agile Methods
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/1">
+     9.1. What Makes Code “Legacy” and How Can Agile Help?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/2">
+     9.2. Exploring a Legacy Codebase
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/3">
+     9.3. Establishing Ground Truth With Characterization Tests
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/4">
+     9.4. Comments and Commits: Documenting Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/5">
+     9.5. Metrics, CodeSmells, and SOFA
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/6">
+     9.6. Method-Level Refactoring: Replacing Dependencies With Seams
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/7">
+     9.7. The Plan-And-Document Perspective on Working With Legacy Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/8">
+     9.8. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/9">
+     9.9. Concluding Remarks: Continuous Refactoring
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/10">
+   10. Agile Teams
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/1">
+     10.1. It Takes a Team: Two-Pizza and Scrum
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/2">
+     10.2. Using Branches Effectively
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/3">
+     10.3. Pull Requests and Code Reviews
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/4">
+     10.4. Delivering the Backlog Using Continuous Integration
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/5">
+     10.5. CHIPS: Agile Iterations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/6">
+     10.6. Reporting and Fixing Bugs: The Five R’s
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/7">
+     10.7. The Plan-And-Document Perspective on Managing Teams
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/8">
+     10.8. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/9">
+     10.9. Concluding Remarks: From Solo Developer to Teams of Teams
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/11">
+   11. Design Patterns for SaaS Apps
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/1">
+     11.1. Patterns, Antipatterns, and SOLID Class Architecture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/2">
+     11.2. Just Enough UML
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/3">
+     11.3. Single Responsibility Principle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/4">
+     11.4. Open/Closed Principle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/5">
+     11.5. Liskov Substitution Principle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/6">
+     11.6. Dependency Injection Principle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/7">
+     11.7. Demeter Principle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/8">
+     11.8. The Plan-And-Document Perspective on Design Patterns
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/9">
+     11.9. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/10">
+     11.10. Concluding Remarks: Frameworks Capture Design Patterns
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/12">
+   12. Dev/Ops
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/1">
+     12.1. From Development to Deployment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/2">
+     12.2. Three-Tier Architecture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/3">
+     12.3. Responsiveness, Service Level Objectives, and Apdex
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/4">
+     12.4. Releases and Feature Flags
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/5">
+     12.5. Monitoring and Finding Bottlenecks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/6">
+     12.6. Improving Rendering and Database Performance With Caching
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/7">
+     12.7. Avoiding Abusive Database Queries
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/8">
+     12.8. CHIPS: Exploiting Caching and Indices
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/9">
+     12.9. Security: Defending Customer Data in Your App
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/10">
+     12.10. The Plan-And-Document Perspective on Operations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/11">
+     12.11. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/12">
+     12.12. Concluding Remarks: Beyond PaaS Basics
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/13">
+   13. Afterword
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+  <label for="toctree-checkbox-13">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/13/section/1">
+     13.1. Looking Backwards
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/13/section/2">
+     13.2. Looking Forwards
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/13/section/3">
+     13.3. Essential Readings
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/13/section/4">
+     13.4. Last Words
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/part1/chapter3/sub-chapter4.rst.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="from-web-sites-to-microservices-service-oriented-architecture">
+<h1><span class="section-number">3.4. </span>From Web Sites to Microservices: Service-Oriented Architecture<a class="headerlink" href="#from-web-sites-to-microservices-service-oriented-architecture" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p><em>Nobody should start to undertake a large project. You start with a small trivial project,
+and you should never expect it to get large. If you do, you’ll just overdesign and generally
+think it is more important than it likely is at that stage. Or worse, you might be scared away
+by the sheer size of the work you envision. So start small, and think about the details. Don’t
+think about some big picture and fancy design. If it doesn’t solve some fairly immediate need,
+it’s almost certainly over-designed. And don’t expect people to jump in and help you. That’s
+not how these things work. You need to get something half- way useful first, and then others
+will say “hey, that almost works for me,” and they’ll get involved in the project.</em></p>
+<p class="attribution">—Linus Torvalds, interviewed2 by Preston St. Pierre in Linux Times, Oct 25, 2004.</p>
+</div></blockquote>
+<p>When the Web began in 1990, HTTP servers existed primarily to serve static content (originally the text and
+images of scientific papers) that browsers would display. Each time the browser made another HTTP request,
+the server would deliver a new web page for the browser to show. But the emergence of SaaS around 1995 soon
+shifted the functionality of servers: rather than simply returning copies of static Web pages, servers would
+now run a program, and create HTML pages “on the fly” that implemented that program’s user interface. However,
+it was still the case that every new HTTP request resulted in the browser loading and displaying a new page. The
+next evolutionary step was the appearance of <strong>AJAX</strong>, or Asynchronous JavaScript And XML. If a browser supported AJAX,
+pages could include code written in the JavaScript language, and that code could make subsequent HTTP requests to
+the server <em>without</em> causing a page reload. In response to those requests, the server would return not an HTML page,
+but a data structure in either XML or JSON format, both of which we’ll meet shortly. The JavaScript code running
+in the browser would use that data to determine
+how to change the appearance or behavior of the displayed page, all without causing a page reload.</p>
+<p>AJAX marked a turning point in the relationship between a Web site and a client: instead of receiving HTML pages and
+functioning primarily as a display engine, the client was es- sentially calling a function on the remote server and
+expecting to get some data back, just as if the client was calling a library function. This shift in perspective invited
+a new way of looking at the Web: as a set of independent services that could be composed to produce larger sites—a
+so-called <strong>Service Oriented Architecture (SOA)</strong>.</p>
+<blockquote>
+<div><p><em>SOA had long suffered from lack of clarity and direction…. SOA could in fact die—not due to a lack of substance or potential,
+but simply due to a seemingly endless proliferation of misinformation and confusion.</em></p>
+<p class="attribution">—Thomas Erl, About the SOA Manifesto, 2010</p>
+</div></blockquote>
+<p>SOA as an architectural pattern may have been a new perspective on structuring the Web, but it was certainly <em>not</em> a new idea. Despite
+initial skepticism about whether SOA was more than just a marketing “buzzword,” one very prominent company was internally (and, at the
+time, silently) making SOA quite concrete. The e-commerce giant Amazon.com launched its retail site in 1995 powere by a <strong>monolithic
+application</strong> — a single large application that handled all aspects of the site. According to the blog of former Amazonian Steve Yegge, in
+2002 the CEO and founder of Amazon mandated a change to what we would today call SOA. Yegge claims that Jeff Bezos broadcast an email to
+all employees along the following lines (we are paraphrasing the main points of Yegge’s description for conciseness):</p>
+<blockquote>
+<div><p>All teams responsible for different subsystems of Amazon.com will henceforth expose their subsystem’s data and functionality through service
+interfaces only. No subsystem is to be allowed direct access to the data “owned” by another subsystem; the only access will be through an
+interface that exposes spe- cific operations on the data. Furthermore, every such interface must be designed so that someday it can be exposed
+to outside developers, not just used within Amazon.com itself.</p>
+</div></blockquote>
+<p>In this decree, Bezos captures the critical distinction of SOA: <em>the only way one service can name or access another service’s data is to request
+specific operations on that data through an external interface that provides those operations.</em> As an example, suppose we wanted to create a simple
+bookstore service where users can post reviews of books they’ve bought and maintain a profile of their reading interests. We’d need three subsystems:
+book reviews, user profiles, and buying. The left side of Figure 3.3 shows the silo version, similar to how Amazon.com worked in 1995. Each subsystem
+can internally share access to data directly in different subsystems. For example, the reviews subsystem can get user profile info out of the users
+subsystem. The only externally visible interface is “the bookstore.”</p>
+<p>The right side of Figure 3.3 shows the SOA version of the bookstore service, in which all subsystems are separate and independent. Even though all are
+inside the “boundary” of the bookstore, which is shown as a dotted rectangle, the subsystems interact with each other <em>as if</em> they were separate. For
+example, if the reviews subsystem wants to update a user’s profile to indicate that the user has written a review, the reviews subsystem can’t reach
+directly into the users database. Instead, it has to ask the users <strong>service</strong> to update the user’s information, via whatever interface is provided for
+that purpose. If no such operation is provided, the reviews team must negotiate with the user database team to get them to expose the necessary operation.</p>
+<p>Of course, you as an independent web developer cannot access Amazon’s User Profile service to manage users profiles for your own e-commerce site; it’s
+for Amazon’s internal use only. A <strong>microservice</strong>, in contrast, is a standalone service that performs just one type of task, <em>and</em> is specifically designed
+to be accessible from and incorporated into the functionality of any other outside service (perhaps for a fee). Though there is no hard-and-fast criterion
+distinguishing the scope of a microservice from that of a service, the prefix <em>micro</em> is intended to promote an “extreme SOA” design stance in which each
+microservice is responsible for a single narrowly-defined function. For example, Google Maps feels like a single app when you use it in a browser, but
+the different “clusters” of related functionality used by that app — drawing the map, computing driving directions, <strong>geocoding</strong> addresses, and so on—appear
+as distinct microservices to the underlying JavaScript code that implements the app. A rough rule of thumb is that the scope of a microservice should
+correspond to a set of closely related operations on a very tightly integrated set of resources. Notwithstanding, since there is no hard distinction
+between a service and a microservice, we will use the term service throughout. We will adopt the following rough definition, found in Nadareishvili et
+al. 2016: “A (micro)service is an independently deployable component of bounded scope that supports interoperability though message-based communication.”
+Based on this definition, we can see that the monolithic bookstore fails to be “micro” not just because of its size, but because its components are not
+independently deployable since they share access to databases.</p>
+<p>As Figure 3.4 shows, there are both pros and cons to preferring a service-oriented archi- tecture over a monolithic one. In short, we can think of microservices
+as a manifestation of extreme programming (XP) as applied to service-oriented architecture: If it’s good for services to be independently evolvable, make each
+one as compact as possible to maximize that independence. Microservices may also arise by design or by splitting up an existing
+large service, as occurred with Twitter. Around 2013, their monolithic Rails application, which they humorously called “the MonoRail” internally, was split up into
+a large number of microservices, most written in Java, Scala, or Clojure.</p>
+<p><strong>Self-Check 3.4.1.</strong> <em>Another take on SOA is that it is just a common sense approach to improving programmer productivity. Which productivity mechanism does SOA
+best exemplify: Clarity via conciseness, Synthesis, Reuse, or Automation and Tools?</em></p>
+<blockquote>
+<div><p>Reuse! The purpose of making internal interfaces visible is so that programmers can stand on the shoulders of others.</p>
+</div></blockquote>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="3" title="previous page"><span class="section-number">3.3. </span>CHIPS: HTTP and URIs</a>
+    <a class='right-next' id="next-link" href="5" title="next page"><span class="section-number">3.5. </span>RESTful APIs: Everything is a Resource</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By sme777<br/>
+        
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

@@ -55,7 +55,7 @@ When(/^(?:|I )press "([^"]*)"$/) do |button|
 end
 
 When(/^(?:|I )follow the first "([^"]*)"$/) do |link|
-  page.find_link(link, match: :first).click
+  page.find_link(link, match: :first).slice!("/../../").click
 end
 
 When(/^(?:|I )follow the second "([^"]*)"$/) do |link|

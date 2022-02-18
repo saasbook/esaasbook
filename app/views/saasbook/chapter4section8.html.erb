@@ -1,0 +1,1085 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>4.8. Debugging: When Things Go Wrong &#8212; saasbook  documentation</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="4.9. CHIPS: Hello Rails" href="9" />
+    <link rel="prev" title="4.7. CHIPS: Hangperson on Rails" href="7" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../..">
+      
+      
+      <h1 class="site-logo" id="site-title">saasbook  documentation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../preface">
+   Preface
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/1">
+   1. Introduction to Software as a Service, Agile Development, and Cloud Computing
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/1">
+     1.1. Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/2">
+     1.2. Software Development Processes: Plan and Document
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/3">
+     1.3. Software Development Processes: The Agile Manifesto
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/4">
+     1.4. Software Quality Assurance: Testing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/5">
+     1.5. Productivity: Conciseness, Synthesis, Reuse, and Tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/6">
+     1.6. SaaS and Service Oriented Architecture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/7">
+     1.7. Deploying SaaS: Cloud Computing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/8">
+     1.8. Deploying SaaS: Browsers and Mobile
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/9">
+     1.9. Beautiful vs. Legacy Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/10">
+     1.10. Guided Tour and How To Use This Book
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/11">
+     1.11. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/1/section/12">
+     1.12. Concluding Remarks: Software Engineering Is More Than Programming
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/2">
+   2. How to Learn a New Language
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/1">
+     2.1. Prelude: Learning to Learn Languages and Frameworks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/2">
+     2.2. Pair Programming
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/3">
+     2.3. Introducing Ruby,an Object-Oriented Language
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/4">
+     2.4. Ruby Idioms: Poetry Mode, Blocks, Duck Typing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/5">
+     2.5. CHIPS: Ruby Intro
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/6">
+     2.6. Gems and Bundler: Library Management in Ruby
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/7">
+     2.7. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/2/section/8">
+     2.8. Concluding Remarks: How (Not) To Learn a Language By Googling
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/3">
+   3. SaaS Application Architecture: Microservices, APIs, and REST
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/1">
+     3.1. Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/2">
+     3.2. SaaS Communication Uses HTTP Routes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/3">
+     3.3. CHIPS: HTTP and URIs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/4">
+     3.4. From Web Sites to Microservices: Service-Oriented Architecture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/5">
+     3.5. RESTful APIs: Everything is a Resource
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/6">
+     3.6. RESTful URIs, API Calls, and JSON
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/7">
+     3.7. CHIPS: Create and Deploy a Simple SaaS App
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/8">
+     3.8. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/3/section/9">
+     3.9. Concluding Remarks: Continuity From CGI to SOA
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="..">
+   4. SaaS Framework: Rails as a Model–View–Controller Framework
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="1">
+     4.1. The Model–View–Controller (MVC) Architecture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2">
+     4.2. Rails Models: Databases and Active Record
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="3">
+     4.3. CHIPS: ActiveRecord Basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4">
+     4.4. Routes, Controllers, and Views
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="5">
+     4.5. CHIPS: Rails Routes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="6">
+     4.6. Forms
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="7">
+     4.7. CHIPS: Hangperson on Rails
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     4.8. Debugging: When Things Go Wrong
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="9">
+     4.9. CHIPS: Hello Rails
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="10">
+     4.10. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="11">
+     4.11. Concluding Remarks: Rails as a Service Framework
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/5">
+   5. SaaS Framework: Advanced Programming Abstractions for SaaS
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/1">
+     5.1. DRYing Out MVC: Partials, Validations and Filters
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/2">
+     5.2. Single Sign-On and Third-Party Authentication
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/3">
+     5.3. CHIPS: Rails Intro
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/4">
+     5.4. Associations and Foreign Keys
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/5">
+     5.5. Through-Associations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/6">
+     5.6. RESTful Routes for Associations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/7">
+     5.7. CHIPS: Associations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/8">
+     5.8. Other Types of Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/9">
+     5.9. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/5/section/10">
+     5.10. Concluding Remarks: Languages, Productivity, and Beauty
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/6">
+   6. Mobile and Desktop SaaS Clients: JavaScript Introduction
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/1">
+     6.1. JavaScript: The Big Picture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/2">
+     6.2. Introducing ECMAScript
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/3">
+     6.3. Classes, Functions and Constructors
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/4">
+     6.4. The Document Object Model (DOM) and jQuery
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/5">
+     6.5. The DOM and Accessibility
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/6">
+     6.6. Events and Callbacks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/7">
+     6.7. AJAX: Asynchronous JavaScript And XML
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/8">
+     6.8. Testing Java Script and AJAX
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/9">
+     6.9. CHIPS: AJAX Enhancements to RottenPotatoes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/10">
+     6.10. Single-Page Apps and JSON APIs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/11">
+     6.11. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/6/section/12">
+     6.12. Concluding Remarks: JavaScript Past, Present and Future
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/7">
+   7. Requirements: BDD and User Stories
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/1">
+     7.1. Behavior-Driven Design and User Stories
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/2">
+     7.2. SMART User Stories
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/3">
+     7.3. Lo-Fi User Interface Sketches and Storyboards
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/4">
+     7.4. Points and Velocity
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/5">
+     7.5. Agile Cost Estimation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/6">
+     7.6. Cucumber: From User Stories to Acceptance Tests
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/7">
+     7.7. CHIPS: Intro to BDD and Cucumber
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/8">
+     7.8. Explicit vs. Implicit and Imperative vs. Declarative Scenarios
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/9">
+     7.9. The Plan-And-Document Perspective on Documentation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/10">
+     7.10. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/7/section/11">
+     7.11. Concluding Remarks: Pros and Cons of BDD
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/8">
+   8. Testing: Test-Driven Development
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/1">
+     8.1. FIRST, TDD, and Red–Green–Refactor
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/2">
+     8.2. Anatomy of a Test Case: Arrange, Act, Assert
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/3">
+     8.3. Isolating Code: Doubles and Seams
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/4">
+     8.4. Stubbing the Internet
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/5">
+     8.5. CHIPS: Intro to RSpec on Rails
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/6">
+     8.6. Fixtures and Factories
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/7">
+     8.7. Coverage Concepts and Types of Tests
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/8">
+     8.8. Other Testing Approaches and Terminology
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/9">
+     8.9. CHIPS:The Acceptance Test/Unit Test Cycle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/10">
+     8.10. The Plan-And-Document Perspective on Testing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/11">
+     8.11. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/8/section/12">
+     8.12. Concluding Remarks: TDD vs. Conventional Debugging
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/9">
+   9. Software Maintenance: Enhancing Legacy Software Using Refactoring and Agile Methods
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/1">
+     9.1. What Makes Code “Legacy” and How Can Agile Help?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/2">
+     9.2. Exploring a Legacy Codebase
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/3">
+     9.3. Establishing Ground Truth With Characterization Tests
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/4">
+     9.4. Comments and Commits: Documenting Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/5">
+     9.5. Metrics, CodeSmells, and SOFA
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/6">
+     9.6. Method-Level Refactoring: Replacing Dependencies With Seams
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/7">
+     9.7. The Plan-And-Document Perspective on Working With Legacy Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/8">
+     9.8. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/9/section/9">
+     9.9. Concluding Remarks: Continuous Refactoring
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/10">
+   10. Agile Teams
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/1">
+     10.1. It Takes a Team: Two-Pizza and Scrum
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/2">
+     10.2. Using Branches Effectively
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/3">
+     10.3. Pull Requests and Code Reviews
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/4">
+     10.4. Delivering the Backlog Using Continuous Integration
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/5">
+     10.5. CHIPS: Agile Iterations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/6">
+     10.6. Reporting and Fixing Bugs: The Five R’s
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/7">
+     10.7. The Plan-And-Document Perspective on Managing Teams
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/8">
+     10.8. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/10/section/9">
+     10.9. Concluding Remarks: From Solo Developer to Teams of Teams
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/11">
+   11. Design Patterns for SaaS Apps
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/1">
+     11.1. Patterns, Antipatterns, and SOLID Class Architecture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/2">
+     11.2. Just Enough UML
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/3">
+     11.3. Single Responsibility Principle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/4">
+     11.4. Open/Closed Principle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/5">
+     11.5. Liskov Substitution Principle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/6">
+     11.6. Dependency Injection Principle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/7">
+     11.7. Demeter Principle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/8">
+     11.8. The Plan-And-Document Perspective on Design Patterns
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/9">
+     11.9. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/11/section/10">
+     11.10. Concluding Remarks: Frameworks Capture Design Patterns
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/12">
+   12. Dev/Ops
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/1">
+     12.1. From Development to Deployment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/2">
+     12.2. Three-Tier Architecture
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/3">
+     12.3. Responsiveness, Service Level Objectives, and Apdex
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/4">
+     12.4. Releases and Feature Flags
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/5">
+     12.5. Monitoring and Finding Bottlenecks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/6">
+     12.6. Improving Rendering and Database Performance With Caching
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/7">
+     12.7. Avoiding Abusive Database Queries
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/8">
+     12.8. CHIPS: Exploiting Caching and Indices
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/9">
+     12.9. Security: Defending Customer Data in Your App
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/10">
+     12.10. The Plan-And-Document Perspective on Operations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/11">
+     12.11. Fallacies and Pitfalls
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/12/section/12">
+     12.12. Concluding Remarks: Beyond PaaS Basics
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../chapter/13">
+   13. Afterword
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+  <label for="toctree-checkbox-13">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/13/section/1">
+     13.1. Looking Backwards
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/13/section/2">
+     13.2. Looking Forwards
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/13/section/3">
+     13.3. Essential Readings
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../chapter/13/section/4">
+     13.4. Last Words
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/part1/chapter4/sub-chapter8.rst.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="debugging-when-things-go-wrong">
+<h1><span class="section-number">4.8. </span>Debugging: When Things Go Wrong<a class="headerlink" href="#debugging-when-things-go-wrong" title="Permalink to this headline">¶</a></h1>
+<p>Debugging is an annoying but invaluable skill. The amazing sophistication of today’s software
+stacks makes it possible to be highly productive, but with so many “moving parts,” it also means
+that things inevitably go wrong, especially when learning new languages and tools. Errors might
+happen because you mistyped something, because of a change in your environment or configuration,
+or any number of other reasons.</p>
+<p>The best way to debug, of course, is to stop a bug in its tracks and fix it before it manifests.
+Two fundamental suggestions can help. First, use good tools, including a text editor that supports
+automatic indentation and syntax highlighting. Syntax errors such as incomplete block structure,
+missing quotation marks, and so on become easy to catch. If your editor isn’t so equipped, you can
+either write your code on stone tablets, or switch to a more productive modern editor.</p>
+<p>Second, use good colleagues! Many, many students taught by your authors report that they saved huge
+amounts of time by always pair programming (Section 2.2), because their partner caught a “silly” bug
+before it became a work stopper. If you’re not pairing but you’re in an “open seating” configuration,
+or have instant messaging enabled using a tool such as Slack, put the message out there. Try explaining
+your code line by line to a colleague, or if
+no colleague is available, to a pet or even an inanimate object. The act of trying to explain in detail
+may lead you to discover the flaw in your own reasoning.</p>
+<p>But neither good tools nor good colleagues are substitute for your own thinking and de- bugging skills—after all,
+it’s your code! Debugging usually involves a gradient of activities you can think of as a rising TIDE:</p>
+<ol class="arabic simple">
+<li><p><strong>T</strong> race the source of the error as closely as possible by really examining the error message(s) and log file(s) closely.</p></li>
+<li><p><strong>I</strong> nstrument the code near the error, such as by inserting statements to print intermediate values of variables, to see where things go off the rails (so to speak).</p></li>
+<li><p><strong>D</strong> ebug interactively using the facilities provided in your language or framework, such as the byebug gem for Ruby, so you can inspect and modify application state around the bug.</p></li>
+<li><p><strong>E</strong> xplore question boards such as StackOverflow for similar bugs, and if all else fails, post a question there and ask for help.</p></li>
+</ol>
+<p>We consider each of these in turn.</p>
+<p><strong>Trace</strong>. If the bug causes your app to crash or report an error message, take the time to really read the error message. Ruby’s
+error messages can look disconcertingly long, but a long error message is your friend because it gives the <strong>backtrace</strong> showing
+not only the method where the error occurred, but also its caller, its caller’s caller, and so on. Don’t throw up your hands
+when you see a long error message; use the information to understand both the proximate cause of the error (the problem that
+“stopped the show”) and the possible paths towards the root cause of the error. What is the last line of <em>your</em> code implicated
+in the backtrace? What happened before then?</p>
+<p>This step can be challenging if the bug occurs in code that you blindly cut-and-pasted with no understanding of how it works
+or what assumptions it makes.</p>
+<p>For example, a particularly common proximate cause of Ruby errors is <code class="code docutils literal notranslate"><span class="pre">Undefined</span></code> method <code class="code docutils literal notranslate"><span class="pre">’foobar’</span></code> for <code class="code docutils literal notranslate"><span class="pre">nil:NilClass</span></code>. (<code class="code docutils literal notranslate"><span class="pre">NilClass</span></code> is
+a special class whose only instance is the constant <code class="code docutils literal notranslate"><span class="pre">nil</span></code>.) This error occurs when some computation fails and returns <code class="code docutils literal notranslate"><span class="pre">nil</span></code>
+instead of the object you expected, but you forgot to check for this error and subsequently tried to call a method on what
+you assumed was a valid object. If the computation occurred in another method “upstream,” the backtrace can help you figure
+out where. In SaaS apps, this confusion can be compounded if the failed computation happens in the controller action
+but the invalid object is referenced in the view, as in this example:</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="c1"># in controller action:</span>
+<span class="k">def</span> <span class="nf">show</span>
+    <span class="vi">@movie</span> <span class="o">=</span> <span class="no">Movie</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:id</span> <span class="o">=&gt;</span> <span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span> <span class="c1"># what if this movie not in DB?</span>
+    <span class="c1"># BUG: we should check @movie for validity here!</span>
+<span class="k">end</span>
+
+<span class="c1"># later, in the view - this will fail since @movie is nil</span>
+<span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span> <span class="o">&lt;%=</span>  <span class="vi">@movie</span><span class="o">.</span><span class="n">title</span> <span class="sx">%&gt; &lt;/h1&gt;</span>
+</pre></div>
+</div>
+<p>If you’re not sure you even understand the error message, use a search engine to look up key words or key phrases in
+the error message. You can also search sites like StackOverflow, which specialize in helping out developers and
+allow you to vote for the most helpful answers to particular questions so that they eventually percolate to the top
+of the answer list.</p>
+<p>Lastly, don’t forget that the log file <code class="code docutils literal notranslate"><span class="pre">development.log</span></code> (or <code class="code docutils literal notranslate"><span class="pre">production.log</span></code> in the production environment, or <code class="code docutils literal notranslate"><span class="pre">test.log</span></code>
+during a testing run) contains information such as what specific HTTP request was received, what controller action was
+invoked, whether the action succeeded or failed or redirected, what database queries if any were performed, and so on.
+With so many moving parts, there is a lot of “invisible” machinery that gets invoked before your controller code is even
+reached, and problems that happen there can be hard to find.</p>
+<p><strong>Instrument. instrumentation</strong> consists of extra statements you insert to record values of important variables at various points during
+program execution. There are various places you can instrument a Rails SaaS app:</p>
+<ul class="simple">
+<li><p>Display a detailed description of an object in a view. For example, try inserting <code class="code docutils literal notranslate"><span class="pre">&lt;%=</span> <span class="pre">debug(&#64;movie)%&gt;</span></code> or <code class="code docutils literal notranslate"><span class="pre">&lt;%=</span> <span class="pre">&#64;movie.inspect%&gt;</span></code> in any view to insert the result of the corresponding Ruby expression into the view itself.</p></li>
+<li><p>“Stop the show” inside a controller method by raising an exception whose message is a representation of the value you want to inspect, for example, <code class="code docutils literal notranslate"><span class="pre">raise</span> <span class="pre">params.inspect</span></code> to see the detailed value of the <code class="code docutils literal notranslate"><span class="pre">params</span></code> hash inside a controller method. Rails will display the exception message as the Web page resulting from the request.</p></li>
+<li><p>Use <code class="code docutils literal notranslate"><span class="pre">Rails.logger.debug(</span></code> <em>message</em> <code class="code docutils literal notranslate"><span class="pre">)</span></code> in a model or controller to emit <em>message</em> to the log.</p></li>
+</ul>
+<p><strong>Debug interactively.</strong> The byebug gem is already installed via the default Rails Gemfile. To use the debugger in a Rails app,
+insert the statement byebug at the point in your code where you want to stop the program. When you hit that statement, the
+terminal window where you started the server will give you a debugger prompt. In Section 4.4, we’ll show how to use the
+debugger to shed some light on Rails internals.</p>
+<p><strong>Explore</strong> question boards. Many bugs are not unique to a specific app but have happened to others in the past. Before you
+think about posting a question to a board such as StackOverflow, remember that it can take hours or days to get a
+response (if you get one), so 15 minutes spent carefully searching previous posts could save you a lot of time.</p>
+<p>If that approach fails and you decide to post a question, remember that everyone else on StackOverflow is as busy as
+you, so write your question in a way that makes it easy for a
+knowledgeable person to find and answer. Choose your keywords specifically and carefully: <code class="code docutils literal notranslate"><span class="pre">rails</span></code> is extremely common,
+but the conjunction <code class="code docutils literal notranslate"><span class="pre">rails</span> <span class="pre">controller</span> <span class="pre">redirect</span></code> narrows the topic down significantly. In the question post itself,
+be as specific as possible about what went wrong, what your environment is, and how to reproduce the problem. The
+ideal question post will express as concisely and specifically as possible (a) what your code is supposed to do,
+(b) the result you expected, (c) the result you actually observe. Here are some examples and anti-examples:</p>
+<ul class="simple">
+<li><p><strong>Vague:</strong> “The sinatra gem doesn’t work on my system.” There’s not enough information here for anyone to help you.</p></li>
+<li><p><strong>Better, but annoying</strong>: “The <code class="code docutils literal notranslate"><span class="pre">sinatra</span> <span class="pre">gem</span></code> doesn’t work on my system. Attached is the 85-line error message.” Other developers are just as busy as you and probably won’t take the time to extract relevant facts from a long trace.</p></li>
+<li><p><strong>Best:</strong> Look at the actual transcript of this question on StackOverflow. At 6:02pm, the developer provided specific information, such as the name and version of their operating system, the specific commands they successfully ran, and the unexpected error that resulted. Other helpful voices chimed in asking for specific additional information, and by 7:10pm, two of the answers had identified the problem.</p></li>
+</ul>
+<p>While it’s impressive that this developer got their answer in just over an hour, it means they also lost an hour of
+coding time, which is why you should post a question only after you’ve exhausted the other alternatives.</p>
+<p><strong>Self-Check 4.8.1.</strong> <em>Why can’t you just use print or puts to display messages to help debug your
+SaaS app?</em></p>
+<blockquote>
+<div><p>Unlike command-line apps, SaaS apps aren’t attached to a terminal window, so there’s no obvious place for
+the output of a print statement to go.</p>
+</div></blockquote>
+<p><strong>Self-Check 4.8.2.</strong> <em>Of the three debugging methods described in this section, which ones are appropriate for
+collecting instrumentation or diagnostic information once your app is deployed and in production?</em></p>
+<blockquote>
+<div><p>Only the <code class="code docutils literal notranslate"><span class="pre">logger</span></code> method is appropriate, since the other two methods (“stopping the show” in a controller or inserting
+diagnostic information into views) would interfere with the usage of real customers if used on a production app.</p>
+</div></blockquote>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="7" title="previous page"><span class="section-number">4.7. </span>CHIPS: Hangperson on Rails</a>
+    <a class='right-next' id="next-link" href="9" title="next page"><span class="section-number">4.9. </span>CHIPS: Hello Rails</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By sme777<br/>
+        
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

@@ -19,7 +19,9 @@ module NavigationHelpers
       '/'
 
     when /chapter ([0-9]+) section ([0-9]+)/
-      if $2 == 0
+      if $1 == "0"
+        "/preface"
+      elsif $2 == "0"
         "/chapter/#{$1}"
       else
         "/chapter/#{$1}/section/#{$2}"

@@ -54,8 +54,12 @@ When(/^(?:|I )press "([^"]*)"$/) do |button|
   click_button(button)
 end
 
-When(/^(?:|I )follow "([^"]*)"$/) do |link|
-  click_link(link)
+When(/^(?:|I )follow the first "([^"]*)"$/) do |link|
+  page.find_link(link, match: :first).click
+end
+
+When(/^(?:|I )follow the second "([^"]*)"$/) do |link|
+  page.find_link(link, match: 2).click
 end
 
 When(/^(?:|I )fill in "([^"]*)" with "([^"]*)"$/) do |field, value|

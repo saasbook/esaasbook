@@ -18,6 +18,15 @@ module NavigationHelpers
     when /^the home\s?page$/
       '/'
 
+    when /chapter ([0-9]+) section ([0-9]+)/
+      if $1 == "0"
+        "/preface"
+      elsif $2 == "0"
+        "/chapter/#{$1}"
+      else
+        "/chapter/#{$1}/section/#{$2}"
+      end
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

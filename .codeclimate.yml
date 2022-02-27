@@ -5,3 +5,4 @@ exclude_patterns:
 - "app/javascript/packs/underscore-1.13.1.js"
 - "app/javascript/packs/underscore-1.12.0.js"
 - "app/javascript/packs/doctools.js"
+- "old_site/"

@@ -1,7 +1,143 @@
+<%= render 'index' %> 
 
 <!DOCTYPE html>
-
 <html>
-  <%= render 'index' %> 
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1.11. Fallacies and Pitfalls#8212; saasbook  documentation</title>
+    
   
+    
+  <link rel="preload" as="script" href="esaasbook/app/assets/stylesheets/_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../../" id="documentation_options" src="esaasbook/app/assets/stylesheets/_static/documentation_options.js"></script>
+    <script src="esaasbook/app/assets/stylesheets/_static/jquery.js"></script>
+    <script src="esaasbook/app/assets/stylesheets/_static/underscore.js"></script>
+    <script src="esaasbook/app/assets/stylesheets/_static/doctools.js"></script>
+    <script src="esaasbook/app/assets/stylesheets/_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="1.12. Concluding Remarks: Software Engineering Is More Than Programming" href="12" />
+    <link rel="prev" title="1.10. Guided Tour and How To Use This Book" href="10" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+  
+  </head>
+
+        
+
+<body>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="fallacies-and-pitfalls">
+<h1><span class="section-number">1.11. </span>Fallacies and Pitfalls<a class="headerlink" href="#fallacies-and-pitfalls" title="Permalink to this headline">¶</a></h1>
+<p><em>Lord, give us the wisdom to utter words that are gentle and tender, for tomorrow we may
+have to eat them.</em></p>
+<blockquote>
+<div><p>—Sen. Morris Udall</p>
+</div></blockquote>
+<p>As mentioned above, this section near the end of a chapter explains ideas of a chapter
+from another perspective, and gives readers a chance to learn from the mistakes of others.
+<em>Fallacies</em> are statements that seem plausible (or are actually widely held views) based on
+the ideas in the chapter, but they are not true. <em>Pitfalls</em>, on the other hand, are common
+dangers associated with the topics in the chapter that are difficult to avoid even when
+you are warned.</p>
+<blockquote>
+<div><p><strong>Fallacy: The Agile lifecycle is best for all software development.</strong></p>
+</div></blockquote>
+<p>Agile is a nice match to many types of software, particularly SaaS, which is why we use it
+in this book. However, Agile is <em>not</em> best for everything. Agile may be ineffective for
+safety-critical apps, for example.</p>
+<p>Our experience is that once you learn the classic steps of software development and have
+a positive experience in using them via Agile, you will use these important software
+engineering principles in other projects no matter which methodology is used. Each
+chapter in Part II concludes with contrasting Plan-and-Document perspective to help you
+understand these principles and to help you use other lifecycles should the need arise.</p>
+<p>Nor will Agile be the last software lifecycle you will ever see. We believe that new development
+methodologies develop and become popular in response to new opportunities, so expect to learn
+new methodologies and frameworks in your future.</p>
+<blockquote>
+<div><p><strong>Pitfall: Ignoring the cost of software design.</strong></p>
+</div></blockquote>
+<p>Since there is essentially no cost to distribute software, the temptation is to believe there is
+almost no cost to changing it so that it can be “remanufactured” the way the customer wants.
+However, this perspective ignores the cost of design and test, which can be a substantial part
+of the overall costs for software projects. Zero manufacturing cost is also one rationalization
+used to justify pirating copies of software and other electronic data, since pirates apparently
+believe no one should pay for the cost of development, just for manufacturing.</p>
+<blockquote>
+<div><p><strong>Pitfall: Ignoring the historical context of software technology.</strong></p>
+</div></blockquote>
+<p><em>Those who cannot remember the past are condemned to repeat it.</em></p>
+<blockquote>
+<div><p>—George Santayana</p>
+</div></blockquote>
+<p>Software engineering is a relatively young engineering field, but a fast-moving one. If you try to
+learn software technologies while ignoring the historical context in which they arose,
+you risk making underinformed choices about what tools to use, or worse, “reinventing the wheel”
+without learning from the experiences of others. For example, if you’re debating with colleagues
+about the advisability of using Node.js as your application server, but you are unfamiliar with the
+long-running “threads vs. events” debates in the systems software community, at best you will be
+having an under-informed discussion, and at worst you will be quickly beset by woe. Similarly, the
+feature creep of “NoSQL” databases mirrors the progression of events that led to the invention of
+the <strong>relational model</strong> and its eventual dom- inance over the older <strong>hierarchical database model</strong>, which
+“baseline” NoSQL databases strongly resemble. Reinventing the wheel isn’t always necessarily a bad
+thing. Sometimes the existing wheel really isn’t a great fit for your needs—as Douglas Crockford is
+said to have remarked, “The good thing about reinventing the wheel is that you can get a round one.”
+Our hope is that learners of this material will choose to take a few extra minutes to gain a broader
+perspective on <em>why</em> various things are the way they are (or not). We believe this will not only help
+you decide whether a particular wheel reinvention is a good one, but also help you avoid techno-fetishism—the
+belief that a new “rockstar” technology is important and worth learning simply because it’s new (or fast,
+or lean, or whatever), without a well-grounded per- spective of its strengths and weaknesses or of how
+it builds on ideas that have been explored previously.</p>
+<blockquote>
+<div><p><strong>Pitfall: Being overly focused on learning framework X as rapidly as possible.</strong></p>
+</div></blockquote>
+<p>Possible values of X change so quickly that in any given leap year, the “new hot tech” for building software
+is probably different from what it was during the previous leap year. Indeed, since the first edition of
+this book in 2013, “hot tech” for building front-end apps has changed from Prototype.js to jQuery to Angular
+to Ember to Backbone to React, with Vue now another contender. Therefore, your authors believe that it’s
+more valuable to <em>learn how to learn</em> new languages and frameworks, by understanding the fundamental principles
+of software architecture and design on which they’re built, by continuously acquiring fluency in multiple
+frameworks and tools, and by adopting an ecumenical approach to the question of “which language or framework
+is best” for a given project.</p>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="10" title="previous page"><span class="section-number">1.10. </span>Guided Tour and How To Use This Book</a>
+    <a class='right-next' id="next-link" href="12" title="next page"><span class="section-number">1.12. </span>Concluding Remarks: Software Engineering Is More Than Programming</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By sme777<br/>
+        
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="esaasbook/app/assets/stylesheets/_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
 </html>

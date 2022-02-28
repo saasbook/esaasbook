@@ -7,3 +7,5 @@ exclude_patterns:
 - "app/javascript/packs/doctools.js"
 - "app/javascript/packs/sidebar.js"
 - "old_site/"
+- "features/"
+- "spec/"

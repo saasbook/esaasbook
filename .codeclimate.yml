@@ -1,0 +1,11 @@
+exclude_patterns:
+- "app/javascript/packs/jquery-3.5.1.js"
+- "app/javascript/packs/language_data.js"
+- "app/javascript/packs/searchtools.js"
+- "app/javascript/packs/underscore-1.13.1.js"
+- "app/javascript/packs/underscore-1.12.0.js"
+- "app/javascript/packs/doctools.js"
+- "app/javascript/packs/sidebar.js"
+- "old_site/"
+- "features/"
+- "spec/"

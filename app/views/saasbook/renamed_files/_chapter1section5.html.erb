@@ -1,0 +1,191 @@
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/intro/chapter1/sub-chapter5.rst.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="productivity-conciseness-synthesis-reuse-and-tools">
+<h1><span class="section-number">1.5. </span>Productivity: Conciseness, Synthesis, Reuse, and Tools<a class="headerlink" href="#productivity-conciseness-synthesis-reuse-and-tools" title="Permalink to this headline">¶</a></h1>
+<p>Moore’s Law meant hardware resources have doubled every 18 months for
+nearly 50 years. These faster computers with much larger memories could
+run much larger programs. To build bigger applications that could take
+advantage of the more powerful computers, software engineers needed to
+improve their productivity.</p>
+<p>Engineers developed four fundamental mechanisms to improve their productivity:</p>
+<ol class="arabic simple">
+<li><p>Clarity via conciseness</p></li>
+<li><p>Synthesis</p></li>
+<li><p>Reuse</p></li>
+<li><p>Automation via Tools</p></li>
+</ol>
+<p>One of the driving assumptions of improving productivity of programmers is that
+if programs are easier to understand, then they will have fewer bugs and to be
+easier to evolve. A closely related corollary is that if the program is smaller,
+it’s generally easier to understand. We capture this notion with our motto of
+“clarity via conciseness.”</p>
+<p>Programming languages do this two ways. The first is simply offering a syntax
+that lets programmers express ideas naturally and in fewer characters. For example,
+below are two ways to express a simple assertion:</p>
+<p><code class="code docutils literal notranslate"><span class="pre">assert_greater_than_or_equal_to(a,</span> <span class="pre">7)</span></code> vs. <code class="code docutils literal notranslate"><span class="pre">expect(a).to</span> <span class="pre">be</span> <span class="pre">&gt;=</span> <span class="pre">7</span></code></p>
+<p>It’s easy to imagine momentary confusion about the order of arguments in the first
+version in addition to the higher cognitive load of reading twice as many characters.
+The second version (which happens to be legal Ruby) is shorter and easier to read and
+understand, and will likely be easier to maintain.</p>
+<p>The other way to improve clarity is to raise the level of abstraction. That initially
+meant the invention of higher-level programming languages such as Fortran and COBOL.
+This step raised the engineering of software from assembly language for a particular
+computer to higher-level languages that could target multiple computers simply by
+changing the compiler.</p>
+<p>As computer hardware performance continued to increase, more programmers were willing
+to delegate tasks to the compiler and runtime system that they formerly performed themselves.
+For example, Java and similar languages took over memory management from the earlier C and
+C++ languages. Scripting languages like Python and Ruby have raised the level of abstraction
+even higher. Examples are <strong>reflection</strong>, which allows programs to observe themselves, and <strong>higher
+order functions</strong>, which allows higher-level behaviors to be reused by passing functions as
+arguments to other functions. This higher level of abstractions made programs more concise
+and therefore (usually) easier to read, understand, and maintain. To highlight examples that
+improve productivity via conciseness, we will use the “Concise” icon.</p>
+<p>The second productivity mechanism is synthesis; that is, code that is generated automatically
+rather than created manually. Logic synthesis for hardware engineers meant that they
+could describe hardware as Boolean functions and receive highly optimized transistors
+that implemented those functions. The classic software synthesis example is <strong>Bit blit</strong>. This graphics
+primitive combines two bitmaps under control of a mask. The straightforward approach would include
+a conditional statement in the innermost loop to chose the type of mask, but it was slow. The
+solution was to write a program that could synthesize the appropriate special-purpose code
+<em>without</em> the conditional statement in the loop. We’ll highlight examples that improve productivity
+by generating code with this “CodeGen” gears icon. The Rails framework makes extensive use of the
+Ruby language’s facilities for <strong>metaprogramming</strong>, which allows Ruby programs to automatically
+synthesize code at runtime.</p>
+<p>The third productivity mechanism is to reuse portions from past designs rather than write everything
+from scratch. As it is easier to make small changes in software than in hardware, software is even
+more likely than hardware to reuse a component that is almost but not quite a correct fit. We highlight
+examples that improve productivity via reuse with this “Reuse” recycling icon.</p>
+<p>Procedures and functions were invented in the earliest days of software so that different parts of the
+program could reuse the same code with different parameter values. Standardized libraries for
+input/output and for mathematical functions soon followed, so that programmers could reuse code developed by others.</p>
+<p>Procedures in libraries let you reuse implementations of individual tasks. But more com- monly, programmers want
+to reuse and manage <strong>collections</strong> of tasks. The next step in software reuse was therefore <strong>object-oriented programming</strong>,
+where you could reuse the same tasks with different objects via the use of inheritance in languages like C++ and Java.</p>
+<p>While inheritance supported reuse of implementations, another opportunity for reuse is a general strategy for doing
+something even if the implementation varies. <strong>Design patterns</strong>, inspired by work in civil architecture (Alexander et al.
+1977), arose to address this need. Language support for reuse of design patterns includes <strong>dynamic typing</strong>, which
+facilitates composition of abstractions, and <strong>mix-ins</strong>, which offer ways to collect functionality from multiple methods
+without some of the pathologies of multiple inheritance found in some object oriented programming. Python and Ruby
+are examples of languages with features that help with reuse of design patterns.</p>
+<p>Note that reuse does <em>not</em> mean copying and pasting code so that you have very similar code in many places. The problem
+with copying and pasting code is that you may not change all the copies when fixing a bug or adding a feature. Here
+is a software engineering guideline that guards against repetition:</p>
+<p><em>Every piece of knowledge must have a single, unambiguous, authoritative representation within a
+system.</em></p>
+<blockquote>
+<div><p>—Andy Hunt and Dave Thomas, 1999</p>
+</div></blockquote>
+<p>This guideline has been captured in the motto and acronym: <strong>Don’t Repeat Yourself (DRY)</strong>. We’ll use a towel as the
+“DRY” icon to show examples of DRY in the following chapters.</p>
+<p>Ruby and JavaScript, which we use in this book, are typical of modern scripting languages in including automatic memory
+management, dynamic typing, support for higher-order func- tions, and various mechanisms for code reuse. By including
+important advances in program- ming languages, Ruby goes beyond languages like Perl in supporting multiple programming
+paradigms such as object-oriented and <strong>functional programming</strong>.</p>
+<p>Finally, a core value of computer engineering is finding ways to replace tedious manual tasks with tools to save time,
+improve accuracy, or both. Obvious Computer Aided Design (CAD) tools for software development are compilers and interpreters
+that raise the level of abstraction and generate code as mentioned above, but there are also more subtle productivity
+tools like Makefiles and version control systems (see Section 10.3) that automate tedious tasks. We highlight tool examples
+with the hammer icon.</p>
+<p>The tradeoff is always the time it takes to learn a new tool versus the time saved in applying it. Other concerns are the
+dependability of the tool, the quality of the user experience, and how to decide which one to use if there are many choices.
+Nevertheless, one of the software engineering tenets of faith is that a new tool can make our lives better.</p>
+<p>Your authors embrace the value of automation and tools. That is why we show you several tools in this book to make you more
+productive. The good news is that any tool we show you will have been vetted to ensure its dependability and that time to
+learn will be paid back many times over in reduced development time and in the improved quality of the final result. For
+example, Chapter 7 shows how <strong>Cucumber</strong> helps automate turning user stories into integration tests and how <strong>Pivotal Tracker</strong>
+automatically measures <strong>Velocity</strong>, which is a measure of the rate of adding features to an application. Chapter 8 introduces
+<strong>RSpec</strong>, which helps automate the unit testing process. The bad news is that you’ll need to learn several new tools. However,
+we think the ability to quickly learn and apply new tools is a requirement for success in engineering software, so it’s a
+good skill to cultivate.</p>
+<p>Thus, our fourth productivity enhancer is automation via tools. We highlight examples that use automation with the robot icon, although
+they are often also associated with tools.</p>
+<p><strong>Self-Check 1.5.1.</strong> <em>Which mechanism is the weakest argument for productivity benefits of compilers for high-level programming languages:
+Clarity via conciseness, Synthesis, Reuse, or Automation and Tools?</em></p>
+<blockquote>
+<div><p>Compilers make high-level programming languages practical, enabling programmers to improve productivity via writing the more concise code
+in a HLL. Compilers do synthesize lower-level code based on the HLL input. Compilers are definitely tools. While you can argue that HLL
+makes reuse easier, reuse is the weakest of the four for explaining the benefits of compilers.</p>
+</div></blockquote>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="<%= section_path(chapter_id: 1, section_id: 4) %>" title="previous page"><span class="section-number">1.4. </span>Software Quality Assurance: Testing</a>
+    <a class='right-next' id="next-link" href="<%= section_path(chapter_id: 1, section_id: 6) %>" title="next page"><span class="section-number">1.6. </span>SaaS and Service Oriented Architecture</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By sme777<br/>
+        
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
+      </p>
+    </div>
+  </footer>
+</main>

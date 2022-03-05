@@ -1,0 +1,123 @@
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/part2/chapter11/sub-chapter2.rst.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="just-enough-uml">
+<h1><span class="section-number">11.2. </span>Just Enough UML<a class="headerlink" href="#just-enough-uml" title="Permalink to this headline">¶</a></h1>
+<p>The <strong>Unified Modeling Language</strong> or UML is not a textual language, but a set of
+graphical notation techniques to “specify, visualize, modify, construct, and
+document the artifacts of an object-oriented software-intensive system under
+development.” UML evolved from 1995 to the present through the unification of
+previously-distinct modeling language standards and diagram types, which Figure
+11.5 lists.</p>
+<p>While this book focuses on more lightweight Agile modeling—indeed, UML-based modeling
+has been criticized as being too “bloated” and heavyweight—some types of UML diagrams
+are widely used even in Agile modeling. Figure 11.6 shows a UML <strong>class diagram</strong>, which
+depicts each actual class in the app, its most important class and instance variables
+and methods, and its relationship to other classes, such as has-many or belongs-to
+associations. Each end of the line connecting two associated classes is annotated with
+the minimum and maximum number of instances that can participate in that “side” of the
+association, called the association’s <em>multiplicity</em>, using the symbol * for “unlimited”.
+For example, a multiplicity 1..* means “one or more”, 0..* means “zero or more”, and 1
+means “exactly one.” UML distinguishes two kinds of “owning” (has-one or has-many) associations.
+In an aggregation, the owned objects survive destruction of the owning object. For example,
+<em>Course has many Students</em> is an aggregation because the students happily don’t get destroyed
+when the course is over! In a <em>composition</em>, the owned objects are usually destroyed when the
+owning object is destroyed. For example, <em>Movie has many Reviews</em> is a composition since
+deleting a Movie should cause all of its reviews to be deleted.</p>
+<p>Class diagrams are popular even among software engineers who don’t use the other parts of
+UML. With this introduction to UML in hand, we can use class diagrams to illustrate “before
+and after” class architecture when we improve code using the SOLID guidelines and design
+patterns.</p>
+<p><strong>Self-Check 11.2.1.</strong> <em>In a UML class diagram depicting the relationship “University has many
+Departments,” what multiplicities would be allowable on each side of the association?</em></p>
+<blockquote>
+<div><p>The University side has multiplicity <code class="code docutils literal notranslate"><span class="pre">1</span></code>, because a Department must belong to exactly one
+University. The Department side has multiplicity <code class="code docutils literal notranslate"><span class="pre">1..*</span></code>, because one or more Departments can
+belong to a University.</p>
+</div></blockquote>
+<p><strong>Self-Check 11.2.2.</strong> <em>Should the relationship “University has many Departments” be modeled as
+an aggregation or a composition?</em></p>
+<blockquote>
+<div><p>It should be a composition, since departments wouldn’t survive the closing of a university.</p>
+</div></blockquote>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="<%= section_path(chapter_id: 11, section_id: 1) %>" title="previous page"><span class="section-number">11.1. </span>Patterns, Antipatterns, and SOLID Class Architecture</a>
+    <a class='right-next' id="next-link" href="<%= section_path(chapter_id: 11, section_id: 3) %>" title="next page"><span class="section-number">11.3. </span>Single Responsibility Principle</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By sme777<br/>
+        
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
+      </p>
+    </div>
+  </footer>
+</main>

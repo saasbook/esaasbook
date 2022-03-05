@@ -1,0 +1,180 @@
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/part2/chapter10/sub-chapter4.rst.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="delivering-the-backlog-using-continuous-integration">
+<h1><span class="section-number">10.4. </span>Delivering the Backlog Using Continuous Integration<a class="headerlink" href="#delivering-the-backlog-using-continuous-integration" title="Permalink to this headline">¶</a></h1>
+<p>As Section 7.4 explained, the <strong>backlog</strong> is the somewhat pessimistic term for the work
+remaining to be done during the current Agile iteration. That section described how
+to prioritize and estimate the difficulty of the iteration’s planned work, and briefly
+introduced Pivotal Tracker as a way to track the work. While there is no single “correct”
+workflow for Agile teams, in this section we describe a widely-used workflow and suggest
+best practices for using it effec- tively. We assume that the stories have already been
+prioritized and assigned points during an Iteration Planning Meeting, as Section 7.4
+described.</p>
+<p>The key idea behind delivering the backlog is <strong>continuous integration</strong> (CI), which minimizes
+the time between when changes are made on a feature branch and when those changes are merged
+into the main branch and deployed for customer review. A good CI workflow for Agile 2-pizza
+teams starts with a shared team repo and the use of pull requests to integrate changes from
+feature branches into the main branch. We introduce two new concepts here that are central
+to CI. The first is that of a service such as Travis, whose job is to run your complete
+test suite, usually in the cloud, each time significant changes are made during development
+of a new feature. The rationale is that while you’re continuously testing the code for the
+feature you’re developing, you may not be taking the time to run the full test suite, which
+can take minutes or even tens of minutes for large projects. Somewhat confusingly, such
+services are usually called CI services, even though technically CI refers not just to running
+the test suite but to the entire workflow by which changes are integrated into mainline code.
+Most CI services can be connected directly to a GitHub repository and automatically run CI
+every time code is pushed to any branch in that repository.</p>
+<p>The second concept is that of a staging server, which is configured as similarly as possible
+to the production server but usually much smaller in scale. The purpose of a staging server is
+to provide a safe place to deploy new features for customer review before they are deployed in
+production. The staging server may not even be a specific persistent server like the production
+server, but an ephemeral one “spun up” just to give the customer the opportunity to see a
+specific feature in action. A staging server has its own copy of the database containing test
+data (possibly extracted from real customer data), and is usually off-limits to outside users.</p>
+<p>In this workflow, we distinguish three copies of a repo, each of whose main branches is
+represented by a thick horizontal line in Figure 10.9. Initially, we will describe the workflow
+from the point of view of the <em>origin</em> repo, which is owned by some team member and shared in the
+cloud by the team, and some developer’s local <em>clone</em> of the origin. (We will use “developer” to
+mean either an individual team member or a pair working on a story.) The local repo is created
+by running <code class="code docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span></code> with the URL of the origin repo. From the point of view of the local repo,
+the origin repo is one of possibly several <em>remotes</em>, and usually the default remote when there
+is more than one. The following numbered steps are keyed to the numbers in the figure, and
+annotated to indicate the associated state of the story in Pivotal Tracker story.</p>
+<ol class="arabic simple">
+<li><p>On the main branch of local, the developer uses <code class="code docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span> <span class="pre">origin</span> <span class="pre">main</span></code> to ensure she has the most up-to-date version of main.</p></li>
+<li><p>The developer creates a new feature branch for the story (Section 10.2). At this point the story state changes from Unstarted to Started.</p></li>
+<li><p>The developer writes tests and code for the feature (Chapters 7 and 8), committing frequently. Periodically pushing the feature branch’s commits to the origin repo (<code class="code docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span> <span class="pre">origin</span></code> <em>feature-branch</em>) keeps a copy of the feature branch on the origin repo up-to-date with the one on the local feature branch.</p></li>
+<li><p>This team has their workflow configured so that any push to the origin repo will automatically trigger an external CI run on whatever branch was pushed.</p></li>
+<li><p>When the code and tests are ready, the developer marks the story Finished, and opens a pull request. Note that the PR relates the topic branch <em>on the origin repo</em> to the main branch also on the origin repo, that is, the developer must have pushed the most recent commits on her local topic branch to its counterpart on origin.</p></li>
+<li><p>Other team members review and comment on the PR (Section10.3), in this case leading to required changes by the developer, who makes the changes and reopens the PR (or opens a new one).</p></li>
+<li><p>The revised PR is accepted and the changes are merged into the origin repo’s main branch, triggering another CI run, since the main branch now includes not only this PR but possibly other developers’ PRs that have been merged since Step 1.</p></li>
+<li><p>Assuming CI passes, the origin’s main branch is deployed to a staging server and the story is marked Delivered. The customer can now review and comment on the new feature. If the customer requests revisions, another round of changes, PR, and merging follows.</p></li>
+</ol>
+<p>With the above workflow, in a team with several developers (or pairs) many stories and
+feature branches may be “in flight” at the same time.</p>
+<p>What happens next depends on which repo is the <em>base repo</em> for the app, that is, the definitive
+repo from which the production app is released and which is stewarded by the app’s owners. If
+the development team in question owns the app, then the team’s origin repo may be the app’s
+base repo as well. But if the app is owned by other developers, their repo is the base repo,
+and this team’s origin is just used for development. In that case, a pull request can be opened
+from the origin’s main branch to the base repo’s main to merge the changes, and goes through
+the usual process of review.</p>
+<p>Figure 10.10 shows this “fork-and-pull” collaboration model with the upstream or base repo
+shown as the top line. The subteam’s origin repo, sometimes also called the <em>head repo</em>, is
+a fork of the base repo and opens PRs to merge head repo changes into the base repo. Just as
+feature branch developers may periodically rebase (Section 10.3) against their origin repo’s
+main branch to get the latest changes and avoid later merge conflicts, the head repo may pull
+changes from the base repo for the same reason, but because of the way Git works, these changes
+cannot propagate directly from the base repo on GitHub to its fork. Instead, some developer
+must pull the changes into their own local copy of the repo, then push the changes to the
+appropriate branch of the origin repo. The official GitHub tutorial on forking8 gives detailed
+steps for keeping a fork up-to-date with an upstream repo, though in your authors’ opinion this
+alternative tutorial is both clearer and more concise.</p>
+<p>These workflows should make even more clear why Section 7.4 recommends keeping stories simple:
+A 1-point story is one whose implementation strategy is mostly known to the team, so it can be
+delivered quickly and predictably, and if mistakes are made, they can be easily undone with
+little time being wasted. As with all aspects of Agile, a short cycle with quick feedback is
+better than spending a lot of time making large changes that carry more uncertainty and risk.
+A small story also means a simple and short-lived branch, speeding up pull requests and often
+eliminating the need for rebasing.</p>
+<p>Still, no matter how careful your team is, sometimes a pull request may need to be revised
+before it’s accepted, or the customer may partially reject a feature leading to the branch
+being modified and the PR being reopened, as both figures show. Such scenarios are part and
+parcel of Agile development, but to keep your repo clean and your team sane, we recommend
+mitigating such “loops” by following these best practices for delivering the backlog:</p>
+<ol class="arabic simple">
+<li><p><em>Follow your own advice.</em> The goal of the Iteration Planning Meeting is to determine points and priorities for this iteration. Those decisions should be respected during the iteration, but if they need to be revisited, that should be a team effort rather than a unilateral decision by one developer.</p></li>
+<li><p><em>Work on one story at a time.</em> One developer or pair should finish a story before starting stories that require other changes, unless they run into impediments that prevent further progress on delivering that story.</p></li>
+<li><p><em>A sustainable pace is more important than total points.</em> Rather than delivering 5 points all at once at the iteration’s end, deliver 1 point per day for 5 days, giving the rest of the team (and the customer) the opportunity to review your contributions as they come in.</p></li>
+</ol>
+<p><strong>Self-Check 10.4.1.</strong> <em>Can you think of a scenario in which it makes sense for the team to
+review a PR for a particular story, but it does not make sense to deploy the story to
+staging for the customer’s feedback?</em></p>
+<blockquote>
+<div><p>Often, a customer-requested feature is broken down into many separate stories, some of which
+do not result in new functionality visible to the customer, such as adding a new model without
+yet creating any views for it. The customer’s feedback will be needed as soon as there is a
+way to interact with the feature, even if incomplete, but not before.</p>
+</div></blockquote>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="<%= section_path(chapter_id: 10, section_id: 3) %>" title="previous page"><span class="section-number">10.3. </span>Pull Requests and Code Reviews</a>
+    <a class='right-next' id="next-link" href="<%= section_path(chapter_id: 10, section_id: 5) %>" title="next page"><span class="section-number">10.5. </span>CHIPS: Agile Iterations</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By sme777<br/>
+        
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
+      </p>
+    </div>
+  </footer>
+</main>

@@ -1,0 +1,211 @@
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/part2/chapter9/sub-chapter5.rst.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="metrics-codesmells-and-sofa">
+<h1><span class="section-number">9.5. </span>Metrics, CodeSmells, and SOFA<a class="headerlink" href="#metrics-codesmells-and-sofa" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p><em>1. Declining Quality - The quality of [software] systems will appear to be declining
+unless they are rigorously maintained and adapted to operational environment changes.</em></p>
+<p class="attribution">—Lehman’s seventh law of software evolution</p>
+</div></blockquote>
+<p>A key theme of this book is that engineering software is about creating not just working
+code, but <em>beautiful</em> working code. This chapter should make clear why we believe this:
+beautiful code is easier and less expensive to maintain. Given that software can live much
+longer than hardware, even engineers whose aesthetic sensibilities aren’t moved by the idea
+of beautiful code can appreciate the practical economic advantage of reducing lifetime
+maintenance costs.</p>
+<p>How can you tell when code is less than beautiful, and how do you improve it? We’ve all seen
+examples of code that’s less than beautiful, even if we can’t always pin down the specific
+problems. We can identify problems in two ways: quantitatively using <strong>software metrics</strong> and
+qualitatively using <strong>code smells</strong>. Both are useful and tell us different things about the
+code, and we apply both to the ugly code in Figure 9.6.</p>
+<p><strong>Software metrics **are quantitative measurements of code complexity, which is often an estimate
+of the difficulty of thoroughly testing a piece of code. Dozens of metrics exist, and opinion
+varies widely on their usefulness, effectiveness, and “normal range” of values. Most metrics
+are based on the **control flow graph</strong> of the program, in which each graph node represents a
+<strong>basic block</strong> (a set of statements that are always executed together), and an edge from node
+A to node B means that there is some code path in which B’s basic block is executed immediately
+after A’s.</p>
+<p>Figure 9.10 shows the control flow graph corresponding to Figure 9.6, which we can use to
+compute two widely-used indicators of method-level complexity:</p>
+<ol class="arabic simple">
+<li><p><strong>Cyclomatic complexity</strong> measures the number of linearly-independent paths through a piece of code.</p></li>
+<li><p><strong>ABC score</strong> is a weighted sum of the number of <strong>A</strong>ssignments, <strong>B</strong>ranches and <strong>C</strong>onditionals in a piece of code.</p></li>
+</ol>
+<p>These analyses are usually performed on source code and were originally developed for
+statically-typed languages. In dynamic languages, the analyses are complicated by
+metaprogramming and other mechanisms that may cause changes to the control flow graph at
+runtime. Nonetheless, they are useful first-order metrics, and as you might expect, the
+Ruby community has developed tools to measure them. <code class="code docutils literal notranslate"><span class="pre">saikuro</span></code> computes a simplified version
+of cyclomatic complexity and <code class="code docutils literal notranslate"><span class="pre">flog</span></code> computes a variant of the ABC score that is weighted in
+a way appropriate for Ruby idioms. Both of these and more are included in the <code class="code docutils literal notranslate"><span class="pre">metric_fu</span></code>
+gem (part of the courseware). Running <code class="code docutils literal notranslate"><span class="pre">rake</span> <span class="pre">metrics</span></code> on a Rails app computes various metrics
+including these, and highlights parts of the code in which multiple metrics are outside
+their recommended ranges. In addition, CodeClimate provides many of these metrics as a
+service: by creating an account there and linking your GitHub repository to it, you can
+view a “report card” of your code metrics anytime, and the report is automatically updated
+when you push new code to GitHub. Figure 9.11 summarizes useful metrics we’ve seen so far
+that speak to testability and therefore to code beauty.</p>
+<p>The second way to spot code problems is by looking for <strong>code smells</strong>, which are structural
+characteristics of source code not readily captured by metrics. Like real smells, code
+smells call our attention to places that may be problematic. Martin Fowler’s classic book
+on refactoring (Fowler et al. 1999) lists 22 code smells, four of which we show in
+Figure 9.12, and Robert C. Martin’s <em>Clean Code</em> (Martin 2008) has one of the more comprehensive
+catalogs with an amazing 63 code smells, of which three are specific to Java, nine are about
+testing, and the remainder are more general.</p>
+<p>Four particular smells that appear in Martin’s <em>Clean Code</em> are worth emphasizing, because they
+are symptoms of other problems that you can often fix by simple refactorings. These four are
+identified by the acronym <strong>SOFA</strong>, which states that a well-written method should:</p>
+<ul class="simple">
+<li><p>be <strong>S</strong>hort, so that its main purpose is quickly grasped;</p></li>
+<li><p>do only <strong>O</strong>ne thing, so testing can focus on thoroughly exercising that one thing;</p></li>
+<li><p>take <strong>F</strong>ew arguments, so that all-important combinations of argument values can be tested;</p></li>
+<li><p>maintain a consistent level of <strong>A</strong>bstraction, so that it doesn’t jump back and forth between saying <em>what to do</em> and saying <em>how to do it</em>.</p></li>
+</ul>
+<p>Figure 9.6 violates at least the first and last of these, and exhibits other smells as
+well, as we can see by running reek on it:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>time_setter.rb -- <span class="m">5</span> warnings:
+    TimeSetter#self.convert calls <span class="o">(</span>y + <span class="m">1</span><span class="o">)</span> twice <span class="o">(</span>Duplication<span class="o">)</span>
+    TimeSetter#self.convert has approx <span class="m">6</span> statements <span class="o">(</span>LongMethod<span class="o">)</span>
+    TimeSetter#self.convert has the parameter name <span class="s1">&#39;d&#39;</span> <span class="o">(</span>UncommunicativeName<span class="o">)</span>
+    TimeSetter#self.convert has the variable name <span class="s1">&#39;d&#39;</span> <span class="o">(</span>UncommunicativeName<span class="o">)</span>
+    TimeSetter#self.convert has the variable name <span class="s1">&#39;y&#39;</span> <span class="o">(</span>UncommunicativeName<span class="o">)</span>
+</pre></div>
+</div>
+<p><strong>Not DRY</strong> (line 2). Admittedly this is only a minor duplication, but as with any smell,
+it’s worth asking ourselves why the code turned out that way.</p>
+<p><strong>Uncommunicative names</strong> (lines 4–6). Variable y appears to be an integer (lines 6, 7, 10, 14)
+and is related to another variable <code class="code docutils literal notranslate"><span class="pre">d</span></code> —what could those be? For that matter, what does the
+class <code class="code docutils literal notranslate"><span class="pre">TimeSetter</span></code> set the time to, and what is being converted to what in <code class="code docutils literal notranslate"><span class="pre">convert</span></code>? Four
+decades ago, memory was precious and so variable names were kept short to allow more space
+for code. Today, there’s no excuse for poor variable names; Figure 9.13 provides suggestions.</p>
+<p><strong>Too long</strong> (line 3). More lines of code per method means more places for bugs to hide, more
+paths to test, and more mocking and stubbing during testing. However, excessive length is
+really a symptom that emerges from more specific problems—in this case, failure to stick
+to a single level of <strong>A</strong>bstraction. As Figure 9.14 shows, <code class="code docutils literal notranslate"><span class="pre">convert</span></code> really consists of a small
+number of high-level steps, each of which could be divided into sub-steps. But in the code,
+there is no way to tell where the boundaries of steps or sub-steps would be, making the method
+harder to understand. Indeed, the nested conditional in lines 6–8 makes it hard for a programmer
+to mentally “walk through” the code, and complicates testing since you have to select sets of
+test cases that exercise each possible code path.</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="n">start</span> <span class="n">with</span> <span class="no">Year</span> <span class="o">=</span> <span class="mi">1980</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">days</span> <span class="n">remaining</span> <span class="o">&gt;</span> <span class="mi">365</span><span class="p">)</span>
+    <span class="k">if</span> <span class="no">Year</span> <span class="n">is</span> <span class="n">a</span> <span class="n">leap</span> <span class="n">year</span>
+        <span class="k">then</span> <span class="k">if</span> <span class="n">possible</span><span class="p">,</span> <span class="n">peel</span> <span class="n">off</span> <span class="mi">366</span> <span class="n">days</span> <span class="ow">and</span> <span class="n">advance</span> <span class="no">Year</span> <span class="n">by</span> <span class="mi">1</span>
+    <span class="k">else</span>
+        <span class="n">peel</span> <span class="n">off</span> <span class="mi">365</span> <span class="n">days</span> <span class="ow">and</span> <span class="n">advance</span> <span class="no">Year</span> <span class="n">by</span> <span class="mi">1</span>
+<span class="k">return</span> <span class="no">Year</span>
+</pre></div>
+</div>
+<p>As a result of these deficiencies, you probably had to work hard to figure out what
+this relatively simple method does. (You might blame this on a lack of comments in the
+code, but once the above smells are fixed, there will be hardly any need for them.) Astute
+readers usually note the constants 1980, 365, and 366, and infer that the method has
+something to do with leap years and that 1980 is special. In fact, convert calculates
+the current year given a starting year of 1980 and the number of days elapsed since January
+1 of that year, as Figure 9.14 shows using simple pseudocode. In Section 9.5, we will make
+the Ruby code as transparent as the pseudocode by <strong>refactoring</strong> it—applying transformations
+that improve its structure without changing its behavior.</p>
+<p>A few specific examples of doing one thing are worth calling out because they occur frequently:</p>
+<ul class="simple">
+<li><p>Handling an exception is one thing. If method <span class="math notranslate nohighlight">\(M\)</span> computes something and also tries to handle various exceptions that could arise while doing so, consider splitting out a method <span class="math notranslate nohighlight">\(M'\)</span> that just does the work, and having <span class="math notranslate nohighlight">\(M\)</span> do exception handling and otherwise delegate the work to <span class="math notranslate nohighlight">\(M'\)</span>.</p></li>
+<li><p>Queries (computing something) and commands (doing something that causes a side effect) are distinct, so a method should either compute something that is side-effect- free or it should cause a specific side effect, but not both. Such violations of <em>command–query separation</em> also complicate testing.</p></li>
+</ul>
+<p><strong>Self-Check 9.5.1.</strong> <em>Give an example of a dynamic language feature in Ruby that could distort
+metrics such as cyclomatic complexity or ABC score.</em></p>
+<blockquote>
+<div><p>Any metaprogramming mechanism could do this. A trivial example is <code class="code docutils literal notranslate"><span class="pre">s=&quot;if</span> <span class="pre">(d&gt;=366)[...]&quot;;</span> <span class="pre">eval</span> <span class="pre">s,</span></code>
+since the evaluation of the string would cause a conditional to be executed even though there’s
+no conditional in the code itself, which contains only an assignment to a variable and a call
+to the <code class="code docutils literal notranslate"><span class="pre">eval</span></code> method. A subtler example is a method such as <code class="code docutils literal notranslate"><span class="pre">before_filter</span></code> (Section 5.1), which
+essentially adds a new method to a list of methods to be called before a controller action.</p>
+</div></blockquote>
+<p><strong>Self-Check 9.5.2.</strong> <em>Which SOFA guideline—be</em> <strong>S</strong><em>hort, do</em> <strong>O</strong><em>ne thing, have</em> <strong>F</strong><em>ew arguments, stick
+to a single level of</em> <strong>A</strong><em>bstraction—do you think is most important from a unit-testability
+point of view?</em></p>
+<blockquote>
+<div><p><strong>F</strong>ew arguments implies fewer ways that code paths in the method can depend on the arguments,
+making testing more tractable. <strong>S</strong>hort methods are certainly easier to test, but this property
+usually follows when the other three are observed.</p>
+</div></blockquote>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="<%= section_path(chapter_id: 9, section_id: 4) %>" title="previous page"><span class="section-number">9.4. </span>Comments and Commits: Documenting Code</a>
+    <a class='right-next' id="next-link" href="<%= section_path(chapter_id: 9, section_id: 6) %>" title="next page"><span class="section-number">9.6. </span>Method-Level Refactoring: Replacing Dependencies With Seams</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By sme777<br/>
+        
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
+      </p>
+    </div>
+  </footer>
+</main>

@@ -1,0 +1,108 @@
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/part2/chapter8/index.rst.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="testing-test-driven-development">
+<h1><span class="section-number">8. </span>Testing: Test-Driven Development<a class="headerlink" href="#testing-test-driven-development" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p>Let us change our traditional attitude to the construction of programs: Instead of imagining
+that our main task is to instruct a computer what to do, let us concentrate rather on explaining
+to human beings what we want a computer to do.</p>
+<p class="attribution">—Donald Knuth, Literate Programming, 1984</p>
+</div></blockquote>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="<%= section_path(chapter_id: 8, section_id: 1) %>">8.1. FIRST, TDD, and Red–Green–Refactor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="<%= section_path(chapter_id: 8, section_id: 2) %>">8.2. Anatomy of a Test Case: Arrange, Act, Assert</a></li>
+<li class="toctree-l1"><a class="reference internal" href="<%= section_path(chapter_id: 8, section_id: 3) %>">8.3. Isolating Code: Doubles and Seams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="<%= section_path(chapter_id: 8, section_id: 4) %>">8.4. Stubbing the Internet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="<%= section_path(chapter_id: 8, section_id: 5) %>">8.5. CHIPS: Intro to RSpec on Rails</a></li>
+<li class="toctree-l1"><a class="reference internal" href="<%= section_path(chapter_id: 8, section_id: 6) %>">8.6. Fixtures and Factories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="<%= section_path(chapter_id: 8, section_id: 7) %>">8.7. Coverage Concepts and Types of Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="<%= section_path(chapter_id: 8, section_id: 8) %>">8.8. Other Testing Approaches and Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="<%= section_path(chapter_id: 8, section_id: 9) %>">8.9. CHIPS:The Acceptance Test/Unit Test Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="<%= section_path(chapter_id: 8, section_id: 10) %>">8.10. The Plan-And-Document Perspective on Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="<%= section_path(chapter_id: 8, section_id: 11) %>">8.11. Fallacies and Pitfalls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="<%= section_path(chapter_id: 8, section_id: 12) %>">8.12. Concluding Remarks: TDD vs. Conventional Debugging</a></li>
+</ul>
+</div>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="<%= section_path(chapter_id: 7, section_id: 11) %>" title="previous page"><span class="section-number">7.11. </span>Concluding Remarks: Pros and Cons of BDD</a>
+    <a class='right-next' id="next-link" href="<%= section_path(chapter_id: 8, section_id: 1) %>" title="next page"><span class="section-number">8.1. </span>FIRST, TDD, and Red–Green–Refactor</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By sme777<br/>
+        
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
+      </p>
+    </div>
+  </footer>
+</main>

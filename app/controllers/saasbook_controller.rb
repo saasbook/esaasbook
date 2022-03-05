@@ -4,7 +4,6 @@
 class SaasbookController < ApplicationController
   def index
     # Do Nothing
-    render("index") # To be changed
   end
 
   def preface

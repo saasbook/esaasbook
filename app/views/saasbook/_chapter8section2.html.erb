@@ -1,0 +1,129 @@
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/part2/chapter8/sub-chapter2.rst.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="anatomy-of-a-test-case-arrange-act-assert">
+<h1><span class="section-number">8.2. </span>Anatomy of a Test Case: Arrange, Act, Assert<a class="headerlink" href="#anatomy-of-a-test-case-arrange-act-assert" title="Permalink to this headline">¶</a></h1>
+<p>We begin with a few definitions. Following the terminology in the fairly widely used xUnit Test Patterns (Meszaros 2007),
+we refer to the object being tested as the <strong>system under test</strong> (SUT), whether that “object” is a single method, a group of
+methods, or even the entire application. That is, SUT is defined from the point of view of the test. The goal of a
+single <strong>test</strong> <strong>case</strong> for some SUT is to check that some specific behavior happens (for example, the return value from a
+function matches an expected result) or doesn’t happen (for example, passing an empty string to a string comparison
+function doesn’t result in an error or exception). A
+collection of test cases is called a <strong>test suite</strong>. A code base usually has several test suites, corresponding to different
+kinds of tests, as we describe later in Section 8.7.</p>
+<p>In this section we focus on <strong>unit tests</strong>, the finest-grained test cases, for which the SUT is a single method.
+In particular, if the method being tested does not call any other methods to help do its job, we say it is a <strong>leaf
+method</strong>. Since even a leaf method may have multiple testable behaviors, a single method may be the subject of multiple
+test cases.</p>
+<p>A unit test is conceptually simple: call a method, and verify some aspect of its behavior. But even leaf methods usually
+require establishing some preconditions before exercising the code. For example, when testing a method that combines two
+lists into a single sorted list, we need to create the two lists that will be provided as input. We then exercise the SUT,
+and finally check whether the particular behavior we were looking for was correctly exhibited.</p>
+<p>In general, then, every test case in a suite follows the same structure of Arrange, Act, Assert:</p>
+<ol class="arabic simple">
+<li><p>Arrange: create any necessary preconditions for the test case, such as setting values of variables that affect the behavior of the SUT.</p></li>
+<li><p>Act: exercise the SUT.</p></li>
+<li><p>Assert: verify that the result or behavior matches what was expected.</p></li>
+</ol>
+<p>The general form of an <strong>assertion</strong> or expectation is “Expect <code class="code docutils literal notranslate"><span class="pre">expression</span></code> to satisfy <code class="code docutils literal notranslate"><span class="pre">predicate</span></code>”. An example of a simple
+predicate is an equality check: “Expect the return value of <code class="code docutils literal notranslate"><span class="pre">Math.sqrt(49)</span></code> to equal <code class="code docutils literal notranslate"><span class="pre">7</span></code>”. As Figure 8.2 shows, other
+kinds of assertions deal with both inspecting output values and checking non-output-value-related behaviors.</p>
+<p>The easiest unit tests to write are those for which the SUT is a method that is a <strong>pure function</strong>—one that has no side effects
+and whose return value is always the same for the same arguments. The only thing a test case needs to do is choose some
+inputs, call the method, and check the returned value. For example, consider a hypothetical method leap? that accepts an
+integer and returns a truthy value if and only if that integer corresponds to a leap year (that is, it is either a multiple
+of 400, or a multiple of 4 but not 100). So, for example, 2000 and 2004 are leap years, but 1900 is not. Since exhaustive
+testing (trying every possible input) is clearly infeasible, how do we choose which input values to use for our test cases?</p>
+<p>A good guideline in such cases is to use input values that would cause the calculation performed in the method to follow
+different code paths. Given the above rule for leap years, by inspection we can deduce four categories, as Figure 8.3 shows.</p>
+<p>A “pure” TDD workflow for developing a function that detects leap years might therefore proceed as follows. Choose any
+value in category 1 above, and write a test case that asserts that the return value of <code class="code docutils literal notranslate"><span class="pre">leap?</span></code> is falsy when called with
+that value. The test fails because <code class="code docutils literal notranslate"><span class="pre">leap?</span></code> doesn’t yet exist, so write just enough of <code class="code docutils literal notranslate"><span class="pre">leap?</span></code> to make that case pass. Next,
+choose a value in category 2, write the corresponding test, and when it fails, modify <code class="code docutils literal notranslate"><span class="pre">leap?</span></code> so that now both tests pass.
+Continue until all categories are covered.</p>
+<p>You might object that <code class="code docutils literal notranslate"><span class="pre">leap?</span></code> is such a simple leaf method, and its functionality so well-circumscribed, that you might
+as well write the entire method at once along with the four test cases, rather than going through the motions of
+developing each test case incrementally. That’s not an unreasonable objection, and as with other Agile practices, “pure”
+TDD is an ideal to strive for even if you do not always follow it to the letter. But with methods that have more complex
+behaviors, TDD is a valuable way to proceed methodically.</p>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="<%= section_path(chapter_id: 8, section_id: 1) %>" title="previous page"><span class="section-number">8.1. </span>FIRST, TDD, and Red–Green–Refactor</a>
+    <a class='right-next' id="next-link" href="<%= section_path(chapter_id: 8, section_id: 3) %>" title="next page"><span class="section-number">8.3. </span>Isolating Code: Doubles and Seams</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By sme777<br/>
+        
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
+      </p>
+    </div>
+  </footer>
+</main>

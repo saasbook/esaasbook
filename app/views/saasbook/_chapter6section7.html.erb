@@ -1,0 +1,232 @@
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/part1/chapter6/sub-chapter7.rst.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="ajax-asynchronous-javascript-and-xml">
+<h1><span class="section-number">6.7. </span>AJAX: Asynchronous JavaScript And XML<a class="headerlink" href="#ajax-asynchronous-javascript-and-xml" title="Permalink to this headline">¶</a></h1>
+<p>In 1998, Microsoft added a new function to the JavaScript global object defined by Internet Explorer 5.
+<code class="code docutils literal notranslate"><span class="pre">XmlHttpRequest</span></code> (usually shortened to XHR) allowed JavaScript code to initiate HTTP requests to a server
+<em>without</em> loading a new page and use the server’s response to modify the DOM of the current page. This new
+function, key to AJAX apps, allowed creating a rich interactive UI that more closely resembled a desktop
+application, as Google Maps powerfully demonstrated. Happily, you already know all the ingredients needed
+for “AJAX on Rails” programming:</p>
+<ol class="arabic simple">
+<li><p>Create a controller action or modify an existing one (Section 4.4) to handle the AJAX requests made by your JavaScript code. Rather than rendering an entire view, the action will render a partial (Section 5.1) to generate a chunk of HTML for insertion into the page.</p></li>
+<li><p>Construct your RESTful URI in JavaScript and use XHR to send the HTTP request to a server. As you may have guessed, jQuery has helpful shortcuts for many common cases, so we will use jQuery’s higher-level and more powerful functions rather than calling XHR directly.</p></li>
+<li><p>Because JavaScript is by definition <strong>single-threaded</strong> —it can only work on one task at a time until that task completes—the browser’s UI would be “frozen” while JavaScript awaited a response from the server. Therefore XHR instead returns immediately and lets you provide an event handler callback (as you did for browser-only programming in Section 6.6) that will be triggered when the server responds or an error occurs.</p></li>
+<li><p>When the response arrives at the browser, your callback is passed the response content. It can use jQuery’s <code class="code docutils literal notranslate"><span class="pre">replaceWith()</span></code> to replace an existing element entirely, <code class="code docutils literal notranslate"><span class="pre">text()</span></code> or <code class="code docutils literal notranslate"><span class="pre">html()</span></code> to update an element’s content in place, or an animation such as <code class="code docutils literal notranslate"><span class="pre">hide()</span></code> to hide or show elements, as Figure 6.8 showed. Because JavaScript functions are closures (like Ruby blocks), the callback has access to all the variables visible at the time the XHR call was made, even though it executes at a later time and in a different environment.</p></li>
+</ol>
+<p>Let’s illustrate how each step works for an AJAX feature in which clicking on a movie title shows the movie details in
+a floating window, rather than loading a separate page. Step 1 requires us to identify or create a new controller action
+that will handle the request. We will just use our existing <code class="code docutils literal notranslate"><span class="pre">MoviesController#show</span></code> action, so we don’t need to define a
+new route. This design decision is defensible since the AJAX version of the action performs the
+same function as the original version, namely the RESTful “show” action. We will modify the show action so that if it’s
+responding to an AJAX request, it will render the simple partial in Figure 6.13(a) rather than an entire view. You could
+also define separate controller actions exclusively for AJAX, but that might be non-DRY if they duplicate the work of
+existing actions.</p>
+<div class="highlight-erb notranslate"><div class="highlight"><pre><span></span><span class="x">&lt;p&gt; </span><span class="cp">&lt;%=</span> <span class="n">movie</span><span class="o">.</span><span class="n">description</span> <span class="cp">%&gt;</span><span class="x"> &lt;/p&gt;</span>
+
+<span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s1">&#39;Edit Movie&#39;</span><span class="p">,</span> <span class="n">edit_movie_path</span><span class="p">(</span><span class="n">movie</span><span class="p">),</span> <span class="ss">:class</span> <span class="o">=&gt;</span> <span class="s1">&#39;btn btn-primary&#39;</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s1">&#39;Close&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="s1">&#39;closeLink&#39;</span><span class="p">,</span> <span class="ss">:class</span> <span class="o">=&gt;</span> <span class="s1">&#39;btn btn-secondary&#39;</span> <span class="cp">%&gt;</span><span class="x"></span>
+</pre></div>
+</div>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MoviesController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+    <span class="k">def</span> <span class="nf">show</span>
+        <span class="nb">id</span> <span class="o">=</span> <span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span> <span class="c1"># retrieve movie ID from URI route</span>
+        <span class="vi">@movie</span> <span class="o">=</span> <span class="no">Movie</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span> <span class="c1"># look up movie by unique ID</span>
+        <span class="n">render</span><span class="p">(</span><span class="ss">:partial</span> <span class="o">=&gt;</span> <span class="s1">&#39;movie&#39;</span><span class="p">,</span> <span class="ss">:object</span> <span class="o">=&gt;</span> <span class="vi">@movie</span><span class="p">)</span> <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">xhr?</span>
+        <span class="c1"># will render app/views/movies/show.&lt;extension&gt; by default</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<p>How does our controller action know whether show was called from JavaScript code or by a regular user-initiated
+HTTP request? Fortunately, every major JavaScript library and most browsers set an HTTP header <code class="code docutils literal notranslate"><span class="pre">X-Requested-With:</span></code>
+XMLHttpRequest on all AJAX HTTP requests. The Rails helper method <code class="code docutils literal notranslate"><span class="pre">xhr?</span></code>, defined on the controller instance’s request
+object representing the incoming HTTP request, checks for the presence of this header. Figure 6.13(b) shows the
+controller action that will render the partial.</p>
+<p>Moving on to step 2, how should our JavaScript code construct and fire off the XHR request? We want the floating window
+to appear when we click on the link that has the movie name. As Section 6.6 explained, we can “hijack” the built-in behavior
+of an element by attaching an explicit JavaScript <code class="code docutils literal notranslate"><span class="pre">click</span></code> handlertoit. Of course, for graceful degradation, we should only hijack the
+link behavior if JavaScript is available. So following the same strategy as the example in Section 6.6, our <code class="code docutils literal notranslate"><span class="pre">setup</span></code> function
+(lines 2–8 of Figure 6.14) binds the handler and creates a hidden div to display the floating window. Legacy browsers won’t
+run that function and will just get the default behavior of clicking on the link.</p>
+<p>The actual click handler <code class="code docutils literal notranslate"><span class="pre">getMovieInfo</span></code> must fire off the XHR request and provide a callback function that will be called
+with the returned data. For this we use jQuery’s ajax function, which takes an object whose properties specify the
+characteristics of the AJAX request, as lines 10–15 of Figure 6.14 show. Our example shows a subset of the properties
+you can specify in this object; one important property we don’t show is <code class="code docutils literal notranslate"><span class="pre">data</span></code>, which can be either a string of arguments
+to append to the URI (as in Figure 3.2) or a JavaScript object, in which case the object’s properties and their values
+will be serialized into a string that can be appended to the URI. As always, such arguments would then appear in the
+<code class="code docutils literal notranslate"><span class="pre">params[]</span></code> hash available to our Rails controller actions.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kd">var</span> <span class="nx">MoviePopup</span> <span class="o">=</span> <span class="p">{</span>
+<span class="linenos"> 2</span>    <span class="nx">setup</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="linenos"> 3</span>        <span class="c1">// add hidden &#39;div&#39; to end of page to display popup:</span>
+<span class="linenos"> 4</span>        <span class="kd">let</span> <span class="nx">popupDiv</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;div id=&quot;movieInfo&quot;&gt;&lt;/div&gt;&#39;</span><span class="p">);</span>
+<span class="linenos"> 5</span>        <span class="nx">popupDiv</span><span class="p">.</span><span class="nx">hide</span><span class="p">().</span><span class="nx">appendTo</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">));</span>
+<span class="linenos"> 6</span>        <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="s1">&#39;#movies a&#39;</span><span class="p">,</span> <span class="nx">MoviePopup</span><span class="p">.</span><span class="nx">getMovieInfo</span><span class="p">);</span>
+<span class="linenos"> 7</span>    <span class="p">}</span>
+<span class="linenos"> 8</span>    <span class="p">,</span><span class="nx">getMovieInfo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="linenos"> 9</span>        <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;GET&#39;</span><span class="p">,</span>
+<span class="linenos">10</span>                <span class="nx">url</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">),</span>
+<span class="linenos">11</span>                <span class="nx">timeout</span><span class="o">:</span> <span class="mf">5000</span><span class="p">,</span>
+<span class="linenos">12</span>                <span class="nx">success</span><span class="o">:</span> <span class="nx">MoviePopup</span><span class="p">.</span><span class="nx">showMovieInfo</span><span class="p">,</span>
+<span class="linenos">13</span>                <span class="nx">error</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">xhrObj</span><span class="p">,</span> <span class="nx">textStatus</span><span class="p">,</span> <span class="nx">exception</span><span class="p">)</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;Error!&#39;</span><span class="p">);</span> <span class="p">}</span>
+<span class="linenos">14</span>                <span class="c1">// &#39;success&#39; and &#39;error&#39; functions will be passed 3 args</span>
+<span class="linenos">15</span>            <span class="p">});</span>
+<span class="linenos">16</span>        <span class="k">return</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+<span class="linenos">17</span>    <span class="p">}</span>
+<span class="linenos">18</span>    <span class="p">,</span><span class="nx">showMovieInfo</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">requestStatus</span><span class="p">,</span> <span class="nx">xhrObject</span><span class="p">)</span> <span class="p">{</span>
+<span class="linenos">19</span>        <span class="c1">// center a floater 1/2 as wide and 1/4 as tall as screen</span>
+<span class="linenos">20</span>        <span class="kd">let</span> <span class="nx">oneFourth</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">ceil</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">width</span><span class="p">()</span> <span class="o">/</span> <span class="mf">4</span><span class="p">);</span>
+<span class="linenos">21</span>        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#movieInfo&#39;</span><span class="p">).</span>
+<span class="linenos">22</span>        <span class="nx">css</span><span class="p">({</span><span class="s1">&#39;left&#39;</span><span class="o">:</span> <span class="nx">oneFourth</span><span class="p">,</span>  <span class="s1">&#39;width&#39;</span><span class="o">:</span> <span class="mf">2</span><span class="o">*</span><span class="nx">oneFourth</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="o">:</span> <span class="mf">250</span><span class="p">}).</span>
+<span class="linenos">23</span>        <span class="nx">html</span><span class="p">(</span><span class="nx">data</span><span class="p">).</span>
+<span class="linenos">24</span>        <span class="nx">show</span><span class="p">();</span>
+<span class="linenos">25</span>        <span class="c1">// make the Close link in the hidden element work</span>
+<span class="linenos">26</span>        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#closeLink&#39;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="nx">MoviePopup</span><span class="p">.</span><span class="nx">hideMovieInfo</span><span class="p">);</span>
+<span class="linenos">27</span>        <span class="k">return</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>  <span class="c1">// prevent default link action</span>
+<span class="linenos">28</span>    <span class="p">}</span>
+<span class="linenos">29</span>    <span class="p">,</span><span class="nx">hideMovieInfo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="linenos">30</span>        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#movieInfo&#39;</span><span class="p">).</span><span class="nx">hide</span><span class="p">();</span>
+<span class="linenos">31</span>        <span class="k">return</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+<span class="linenos">32</span>    <span class="p">}</span>
+<span class="linenos">33</span><span class="p">};</span>
+<span class="linenos">34</span><span class="nx">$</span><span class="p">(</span><span class="nx">MoviePopup</span><span class="p">.</span><span class="nx">setup</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Looking at the rest of the code in Figure 6.14, getting the URI that is the target of the XHR
+request is easy: since the link we’re hijacking already links to the RESTful URI for showing movie details, we can
+query its href attribute, as line 10 shows. Lines 12–13 remind us that function-valued properties can specify either
+a named function, as <code class="code docutils literal notranslate"><span class="pre">success</span></code> does, or an anonymous function, as <code class="code docutils literal notranslate"><span class="pre">error</span></code> does. To keep the example simple, our error
+behavior is rudi- mentary: no matter what kind of error happens, including a timeout of 5000 ms (5 seconds), we
+just display an alert box. In case of success, we specify <code class="code docutils literal notranslate"><span class="pre">showMovieInfo</span></code> as the callback.</p>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="p">#</span><span class="nn">movieInfo</span> <span class="p">{</span>
+    <span class="k">padding</span><span class="p">:</span> <span class="mi">2</span><span class="kt">ex</span><span class="p">;</span>
+    <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span>
+    <span class="k">border</span><span class="p">:</span> <span class="mi">2</span><span class="kt">px</span> <span class="kc">double</span> <span class="kc">grey</span><span class="p">;</span>
+    <span class="k">background</span><span class="p">:</span> <span class="kc">wheat</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Some interesting CSS trickery happens in lines 20 and 23 of Figure 6.14. Since our goal is to “float” the popup window,
+we can use CSS to specify its positioning as <code class="code docutils literal notranslate"><span class="pre">absolute</span></code> by adding the markup in Figure 6.15. But without knowing the size
+of the browser window, we don’t know how large the floating window should be or where to place it. <code class="code docutils literal notranslate"><span class="pre">showMovieInfo</span></code> computes
+the dimensions and coordinates of a floating <code class="code docutils literal notranslate"><span class="pre">div</span></code> half as wide and one-fourth as tall as the browser window itself (line 20).
+It replaces the HTML contents of the <code class="code docutils literal notranslate"><span class="pre">div</span></code> with the data returned from the server (line 22), centers the element horizontally
+over the main window and 250 pixels from the top edge (line 23), and finally shows the <code class="code docutils literal notranslate"><span class="pre">div</span></code>, which up until now has been
+hidden (line 24).</p>
+<p>There’s one last thing to do: the floated <code class="code docutils literal notranslate"><span class="pre">div</span></code> has a “Close” link that should make it disappear, so line 26 binds a very
+simple <code class="code docutils literal notranslate"><span class="pre">click</span></code> handler to it. Finally, <code class="code docutils literal notranslate"><span class="pre">showMovieInfo</span></code> returns <code class="code docutils literal notranslate"><span class="pre">false</span></code> (line 27). Why? Because the handler was called as the
+result of clicking on a link (<code class="code docutils literal notranslate"><span class="pre">&lt;a&gt;</span></code>) element, we need to return false to suppress the default behavior associated with
+that action, namely following the link. (For the same reason, the “Close” link’s <code class="code docutils literal notranslate"><span class="pre">click</span></code> handler returns <code class="code docutils literal notranslate"><span class="pre">false</span></code> in line 31.)</p>
+<p>With so many different functions to call for even a simple example, it can be hard to trace the flow of control when
+debugging. While you can always use <code class="code docutils literal notranslate"><span class="pre">console.log(</span></code> <em>string</em> <code class="code docutils literal notranslate"><span class="pre">)</span></code> to write messages to your browser’s JavaScript console window,
+it’s easy to forget to remove these in production, and as Chapter 8 describes, such “<code class="code docutils literal notranslate"><span class="pre">printf</span></code> debugging” can be slow,
+inefficient and frustrating. In Section 6.8 we’ll introduce a better way by creating tests with Jasmine.</p>
+<p>Lastly, there is one caveat we need to mention which could arise when you use JavaScript to dynamically create new elements
+at runtime, although it didn’t arise in this particular example. We know that <code class="code docutils literal notranslate"><span class="pre">$(’.myClass’).on(’click’,func)</span></code> will bind <em>func</em>
+as the click handler for all current elements that match CSS class <code class="code docutils literal notranslate"><span class="pre">myClass</span></code>. But if you then use JavaScript to create new
+elements matching <code class="code docutils literal notranslate"><span class="pre">myClass</span></code> <em>after</em> the initial page load and initial call to <code class="code docutils literal notranslate"><span class="pre">on</span></code>, those elements won’t have the handler bound
+to them, because on can only bind handlers to already-existing elements.</p>
+<p>A common solution to this problem is to take advantage of a jQuery mechanism that allows an ancestor element to delegate
+event handling to a descendant, by using on’s polymorphism: <code class="code docutils literal notranslate"><span class="pre">$(’body’).on(’click’,’.myClass’,func)</span></code> binds the HTML body element
+(which always exists) to the <code class="code docutils literal notranslate"><span class="pre">click</span></code> event, but <em>delegates</em> the event to any descendant matching the selector <code class="code docutils literal notranslate"><span class="pre">.myClass</span></code>. Since
+the delegation check is done each time an event is processed, new elements matching <code class="code docutils literal notranslate"><span class="pre">.myClass</span></code> will “automagically” have
+<em>func</em> bound as their click handler when created.</p>
+<p><strong>Self-Check 6.7.1.</strong> <em>In line 13 of Figure 6.14, why did we write</em> <code class="code docutils literal notranslate"><span class="pre">MoviePopup.showMovieInfo</span></code> <em>instead of</em> <code class="code docutils literal notranslate"><span class="pre">MoviePopup.showMovieInfo()</span></code> <em>?</em></p>
+<blockquote>
+<div><p>The former is the actual function, which is what ajax expects as its <code class="code docutils literal notranslate"><span class="pre">success</span></code> property, whereas the latter is a <em>call</em>
+to the function.</p>
+</div></blockquote>
+<p><strong>Self-Check 6.7.2.</strong> <em>In line 33 of Figure 6.14, why did we write</em> <code class="code docutils literal notranslate"><span class="pre">$(MoviePopup.setup)</span></code> <em>rather than</em> <code class="code docutils literal notranslate"><span class="pre">$(’MoviePopup.setup’)</span></code> <em>or</em>
+<code class="code docutils literal notranslate"><span class="pre">$(MoviePopup.setup())</span></code> <em>?</em></p>
+<blockquote>
+<div><p>We need to pass the actual function to <code class="code docutils literal notranslate"><span class="pre">$()</span></code>, not its name or the result of calling it.</p>
+</div></blockquote>
+<p><strong>Self-Check 6.7.3.</strong> <em>Continuing Self-Check 6.7.2, if we had accidentally called</em> <code class="code docutils literal notranslate"><span class="pre">$(’MoviePopup.setup’)</span></code> <em>, would the result
+be a syntax error or legal but unintended behavior?</em></p>
+<blockquote>
+<div><p>Recall that <code class="code docutils literal notranslate"><span class="pre">$()</span></code> is overloaded, and when called with a string, it tries to interpret the string as HTML markup if it
+contains any angle brackets or a CSS selector otherwise. The latter applies in this case, so it would return an empty
+collection, since there are no elements whose tag is <code class="code docutils literal notranslate"><span class="pre">MoviePopup</span></code> and whose CSS class is setup.</p>
+</div></blockquote>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="<%= section_path(chapter_id: 6, section_id: 6) %>" title="previous page"><span class="section-number">6.6. </span>Events and Callbacks</a>
+    <a class='right-next' id="next-link" href="<%= section_path(chapter_id: 6, section_id: 8) %>" title="next page"><span class="section-number">6.8. </span>Testing Java Script and AJAX</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By sme777<br/>
+        
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
+      </p>
+    </div>
+  </footer>
+</main>

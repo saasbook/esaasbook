@@ -1,0 +1,141 @@
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/intro/chapter1/sub-chapter9.rst.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="beautiful-vs-legacy-code">
+<h1><span class="section-number">1.9. </span>Beautiful vs. Legacy Code<a class="headerlink" href="#beautiful-vs-legacy-code" title="Permalink to this headline">¶</a></h1>
+<p><em>To me programming is more than an important practical art. It is also a gigantic
+undertaking in the foundations of knowledge.</em></p>
+<blockquote>
+<div><p>—Grace Murray Hopper</p>
+</div></blockquote>
+<p>Unlike hardware, software is expected to grow and evolve over time. Whereas hardware
+designs must be declared finished before they can be manufactured and shipped,
+initial software designs can easily be shipped and later upgraded over time. Basically,
+the cost of upgrade in the field is astronomical for hardware and affordable for software.</p>
+<p>Hence, software can achieve a high-tech version of immortality, potentially getting better
+over time while generations of computer hardware decay into obsolescence. The drivers of
+<strong>software evolution</strong> are not only fixing faults, but also adding new features that customers
+request, adjusting to changing business requirements, improving performance, and adapting
+to a changed environment. Software customers expect to get notices about and install improved
+versions of the software over the lifetime that they use it, perhaps even submitting bug
+reports to help developers fix their code. They may even have to pay an annual maintenance
+fee for this privilege!</p>
+<p>Just as novelists fondly hope that their brainchild will be read long enough to be labeled
+a classic—which for books is 100 years!—software engineers should hope their creations would
+also be long lasting. Of course, software has the advantage over books of being able to be
+improved over time. In fact, a long software life often means that others maintain and enhance
+it, letting the creators of original code off the hook.</p>
+<p>This brings us to a few terms we’ll use throughout the book. The term <strong>legacy code</strong> refers to
+software that, despite its old age, continues to be used because it meets customers’ needs.
+Sixty percent of software maintenance costs are for adding new functionality to legacy software,
+vs. only 17% for fixing bugs, so legacy software is successful software.</p>
+<p>The term “legacy” has a negative connotation, however, in that it indicates that the code is
+difficult to evolve because it has an inelegant design or uses antiquated technology. In contrast
+to legacy code, we use the term <em>beautiful code</em> to indicate long-lasting code that is easy to
+evolve. The worst case is not legacy code, however, but <em>unexpectedly short-lived code</em> that
+is soon discarded because it doesn’t meet customers’ needs. We’ll highlight examples that
+lead to beautiful code with the Mona Lisa icon. Similarly, we’ll highlight text that deals
+with legacy code using an abacus icon, which is certainly a long-lasting but little changed
+calculating device.</p>
+<p>In the following chapters, we show examples of both beautiful code and legacy code that we hope
+will inspire you to make your designs simpler to evolve. Surprisingly, despite the widely accepted
+importance of enhancing legacy software, this topic is traditionally ignored in college courses and
+textbooks. We feature such software in this book for three reasons. First, you can reduce the effort
+to build a program by finding existing code that you can reuse. One supplier is open source software.
+Second, it’s advantageous to learn how to build code that makes it easier for successors to enhance,
+since such code is more likely to enjoy a long life. Finally, unlike Plan-and-Document, in Agile you
+revise code continuously to improve the design and to add functionality starting with the second
+iteration. Thus, the skills you practice in Agile are exactly the ones you need to evolve legacy
+code—no matter how it was created—and the dual use of Agile techniques makes it much easier for us
+to cover legacy code within a single book.</p>
+<p><strong>Self-Check 1.9.1.</strong> <em>Programmers rarely set out to write bad code. Given the ideas of Section 1.5 about
+productivity, explain briefly how software written a long time ago that was considered high quality at
+the time might be viewed as difficult-to-maintain legacy software today.</em></p>
+<blockquote>
+<div><p>Because of the continuously increasing level of abstraction of software tools, developers today can often
+create the same functionality in far fewer (and more beautiful) lines of code
+than would have been possible a few decades ago, so by comparison the old code is harder to maintain,
+even though at the time it was written it may have represented the state of the art. Doubtless the code
+we write today will be viewed as archaic in another few decades!</p>
+</div></blockquote>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="<%= section_path(chapter_id: 1, section_id: 8) %>" title="previous page"><span class="section-number">1.8. </span>Deploying SaaS: Browsers and Mobile</a>
+    <a class='right-next' id="next-link" href="<%= section_path(chapter_id: 1, section_id: 10) %>" title="next page"><span class="section-number">1.10. </span>Guided Tour and How To Use This Book</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By sme777<br/>
+        
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
+      </p>
+    </div>
+  </footer>
+</main>

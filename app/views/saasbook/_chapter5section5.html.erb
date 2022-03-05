@@ -1,0 +1,167 @@
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/part1/chapter5/sub-chapter5.rst.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="through-associations">
+<h1><span class="section-number">5.5. </span>Through-Associations<a class="headerlink" href="#through-associations" title="Permalink to this headline">¶</a></h1>
+<p>Referring back to Figure 5.9, there are direct associations between Moviegoers and Reviews as well as
+between Movies and Reviews. But since any given Review is associated with both a Moviegoer and a Movie,
+we could say that there’s an <em>indirect</em> association between Moviegoers and Movies. For example, we might
+ask “What are all the movies Gloria has reviewed?” or “Which moviegoers have reviewed <em>Inception</em>?” Indeed,
+line 13 in Figure 5.11 essentially answers the second question.</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># Run &#39;rails generate migration create_reviews&#39; and then</span>
+<span class="linenos"> 2</span><span class="c1">#   edit db/migrate/*_create_reviews.rb to look like this:</span>
+<span class="linenos"> 3</span><span class="k">class</span> <span class="nc">CreateReviews</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+<span class="linenos"> 4</span>    <span class="k">def</span> <span class="nf">change</span>
+<span class="linenos"> 5</span>        <span class="n">create_table</span> <span class="s1">&#39;reviews&#39;</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+<span class="linenos"> 6</span>        <span class="n">t</span><span class="o">.</span><span class="n">integer</span>    <span class="s1">&#39;potatoes&#39;</span>
+<span class="linenos"> 7</span>        <span class="n">t</span><span class="o">.</span><span class="n">text</span>       <span class="s1">&#39;comments&#39;</span>
+<span class="linenos"> 8</span>        <span class="n">t</span><span class="o">.</span><span class="n">references</span> <span class="s1">&#39;moviegoer&#39;</span>
+<span class="linenos"> 9</span>        <span class="n">t</span><span class="o">.</span><span class="n">references</span> <span class="s1">&#39;movie&#39;</span>
+<span class="linenos">10</span>        <span class="k">end</span>
+<span class="linenos">11</span>    <span class="k">end</span>
+<span class="linenos">12</span><span class="k">end</span>
+</pre></div>
+</div>
+<p>This kind of indirect association is so common that Rails and other frameworks provide an abstraction
+to simplify its use. It’s sometimes called a <em>through-association</em>, since Moviegoers are related to Movies
+<em>through</em> their reviews and vice versa. Figure 5.15 shows how to use the <code class="code docutils literal notranslate"><span class="pre">:through</span></code> option to Rails’ <code class="code docutils literal notranslate"><span class="pre">has_many</span></code>
+to represent this indirect association. You can similarly add <code class="code docutils literal notranslate"><span class="pre">has_many</span> <span class="pre">:moviegoers,</span> <span class="pre">:through=&gt;:reviews</span></code> to the Movie model, and
+write <code class="code docutils literal notranslate"><span class="pre">movie.moviegoers</span></code> to ask which moviegoers are associated with (wrote reviews for) a given movie.</p>
+<p>How is a through-association “traversed” in the database? Referring again to Figure 5.10, finding all the movies reviewed
+by Gloria first requires forming the Cartesian product of the <em>three</em> tables (<code class="code docutils literal notranslate"><span class="pre">movies,</span> <span class="pre">reviews,</span> <span class="pre">moviegoers</span></code>), resulting in a
+table that conceptually has 27
+rows and 9 columns in our example. From this table we then select those rows for which the movie’s ID matches the
+review’s movie_id and the moviegoer’s ID matches the review’s moviegoer_id. Extending the explanation of Section 5.4,
+the SQL query might look like this:</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># in moviegoer.rb:</span>
+<span class="linenos"> 2</span><span class="k">class</span> <span class="nc">Moviegoer</span>
+<span class="linenos"> 3</span>    <span class="n">has_many</span> <span class="ss">:reviews</span>
+<span class="linenos"> 4</span>    <span class="n">has_many</span> <span class="ss">:movies</span> <span class="p">,</span> <span class="ss">:through</span>
+<span class="linenos"> 5</span>    <span class="c1"># ... other moviegoer model code</span>
+<span class="linenos"> 6</span><span class="k">end</span>
+<span class="linenos"> 7</span><span class="n">gloria</span> <span class="o">=</span> <span class="no">Moviegoer</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s1">&#39;Gloria&#39;</span><span class="p">)</span>
+<span class="linenos"> 8</span><span class="n">gloria_movies</span> <span class="o">=</span> <span class="n">gloria</span><span class="o">.</span><span class="n">movies</span>
+<span class="linenos"> 9</span><span class="c1"># MAY work, but a bad idea - see caption:</span>
+<span class="linenos">10</span><span class="n">gloria</span><span class="o">.</span><span class="n">movies</span> <span class="o">&lt;&lt;</span> <span class="no">Movie</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:title</span> <span class="o">=&gt;</span> <span class="s1">&#39;Inception&#39;</span><span class="p">)</span> <span class="c1"># Don&#39;t do this!</span>
+</pre></div>
+</div>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">class</span> <span class="nc">Review</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+<span class="linenos">2</span>    <span class="c1"># review is valid only if it&#39;s associated with a movie:</span>
+<span class="linenos">3</span>    <span class="n">validates</span> <span class="ss">:movie_id</span> <span class="p">,</span> <span class="ss">:presence</span> <span class="o">=&gt;</span> <span class="kp">true</span>
+<span class="linenos">4</span>    <span class="c1"># can ALSO require that the referenced movie itself be valid</span>
+<span class="linenos">5</span>    <span class="c1"># in order for the review to be valid:</span>
+<span class="linenos">6</span>    <span class="n">validates_associated</span> <span class="ss">:movie</span>
+<span class="linenos">7</span><span class="k">end</span>
+</pre></div>
+</div>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">movies</span> <span class="p">.</span><span class="o">*</span>
+    <span class="k">FROM</span> <span class="n">movies</span> <span class="k">JOIN</span> <span class="n">reviews</span> <span class="k">ON</span> <span class="n">movies</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">reviews</span><span class="p">.</span><span class="n">movie_id</span>
+    <span class="k">JOIN</span> <span class="n">moviegoers</span> <span class="k">ON</span> <span class="n">moviegoers</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">reviews</span><span class="p">.</span><span class="n">moviegoer_id</span>
+    <span class="k">WHERE</span> <span class="n">moviegoers</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>For efficiency, the intermediate Cartesian product table is usually not materialized, that is,
+not explicitly constructed by the database. Indeed, Rails 3 has a sophisticated relational algebra
+engine that constructs and performs optimized SQL join queries for traversing associations.</p>
+<p>The point of this section and the previous one, though, is not only to explain how to use associations, but
+also to point out the elegant use of duck typing and metaprogramming that makes them possible. In Figure
+5.12(c) you added <code class="code docutils literal notranslate"><span class="pre">has_many</span> <span class="pre">:reviews</span></code> to the Movie class. The <code class="code docutils literal notranslate"><span class="pre">has_many</span></code> method performs some metaprogramming
+to define the new instance method <code class="code docutils literal notranslate"><span class="pre">reviews=</span></code> that we used in Figure 5.11. <code class="code docutils literal notranslate"><span class="pre">has_many</span></code> is not a declaration, but
+a regular method call that does all of this work at runtime, adding several new instance methods to your
+model class to help manage the association. As you’ve no doubt guessed, convention over configuration
+determines the name of the new method, the table it will use in the database, and so on.</p>
+<p>Associations are one of the most feature-rich aspects of Rails, so take a good look at the full documentation
+for them. In particular:</p>
+<ul class="simple">
+<li><p>Just like ActiveRecord lifecycle hooks, associations provide additional hooks that can be triggered when objects are added to or removed from an association (such as when new Reviews are added for a Movie), which are distinct from the lifecycle hooks of Movies or Reviews themselves.</p></li>
+<li><p>Validations can be declared on associated models, as Figure 5.16 shows.</p></li>
+<li><p>Because calling <code class="code docutils literal notranslate"><span class="pre">save</span></code> or <code class="code docutils literal notranslate"><span class="pre">save!</span></code> on an object that uses associations also affects the associated objects, various caveats apply to what happens if any of the saves fails. For example, if you have just created a new Movie and two new Reviews to link to it, and you now try to save the Movie, any of the three saves could fail if the objects aren’t valid (among other reasons).</p></li>
+<li><p>Additional options to association methods control what happens to “owned” objects when an “owning” object is destroyed. For example, <code class="code docutils literal notranslate"><span class="pre">has_many</span> <span class="pre">:reviews,</span> <span class="pre">dependent:</span> <span class="pre">destroy</span></code> specifies that the reviews belonging to a movie should be deleted from the database if the movie is destroyed.</p></li>
+</ul>
+<p><strong>Self-Check 5.5.1.</strong> <em>Describe in English the steps required to determine all the moviegoers who have reviewed a movie
+with some given</em> <code class="code docutils literal notranslate"><span class="pre">id</span></code> <em>(primary key).</em></p>
+<blockquote>
+<div><p>Find all the reviews whose <code class="code docutils literal notranslate"><span class="pre">movie_id</span></code> field contains the id of the movie of interest. For each review, find the
+moviegoer whose <code class="code docutils literal notranslate"><span class="pre">id</span></code> matches the review’s <code class="code docutils literal notranslate"><span class="pre">moviegoer_id</span></code> field.</p>
+</div></blockquote>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="<%= section_path(chapter_id: 5, section_id: 4) %>" title="previous page"><span class="section-number">5.4. </span>Associations and Foreign Keys</a>
+    <a class='right-next' id="next-link" href="<%= section_path(chapter_id: 5, section_id: 6) %>" title="next page"><span class="section-number">5.6. </span>RESTful Routes for Associations</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By sme777<br/>
+        
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
+      </p>
+    </div>
+  </footer>
+</main>

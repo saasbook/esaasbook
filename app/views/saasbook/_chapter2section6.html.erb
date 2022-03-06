@@ -1,0 +1,138 @@
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/part1/chapter2/sub-chapter6.rst.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="gems-and-bundler-library-management-in-ruby">
+<h1><span class="section-number">2.6. </span>Gems and Bundler: Library Management in Ruby<a class="headerlink" href="#gems-and-bundler-library-management-in-ruby" title="Permalink to this headline">¶</a></h1>
+<p><strong>Libraries</strong>. The Ruby standard library includes a large number of useful classes
+covering file and network input/output, time and date manipulation, manipulating
+strings and collections, and more.</p>
+<p>An external library is packaged as a Ruby <em>gem</em>, a collection of classes with well-defined
+interfaces. Gems can be as simple as augmenting existing classes with a few utility functions,
+or as complex as an entire framework: Rails itself is distributed as a gem that depends on
+several other gems. Similar to Python import, require makes a gem’s classes and functions
+available within a file of Ruby code, as Figure 2.12 shows.</p>
+<p>Where Ruby really shines, though, is in managing dependencies among gems. GitLab, a popular
+open-source application written in Rails, relies on around 400 gems. Since some of those
+rely in turn on other gems, all in all GitLab depends on over 800 gems, many of which are
+constantly evolving. It’s therefore critical to specify which version(s) of libraries an app
+has been developed and tested with, so that when the app is deployed or distributed, it
+behaves the same way in every environment in which it’s run.</p>
+<p>To manage complex dependencies, we need a dependency manager or package manager, such as <code class="code docutils literal notranslate"><span class="pre">pip</span></code>
+for Python, npm for Node.js, or Apache Maven for Java. Ruby’s package manager, Bundler, is itself a
+gem. Once Bundler is installed with <code class="code docutils literal notranslate"><span class="pre">gem</span> <span class="pre">install</span> <span class="pre">bundler</span></code>, you should allow it to do your dependency management.</p>
+<p>To use Bundler, a Ruby project should have a file called <code class="code docutils literal notranslate"><span class="pre">Gemfile</span></code> in its top-level directory that records the
+dependencies of the app on particular libraries. Bundler reads this file and tries to compute a set of library
+version(s) that respects all the constraints in the file. For example, if the app depends on version ≥ 3.0 and ≤ 4.0
+for library X, but the app also depends on library Y which requires version 3.5 of library X, then version 3.5 of
+library X will be installed. Bundler can also detect when it’s impossible to satisfy all the constraints. In general,
+when you start a new Ruby project you immediately create a Gemfile for it, and when you download someone else’s Ruby
+project to work on,you first <code class="code docutils literal notranslate"><span class="pre">run</span> <span class="pre">bundle</span> <span class="pre">install</span></code> in the project’s main directory to allow Bundler to locate and
+download all the necessary libraries.</p>
+<p>Bundler then arranges to install all needed gems with their proper versions, and records the results in <code class="code docutils literal notranslate"><span class="pre">Gemfile.lock</span></code>.
+Both <code class="code docutils literal notranslate"><span class="pre">Gemfile</span></code> and <code class="code docutils literal notranslate"><span class="pre">Gemfile.lock</span></code> should be stored as part of the codebase, since the latter records which versions of which
+libraries were <em>actually</em> used in development, whereas <code class="code docutils literal notranslate"><span class="pre">Gemfile</span></code> just specifies constraints on which versions <em>could</em> be
+compatibly used.</p>
+<p>Increasingly, library version numbers follow semantic versioning, not just for Ruby gems but in other languages as well. The usual
+arrangement is for a version number to be formatted as <code class="code docutils literal notranslate"><span class="pre">major.minor.patch</span></code>, where each field is an integer, such as 2.3.1. Changes in
+the value of <code class="code docutils literal notranslate"><span class="pre">patch</span></code> are usually minor, backwards-compatible bug fixes, including security patches, that do not change the semantics or
+functionality of the gem. Changes in minor usually indicate that functionality has been <em>added</em> in a backward-compatible manner. Changes
+in <code class="code docutils literal notranslate"><span class="pre">major</span></code> signal that the Application Programming Interface (API)—the way you call the library’s functions—has changed in a way that may
+break compatibility with previous versions.</p>
+<p>Since breaking compatibility is a major decision that may affect thousands of apps using
+a library, a common practice is for such changes to first appear as <strong>deprecation</strong> warnings in a new minor version or patch version. Such warnings
+typically manifest as messages emitted at build time or run time to the effect of “Warning: this feature will work differently [or be dropped]
+in the next major release of this library.” As a general rule, deprecation warnings become errors when the major version changes. The prudent
+developer faced with a deprecation warning will therefore read the documentation and determine if there is a way to change the <em>current</em> code so
+that it uses the soon-to-be-new version of the feature or of the feature’s API.</p>
+<p>Indeed, when upgrading to a new major version, a best practice is to first incrementally upgrade so that you can identify and address deprecations before
+the major version change. For example, suppose your app uses version 2.7.3 of the Foobaz gem, but the latest version is 3.1.5, and you haven’t been keeping up:</p>
+<ol class="arabic simple">
+<li><p>First, update to the latest whose major version is still 2—let’s say that turns out to be 2.8.1.</p></li>
+<li><p>Identify and address any deprecation warnings generated by that upgrade.</p></li>
+<li><p>Now upgrade to the <em>first</em> release whose major version is 3. In all likelihood this is 3.0.0, but might be different. Ensure all works well with the new major version.</p></li>
+<li><p>Next, upgrade to the latest <em>minor</em> version—in our example, probably 3.1.0. Ensure all works well.</p></li>
+<li><p>Finally, upgrade to 3.1.5, the latest patch release.</p></li>
+</ol>
+<p>Of course, in an ideal world, the developer has been gradually updating the gem over time, so it is not necessary to do all these steps at once.</p>
+<p>In Chapter 8, we will have a lot to say about “ensuring all works well,” as this is one of the key roles of having a solid test suite.</p>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="<%= section_path(chapter_id: 2, section_id: 5) %>" title="previous page"><span class="section-number">2.5. </span>CHIPS: Ruby Intro</a>
+    <a class='right-next' id="next-link" href="<%= section_path(chapter_id: 2, section_id: 7) %>" title="next page"><span class="section-number">2.7. </span>Fallacies and Pitfalls</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By sme777<br/>
+        
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
+      </p>
+    </div>
+  </footer>
+</main>

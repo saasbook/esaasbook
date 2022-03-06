@@ -19,12 +19,12 @@ module NavigationHelpers
       '/'
 
     when /chapter ([0-9]+) section ([0-9]+)/
-      if $1 == "0"
-        "/preface"
-      elsif $2 == "0"
-        "/chapter/#{$1}"
+      if Regexp.last_match(1) == '0'
+        '/preface'
+      elsif Regexp.last_match(2) == '0'
+        "/chapter/#{Regexp.last_match(1)}"
       else
-        "/chapter/#{$1}/section/#{$2}"
+        "/chapter/#{Regexp.last_match(1)}/section/#{Regexp.last_match(2)}"
       end
 
     # Add more mappings here.

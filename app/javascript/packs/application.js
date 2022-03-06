@@ -7,5 +7,20 @@ import Rails from "@rails/ujs"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
+import 'jquery'
+import 'underscore'
+
+
+var underscore = require('underscore')
+
+var jQuery = require('jquery')
+
+global.$ = global.jQuery = jQuery;
+window.$ = window.jQuery = jQuery;
+
+global._ = underscore;
+window._ = underscore;
+
+
 Rails.start()
 ActiveStorage.start()

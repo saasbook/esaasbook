@@ -1,0 +1,243 @@
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/part2/chapter11/sub-chapter7.rst.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="demeter-principle">
+<h1><span class="section-number">11.7. </span>Demeter Principle<a class="headerlink" href="#demeter-principle" title="Permalink to this headline">¶</a></h1>
+<p>The Demeter Principle or <strong>Law of Demeter</strong> states informally: “Talk to your friends—don’t get
+intimate with strangers.” Specifically, a method can call other methods in its own class,
+and methods on the classes of its own instance variables; everything else is taboo. Demeter
+isn’t originally part of the SOLID guidelines, as Figure 11.4 explains, but we include it
+here since it is highly applicable to Ruby and SaaS, and we opportunistically hijack the <strong>D</strong>
+in SOLID to represent it.</p>
+<p>The Demeter Principle is easily illustrated by example. Suppose RottenPotatoes has made deals
+with movie theaters so that moviegoers can buy movie tickets directly via RottenPotatoes by
+maintaining a credit balance (for example, by receiving movie theater gift cards).</p>
+<p>Figure 11.21 shows an implementation of this behavior that contains a Demeter Principle
+violation. A problem arises if we ever change the implementation of Wallet—for example, if we
+change <code class="code docutils literal notranslate"><span class="pre">credit_balance</span></code> to <code class="code docutils literal notranslate"><span class="pre">cash_balance</span></code>, or add <code class="code docutils literal notranslate"><span class="pre">points_balance</span></code> to allow moviegoers to accumulate
+PotatoPoints by becoming top reviewers. All of a sudden, the <code class="code docutils literal notranslate"><span class="pre">MovieTheater</span></code> class, which is
+“twice removed” from <code class="code docutils literal notranslate"><span class="pre">Wallet</span></code>, would have to change.</p>
+<p>Two design smells can tip us off to possible Demeter violations. One is <strong>inappropriate intimacy</strong>:
+the <code class="code docutils literal notranslate"><span class="pre">collect_money</span></code> method manipulates the <code class="code docutils literal notranslate"><span class="pre">credit_balance</span></code> attribute of <code class="code docutils literal notranslate"><span class="pre">Wallet</span></code> directly, even
+though managing that attribute is the <code class="code docutils literal notranslate"><span class="pre">Wallet</span></code> class’s responsibility. (When the same kind of
+inappropriate intimacy occurs repeatedly throughout a class, it’s sometimes called <strong>feature envy</strong>,
+because <code class="code docutils literal notranslate"><span class="pre">Moviegoer</span></code> “wishes it had access to” the features managed by <code class="code docutils literal notranslate"><span class="pre">Wallet</span></code>.) Another smell that
+arises in tests is the <em>mock trainwreck</em>, which occurs in lines 25–27 of Figure 11.21: to test
+code that violates Demeter, we find ourselves setting up a “chain” of mocks that will be used
+when we call the method under test.</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># Better: delegate credit_balance so MovieTheater only accesses Moviegoer</span>
+<span class="linenos"> 2</span><span class="k">class</span> <span class="nc">Moviegoer</span>
+<span class="linenos"> 3</span>    <span class="k">def</span> <span class="nf">credit_balance</span>
+<span class="linenos"> 4</span>        <span class="nb">self</span><span class="o">.</span><span class="n">wallet</span><span class="o">.</span><span class="n">credit_balance</span>  <span class="c1"># delegation</span>
+<span class="linenos"> 5</span>    <span class="k">end</span>
+<span class="linenos"> 6</span><span class="k">end</span>
+<span class="linenos"> 7</span><span class="k">class</span> <span class="nc">MovieTheater</span>
+<span class="linenos"> 8</span>    <span class="k">def</span> <span class="nf">collect_money</span><span class="p">(</span><span class="n">moviegoer</span><span class="p">,</span><span class="n">amount</span><span class="p">)</span>
+<span class="linenos"> 9</span>        <span class="k">if</span> <span class="n">moviegoer</span><span class="o">.</span><span class="n">credit_balance</span> <span class="o">&gt;=</span> <span class="n">amount</span>
+<span class="linenos">10</span>        <span class="n">moviegoer</span><span class="o">.</span><span class="n">credit_balance</span> <span class="o">-=</span> <span class="n">due_amount</span>
+<span class="linenos">11</span>        <span class="vi">@collected_amount</span> <span class="o">+=</span> <span class="n">due_amount</span>
+<span class="linenos">12</span>        <span class="k">else</span>
+<span class="linenos">13</span>        <span class="k">raise</span> <span class="no">InsufficientFundsError</span>
+<span class="linenos">14</span>        <span class="k">end</span>
+<span class="linenos">15</span>    <span class="k">end</span>
+<span class="linenos">16</span><span class="k">end</span>
+</pre></div>
+</div>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">class</span> <span class="nc">Wallet</span>
+<span class="linenos"> 2</span>    <span class="kp">attr_reader</span> <span class="ss">:credit_balance</span> <span class="c1"># no longer attr_accessor!</span>
+<span class="linenos"> 3</span>    <span class="k">def</span> <span class="nf">withdraw</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span>
+<span class="linenos"> 4</span>        <span class="k">raise</span> <span class="no">InsufficientFundsError</span> <span class="k">if</span> <span class="n">amount</span> <span class="o">&gt;</span> <span class="vi">@credit_balance</span>
+<span class="linenos"> 5</span>        <span class="vi">@credit_balance</span> <span class="o">-=</span> <span class="n">amount</span>
+<span class="linenos"> 6</span>        <span class="n">amount</span>
+<span class="linenos"> 7</span>    <span class="k">end</span>
+<span class="linenos"> 8</span><span class="k">end</span>
+<span class="linenos"> 9</span><span class="k">class</span> <span class="nc">Moviegoer</span>
+<span class="linenos">10</span>    <span class="c1"># behavior delegation</span>
+<span class="linenos">11</span>    <span class="k">def</span> <span class="nf">pay</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span>
+<span class="linenos">12</span>        <span class="n">wallet</span><span class="o">.</span><span class="n">withdraw</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span>
+<span class="linenos">13</span>    <span class="k">end</span>
+<span class="linenos">14</span><span class="k">end</span>
+<span class="linenos">15</span><span class="k">class</span> <span class="nc">MovieTheater</span>
+<span class="linenos">16</span>    <span class="k">def</span> <span class="nf">collect_money</span><span class="p">(</span><span class="n">moviegoer</span><span class="p">,</span> <span class="n">amount</span><span class="p">)</span>
+<span class="linenos">17</span>        <span class="vi">@collected_amount</span> <span class="o">+=</span> <span class="n">moviegoer</span><span class="o">.</span><span class="n">pay</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span>
+<span class="linenos">18</span>    <span class="k">end</span>
+<span class="linenos">19</span><span class="k">end</span>
+</pre></div>
+</div>
+<p>Once again, delegation comes to the rescue. A simple improvement comes from delegating the
+<code class="code docutils literal notranslate"><span class="pre">credit_balance</span></code> attribute, as Figure 11.22 (top) shows. But the best delegation is that in
+Figure 11.22 (bottom), since now the behavior of payment is entirely encapsulated within
+<code class="code docutils literal notranslate"><span class="pre">Wallet</span></code>, as is the decision of when to raise an error for failed payments.</p>
+<p>Inappropriate intimacy and Demeter violations can arise in any situation where you feel you are
+“reaching through” an interface to get some task done, thereby exposing yourself to dependency
+on implementation details of a class that should really be none of your business. Three design
+patterns address common scenarios that could otherwise lead to Demeter violations. One is the
+Visitor pattern, in which a data structure is traversed and you provide a callback method to
+execute for each member of the data structure, allowing you to “visit” each element while
+remaining ignorant of the way the data structure is organized. Indeed, the “data structure”
+could even be materialized lazily as you visit the different nodes, rather than existing
+statically all at once. An example of this pattern in the wild is the Nokogiri gem, which
+supports traversal of HTML and XML documents organized as a tree: in addition to searching
+for a specific element in a document, you can have Nokogiri traverse the document and call
+a visitor method you provide at each document node.</p>
+<p>A simple special case of Visitor is the <strong>Iterator pattern</strong>, which is so pervasive in Ruby
+(you use it anytime you use <code class="code docutils literal notranslate"><span class="pre">each</span></code>) that many Rubyists hardly think of it as a pattern. Iterator
+separates the implementation of traversing a collection from the behavior you want to apply
+to each collection element. Without iterators, the behavior would have to “reach into” the
+collection, thereby knowing inappropriately intimate details of how the collection is organized.</p>
+<p>The last design pattern that can help with some cases of Demeter violations is the <strong>Observer
+pattern</strong>, which is used when one class (the observer) wants to be kept aware of what another
+class is doing (the subject) without knowing the details of the subject’s implementation. The
+Observer design pattern provides a canonical way for the subject to maintain a list of its
+observers and notify them automatically of any state changes in which they have indicated
+interest, using a narrow interface to separate the concept of observation from the specifics
+of what each observer does with the information.</p>
+<p>While the Ruby standard library includes a mixin called <code class="code docutils literal notranslate"><span class="pre">Observable</span></code>, Rails’ ActiveSupport
+provides a more concise Observer that lets you observe any model’s ActiveRecord lifecycle hooks
+(<code class="code docutils literal notranslate"><span class="pre">after_save</span></code> and so on), introduced in Section 5.1. Figure 11.23 shows how easy it is to add
+an <code class="code docutils literal notranslate"><span class="pre">EmailList</span></code> class to RottenPotatoes that “subscribes” to two kinds of state changes:</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">class</span> <span class="nc">EmailList</span>
+<span class="linenos"> 2</span>    <span class="n">observe</span> <span class="no">Review</span>
+<span class="linenos"> 3</span>    <span class="k">def</span> <span class="nf">after_create</span><span class="p">(</span><span class="n">review</span><span class="p">)</span>
+<span class="linenos"> 4</span>        <span class="n">moviegoers</span> <span class="o">=</span> <span class="n">review</span><span class="o">.</span><span class="n">moviegoers</span> <span class="c1"># from has_many :through, remember?</span>
+<span class="linenos"> 5</span>        <span class="nb">self</span><span class="o">.</span><span class="n">email</span><span class="p">(</span><span class="n">moviegoers</span><span class="p">,</span> <span class="s2">&quot;A new review for </span><span class="si">#{</span><span class="n">review</span><span class="o">.</span><span class="n">movie</span><span class="si">}</span><span class="s2"> is up.&quot;</span><span class="p">)</span>
+<span class="linenos"> 6</span>    <span class="k">end</span>
+<span class="linenos"> 7</span>    <span class="n">observe</span> <span class="no">Moviegoer</span>
+<span class="linenos"> 8</span>    <span class="k">def</span> <span class="nf">after_create</span><span class="p">(</span><span class="n">moviegoer</span><span class="p">)</span>
+<span class="linenos"> 9</span>        <span class="nb">self</span><span class="o">.</span><span class="n">email</span><span class="p">(</span><span class="o">[</span><span class="n">moviegoer</span><span class="o">]</span><span class="p">,</span> <span class="s2">&quot;Welcome, </span><span class="si">#{</span><span class="n">moviegoer</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">!&quot;</span><span class="p">)</span>
+<span class="linenos">10</span>    <span class="k">end</span>
+<span class="linenos">11</span>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">email</span> <span class="p">;</span> <span class="o">...</span> <span class="p">;</span> <span class="k">end</span>
+<span class="linenos">12</span><span class="k">end</span>
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p>When a new review is added, it emails all moviegoers who have already reviewed that same movie.</p></li>
+<li><p>When a new moviegoer signs up, it sends her a “Welcome” email.</p></li>
+</ol>
+<p>In addition to ActiveRecord lifecycle hooks, Rails caching, which we will encounter in
+Chapter 12, is another example of the Observer pattern in the wild: the cache for each type
+of ActiveRecord model observes the model instance in order to know when model instances
+become stale and should be removed from the cache. The observer doesn’t have to know the
+implementation details of the observed class—it just gets called at the right time, like
+Iterator and Visitor.</p>
+<p>To close out this section, it’s worth pointing out an example that looks like it violates
+Demeter, but really doesn’t. It’s common in Rails views (say, for a <code class="code docutils literal notranslate"><span class="pre">Review</span></code>) to see code such</p>
+<div class="highlight-erb notranslate"><div class="highlight"><pre><span></span><span class="x">&lt;p&gt; Review of: </span><span class="cp">&lt;%=</span> <span class="vi">@review</span><span class="o">.</span><span class="n">movie</span><span class="o">.</span><span class="n">title</span> <span class="cp">%&gt;</span><span class="x"> &lt;/p&gt;</span>
+<span class="x">&lt;p&gt; Written by: </span><span class="cp">&lt;%=</span> <span class="vi">@review</span><span class="o">.</span><span class="n">moviegoer</span><span class="o">.</span><span class="n">name</span> <span class="cp">%&gt;</span><span class="x"> &lt;/p&gt;</span>
+</pre></div>
+</div>
+<p>Aren’t these Demeter violations? It’s a judgment call: strictly speaking, a <code class="code docutils literal notranslate"><span class="pre">review</span></code> shouldn’t
+know the implementation details of <code class="code docutils literal notranslate"><span class="pre">movie</span></code>, but it’s hard to argue that creating delegate methods
+<code class="code docutils literal notranslate"><span class="pre">Review#movie_title</span></code> and <code class="code docutils literal notranslate"><span class="pre">Review#moviegoer_name</span></code> would enhance readability in this case. The
+general opinion in the Rails community is that it’s acceptable for views whose purpose is to
+display object relationships to also expose those relationships in the view code, so examples
+like this are usually allowed to stand.</p>
+<p><strong>Self-Check 11.7.1.</strong> <em>Ben Bitdiddle is a purist about Demeter violations, and
+he objects to the expression</em> <code class="code docutils literal notranslate"><span class="pre">&#64;movie.reviews.average_rating</span></code> <em>in the movie details view,
+which shows a movie’s average review score. How would you placate Ben and fix this Demeter
+violation?</em></p>
+<blockquote>
+<div><div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># naive way:</span>
+<span class="linenos"> 2</span><span class="k">class</span> <span class="nc">Movie</span>
+<span class="linenos"> 3</span>    <span class="n">has_many</span> <span class="ss">:reviews</span>
+<span class="linenos"> 4</span>    <span class="k">def</span> <span class="nf">average_rating</span>
+<span class="linenos"> 5</span>        <span class="nb">self</span><span class="o">.</span><span class="n">reviews</span><span class="o">.</span><span class="n">average_rating</span> <span class="c1"># delegate to Review#average_rating</span>
+<span class="linenos"> 6</span>    <span class="k">end</span>
+<span class="linenos"> 7</span><span class="k">end</span>
+<span class="linenos"> 8</span><span class="c1"># Rails shortcut:</span>
+<span class="linenos"> 9</span><span class="k">class</span> <span class="nc">Movie</span>
+<span class="linenos">10</span>    <span class="n">has_many</span> <span class="ss">:reviews</span>
+<span class="linenos">11</span>    <span class="n">delegate</span> <span class="ss">:average_rating</span><span class="p">,</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="ss">:review</span>
+<span class="linenos">12</span><span class="k">end</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>Self-Check 11.7.2.</strong> <em>Notwithstanding that “delegation is the key mechanism” for resolving Demeter
+violations, why should you be concerned if you find yourself delegating many methods from class
+A to class B just to resolve Demeter violations present in class C?</em></p>
+<blockquote>
+<div><p>You might ask yourself whether there should be a direct relationship between class C and class
+B, or whether class A has “feature envy” for class B, indicating that the division of
+responsibilities between A and B might need to be reengineered.</p>
+</div></blockquote>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="<%= section_path(chapter_id: 11, section_id: 6) %>" title="previous page"><span class="section-number">11.6. </span>Dependency Injection Principle</a>
+    <a class='right-next' id="next-link" href="<%= section_path(chapter_id: 11, section_id: 8) %>" title="next page"><span class="section-number">11.8. </span>The Plan-And-Document Perspective on Design Patterns</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By sme777<br/>
+        
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
+      </p>
+    </div>
+  </footer>
+</main>

@@ -1,0 +1,131 @@
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/part1/chapter2/sub-chapter7.rst.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="fallacies-and-pitfalls">
+<h1><span class="section-number">2.7. </span>Fallacies and Pitfalls<a class="headerlink" href="#fallacies-and-pitfalls" title="Permalink to this headline">¶</a></h1>
+<p><strong>Pitfall: Always watching the driver while pair programming.</strong></p>
+<p>If one member of the pair has much more experience, the temptation is to let the more
+senior member do all the driving, with the more junior member becoming essentially the
+permanent observer. This relationship is not healthy, and will likely lead to
+disengagement by the junior member.</p>
+<p><strong>Pitfall: Blindly following “cookbook” tutorials when learning a new language.</strong></p>
+<p>Computer science legend and Turing Award winner Donald Knuth, who literally wrote the book(s)
+on the foundations of theoretical computer science, says that writing code is “harder than
+anything else I’ve ever had to do.” And Peter Norvig, Google’s Director of Research, has eloquently
+said that there is no shortcut around such a challenge: it requires deep study and lots of ongoing
+practice. Following a step-by-step tutorial without an understanding of the underlying mechanisms
+being explained will put something on the screen quickly, but you won’t understand how it got
+there nor be able to replicate this success with your own apps.</p>
+<p><strong>Pitfall: Forgetting that the compiler won’t save you.</strong></p>
+<p>In strongly-typed or statically-typed languages, the compiler can usually detect if a variable of one
+type is erroneously being assigned a value of an incompatible type, for example, writing <code class="code docutils literal notranslate"><span class="pre">x=foo()</span></code> where
+<code class="code docutils literal notranslate"><span class="pre">foo</span></code> returns a numeric value but <code class="code docutils literal notranslate"><span class="pre">x</span></code> has been declared as a string variable. In weakly-typed or dynamically-typed
+languages (Ruby is both), there are no such “compile-time” checks—instead you’ll get a runtime error.
+So you must be that much more
+careful in your testing and in the design of your code. Chapter 8 will introduce techniques for ensuring
+your code is well tested. The debate over the relative merits of static vs. dynamic typing is a long-running
+“holy war” among programmers that we won’t wade into here.</p>
+<p><strong>Pitfall: Writing Python in Ruby.</strong></p>
+<p>It takes some mileage to learn a new language’s idioms and how it fundamentally differs
+from other languages. Common examples for Python programmers new to Ruby include:</p>
+<ul class="simple">
+<li><p>Reading an expression such as <code class="code docutils literal notranslate"><span class="pre">person.age</span></code> as “the <code class="code docutils literal notranslate"><span class="pre">age</span></code> attribute of the <code class="code docutils literal notranslate"><span class="pre">person</span></code> object” rather than “call the instance method <code class="code docutils literal notranslate"><span class="pre">age</span></code> on the object <code class="code docutils literal notranslate"><span class="pre">person</span></code>.”</p></li>
+<li><p>Thinking that <code class="code docutils literal notranslate"><span class="pre">person.age=40</span></code> as <em>assignment</em> <em>to an attribute</em> when in fact it is a method call. In fact, the <code class="code docutils literal notranslate"><span class="pre">age=</span> <span class="pre">method</span></code> called on <code class="code docutils literal notranslate"><span class="pre">person</span></code> is passed the argument (40), and can <em>do whatever it wants</em>. Ruby code often uses this mechanism as a way to provide syntactic sugar for “assignments” that cause side effects.</p></li>
+<li><p>Forgetting that any instance variable that has not previously been assigned will silently evaluate to <code class="code docutils literal notranslate"><span class="pre">nil</span></code>.</p></li>
+<li><p>Thinking of <code class="code docutils literal notranslate"><span class="pre">attr_accessor</span></code> as a declaration of attributes. This shortcut and related ones save you work <em>if</em> you want to make an attribute publicly readable or writable. But you don’t need to “declare” an attribute in any way at all (the existence of the instance variable is sufficient) and in all likelihood some attributes <em>shouldn’t</em> be publicly visible. Resist the temptation to use <code class="code docutils literal notranslate"><span class="pre">attr_accessor</span></code> as if you were writing attribute declarations in Java.</p></li>
+<li><p>Writing explicit for-loops rather than using an iterator such as <code class="code docutils literal notranslate"><span class="pre">each</span></code> and the collection methods that exploit it via mix-ins such as <code class="code docutils literal notranslate"><span class="pre">Enumerable</span></code>. Use functional idioms like <code class="code docutils literal notranslate"><span class="pre">select,</span> <span class="pre">map,</span> <span class="pre">any?,</span> <span class="pre">all?,</span></code> and so on.</p></li>
+<li><p>Using <code class="code docutils literal notranslate"><span class="pre">lowerCamelCase</span></code> rather than <code class="code docutils literal notranslate"><span class="pre">snake_case</span></code> to name variables. It seems trivial, but experienced programmer find it jarring to read code that violates the typographical conventions of a language, just as experienced musicians wince when they hear a note played out of tune. If in doubt, find other Ruby code with an example of what you want to do, and emulate it.</p></li>
+</ul>
+<p><strong>Pitfall: Thinking of symbols and strings as interchangeable.</strong></p>
+<p>While many Rails methods are explicitly constructed to accept either a string or a symbol, the two are not in general interchangeable.
+A method expecting a string may throw an error if given a symbol, or depending on the method, it may simply fail. For example, <code class="code docutils literal notranslate"><span class="pre">[’foo’,’bar’].include?(’foo’)</span></code> is
+truthy, whereas <code class="code docutils literal notranslate"><span class="pre">[’foo’,’bar’].include?(:foo)</span></code> is falsy.</p>
+<p><strong>Pitfall: Naming a local variable when you meant a local method.</strong></p>
+<p>Suppose class C defines a method <code class="code docutils literal notranslate"><span class="pre">x=</span></code>. In an instance method of C, writing <code class="code docutils literal notranslate"><span class="pre">x=3</span></code> will not have the desired effect of calling the <code class="code docutils literal notranslate"><span class="pre">x=</span></code> method with
+the argument 3; rather, it will set a local variable <code class="code docutils literal notranslate"><span class="pre">x</span></code> to 3, which is probably not what you wanted. To get the desired effect, write
+<code class="code docutils literal notranslate"><span class="pre">self.x=3</span></code>, which makes the method call explicit.</p>
+<p><strong>Pitfall: Confusing require with include.</strong></p>
+<p><code class="code docutils literal notranslate"><span class="pre">require</span></code> loads an arbitrary Ruby file (typically the main file for some gem), whereas <code class="code docutils literal notranslate"><span class="pre">include</span></code> mixes in a module. In both cases, Ruby has its own rules for
+locating the files containing the code; the Ruby documentation describes the use of <code class="code docutils literal notranslate"><span class="pre">$LOAD_PATH</span></code>, but you should rarely if ever need to manipulate it
+directly if you use Rails as your framework and Bundler to manage your gems.</p>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="<%= section_path(chapter_id: 2, section_id: 6) %>" title="previous page"><span class="section-number">2.6. </span>Gems and Bundler: Library Management in Ruby</a>
+    <a class='right-next' id="next-link" href="<%= section_path(chapter_id: 2, section_id: 8) %>" title="next page"><span class="section-number">2.8. </span>Concluding Remarks: How (Not) To Learn a Language By Googling</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By sme777<br/>
+        
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
+      </p>
+    </div>
+  </footer>
+</main>

@@ -14,6 +14,7 @@ AllCops:
 Lint/Debugger:
   Exclude:
     - 'features/step_definitions/web_steps.rb'
+    - 'features/support/'
 
 # Offense count: 2
 # Configuration parameters: CountComments, CountAsOne, ExcludedMethods, IgnoredMethods.
@@ -29,6 +30,9 @@ Metrics/CyclomaticComplexity:
 # Offense count: 3
 # Configuration parameters: CountComments, CountAsOne, ExcludedMethods, IgnoredMethods.
 Metrics/MethodLength:
+  Exclude:
+    - 'features/step_definitions/web_steps.rb'
+    - 'features/support/paths.rb'
   Max: 13
 
 # Offense count: 1

@@ -1,0 +1,137 @@
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/part1/chapter4/sub-chapter1.rst.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="the-modelviewcontroller-mvc-architecture">
+<h1><span class="section-number">4.1. </span>The Model–View–Controller (MVC) Architecture<a class="headerlink" href="#the-modelviewcontroller-mvc-architecture" title="Permalink to this headline">¶</a></h1>
+<p>All well-written and nontrivially-sized applications reflect some macroarchitectural organization, that is,
+they can be thought of as ensembles of large communicating subsystems. Put another way, while we established
+in Section 3.1 that SaaS apps follow a client–server archi- tecture, we have said nothing about the organization
+of the server application. In this section we use an architectural pattern called <strong>Model-View-Controller</strong>
+(usually shortened to MVC) to do so.</p>
+<p>An application organized according to MVC consists of three main types of code. Models are concerned with the data
+manipulated by the application: how to store it, how to operate on it, and how to change it. An MVC app typically
+has a model for each type of entity manipulated by the app. For example, for a movie database app in which moviegoers
+(users) can write reviews, the entities would include (at least) movies, moviegoers, and reviews. (Towards the end
+of this chapter, a CHIPS exercise will introduce such an app, RottenPotatoes, which we’ll use throughout the rest
+of the book.)</p>
+<p>Views are presented to the user and contain information about the models with which users can interact. The views
+serve as the interface between the system’s users and its data; for example, in RottenPotatoes you can list movies
+and add new movies by clicking on links or buttons in the views. There is only one kind of model in Rotten Potatoes,
+but it is associated with a variety of views: one view lists all the movies, another view shows the details of a
+particular movie, and yet other views appear when creating new movies or editing existing ones.</p>
+<p>Finally, controllers mediate the interaction in both directions: when a user interacts with a view (for example, by
+clicking something on a Web page or submitting a form), a specific controller <em>action</em> corresponding to that user activity
+is invoked. Each controller corresponds to one model, and in Rails, each controller action is handled by a particular
+Ruby method within that controller. The controller can ask the model to retrieve or modify information; depending on
+the results of doing this, the controller decides what view will be presented next to the user, and supplies that view
+with any necessary information. Since RottenPotatoes has only one model (Movies), it also has only one controller, the
+Movies controller. The actions defined in that controller can handle each type of user interaction with any Movie
+view (clicking on links or buttons, for example) and contain the necessary logic to obtain Model data to <em>render</em> any
+of the Movie views.</p>
+<p>Given that SaaS apps have always been view-centric and have always relied on a persistence tier, Rails’ choice of MVC
+as the underlying architecture might seem like an obvious fit, but there are caveats. Technically, while a View in the
+MVC sense means “any logic needed to display something,” a Rails view is really a special case called a <em>template</em> or
+<em>template view</em>, in which static markup interspersed with variable substitution is processed by a generic logic engine.
+As Figure 4.1 shows, other patterns are possible for view-oriented frameworks. Model-View-Presenter can be thought of
+as an embellishment of Model-View-Controller, and Model-View-ViewModel provides two-way interaction between the model
+and the view so that updates to the view automatically occur in the model, in contrast to MVC in which the focus is on
+reflecting model changes in the view.</p>
+<p>As a software engineer who is experienced at learning new stacks, you will be in a position to learn by asking other
+experienced colleagues to give you a “developer’s-eye view” of a new language or framework. If you asked an experienced
+Rails developer to concisely describe the framework to you, you might get something like the following description.</p>
+<ul class="simple">
+<li><p>Rails is designed to support apps that follow the Model–View–Controller pattern. The framework provides powerful base classes from which your app’s models, views, and controllers inherit.</p></li>
+<li><p>Each Rails model is a resource type whose instances are rows in a particular table of a relational database. The database-stored models are exposed to Ruby code via a design pattern known as Active Record (Section 4.2), in which each type of model behaves more or less like a data structure whose fields (attributes) are semi-automatically seri- alized to the database.</p></li>
+<li><p>A Rails app is best viewed as a collection of RESTful resources, each consisting of its own model, controller, and set of views. Resources may have relationships to each other; for example, in a movie-reviewing application, we might say that Movie and Review are each a type of resource, that a single Movie can have many Reviews, and that any given Review belongs to some Movie. <strong>Foreign keys</strong> in the database tables (Section 5.4) capture such relationships.</p></li>
+<li><p>Because Rails is a server-side framework, it needs a way to map an HTTP route (Section 3.2 to code in the app that performs the correct action. The Rails routing subsystem (Section 4.4) provides a flexible way to map routes to Ruby methods located in Rails controllers. You can define routes any way you like, but if you choose to use some “standard” routes based on RESTful conventions, most of the routing is set up for you automatically.</p></li>
+<li><p>Rails was originally designed for apps whose client was a Web browser, so its view subsystem is designed around generating HTML pages. But it is equally easy to generate (for example) JSON data structures to return via a RESTful API.</p></li>
+<li><p>Rails embodies strong opinions about many mechanical details of your app’s imple- mentation, such as how classes and files are named and where they are stored. If you follow these opinions, Rails uses <strong>convention over configuration</strong> to save you a lot of work. For example, rather than explicitly specifying a mapping from a model class to the name of its corresponding database table or the filenames and class names of its associated controller and view files, Rails infers all these things based on simple naming rules.</p></li>
+</ul>
+<p><strong>Self-Check 4.1.1.</strong> <em>In which element of the MVC model is the app code “farthest away” from the user?
+Briefly explain your answer.</em></p>
+<blockquote>
+<div><p>The model code is “farthest away” from the user. Users interact directly with views (which should have little to no
+code) and code in controllers handles users’ requests for interaction, but model code is invoked only by the
+controller when needed.</p>
+</div></blockquote>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="<%= chapter_path(chapter_id: 4) %>" title="previous page"><span class="section-number">4. </span>SaaS Framework: Rails as a Model–View–Controller Framework</a>
+    <a class='right-next' id="next-link" href="<%= section_path(chapter_id: 4, section_id: 2) %>" title="next page"><span class="section-number">4.2. </span>Rails Models: Databases and Active Record</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By sme777<br/>
+        
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
+      </p>
+    </div>
+  </footer>
+</main>

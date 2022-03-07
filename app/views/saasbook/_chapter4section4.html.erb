@@ -1,0 +1,260 @@
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/part1/chapter4/sub-chapter4.rst.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="routes-controllers-and-views">
+<h1><span class="section-number">4.4. </span>Routes, Controllers, and Views<a class="headerlink" href="#routes-controllers-and-views" title="Permalink to this headline">¶</a></h1>
+<p>We’ve now been introduced to how Rails implements the models in MVC, but when users interact with a
+SaaS app via a browser, they’re interacting with views and invoking controller actions, either by
+typing URIs into their browser (resulting in an HTTP <code class="code docutils literal notranslate"><span class="pre">GET</span></code>) or interacting with page elements that
+generate <code class="code docutils literal notranslate"><span class="pre">GET</span></code> requests (links) or <code class="code docutils literal notranslate"><span class="pre">POST</span></code> requests (forms). In this section we take a tour through views
+and controllers to understand the lifecycle of such a request when it hits a Rails app. We first explore
+the controllers and views corresponding to REST actions that only read model data: Index and Read. In
+Section 4.6 we consider controllers and views corresponding to actions the modify data: Create, Update, and Delete.</p>
+<p>As we know from Section 3.2, our app will receive a request in the form of an HTTP route. The first step in a
+Rails app is therefore to determine which code in the app should be invoked to handle that route. Rails provides
+a flexible routing subsystem that maps routes to specific Ruby methods in each controller using the contents of
+the file <code class="code docutils literal notranslate"><span class="pre">config/routes.rb</span></code>. You can define any routes you like there, but if your app is RESTful (centered around
+CRUD requests against a set of resources) and you abide by convention over configuration, the single line <code class="code docutils literal notranslate"><span class="pre">resources</span>
+<span class="pre">’movies’</span></code> (in our case) defines a complete set of RESTful routes for a model (resource) called Movies, as Figure 4.4 shows.</p>
+<p>Although “RESTful route and action” column in the table should look familiar from Sec- tion 3.2, we raise four
+questions about it:</p>
+<ol class="arabic simple">
+<li><p>The four CRUD actions plus the Index action should only need five routes; why are there seven?</p></li>
+<li><p>Most Web browsers can only generate HTTP <code class="code docutils literal notranslate"><span class="pre">GET</span></code> and <code class="code docutils literal notranslate"><span class="pre">POST</span></code> requests; how can a browser generate a route such as Update, which uses HTTP <code class="code docutils literal notranslate"><span class="pre">PUT</span></code>?</p></li>
+<li><p>Some routes such as <code class="code docutils literal notranslate"><span class="pre">show</span></code> include a variable (parameter) as part of the route URI, and others such as <code class="code docutils literal notranslate"><span class="pre">create</span></code> must also provide the attribute values of the entity to be created as parameters. How are these parameters and their values made available to the controller action?</p></li>
+<li><p>Finally, what are the “route helper methods” referred to in the table and why are they needed?</p></li>
+</ol>
+<p>The first question—why seven routes rather than five—is easy but subtle. We preview the answer here and will
+return to it when we discuss HTML forms in Section 4.6. A RESTful request to create a movie would typically
+include information about the movie itself—title, rating, and so on. But in a user-facing app, we need a way
+to collect that information in- teractively from the user, usually by displaying a form the user can fill in.
+Submitting the form would clearly correspond to the <code class="code docutils literal notranslate"><span class="pre">create</span></code> action, but what route describes <em>displaying</em> the form?
+The Rails approach is to define a default RESTful route <code class="code docutils literal notranslate"><span class="pre">new</span></code> that displays whatever is necessary to allow collecting
+information from the user in preparation for a <code class="code docutils literal notranslate"><span class="pre">create</span></code> request. A similar argument applies to <code class="code docutils literal notranslate"><span class="pre">update</span></code>, which requires
+a way to show the user an editable version of the <em>existing</em> resource so the user can make changes; this latter
+action is called <code class="code docutils literal notranslate"><span class="pre">edit</span></code> in rails, and typically displays a form pre-populated with the existing resource’s attribute values.</p>
+<p>Turning to the second question, for historical reasons Web browsers only implement <code class="code docutils literal notranslate"><span class="pre">GET</span></code> (for following a link) and
+<code class="code docutils literal notranslate"><span class="pre">POST</span></code> (for submitting forms). To compensate, Rails’ routing mechanism lets browsers use <code class="code docutils literal notranslate"><span class="pre">POST</span></code> for requests that normally
+would require <code class="code docutils literal notranslate"><span class="pre">PUT</span></code> or <code class="code docutils literal notranslate"><span class="pre">DELETE</span></code>. Rails annotates the Web forms associated with such requests so that when the request is
+submitted, Rails <em>internally</em> changes the HTTP method “seen” by the controller to <code class="code docutils literal notranslate"><span class="pre">PUT</span></code> or <code class="code docutils literal notranslate"><span class="pre">DELETE</span></code> as appropriate. The
+result is that the Rails programmer can operate under the assumption that <code class="code docutils literal notranslate"><span class="pre">PUT</span></code> and <code class="code docutils literal notranslate"><span class="pre">DELETE</span></code> are actually supported,
+even though browsers don’t implement them. As a result, the <em>same set of routes</em> can handle either requests coming
+from a browser (that is, from a human being) or requests coming from another service in a SOA.</p>
+<p>What about routes that include a parameter in the URI, such as show, or those that must also include parameters corresponding
+to attribute values for a resource, such as <code class="code docutils literal notranslate"><span class="pre">create</span></code>? As we will see in the code examples in this section (and you will have an
+opportunity to experiment with in the next CHIPS), the Rails routing subsystem prepares a hash called <code class="code docutils literal notranslate"><span class="pre">params[]</span></code> that is made
+available to the controller. With the above <code class="code docutils literal notranslate"><span class="pre">routes.rb</span></code> file as part of an app, typing <code class="code docutils literal notranslate"><span class="pre">rake</span> <span class="pre">routes</span></code> at the command line
+(within the root directory of your app) will list all the routes implied by that file, showing wildcard parameters with the
+colon notation introduced in Section 3.5. For example, the route for show will appear as <code class="code docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/movies/:id</span></code>, which tells us
+that <code class="code docutils literal notranslate"><span class="pre">params[:id]</span></code> will hold the actual ID value parsed from the URI. Further, as we will see, Rails provides an easy way to
+generate an HTML form in which the form fields are named in such a way that another value in <code class="code docutils literal notranslate"><span class="pre">params</span></code>, in this example
+<code class="code docutils literal notranslate"><span class="pre">params[:movie]</span></code>, is itself a hash of key/value pairs corresponding to a <code class="code docutils literal notranslate"><span class="pre">Movie</span></code> object’s attributes and their desired values.
+This mechanism sounds more confusing than it actually is, as the code examples below will show.</p>
+<p>Finally, what are “route helpers”? By convention over configuration, the route URIs will match the resource name, but as we’ll
+see later, you can override this behavior. You might, for example, decide later that you’d rather have your routes built
+around <code class="code docutils literal notranslate"><span class="pre">film</span></code> rather than <code class="code docutils literal notranslate"><span class="pre">movie</span></code>. But then any view in your app that references the old-style movie route URIs—for example,
+the page that serves the form allowing users to edit a movie’s info—would have to be changed to <code class="code docutils literal notranslate"><span class="pre">film</span></code>. This is the problem
+that route helpers solve: they decouple what the
+route does (create, read, and so on) from the actual route URI. As the table suggests, the Ruby method <code class="code docutils literal notranslate"><span class="pre">movies_path</span></code> will return
+the correct URI for the route “list all movies,” <em>even if</em> the URI text itself is changed later (or for “create new movie,”
+if <code class="code docutils literal notranslate"><span class="pre">POST</span></code> is used as the route’s verb). Similarly <code class="code docutils literal notranslate"><span class="pre">movie_path(23)</span></code> will always return the correct URI for “show movie ID 23”
+(or update, edit, or destroy movie ID 23, depending on which HTTP verb is used). The route helpers also make explicit what
+the route is supposed to do, improving readability.</p>
+<p>What about the controller methods (called controller <em>actions</em> in Rails) that handle each RESTful operation? Once again,
+convention over configuration comes to the rescue. By default, the routes created by <code class="code docutils literal notranslate"><span class="pre">resources</span> <span class="pre">’movies’</span></code> will expect to find
+a file <code class="code docutils literal notranslate"><span class="pre">controllers/movies_controller.rb</span></code> that defines a class <code class="code docutils literal notranslate"><span class="pre">MoviesController</span></code> (which descends from the Rails-provided
+<code class="code docutils literal notranslate"><span class="pre">ApplicationController</span></code>, just as models descend from ActiveRecord::Base). That class will be expected to define instance methods
+<code class="code docutils literal notranslate"><span class="pre">index,</span> <span class="pre">new,</span> <span class="pre">create,</span> <span class="pre">show</span> <span class="pre">(read),</span> <span class="pre">edit,</span> <span class="pre">update,</span></code> and <code class="code docutils literal notranslate"><span class="pre">destroy,</span></code> corresponding to the RESTful actions of Figure 4.4.</p>
+<p>Each of these controller actions generally follows a similar pattern:</p>
+<ol class="arabic simple">
+<li><p>Collect the information accompanying the RESTful request: parameters, resource IDs in the URI, and so on</p></li>
+<li><p>Determine what ActiveRecord operations are necessary to fulfill the request.For example, the Index action might just require retrieving a list of all movies from the Movies table; the Update action might require identifying a resource ID from the URI, parsing the contents of a form, and using the form data to update the movie with the given ID (primary key); and so on.</p></li>
+<li><p>Set instance variables for any information that will need to be displayed in the view, such as information retrieved from the database.</p></li>
+<li><p>Render a view that will be returned as the result of the overall request.</p></li>
+</ol>
+<p>That leaves only the last bullet point: how does each controller action select a view, and how is the information generated
+in the controller action made available to that view?</p>
+<p>You should no longer be surprised to hear that part of the answer lies once again in convention over configuration.
+Controller actions do not return a value; instead, when a con- troller action finishes executing, by default Rails will
+identify and render a view named <code class="code docutils literal notranslate"><span class="pre">app/views/</span></code> <em>model-name</em> <code class="code docutils literal notranslate"><span class="pre">/action.html.erb</span></code>, for example <code class="code docutils literal notranslate"><span class="pre">app/views/movies/show.html.erb</span></code> for
+the show action in <code class="code docutils literal notranslate"><span class="pre">MoviesController</span></code>. The Rails module that choreographs how views are handled is <code class="code docutils literal notranslate"><span class="pre">ActionView::Base</span></code>. This
+view consists of HTML interspersed with Erb (Embedded Ruby) tags that allow the results of evaluating Ruby code to be
+interpolated into the HTML view. In particular, any instance variables set in the controller method become available in
+the view.</p>
+<p>Re-reading the previous sentence should give you pause. Why would instance variables of one class (<code class="code docutils literal notranslate"><span class="pre">MoviesController</span></code>)
+be accessible to an object of a completely different class (<code class="code docutils literal notranslate"><span class="pre">ActionView::Base</span></code>), violating all OOP orthodoxy? The simple
+reason is that the designers of Rails thought it would make coding easier. What actually happens is that Rails creates
+an instance of <code class="code docutils literal notranslate"><span class="pre">ActionView::Base</span></code> to handle rendering the view, and then uses Ruby’s metaprogramming facilities to “copy”
+all of the controller’s instance variables into that new object!</p>
+<ul class="simple">
+<li><p>The controller code is in class <code class="code docutils literal notranslate"><span class="pre">MoviesController</span></code>, defined in <code class="code docutils literal notranslate"><span class="pre">app/controllers/movies_controller.rb</span></code> (note that the model’s class name is pluralized to form the controller file name.) Your app’s controllers all inherit from your app’s root controller <code class="code docutils literal notranslate"><span class="pre">ApplicationController</span></code> (in <code class="code docutils literal notranslate"><span class="pre">app/controllers/application_controller.rb</span></code>), which contains controller behaviors common to multiple controllers (we will meet some in Chapter 5 and in turn inherits from <code class="code docutils literal notranslate"><span class="pre">ActionController::Base</span></code>.</p></li>
+<li><p>Each instance method of the controller is named using <code class="code docutils literal notranslate"><span class="pre">snake_lower_case</span></code> according to the RESTful action it handles, plus the two “pseudo-actions” <code class="code docutils literal notranslate"><span class="pre">new</span></code> and <code class="code docutils literal notranslate"><span class="pre">edit</span></code>.</p></li>
+<li><p>The view template for each action is named the same as the controller method itself, so the view for Showing a movie would be in <code class="code docutils literal notranslate"><span class="pre">app/views/movies/show.html.erb</span></code>. Strangely but conveniently, each view has access to all the instance variables set in the controller actions.</p></li>
+</ul>
+<p>There’s one last thing to notice about these views: they aren’t legal HTML! In particular, they lack an HTML <code class="code docutils literal notranslate"><span class="pre">DOCTYPE,</span>
+<span class="pre">&lt;html&gt;</span></code> element, and its main children <code class="code docutils literal notranslate"><span class="pre">&lt;head&gt;</span></code> and <code class="code docutils literal notranslate"><span class="pre">&lt;body&gt;</span></code>. In fact, we need to put those elements in <code class="code docutils literal notranslate"><span class="pre">views/application.html.erb</span></code>,
+which “wraps” all views by default, as Figure 4.6 shows.</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="c1"># This file is app/controllers/movies_controller.rb</span>
+<span class="k">class</span> <span class="nc">MoviesController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+    <span class="k">def</span> <span class="nf">index</span>
+        <span class="vi">@movies</span> <span class="o">=</span> <span class="no">Movie</span><span class="o">.</span><span class="n">all</span>
+    <span class="k">end</span>
+    <span class="k">def</span> <span class="nf">show</span>
+        <span class="nb">id</span> <span class="o">=</span> <span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span>            <span class="c1"># retrieve movie ID from URI route</span>
+        <span class="vi">@movie</span> <span class="o">=</span> <span class="no">Movie</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>     <span class="c1"># look up movie by unique ID</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<div class="highlight-erb notranslate"><div class="highlight"><pre><span></span><span class="x">&lt;h1&gt;All Movies&lt;/h1&gt;</span>
+
+<span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s1">&#39;Add Movie&#39;</span><span class="p">,</span> <span class="n">new_movie_path</span><span class="p">,</span> <span class="ss">:class</span> <span class="o">=&gt;</span> <span class="s1">&#39;btn btn-primary&#39;</span> <span class="cp">%&gt;</span><span class="x"></span>
+
+<span class="x">&lt;div id=&quot;movies&quot;&gt;</span>
+<span class="x">    &lt;div class=&quot;row&quot;&gt;</span>
+<span class="x">        &lt;div class=&quot;col-8&quot;&gt;Movie Title&lt;/div&gt;</span>
+<span class="x">        &lt;div class=&quot;col-2&quot;&gt;Rating&lt;/div&gt;</span>
+<span class="x">        &lt;div class=&quot;col-2&quot;&gt;Release Date&lt;/div&gt;</span>
+<span class="x">    &lt;/div&gt;</span>
+<span class="cp">&lt;%-</span> <span class="vi">@movies</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">movie</span><span class="o">|</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">    &lt;div class=&quot;row&quot;&gt;</span>
+<span class="x">        &lt;div class=&quot;col-8&quot;&gt; </span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="n">movie</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="n">movie_path</span><span class="p">(</span><span class="n">movie</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x"> &lt;/div&gt;</span>
+<span class="x">        &lt;div class=&quot;col-2&quot;&gt; </span><span class="cp">&lt;%=</span> <span class="n">movie</span><span class="o">.</span><span class="n">rating</span> <span class="cp">%&gt;</span><span class="x">&lt;/div&gt;</span>
+<span class="x">        &lt;div class=&quot;col-2&quot;&gt; </span><span class="cp">&lt;%=</span> <span class="n">movie</span><span class="o">.</span><span class="n">release_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%F&#39;</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x"> &lt;/div&gt;</span>
+<span class="x">    &lt;/div&gt;</span>
+<span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">&lt;/div&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-erb notranslate"><div class="highlight"><pre><span></span><span class="x">&lt;h1&gt;Details about </span><span class="cp">&lt;%=</span> <span class="vi">@movie</span><span class="o">.</span><span class="n">title</span> <span class="cp">%&gt;</span><span class="x">&lt;/h1&gt;</span>
+
+<span class="x">&lt;div id=&quot;metadata&quot;&gt;</span>
+<span class="x">    &lt;ul id=&quot;details&quot;&gt;</span>
+<span class="x">        &lt;li&gt; Rating: </span><span class="cp">&lt;%=</span> <span class="vi">@movie</span><span class="o">.</span><span class="n">rating</span> <span class="cp">%&gt;</span><span class="x"> &lt;/li&gt;</span>
+<span class="x">        &lt;li&gt; Released on: </span><span class="cp">&lt;%=</span> <span class="vi">@movie</span><span class="o">.</span><span class="n">release_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%F&#39;</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x"> &lt;/li&gt;</span>
+<span class="x">    &lt;/ul&gt;</span>
+<span class="x">&lt;/div&gt;</span>
+
+<span class="x">&lt;div id=&quot;description&quot;&gt;</span>
+<span class="x">    &lt;h2&gt;Description:&lt;/h2&gt;</span>
+<span class="x">    &lt;p&gt; </span><span class="cp">&lt;%=</span> <span class="vi">@movie</span><span class="o">.</span><span class="n">description</span> <span class="cp">%&gt;</span><span class="x"> &lt;/p&gt;</span>
+<span class="x">&lt;/div&gt;</span>
+
+<span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s1">&#39;Edit this movie&#39;</span><span class="p">,</span> <span class="n">edit_movie_path</span><span class="p">(</span><span class="vi">@movie</span><span class="p">),</span> <span class="ss">:class</span> <span class="o">=&gt;</span> <span class="s1">&#39;btn&#39;</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s1">&#39;Back to movie list&#39;</span><span class="p">,</span> <span class="n">movies_path</span><span class="p">,</span> <span class="ss">:class</span> <span class="o">=&gt;</span> <span class="s1">&#39;btn btn-primary&#39;</span> <span class="cp">%&gt;</span><span class="x"></span>
+</pre></div>
+</div>
+<div class="highlight-erb notranslate"><div class="highlight"><pre><span></span><span class="x">&lt;!DOCTYPE html&gt;</span>
+<span class="x">    &lt;html&gt;</span>
+<span class="x">    &lt;head&gt;</span>
+<span class="x">        &lt;title&gt; RottenPotatoes! &lt;/title&gt;</span>
+<span class="x">        &lt;link rel=&quot;stylesheet&quot; href=&quot;https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css&quot;&gt;</span>
+<span class="x">        </span><span class="cp">&lt;%=</span> <span class="n">javascript_include_tag</span> <span class="ss">:application</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">        </span><span class="cp">&lt;%=</span> <span class="n">csrf_meta_tags</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">    &lt;/head&gt;</span>
+<span class="x">    &lt;body&gt;</span>
+<span class="x">        &lt;div class=&quot;container&quot;&gt;</span>
+<span class="x">            </span><span class="cp">&lt;%-</span> <span class="k">if</span> <span class="n">flash</span><span class="o">[</span><span class="ss">:notice</span><span class="o">]</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">        &lt;div class=&quot;alert alert-info text-center&quot;&gt;</span><span class="cp">&lt;%=</span><span class="n">flash</span><span class="o">[</span><span class="ss">:notice</span><span class="o">]</span><span class="cp">%&gt;</span><span class="x">&lt;/div&gt;</span>
+<span class="x">            </span><span class="cp">&lt;%-</span> <span class="k">elsif</span> <span class="n">flash</span><span class="o">[</span><span class="ss">:alert</span><span class="o">]</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">        &lt;div class=&quot;alert alert-danger text-center&quot;&gt;</span><span class="cp">&lt;%=</span><span class="n">flash</span><span class="o">[</span><span class="ss">:notice</span><span class="o">]</span><span class="cp">%&gt;</span><span class="x">&lt;/div&gt;</span>
+<span class="x">            </span><span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">            </span><span class="cp">&lt;%=</span> <span class="k">yield</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">        &lt;/div&gt;</span>
+<span class="x">    &lt;/body&gt;</span>
+<span class="x">&lt;/html&gt;</span>
+</pre></div>
+</div>
+<p><strong>Self-Check 4.4.1.</strong> <em>The route helper for Show or Update take an argument, as in</em> <code class="code docutils literal notranslate"><span class="pre">movie_path(&#64;movie),</span></code> <em>but the route helpers for
+New and Create (</em> <code class="code docutils literal notranslate"><span class="pre">new_movie_path</span></code> and <code class="code docutils literal notranslate"><span class="pre">movies_path</span></code> <em>) do not. Why the difference?</em></p>
+<blockquote>
+<div><p>The argument to the Show and Update route helpers is either an existing <code class="code docutils literal notranslate"><span class="pre">Movie</span></code> instance or the ID (primary key) of an existing
+instance. Show and Update operate on existing movies, so they take an argument to identify which movie to operate on.
+New and Create operate on not-yet-existing movies.</p>
+</div></blockquote>
+<p><strong>Self-Check 4.4.2.</strong> <em>Why doesn’t the route helper movies_path for the Index action take an argument?
+(Hint: The reason is slightly different than the answer to the previous question!)</em></p>
+<blockquote>
+<div><p>The Index action just shows a list of all the movies, so no argument is needed to distinguish which movie to operate on.</p>
+</div></blockquote>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="<%= section_path(chapter_id: 4, section_id: 3) %>" title="previous page"><span class="section-number">4.3. </span>CHIPS: ActiveRecord Basics</a>
+    <a class='right-next' id="next-link" href="<%= section_path(chapter_id: 4, section_id: 5) %>" title="next page"><span class="section-number">4.5. </span>CHIPS: Rails Routes</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By sme777<br/>
+        
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
+      </p>
+    </div>
+  </footer>
+</main>

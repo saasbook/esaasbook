@@ -1,0 +1,103 @@
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/part1/chapter5/sub-chapter9.rst.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="fallacies-and-pitfalls">
+<h1><span class="section-number">5.9. </span>Fallacies and Pitfalls<a class="headerlink" href="#fallacies-and-pitfalls" title="Permalink to this headline">¶</a></h1>
+<p><strong>Pitfall: Too many filters or model lifecycle callbacks, or overly complex logic in filters or callbacks.</strong></p>
+<p>Filters and callbacks provide convenient and well-defined places to DRY out duplicated code, but too many of
+them can make it difficult to follow the app’s logic flow. For example, when there are numerous before-filters,
+after-filters and around-filters that trigger on different sets of controller actions, it can be hard to figure
+out why a controller action fails to execute as expected or which filter “stopped the show.” Things can be even
+worse if some of the filters are declared not in the controller itself but in a controller from which it inherits,
+such as <code class="code docutils literal notranslate"><span class="pre">ApplicationController</span></code>. Filters and callbacks should be used when you truly want to centralize code that
+would otherwise be duplicated.</p>
+<p><strong>Pitfall: Not checking for errors when saving associations.</strong></p>
+<p>Saving an object that has associations implies potentially modifying multiple tables. If any of those modifications
+fails, perhaps because of validations either on the object or on its associated objects, other parts of the save might
+silently fail. Be sure to check the return value of <code class="code docutils literal notranslate"><span class="pre">save</span></code>, or else use <code class="code docutils literal notranslate"><span class="pre">save!</span></code> and rescue any exceptions.</p>
+<p><strong>Pitfall: Nesting resources more than 1 level deep.</strong></p>
+<p>Although it’s technically possible to have nested resources multiple levels deep, the routes and actions quickly
+become cumbersome, which may be a sign that your design isn’t properly factored. Perhaps there is an additional
+entity relationship that needs to be modeled, using a shortcut such as <code class="code docutils literal notranslate"><span class="pre">has_many</span> <span class="pre">:through</span></code> to represent the
+final association.</p>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="<%= section_path(chapter_id: 5, section_id: 8) %>" title="previous page"><span class="section-number">5.8. </span>Other Types of Code</a>
+    <a class='right-next' id="next-link" href="<%= section_path(chapter_id: 5, section_id: 10) %>" title="next page"><span class="section-number">5.10. </span>Concluding Remarks: Languages, Productivity, and Beauty</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By sme777<br/>
+        
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
+      </p>
+    </div>
+  </footer>
+</main>

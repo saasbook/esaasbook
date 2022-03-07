@@ -1,0 +1,344 @@
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/index.rst.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Engineering Software as a Service: An Agile Approach Using Cloud Computing
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#about-the-authors">
+   About the Authors
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#content">
+   Content
+  </a>
+  <ul class="visible nav section-nav flex-column">
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="engineering-software-as-a-service-an-agile-approach-using-cloud-computing">
+<h1>Engineering Software as a Service: An Agile Approach Using Cloud Computing<a class="headerlink" href="#engineering-software-as-a-service-an-agile-approach-using-cloud-computing" title="Permalink to this headline">¶</a></h1>
+<p>The cover background is a photo of the Aqueduct of Segovia, Spain.
+We chose it as an example of a beautiful, long-lasting design. The full
+aqueduct is about 20 miles (32 km) long and was built by the Romans in
+the 1st or 2nd century A.D. This photo is from the half- mile (0.8 km) long,
+92 feet (28 m) high above ground segment built using unmortared granite blocks.
+The Roman designers followed the architectural principles in the ten-volume
+series De Architectura (“On Architecture”), written in 15 B.C. by Marcus Vitruvius
+Pollio. It was untouched until the 1500s, when King Ferdinand and Queen Isabella
+performed the first reconstruction of these arches. The aqueduct was in use and
+delivering water until recently.</p>
+<p>Visit main page <a class="reference external" href="http://www.saasbook.info">saasbook.info</a> for news, updates and extensive list of resources.</p>
+<p>To purchase the hardcopy (and kindle soon too) of the book visit <a class="reference external" href="https://www.amazon.com/Engineering-Software-As-Service-Computing/dp/1735233803/ref=sr_1_3?crid=YKGDL6KO83XA&amp;dchild=1&amp;keywords=engineering+software+as+a+service&amp;qid=1630265710&amp;sprefix=engineering+software+as+a%2Caps%2C324&amp;sr=8-3">amazon</a>.</p>
+</div>
+<div class="section" id="about-the-authors">
+<h1>About the Authors<a class="headerlink" href="#about-the-authors" title="Permalink to this headline">¶</a></h1>
+<a class="reference internal image-reference" href="<%= asset_url('fox.jpg') %>"><!-- <img alt="Armando Fox" class="align-right" src="_images/fox.jpg" style="width: 200px;" />-->
+<%= image_tag "fox.jpg", style: "width: 200px", class: "align-right", alt: "Armando Fox" %></a>
+<p><strong>Armando Fox</strong> (pronouns: he, him, él) is a Professor of Computer Science,
+Diversity and Eq- uity Officer at both the EECS Department level and Campus
+level, and Faculty Advisor for Digital Learning Strategy at UC Berkeley. He
+is an ACM Distinguished Scientist and in 2015 received the ACM Karl V.
+Karlstrom Outstanding Educator Award for his work on software engineering
+education. During his previous time at Stanford, he received teaching and
+mentoring awards from the Associated Students of Stanford University, the
+Society of Women Engineers, and Tau Beta Pi Engineering Honor Society. In
+2016 he and co-author David Pat- terson received the Most Promising New Textbook
+award (“Texty”) from the Textbook and Academic Authors Association for the First
+Edition of this book. In previous lives he helped design the Intel Pentium Pro
+microprocessor, founded a successful startup to commercialize his UC Berkeley
+dissertation research on mobile computing including the world’s first mobile
+graphical web browser (Top Gun Wingman on Palm Pilot), and co-founded a couple
+of startups that were artistic successes. He received his BS in electrical engineering
+and com- puter science from MIT and his MS from the University of Illinois at
+Urbana-Champaign. He is also a classically-trained musician, freelance Music Director,
+and bilingual/bicultural (Cuban-American) New Yorker transplanted to San Francisco.</p>
+<a class="reference internal image-reference" href="<%= asset_url('patterson.jpg') %>"><%= image_tag "patterson.jpg", style: "width: 200px", class: "align-right", alt: "David Patterson" %></a>
+<p><strong>David Patterson</strong> (pronouns: he, him) recently retired from a 40-year career as a
+Professor of Computer Science at UC Berkeley. In the past, he served as Chair of Berkeley’s
+Computer Science Division, Chair of the Computing Research Association, and President of
+the Asso- ciation for Computing Machinery. His best-known research projects are Reduced
+Instruction Set Computers (RISC), Redundant Arrays of Inexpensive Disks (RAID), and Networks
+of Workstations (NOW). This research led to many papers, 6 books, and more than 35 honors,
+including election to the National Academy of Engineering, the National Academy of Sciences,
+and the Silicon Valley Engineering Hall of Fame; being named a Fellow of the Computer History
+Museum, ACM, IEEE, and both AAAS organizations; and most recently, the ACM A.M. Turing Award,
+shared with Prof. John Hennessy of Stanford University for their work on RISC and their quantitative
+approach to computer architecture and design. His teaching awards include the UC Berkeley Distinguished
+Teaching Award, the ACM Karl V. Karlstrom Outstanding Educator Award, the IEEE Mulligan Education Medal,
+and the IEEE Undergraduate Teaching Award. Prior to winning the Textbook Excellence Award (“Texty”) for
+this book, he received one for his pioneering textbook on computer architec- ture. He received all his degrees
+from UCLA, which awarded him an Outstanding Engineer- ing Academic Alumni Award. He grew up in California,
+and for fun he enters sporting events with his two adult sons, including weekly soccer games and charity bike rides.</p>
+</div>
+<div class="section" id="content">
+<h1>Content<a class="headerlink" href="#content" title="Permalink to this headline">¶</a></h1>
+<p>The following content is protected under the creative commons license. You may download the authors’ work and share as long
+as you credit the authors. You may not change the contents of the book in any way or use it commercially.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="<%= preface_path %>">Preface</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="<%= chapter_path(chapter_id: 1) %>">1. Introduction to Software as a Service, Agile Development, and Cloud Computing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 1, section_id: 1) %>">1.1. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 1, section_id: 2) %>">1.2. Software Development Processes: Plan and Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 1, section_id: 3) %>">1.3. Software Development Processes: The Agile Manifesto</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 1, section_id: 4) %>">1.4. Software Quality Assurance: Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 1, section_id: 5) %>">1.5. Productivity: Conciseness, Synthesis, Reuse, and Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 1, section_id: 6) %>">1.6. SaaS and Service Oriented Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 1, section_id: 7) %>">1.7. Deploying SaaS: Cloud Computing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 1, section_id: 8) %>">1.8. Deploying SaaS: Browsers and Mobile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 1, section_id: 9) %>">1.9. Beautiful vs. Legacy Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 1, section_id: 10) %>">1.10. Guided Tour and How To Use This Book</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 1, section_id: 11) %>">1.11. Fallacies and Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 1, section_id: 12) %>">1.12. Concluding Remarks: Software Engineering Is More Than Programming</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="<%= chapter_path(chapter_id: 2) %>">2. How to Learn a New Language</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 2, section_id: 1) %>">2.1. Prelude: Learning to Learn Languages and Frameworks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 2, section_id: 2) %>">2.2. Pair Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 2, section_id: 3) %>">2.3. Introducing Ruby,an Object-Oriented Language</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 2, section_id: 4) %>">2.4. Ruby Idioms: Poetry Mode, Blocks, Duck Typing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 2, section_id: 5) %>">2.5. CHIPS: Ruby Intro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 2, section_id: 6) %>">2.6. Gems and Bundler: Library Management in Ruby</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 2, section_id: 7) %>">2.7. Fallacies and Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 2, section_id: 8) %>">2.8. Concluding Remarks: How (Not) To Learn a Language By Googling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="<%= chapter_path(chapter_id: 3) %>">3. SaaS Application Architecture: Microservices, APIs, and REST</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 3, section_id: 1) %>">3.1. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 3, section_id: 2) %>">3.2. SaaS Communication Uses HTTP Routes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 3, section_id: 3) %>">3.3. CHIPS: HTTP and URIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 3, section_id: 4) %>">3.4. From Web Sites to Microservices: Service-Oriented Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 3, section_id: 5) %>">3.5. RESTful APIs: Everything is a Resource</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 3, section_id: 6) %>">3.6. RESTful URIs, API Calls, and JSON</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 3, section_id: 7) %>">3.7. CHIPS: Create and Deploy a Simple SaaS App</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 3, section_id: 8) %>">3.8. Fallacies and Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 3, section_id: 9) %>">3.9. Concluding Remarks: Continuity From CGI to SOA</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="<%= chapter_path(chapter_id: 4) %>">4. SaaS Framework: Rails as a Model–View–Controller Framework</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 4, section_id: 1) %>">4.1. The Model–View–Controller (MVC) Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 4, section_id: 2) %>">4.2. Rails Models: Databases and Active Record</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 4, section_id: 3) %>">4.3. CHIPS: ActiveRecord Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 4, section_id: 4) %>">4.4. Routes, Controllers, and Views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 4, section_id: 5) %>">4.5. CHIPS: Rails Routes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 4, section_id: 6) %>">4.6. Forms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 4, section_id: 7) %>">4.7. CHIPS: Hangperson on Rails</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 4, section_id: 8) %>">4.8. Debugging: When Things Go Wrong</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 4, section_id: 9) %>">4.9. CHIPS: Hello Rails</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 4, section_id: 10) %>">4.10. Fallacies and Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 4, section_id: 11) %>">4.11. Concluding Remarks: Rails as a Service Framework</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="<%= chapter_path(chapter_id: 5) %>">5. SaaS Framework: Advanced Programming Abstractions for SaaS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 5, section_id: 1) %>">5.1. DRYing Out MVC: Partials, Validations and Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 5, section_id: 2) %>">5.2. Single Sign-On and Third-Party Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 5, section_id: 3) %>">5.3. CHIPS: Rails Intro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 5, section_id: 4) %>">5.4. Associations and Foreign Keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 5, section_id: 5) %>">5.5. Through-Associations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 5, section_id: 6) %>">5.6. RESTful Routes for Associations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 5, section_id: 7) %>">5.7. CHIPS: Associations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 5, section_id: 8) %>">5.8. Other Types of Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 5, section_id: 9) %>">5.9. Fallacies and Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 5, section_id: 10) %>">5.10. Concluding Remarks: Languages, Productivity, and Beauty</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="<%= chapter_path(chapter_id: 6) %>">6. Mobile and Desktop SaaS Clients: JavaScript Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 6, section_id: 1) %>">6.1. JavaScript: The Big Picture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 6, section_id: 2) %>">6.2. Introducing ECMAScript</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 6, section_id: 3) %>">6.3. Classes, Functions and Constructors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 6, section_id: 4) %>">6.4. The Document Object Model (DOM) and jQuery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 6, section_id: 5) %>">6.5. The DOM and Accessibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 6, section_id: 6) %>">6.6. Events and Callbacks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 6, section_id: 7) %>">6.7. AJAX: Asynchronous JavaScript And XML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 6, section_id: 8) %>">6.8. Testing Java Script and AJAX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 6, section_id: 9) %>">6.9. CHIPS: AJAX Enhancements to RottenPotatoes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 6, section_id: 10) %>">6.10. Single-Page Apps and JSON APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 6, section_id: 11) %>">6.11. Fallacies and Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 6, section_id: 12) %>">6.12. Concluding Remarks: JavaScript Past, Present and Future</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="<%= chapter_path(chapter_id: 7) %>">7. Requirements: BDD and User Stories</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 7, section_id: 1) %>">7.1. Behavior-Driven Design and User Stories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 7, section_id: 2) %>">7.2. SMART User Stories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 7, section_id: 3) %>">7.3. Lo-Fi User Interface Sketches and Storyboards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 7, section_id: 4) %>">7.4. Points and Velocity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 7, section_id: 5) %>">7.5. Agile Cost Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 7, section_id: 6) %>">7.6. Cucumber: From User Stories to Acceptance Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 7, section_id: 7) %>">7.7. CHIPS: Intro to BDD and Cucumber</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 7, section_id: 8) %>">7.8. Explicit vs. Implicit and Imperative vs. Declarative Scenarios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 7, section_id: 9) %>">7.9. The Plan-And-Document Perspective on Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 7, section_id: 10) %>">7.10. Fallacies and Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 7, section_id: 11) %>">7.11. Concluding Remarks: Pros and Cons of BDD</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="<%= chapter_path(chapter_id: 8) %>">8. Testing: Test-Driven Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 8, section_id: 1) %>">8.1. FIRST, TDD, and Red–Green–Refactor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 8, section_id: 2) %>">8.2. Anatomy of a Test Case: Arrange, Act, Assert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 8, section_id: 3) %>">8.3. Isolating Code: Doubles and Seams</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 8, section_id: 4) %>">8.4. Stubbing the Internet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 8, section_id: 5) %>">8.5. CHIPS: Intro to RSpec on Rails</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 8, section_id: 6) %>">8.6. Fixtures and Factories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 8, section_id: 7) %>">8.7. Coverage Concepts and Types of Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 8, section_id: 8) %>">8.8. Other Testing Approaches and Terminology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 8, section_id: 9) %>">8.9. CHIPS:The Acceptance Test/Unit Test Cycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 8, section_id: 10) %>">8.10. The Plan-And-Document Perspective on Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 8, section_id: 11) %>">8.11. Fallacies and Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 8, section_id: 12) %>">8.12. Concluding Remarks: TDD vs. Conventional Debugging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="<%= chapter_path(chapter_id: 9) %>">9. Software Maintenance: Enhancing Legacy Software Using Refactoring and Agile Methods</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 9, section_id: 1) %>">9.1. What Makes Code “Legacy” and How Can Agile Help?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 9, section_id: 2) %>">9.2. Exploring a Legacy Codebase</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 9, section_id: 3) %>">9.3. Establishing Ground Truth With Characterization Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 9, section_id: 4) %>">9.4. Comments and Commits: Documenting Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 9, section_id: 5) %>">9.5. Metrics, CodeSmells, and SOFA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 9, section_id: 6) %>">9.6. Method-Level Refactoring: Replacing Dependencies With Seams</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 9, section_id: 7) %>">9.7. The Plan-And-Document Perspective on Working With Legacy Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 9, section_id: 8) %>">9.8. Fallacies and Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 9, section_id: 9) %>">9.9. Concluding Remarks: Continuous Refactoring</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="<%= chapter_path(chapter_id: 10) %>">10. Agile Teams</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 10, section_id: 1) %>">10.1. It Takes a Team: Two-Pizza and Scrum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 10, section_id: 2) %>">10.2. Using Branches Effectively</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 10, section_id: 3) %>">10.3. Pull Requests and Code Reviews</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 10, section_id: 4) %>">10.4. Delivering the Backlog Using Continuous Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 10, section_id: 5) %>">10.5. CHIPS: Agile Iterations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 10, section_id: 6) %>">10.6. Reporting and Fixing Bugs: The Five R’s</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 10, section_id: 7) %>">10.7. The Plan-And-Document Perspective on Managing Teams</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 10, section_id: 8) %>">10.8. Fallacies and Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 10, section_id: 9) %>">10.9. Concluding Remarks: From Solo Developer to Teams of Teams</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="<%= chapter_path(chapter_id: 11) %>">11. Design Patterns for SaaS Apps</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 11, section_id: 1) %>">11.1. Patterns, Antipatterns, and SOLID Class Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 11, section_id: 2) %>">11.2. Just Enough UML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 11, section_id: 3) %>">11.3. Single Responsibility Principle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 11, section_id: 4) %>">11.4. Open/Closed Principle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 11, section_id: 5) %>">11.5. Liskov Substitution Principle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 11, section_id: 6) %>">11.6. Dependency Injection Principle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 11, section_id: 7) %>">11.7. Demeter Principle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 11, section_id: 8) %>">11.8. The Plan-And-Document Perspective on Design Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 11, section_id: 9) %>">11.9. Fallacies and Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 11, section_id: 10) %>">11.10. Concluding Remarks: Frameworks Capture Design Patterns</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="<%= chapter_path(chapter_id: 12) %>">12. Dev/Ops</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 12, section_id: 1) %>">12.1. From Development to Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 12, section_id: 2) %>">12.2. Three-Tier Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 12, section_id: 3) %>">12.3. Responsiveness, Service Level Objectives, and Apdex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 12, section_id: 4) %>">12.4. Releases and Feature Flags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 12, section_id: 5) %>">12.5. Monitoring and Finding Bottlenecks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 12, section_id: 6) %>">12.6. Improving Rendering and Database Performance With Caching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 12, section_id: 7) %>">12.7. Avoiding Abusive Database Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 12, section_id: 8) %>">12.8. CHIPS: Exploiting Caching and Indices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 12, section_id: 9) %>">12.9. Security: Defending Customer Data in Your App</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 12, section_id: 10) %>">12.10. The Plan-And-Document Perspective on Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 12, section_id: 11) %>">12.11. Fallacies and Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 12, section_id: 12) %>">12.12. Concluding Remarks: Beyond PaaS Basics</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="<%= chapter_path(chapter_id: 13) %>">13. Afterword</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 13, section_id: 1) %>">13.1. Looking Backwards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 13, section_id: 2) %>">13.2. Looking Forwards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 13, section_id: 3) %>">13.3. Essential Readings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="<%= section_path(chapter_id: 13, section_id: 4) %>">13.4. Last Words</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='right-next' id="next-link" href="<%= preface_path %>" title="next page">Preface</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By sme777<br/>
+        
+            &copy; Copyright 2021, Armando Fox and David Patterson.<br/>
+      </p>
+    </div>
+  </footer>
+</main>

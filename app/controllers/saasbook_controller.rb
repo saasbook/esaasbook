@@ -27,4 +27,10 @@ class SaasbookController < ApplicationController
 
     render('book_content')
   end
+
+  def show_search
+    @body_contents = 'search'
+
+    render('search')
+  end
 end

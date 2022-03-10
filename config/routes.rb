@@ -6,5 +6,5 @@ Rails.application.routes.draw do
   get '/chapter/:chapter_id', to: 'saasbook#show_chapter', as: 'chapter'
   get '/preface', to: 'saasbook#preface', as: 'preface'
   get '/', to: 'saasbook#index', as: 'home'
-  get '/search', to: 'saasbook#search', as 'search'
+  get '/search', to: 'saasbook#search'
 end

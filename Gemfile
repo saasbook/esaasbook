@@ -28,6 +28,13 @@ gem 'sprockets'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
+# Use Devise for authentication
+gem 'devise', '~> 4.2'
+# Use Omniauth GitHub plugin
+gem 'omniauth-github', '~> 1.1', '>= 1.1.2'
+# Use ActiveRecord Sessions
+gem 'activerecord-session_store', '~> 1.0'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -42,6 +49,7 @@ group :development do
   # Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/blob/master/README.md
   gem 'listen', '~> 3.3'
   gem 'rack-mini-profiler', '~> 2.0'
+  gem 'figaro'
 end
 
 group :test do

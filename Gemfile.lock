@@ -372,7 +372,7 @@ DEPENDENCIES
   cucumber-rails
   cucumber-rails-training-wheels
   database_cleaner
-  devise (~> 4.2)
+  devise
   figaro
   guard-cucumber
   guard-rspec

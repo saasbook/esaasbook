@@ -29,7 +29,7 @@ gem 'sprockets'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 # Use Devise for authentication
-gem 'devise', '~> 4.2'
+gem 'devise'
 # Use Omniauth GitHub plugin
 gem 'omniauth-github', '~> 1.1', '>= 1.1.2'
 # Use ActiveRecord Sessions
@@ -47,9 +47,9 @@ group :development do
   gem 'web-console', '>= 4.1.0'
   # Display performance information such as SQL time and flame graphs for each request in your browser.
   # Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/blob/master/README.md
+  gem 'figaro'
   gem 'listen', '~> 3.3'
   gem 'rack-mini-profiler', '~> 2.0'
-  gem 'figaro'
 end
 
 group :test do

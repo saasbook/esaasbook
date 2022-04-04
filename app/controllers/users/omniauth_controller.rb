@@ -11,16 +11,14 @@ module Users
         sign_in_and_redirect @user
         flash[:alert] = 'Signed in with github!'
       else
-        flash[:error] = 'There was a problem signing you in through GitHub. Please register or try signing in later.'
-        # Can change redirect/message later
-        redirect_to home
+        failure
       end
     end
 
     def failure
       # Can change redirect/message later
       flash[:error] = 'There was a problem signing you in. Please register or try signing in later.'
-      redirect_to home
+      redirect_to home_path
     end
   end
 end

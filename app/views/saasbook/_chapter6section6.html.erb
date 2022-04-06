@@ -119,6 +119,18 @@ will hide any movies with ratings other than G or PG. Our general strategy for J
 <span class="linenos">19</span><span class="nx">$</span><span class="p">(</span><span class="nx">MovieListFilter</span><span class="p">.</span><span class="nx">setup</span><span class="p">);</span> <span class="c1">// run setup function when document ready</span>
 </pre></div>
 </div>
+
+<figure>
+    <figcaption>
+    Figure 6.10: Using jQuery to add a “filter movies” checkbox to RottenPotatoes’ list of movies page; put this code in
+app/assets/javascripts/movie_list_filter.js. The text walks through the example in detail, and additional figures
+in the rest of the chapter generalize the techniques shown here. Our examples use jQuery’s DOM manipulation features
+rather than the browser’s built-in ones because the jQuery API is more consistent across different browsers than the official
+W3C DOM specification.
+    </figcaption>
+</figure>
+
+
 <p>For Step 1, we modify our existing Rails movie list view to attach the CSS class adult
 to any table rows for movies rated other than G or PG. All we have to do is change line 12
 of the Index template (Figure 4.5) as follows, thereby allowing us to write <code class="code docutils literal notranslate"><span class="pre">$(’.adult’)</span></code> to
@@ -155,6 +167,23 @@ that <code class="code docutils literal notranslate"><span class="pre">filter_ad
 all—it’s just a function-valued property of the object <code class="code docutils literal notranslate"><span class="pre">MovieListFilter</span></code>, which is a (global) variable. It is good JavaScript
 practice to create one or a few global objects to “encapsulate” your functions as properties, rather than writing a bunch
 of functions and polluting the global namespace with their names.</p>
+
+<figure>
+    <%= image_tag "Chapter6/6.11.jpg", class:"center", alt: "6.11" %>
+    <figcaption>
+    Figure 6.11: The three common uses of this introduced in Sections 6.3 and 6.6. See Fallacies and Pitfalls for more on the
+use and misuse of this.
+    </figcaption>
+</figure>
+<figure>
+    <%= image_tag "Chapter6/6.12.jpg", class:"center", alt: "6.12" %>
+    <figcaption>
+    Figure 6.12: The four ways to invoke the overloaded function jQuery() or $() and the effects of each. All four are
+demonstrated in Figure 6.10.
+    </figcaption>
+</figure>
+
+
 <p>The last step is Step 4, which is to arrange for the <code class="code docutils literal notranslate"><span class="pre">setup</span></code> function to be called. For historical reasons, JavaScript
 code associated with a page can begin executing <em>before</em> the entire page has been loaded and the DOM fully parsed. This
 feature was more important for responsiveness when browsers and Internet connections were slower. Nonetheless, we usually

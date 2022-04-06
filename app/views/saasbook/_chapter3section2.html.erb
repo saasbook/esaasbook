@@ -94,6 +94,19 @@ you start the server.</p>
 <li><p>Otherwise, if the connection succeeds, the client immediately sends an HTTP <em>request</em> describing its intention to perform some operation on a <em>resource</em>. A resource is any entity that the server app manipulates—a Web page, an image, and a form submission that creates a new user account are all examples of resources.</p></li>
 <li><p>The server delivers an HTTP <em>response</em> either satisfying the client’s request or reporting any errors that prevented the request from succeeding. The response may also include information in the form of an <strong>HTTP cookie</strong> that allows the server to correctly identify this same client on future interactions.</p></li>
 </ol>
+
+<figure>
+    <%= image_tag "Chapter3/3.2.jpg", class:"center", alt: "3.2" %>
+    <figcaption>
+    Figure 3.2: An HTTP route consists of an HTTP method plus a URI, and expresses the client’s desire to perform some
+operation on the resource named by the URI. A full URI begins with a scheme such as http or https, which describes what
+protocol is to be used to access the resource, and includes the above components. Optional components are in parentheses; if
+the port number is omitted, it defaults to 80 for HTTP or 443 for HTTPS. A partial URI omits any or all of the leftmost
+components, in which case those components are filled in or resolved relative to a base URI determined by the specific
+application. Best practice is to use full URIs.
+    </figcaption>
+</figure>
+
 <p>What does the client’s HTTP request in step 2 look like? An HTTP request consists of a <em>route, zero</em> or more <em>headers</em>, and possibly a request body, all of
 which are just strings sent over the TCP/IP connection. As Figure 3.2 shows, an HTTP <em>route</em> consists of an HTTP <em>method</em> — usually, one of <code class="code docutils literal notranslate"><span class="pre">GET,</span> <span class="pre">POST,</span> <span class="pre">PUT,</span> <span class="pre">PATCH,</span></code> or <code class="code docutils literal notranslate"><span class="pre">DELETE</span></code>—plus a <strong>URI</strong>, or
 <strong>Uniform Resource Identifier</strong>. URI. You are familiar with URIs as the strings usually beginning with <code class="code docutils literal notranslate"><span class="pre">http://</span></code> that you type into a browser’s address bar. Importantly,

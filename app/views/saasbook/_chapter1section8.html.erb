@@ -99,6 +99,16 @@ pages, but the actual visible page content always consists of HTML.</p>
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </pre></div>
 </div>
+
+<figure>
+    <figcaption>
+    Figure 1.7: At its simplest, an HTML 5 document is a file of text beginning with the XML document type declaration,
+followed by a single html element whose child elements represent the components on the page. The use of angle brackets for
+HTML tags comes from SGML (Standard Generalized Markup Language), a codified standardization of IBM’s
+Generalized Markup Language, developed in the 1960s for encoding computer-readable project documents.
+    </figcaption>
+</figure>
+
 <p>As its name implies, HTML is an example of a <strong>markup language</strong>: it combines text with
 markup (annotations about the text’s structure) in a way that makes it easy to syntactically
 distinguish the two. Technically, HTML 5 (the current widely-used version) is really just
@@ -150,6 +160,16 @@ on a wide range of screen sizes. For this reason, while Figure 1.8 shows that th
 developing client apps, in this book we recommend creating “mobile-first” apps using HTML5, CSS, and JavaScript,
 thus taking advantage of the extensive existing tooling available in that ecosystem, especially the Bootstrap
 presentation framework and the jQuery DOM library, which we discuss in Chapter 6.</p>
+
+<figure>
+    <%= image_tag "Chapter1/1.8.jpg", class:"center", alt: "1.8" %>
+    <figcaption>
+    Figure 1.8: Three approaches to implementing mobile clients. Today, the vast majority of mobile platform features,
+including disconnected operation and fingerprint-based authentication, are now available via open Web standards as well as
+via the platform-specific programming environment.
+    </figcaption>
+</figure>
+
 <p>Despite the differences among the ways of building mobile or desktop SaaS, all such apps are structurally similar:
 they provide a local user interface, possibly including local storage, and they use open SaaS standards and protocols
 to communicate with one or more remote servers.</p>

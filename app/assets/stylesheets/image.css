@@ -1,0 +1,25 @@
+/*
+for figures
+*/
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 75%;
+}
+
+/* figure {
+  display: inline-block;
+  width: 50%;
+  text-align: center;
+} */
+
+figure img {
+  vertical-align: top;
+}
+figure figcaption {
+  font-weight: bold;
+  text-align: center;
+  font-size:12px;
+}

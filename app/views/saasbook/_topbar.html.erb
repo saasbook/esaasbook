@@ -21,9 +21,9 @@
                     <!-- ipynb file if we had a myst markdown file -->
                     
                     <!-- Download raw file -->
-                    <a class="dropdown-buttons" href="../../_sources/part2/chapter13/sub-chapter3.rst.txt"><button type="button"
+                    <a class="dropdown-buttons" href="placeholder for whatever appears here"><button type="button"
                             class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                            data-placement="left">.rst</button></a>
+                            data-placement="bottom">.rst</button></a>
                     <!-- Download PDF via print -->
                     <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
                         onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -31,19 +31,37 @@
             </div>
 
             <!-- Source interaction buttons -->
+            <a class="annotation-button" ><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" title="Make annotation"><i
+                        class="fa fa-comment"></i></button></a>
 
+            <a class="highlighter-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" title="Highlighter"><i
+                        class="fas fa-highlighter"></i></button></a>
             <!-- Full screen (wrap in <a> to have style consistency -->
 
-            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+            <a class="full-screen-button">
+                <button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
                     data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-                    title="Fullscreen mode"><i
-                        class="fas fa-expand"></i></button></a>
+                    title="Fullscreen mode">
+                    <i class="fas fa-expand"></i>
+                </button>
+            </a>
+
+
 
             <!-- Launch buttons -->
 
         </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show"> </div>
+        <!-- user_github_omniauth_authorize_path -->
+        <div class="d-none d-md-block col-md-2 py-1 show">
+            <a class="login-button" href= "" >
+                <button type="button" class="btn btn-secondary topbarbtn" title="Sign in with Github" 
+                        data-toggle="tooltip" data-placement="bottom">
+                    Sign in 
+                </button>
+            </a>
+        </div>
+        
     </div>
 </div>

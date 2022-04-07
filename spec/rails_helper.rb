@@ -65,4 +65,19 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  # Devise configs
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :view
+
+  OmniAuth.config.test_mode = true
+  OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new({
+                                                                provider: 'github',
+                                                                uid: '123545',
+                                                                email: 'githubs@testing.com',
+                                                                full_name: 'bob bobson'
+                                                              })
+
+  # Factorybot
+  config.include FactoryBot::Syntax::Methods
 end

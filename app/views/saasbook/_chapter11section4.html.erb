@@ -79,6 +79,16 @@ dispatching logic—one variant of the <em>Case Statement</em> design smell—su
 <span class="linenos">12</span><span class="k">end</span>
 </pre></div>
 </div>
+
+<figure>
+  <figcaption>
+  Figure 11.10: The Report class depends on a base class Formatter with subclasses HtmlFormatter and PdfFormatter.
+Because of the explicit dispatch on the report format, adding a new type of report output requires modifying
+Report#output, and probably requires changing other methods of Report that have similar logic—so-called shotgun
+surgery.
+  </figcaption>
+</figure> 
+
 <p>Depending on the specific case, various design patterns can help. One problem that the smelly
 code in Figure 11.10 is trying to solve is that the desired subclass of <code class="code docutils literal notranslate"><span class="pre">Formatter</span></code> isn’t known
 until runtime, when it is stored in the <code class="code docutils literal notranslate"><span class="pre">&#64;format</span></code> instance variable. The <strong>abstract factory pattern</strong>
@@ -101,6 +111,16 @@ a common interface—hence the name of the pattern.)</p>
 <span class="linenos">12</span><span class="k">end</span>
 </pre></div>
 </div>
+
+<figure>
+  <figcaption>
+  Figure 11.11: Ruby’s metaprogramming and duck typing enable an elegant implementation of the abstract factory
+  pattern. classify is provided by Rails to convert snake_case to UpperCamelCase. constantize is syntactic sugar
+  provided by Rails that calls the Ruby introspection method Object#const_get on the receiver. We also handle the case of
+  an invalid value of the formatter class, which the bad code doesn’t.
+  </figcaption>
+</figure>
+
 <p>Another approach is to take advantage of the <strong>Strategy pattern</strong> or <strong>Template Method pattern</strong>. Both
 support the case in which there is a general approach to doing a task but many possible variants.
 The difference between the two is the level at which commonality is captured. With Template
@@ -112,6 +132,27 @@ report formatter. If every kind of formatter followed the same high- level steps
 generate the header, generate the report body, and then generate the footer—we could use
 Template Method. On the other hand, if the steps themselves were quite different, it would
 make more sense to use Strategy.</p>
+
+<figure>
+  <%= image_tag "Chapter11/11.12.svg", class:"center", alt: "11.12" %>
+  <figcaption>
+  Figure 11.12: In Template Method (left), the extension points are header, body, and footer, since the Report#output
+method calls @formatter.header, @formatter.body, and so on, each of which delegates to a specialized counterpart in
+the appropriate subclass. (Light gray type indicates methods that just delegate to a subclass.) In Strategy (right), the
+extension point is the output method itself, which delegates the entire task to a subclass. Delegation is such a common
+ingredient of composition that some people refer to it as the delegation pattern.
+  </figcaption>
+</figure> 
+
+<figure>
+  <%= image_tag "Chapter11/11.13.svg", class:"center", alt: "11.13" %>
+  <figcaption>
+  Figure 11.13: (Left) The multiplication of subclasses resulting from trying to solve the Formatter problem using inheritance
+shows why your class designs should “prefer composition over inheritance.” (Right) A more elegant solution uses the
+Decorator design pattern.
+  </figcaption>
+</figure>
+
 <p>An example of the Strategy pattern in the wild is OmniAuth (Section 5.2): many apps need
 third-party authentication, and the steps are quite different depending on the auth
 provider, but the API to all of them is the same. Indeed, OmniAuth even refers to its
@@ -150,6 +191,16 @@ elegant decorator-based design of the PDF format-er shown in Figure 11.13 (right
 <span class="linenos">21</span><span class="no">PdfWithPasswordFormatter</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">PdfFormatter</span><span class="o">.</span><span class="n">new</span><span class="p">))</span>
 </pre></div>
 </div>
+
+<figure>
+  <figcaption>
+  Figure 11.14: To apply Decorator to a class, we “wrap” class by creating a subclass (to follow the Liskov Substitution
+Principle, as we’ll learn in Section 11.5). The subclass delegates to the original method or class for functionality that isn’t
+changed, and implements the extra methods that extend the functionality. We can then easily “build up” just the version of
+PdfFormatter we need by “stacking” decorators.
+  </figcaption>
+</figure>
+
 <p>In the wild, the ActiveSupport module of Rails provides method-level decoration via
 <code class="code docutils literal notranslate"><span class="pre">alias_method_chain</span></code>, which is very useful in conjunction with Ruby’s open classes, as Figure
 11.15 shows. A more interesting example of Decorator in the wild is the Rack application server
@@ -174,6 +225,15 @@ measuring app performance, and some types of HTTP caching.</p>
 <span class="linenos">12</span><span class="n">send_email_without_cc</span><span class="p">(</span><span class="o">...</span><span class="p">)</span> <span class="c1"># call (renamed) original method</span>
 </pre></div>
 </div>
+
+<figure>
+  <figcaption>
+  Figure 11.15: To decorate an existing method Mailer#send_email, we reopen its class and use alias_method_chain to
+decorate it. Without changing any classes that call send_email, all calls now use the decorated version that sends email and
+copies the sender.
+  </figcaption>
+</figure>
+
 <p><strong>Self-Check 11.4.1.</strong> <em>Here are two statements about delegation:</em></p>
 <p><em>1. A subclass delegates a behavior to an ancestor class</em></p>
 <p><em>2. A class delegates a behavior to a descendant class</em></p>

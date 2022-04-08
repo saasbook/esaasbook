@@ -66,6 +66,18 @@ function matches an expected result) or doesn’t happen (for example, passing a
 function doesn’t result in an error or exception). A
 collection of test cases is called a <strong>test suite</strong>. A code base usually has several test suites, corresponding to different
 kinds of tests, as we describe later in Section 8.7.</p>
+
+<figure>
+  <%= image_tag "Chapter8/8.2.jpg", class:"center", alt: "8.2" %>
+  <figcaption>
+  Figure 8.2: A few examples of the kinds of assertions allowed by RSpec. One can invert the sense of any assertion (“Expect x
+not to equal 50”), as in the first line of the table, but as Chapter 7 warned, negative assertions should be used with caution,
+since there are many ways for a program not to satisfy a particular condition while still not behaving correctly. The use of
+braces rather than parentheses for the Exception example shows that expect can take either an expression, like x, or a
+callable block.
+  </figcaption>
+</figure>
+
 <p>In this section we focus on <strong>unit tests</strong>, the finest-grained test cases, for which the SUT is a single method.
 In particular, if the method being tested does not call any other methods to help do its job, we say it is a <strong>leaf
 method</strong>. Since even a leaf method may have multiple testable behaviors, a single method may be the subject of multiple

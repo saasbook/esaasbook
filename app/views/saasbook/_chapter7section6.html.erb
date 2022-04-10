@@ -96,6 +96,16 @@ ambiguities in the customer’s desired features.</p>
 <span class="nf">    </span><span class="k">And </span><span class="nf">I should see &quot;</span><span class="s">Hamilton</span><span class="nf">&quot;</span>
 </pre></div>
 </div>
+
+<figure>
+  <figcaption>
+  Figure 7.5: Top (a): A repetitive, non-DRY scenario for checking the alphabetical ordering of movies in the list. Middle (b):
+A DRYer, more declarative expression of the same scenario. Bottom (c): Adding this code to movie_steps.rb creates new
+step definitions matching lines 5–7 of the declarative scenario by reusing existing steps. (Recall from Figure 2.2 that %Q is an
+alternative syntax for double-quoting a string.) We will learn about expect, which appears in line 13, in the next chapter.
+  </figcaption>
+</figure>
+
 <p>Figure 7.4 is an example user story, showing a feature with one scenario of adding the movie <em>Hamilton</em>; the scenario has
 nine steps. (We show just a single scenario in this example, but features usually have many scenarios.) Although stilted
 writing, this format that Cucumber can act upon is still easy for the nontechnical customer to understand, providing a

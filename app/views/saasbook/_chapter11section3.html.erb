@@ -121,10 +121,27 @@ class, as Figure 11.8 shows.</p>
 <span class="linenos">25</span><span class="k">end</span>
 </pre></div>
 </div>
+
+<figure>
+  <figcaption>
+  Figure 11.8: To perform Extract Class, we identify the group of methods that shares a responsibility distinct from that of
+the rest of the class, move those methods into a new class, make the “traveling together” data items on which they operate
+into instance variables of the class, and arrange to pass an instance of the class around rather than the individual items.
+  </figcaption>
+</figure> 
+
 <p><strong>Self-Check 11.3.1.</strong> <em>Draw the UML class diagrams showing class architecture before and after
 the refactoring in Figure 11.8.</em></p>
 <blockquote>
 <div><p>Figure 11.9 shows the UML diagrams.</p>
+
+<figure>
+  <%= image_tag "Chapter11/11.9.svg", class:"center", alt: "11.49" %>
+  <figcaption>
+  Figure 11.9: UML class diagrams before (left) and after (right) extracting the Address class from Moviegoer.
+  </figcaption>
+</figure> 
+
 </div></blockquote>
 </div>
 

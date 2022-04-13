@@ -65,7 +65,8 @@
                 <a class="user-page-button" href= "user-page-path%>">
                     <button type="submit" class="btn btn-default" title="User page" 
                             data-toggle="tooltip" data-placement="bottom">
-                        <%= current_user.email %>
+                        <%= current_user.full_name %>
+                        <%= image_tag("http://github.com/#{current_user.full_name}.png", width: "15%")%>
                     </button>
                 </a>
             <% else %>

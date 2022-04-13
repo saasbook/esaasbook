@@ -108,6 +108,16 @@ per action, so all the response data for a given controller action must be packe
 <span class="linenos">25</span><span class="p">};</span>
 </pre></div>
 </div>
+
+<figure>
+    <figcaption>
+    Figure 6.26: This version of MoviePopup expects a JSON rather than HTML response (line 5), so the success function
+uses the returned JSON data structure to create new HTML elements inside the popup div (lines 17–19; observe that
+jQuery DOM-manipulation functions such as append can take multiple arguments of distinct pieces of HTML to create).
+The functions omitted for brevity are the same as in Figure 6.14.
+    </figcaption>
+</figure>
+
 <p><code class="code docutils literal notranslate"><span class="pre">render</span> <span class="pre">:json</span></code> works by calling <code class="code docutils literal notranslate"><span class="pre">to_json</span></code> on object to create the string to send back to the client.
 The default implementation of <code class="code docutils literal notranslate"><span class="pre">to_json</span></code> can serialize simple ActiveRecord objects, as Figure 6.25 shows.</p>
 <p>To make an AJAX call that expects a JSON-encoded response, we just ensure that the argument object passed to <code class="code docutils literal notranslate"><span class="pre">$.ajax</span></code> includes
@@ -130,6 +140,27 @@ to specify JSON fixtures as well as HTML fixtures, as Figure 6.27 shows.</p>
 <span class="linenos">13</span><span class="p">});</span>
 </pre></div>
 </div>
+
+<figure>
+    <figcaption>
+    Figure 6.27: Jasmine-jQuery expects to find fixture files containing .json data in spec/javascripts/fixtures/json.
+After executing line 5, jsonResponse will contain the actual JavaScript object (not the raw JSON string!) that will get
+passed to the success handler.
+    </figcaption>
+</figure>
+
+<figure>
+    <%= image_tag "Chapter6/6.28.jpg", class:"center", alt: "6.28" %>
+    <figcaption>
+    Figure 6.28: Architecture of in-browser SPAs that retrieve assets from multiple distinct services. Left: If the JavaScript code
+was served from RottenPotatoes.com, the default same-origin policy that browsers implement for JavaScript will forbid
+the code from making AJAX calls to servers in other domains. The cross-origin resource sharing (CORS) specification
+relaxes this restriction but is only supported by very recent browsers. Right: in the traditional SPA architecture, a single
+server serves the JavaScript code and interacts with other remote services. This arrangement respects the same-origin
+policy and also allows the main server to do additional work on behalf of the client if needed.
+    </figcaption>
+</figure>
+
 <p><strong>Self-Check 6.10.1.</strong> <em>In Figure 6.27 showing the use of a JSON fixture, why do we also still need the HTML
 fixture to be loaded in line 4?</em></p>
 <blockquote>

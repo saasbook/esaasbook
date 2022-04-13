@@ -79,6 +79,28 @@ In an aggregation, the owned objects survive destruction of the owning object. F
 when the course is over! In a <em>composition</em>, the owned objects are usually destroyed when the
 owning object is destroyed. For example, <em>Movie has many Reviews</em> is a composition since
 deleting a Movie should cause all of its reviews to be deleted.</p>
+
+<figure>
+  <%= image_tag "Chapter11/11.5.jpg", class:"center", alt: "11.5" %>
+  <figcaption>
+  Figure 11.5: The fourteen types of diagrams defined by UML 2.2 for describing a software system. These descriptions are
+based on the excellent Wikipedia summary of UML5
+, which also shows an example of each diagram type. Use case diagrams
+are similar to Agile user stories, but lack the level of detail that allows tools like Cucumber to bridge the gap between user
+stories and integration/acceptance tests.
+  </figcaption>
+</figure> 
+
+<figure>
+  <%= image_tag "Chapter11/11.6.svg", class:"center", alt: "11.6" %>
+  <figcaption>
+  Figure 11.6: This UML class diagram shows a subset of the classes in the theater-ticketing app consistent with Figures 9.4
+and 9.5. Each box represents a class with its most important methods and attributes (responsibilities). Inheritance is
+represented by an arrow. Classes with associations are connected by lines whose endpoints are annotated with a multiplicity
+and optionally a diamond—open for aggregations, filled for compositions, absent otherwise.
+  </figcaption>
+</figure> 
+
 <p>Class diagrams are popular even among software engineers who don’t use the other parts of
 UML. With this introduction to UML in hand, we can use class diagrams to illustrate “before
 and after” class architecture when we improve code using the SOLID guidelines and design
@@ -94,8 +116,18 @@ belong to a University.</p>
 an aggregation or a composition?</em></p>
 <blockquote>
 <div><p>It should be a composition, since departments wouldn’t survive the closing of a university.</p>
+
+<figure>
+  <%= image_tag "Chapter11/11.7.jpg", class:"center", alt: "11.7" %>
+  <figcaption>
+  Figure 11.7: The “recommended” lack of cohesion of methods (LCOM) score depends heavily on which LCOM variant is
+used. The table shows two of the most widely-used variants.
+  </figcaption>
+</figure> 
+
 </div></blockquote>
 </div>
+
 
 
               </div>

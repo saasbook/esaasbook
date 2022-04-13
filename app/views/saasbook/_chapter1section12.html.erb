@@ -76,6 +76,22 @@ of software and tools, you probably shouldn’t.</p>
 (Swaine 2001)</em></p>
 </div></blockquote>
 </div></blockquote>
+
+<figure>
+    <%= image_tag "Chapter4/4.1.jpg", class:"center", alt: "4.1" %>
+    <figcaption>
+    Figure 4.1: Three architectural patterns for Web apps that include a GUI. In all cases, the Model contains the main business
+logic. Model-View-Controller (MVC, right), which Rails implements, makes sense when the views (HTML pages) are
+passive and all user interaction (clicks, form field events, and so on) must be handled by the controller, which in Rails is part
+of the server code. But modern Rails apps are no longer “pure” MVC: Model-View-Presenter (MVP, center) concentrates
+all UI-handling for the view in a Presenter module, which more accurately describes rich Web apps in which client-side
+JavaScript explicitly handles many UI interactions. Model-View-ViewModel (MVVM, left), also called Model-View-Binder
+and originally invented for developing GUI applications with Microsoft .NET, goes a step further and reifies two-way
+binding between a view and its data: UI interactions on the view automatically affect the data, and updating the data
+automatically updates the view. JavaScript frameworks such as Angular and Vue largely follow this pattern.
+    </figcaption>
+</figure>
+
 <p>This single quote gives a good deal of the rationale behind the extreme programming (XP)
 version of Agile that we cover in this book. We keep iterations short, so that the customer
 sees the next version of the incomplete but working prototype every week or two. You write

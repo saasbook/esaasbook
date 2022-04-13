@@ -120,6 +120,18 @@ of rows can take tens of minutes or even hours to run.</p>
 <span class="linenos">17</span><span class="k">end</span>
 </pre></div>
 </div>
+
+<figure>
+  <figcaption>
+  Figure 12.3: Pseudocode for using a feature flag to help migrate data from an older to a newer schema incrementally. After
+an initial migration creates any necessary new schema elements, each function that reads or updates the affected data
+implements two code paths, corresponding to the older and newer schema respectively. If the feature flag is off, only the old
+code path is ever used; but when the feature flag is on, the new code path contributes results to searches and causes old data
+to be incrementally migrated to the new schema. Once all data has been migrated, a subsequent migration and code push
+can remove unused columns or tables from the old schema and remove the alternate code paths protected by the feature flag.
+  </figcaption>
+</figure>
+
 <p>The second option is to split the change across multiple deployments using a <em>feature</em> <em>flag</em>—a configuration
 variable whose value can be changed <em>while the app is running</em> to control which code paths in
 the app are executed. Notice that each step in Figure 12.3 is nondestructive: as we did with

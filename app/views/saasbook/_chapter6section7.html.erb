@@ -94,6 +94,18 @@ existing actions.</p>
 <span class="k">end</span>
 </pre></div>
 </div>
+
+<figure>
+    <figcaption>
+    Figure 6.13: (a) Top: a simple partial that will be rendered and returned to the AJAX request. We give the “Close” link a
+unique element ID so we can conveniently bind a handler to it that will hide the popup. (b) Bottom: The controller action
+that renders the partial, obtained by a simple change to Figure 4.5: if the request is an AJAX request, line 5 performs a
+render and immediate return. The :object option makes @movie available to the partial as a local variable whose name
+matches the partial’s name, in this case movie. If xhr? is not true, the controller method will perform the default rendering
+action, which is to render the show view as usual.
+    </figcaption>
+</figure>
+
 <p>How does our controller action know whether show was called from JavaScript code or by a regular user-initiated
 HTTP request? Fortunately, every major JavaScript library and most browsers set an HTTP header <code class="code docutils literal notranslate"><span class="pre">X-Requested-With:</span></code>
 XMLHttpRequest on all AJAX HTTP requests. The Rails helper method <code class="code docutils literal notranslate"><span class="pre">xhr?</span></code>, defined on the controller instance’s request
@@ -148,6 +160,17 @@ will be serialized into a string that can be appended to the URI. As always, suc
 <span class="linenos">34</span><span class="nx">$</span><span class="p">(</span><span class="nx">MoviePopup</span><span class="p">.</span><span class="nx">setup</span><span class="p">);</span>
 </pre></div>
 </div>
+<figure>
+    <figcaption>
+    Figure 6.14: The ajax function constructs and sends an XHR request with the given characteristics. type specifies the
+HTTP verb to use, url is the URL or URI for the request, timeout is the number of milliseconds to wait for a response
+before declaring failure, success specifies a function to call with the returned data, and error specifies a function to call if
+a timeout or other error occurs. Many more options to the ajax function are available, in particular for more robust error
+handling.
+    </figcaption>
+</figure>
+
+
 <p>Looking at the rest of the code in Figure 6.14, getting the URI that is the target of the XHR
 request is easy: since the link we’re hijacking already links to the RESTful URI for showing movie details, we can
 query its href attribute, as line 10 shows. Lines 12–13 remind us that function-valued properties can specify either
@@ -162,6 +185,15 @@ just display an alert box. In case of success, we specify <code class="code docu
 <span class="p">}</span>
 </pre></div>
 </div>
+<figure>
+    <figcaption>
+    Figure 6.15: Adding this code to app/assets/stylesheets/application.css specifies that the “floating” window should
+be positioned at absolute coordinates rather than relative to its enclosing element, but as the text explains, we don’t know
+until runtime what those coordinates should be, so we use jQuery to dynamically modify #movieInfo’s CSS style properties
+when we are ready to display the floating window.
+    </figcaption>
+</figure>
+
 <p>Some interesting CSS trickery happens in lines 20 and 23 of Figure 6.14. Since our goal is to “float” the popup window,
 we can use CSS to specify its positioning as <code class="code docutils literal notranslate"><span class="pre">absolute</span></code> by adding the markup in Figure 6.15. But without knowing the size
 of the browser window, we don’t know how large the floating window should be or where to place it. <code class="code docutils literal notranslate"><span class="pre">showMovieInfo</span></code> computes
@@ -187,6 +219,15 @@ event handling to a descendant, by using on’s polymorphism: <code class="code 
 (which always exists) to the <code class="code docutils literal notranslate"><span class="pre">click</span></code> event, but <em>delegates</em> the event to any descendant matching the selector <code class="code docutils literal notranslate"><span class="pre">.myClass</span></code>. Since
 the delegation check is done each time an event is processed, new elements matching <code class="code docutils literal notranslate"><span class="pre">.myClass</span></code> will “automagically” have
 <em>func</em> bound as their click handler when created.</p>
+<figure>
+    <%= image_tag "Chapter6/6.16.jpg", class:"center", alt: "6.16" %>
+    <figcaption>
+    Figure 6.16: Comparison of setting up and using Jasmine and RSpec. All paths are relative to the app root and all
+commands should be run from the app root. As you can see, the main difference is the use of lower_snake_case for
+filenames and method names in Ruby, versus lowerCamelCase in JavaScript.
+    </figcaption>
+</figure>
+
 <p><strong>Self-Check 6.7.1.</strong> <em>In line 13 of Figure 6.14, why did we write</em> <code class="code docutils literal notranslate"><span class="pre">MoviePopup.showMovieInfo</span></code> <em>instead of</em> <code class="code docutils literal notranslate"><span class="pre">MoviePopup.showMovieInfo()</span></code> <em>?</em></p>
 <blockquote>
 <div><p>The former is the actual function, which is what ajax expects as its <code class="code docutils literal notranslate"><span class="pre">success</span></code> property, whereas the latter is a <em>call</em>

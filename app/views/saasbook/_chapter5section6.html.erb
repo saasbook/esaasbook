@@ -73,6 +73,15 @@ method in the <code class="code docutils literal notranslate"><span class="pre">
 <span class="k">end</span>
 </pre></div>
 </div>
+
+<figure>
+    <%= image_tag "Chapter5/5.17.jpg", class:"center", alt: "5.17" %>
+    <figcaption>
+    Figure 5.17: Specifying nested routes in routes.rb (top) also provides nested URI helpers (bottom), analogous to the
+simpler ones provided for regular resources.
+    </figcaption>
+</figure>
+
 <p>One method we might use is that when the user visits a movie’s Detail page, we could use the <code class="code docutils literal notranslate"><span class="pre">session[]</span></code>, which persists
 across requests, to remember the ID of the movie whose details have just been rendered as the “current movie.” When
 <code class="code docutils literal notranslate"><span class="pre">ReviewsController#new</span></code> is called, we’d retrieve that ID from the <code class="code docutils literal notranslate"><span class="pre">session[]</span></code> and associate it with the review by populating
@@ -131,9 +140,18 @@ two conditions are true:</p>
 <span class="x">    &lt;label class=&quot;col-form-label&quot;&gt; How many potatoes:&lt;/label&gt;</span>
 <span class="x">    </span><span class="cp">&lt;%=</span> <span class="n">select_tag</span> <span class="s1">&#39;review[potatoes]&#39;</span><span class="p">,</span> <span class="n">options_for_select</span><span class="p">(</span><span class="mi">1</span><span class="o">..</span><span class="mi">5</span><span class="p">),</span> <span class="ss">class</span><span class="p">:</span> <span class="s1">&#39;form-control&#39;</span> <span class="cp">%&gt;</span><span class="x"></span>
 <span class="x">    </span><span class="cp">&lt;%=</span> <span class="n">submit_tag</span> <span class="s1">&#39;Create Review&#39;</span><span class="p">,</span> <span class="ss">:class</span> <span class="o">=&gt;</span> <span class="s1">&#39;btn btn-success&#39;</span> <span class="cp">%&gt;</span><span class="x"></span>
-<span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp"></span><span class="x"></span>
 </pre></div>
 </div>
+
+<figure>
+    <figcaption>
+    Figure 5.18: Top (a): a controller that manipulates Reviews that are “owned by” both a Movie and a Moviegoer, using
+before-filters to ensure the “owning” resources are properly identified in the route URI. Bottom (b): A possible view
+template for creating a new review, that is, app/views/reviews/new.html.erb.
+    </figcaption>
+</figure>
+
 <p>If either condition is not met, the user is redirected to an appropriate page with an error message
 explaining what happened. If both conditions are met, the controller instance variables <code class="code docutils literal notranslate"><span class="pre">&#64;current_user</span></code>
 and <code class="code docutils literal notranslate"><span class="pre">&#64;movie</span></code> become accessible to the controller action and view.</p>

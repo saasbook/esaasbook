@@ -66,6 +66,16 @@ day, which was Facebook’s volume in 201032, 8,000 “one-in-a-million” event
 per day. This is why code reviews at companies such as Google often focus on corner cases:
 at large scale, astronomically-unlikely events happen all the time (Brewer 2012). The extra
 resilience provided by error-handling code will help you sleep better at night.</p>
+
+<figure>
+  <%= image_tag "Chapter12/12.15.jpg", class:"center", alt: "12.15" %>
+  <figcaption>
+  Figure 12.15: The measured effects of added latency on users’ interaction with various large SaaS apps, from Yahoo
+  performance engineer Nicole Sullivan’s “Design Fast Websites” presentation33 and a joint presentation at the Velocity 2009
+  conference34 by Jake Brutlag of Google and Eric Schurman of Amazon.
+  </figcaption>
+</figure>
+
 <p><strong>Pitfall: Hidden assumptions that differ between development and production environments.</strong></p>
 <p>Chapter 4 explains how Bundler and the Gemfile automate the management of your app’s
 dependencies on external libraries and how migrations automate making changes to your database.
@@ -151,6 +161,15 @@ to “protect” the call, as the code in Figure 12.16 shows.</p>
 <span class="k">end</span>
 </pre></div>
 </div>
+
+<figure>
+  <%= image_tag "Chapter12/12.16.jpg", class:"center", alt: "12.16" %>
+  <figcaption>
+  Figure 12.16: Using timeouts around calls to an external service protects your app from becoming slow if the external
+service is slow.
+  </figcaption>
+</figure>
+
 <p><strong>Fallacy: My app is secure because it runs on a secure platform and uses firewalls and HTTPS.</strong></p>
 <p>There’s no such thing as a “secure platform.” There are certainly <em>insecure</em> platforms, but no
 platform by itself can assure the security of your app. Security is a systemwide and ongoing

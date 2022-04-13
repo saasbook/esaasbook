@@ -57,6 +57,15 @@
               <div>
                 
   <div class="section" id="patterns-antipatterns-and-solid-class-architecture">
+
+<figure>
+  <%= image_tag "Chapter11/11.1.svg", class:"center", alt: "11.1" %>
+  <figcaption>
+  Figure 11.1: The Agile software lifecycle and its relationship to the chapters in this book. This chapter covers design
+patterns, which influence BDD and TDD for new apps and for enhancing legacy code.
+  </figcaption>
+</figure> 
+
 <h1><span class="section-number">11.1. </span>Patterns, Antipatterns, and SOLID Class Architecture<a class="headerlink" href="#patterns-antipatterns-and-solid-class-architecture" title="Permalink to this headline">¶</a></h1>
 <p>In Chapter 3, we introduced the idea of a design pattern: a reusable structure,
 behavior, strategy, or technique that captures a proven solution to a collection
@@ -75,6 +84,17 @@ showing how some of these problems can be fixed by refactoring—both within cla
 moving code across classes—to eliminate the problems. In some cases, we can refactor to make
 the code match an existing and proven design pattern. In other cases, the refactoring doesn’t
 necessarily result in major structural changes to the class architecture.</p>
+
+<figure>
+  <%= image_tag "Chapter11/11.2.jpg", class:"center", alt: "11.2" %>
+  <figcaption>
+  Figure 11.2: The parallels between the warning symptoms and remedies introduced for individual classes and methods in
+Chapter 9 and those introduced for inter-class relationships in this chapter. For reasons explained in the text, whereas most
+books use the I in SOLID for Interface Segregation (a smell that doesn’t arise in Ruby) and D for injecting Dependencies, we
+instead use I for Injecting dependencies and D for the Demeter principle, which arises frequently in Ruby.
+  </figcaption>
+</figure> 
+
 <p>As with method-level refactoring, application of design patterns is best learned by doing, and
 the number of design patterns exceeds what we can cover in one chapter of one book. Indeed,
 there are entire books just on design patterns, including the seminal <em>Design Patterns: Elements
@@ -108,6 +128,27 @@ stands for a set of five design principles that clean code should respect. As in
 design smells and quantitative metrics can tell us when we’re in danger of violating one or
 more SOLID guidelines; the fix is often a refactoring that eliminates the problem by bringing
 the code in line with one or more design patterns.</p>
+
+<figure>
+  <%= image_tag "Chapter11/11.3.jpg", class:"center", alt: "11.3" %>
+  <figcaption>
+  Figure 11.3: The 23 GoF design patterns spanning three categories, with italics showing a subset we’ll encounter as we
+illustrate and fix SOLID violations and with closely-related patterns grouped into a single entry, as with Abstract Factory
+and Factory Method. Whenever we introduce a design pattern, we’ll explain the pattern’s goal, show a Unified Modeling
+Language representation (introduced in the next section) of the class architecture before and after refactoring to that
+pattern, and when possible, give an example of how the pattern is used “in the wild” in Rails itself or in a Ruby gem.
+  </figcaption>
+</figure> 
+
+<figure>
+  <%= image_tag "Chapter11/11.4.jpg", class:"center", alt: "11.4" %>
+  <figcaption>
+  Figure 11.4: The SOLID design guidelines and some smells that may suggest your code violates one or more of them. We
+diverge a little bit from standard usage of SOLID: we use I for Injecting dependencies and D for the Demeter principle,
+whereas most books use I for Interface Segregation (which doesn’t apply in Ruby) and D for injecting Dependencies.
+  </figcaption>
+</figure> 
+
 <p>Figure 11.4 shows the SOLID mnemonics and what they tell us about good composition of classes.
 In our discussion of selected design patterns, we’ll see violations of each one of these
 guidelines, and show how refactoring the bad code (in some cases, with the goal of applying a

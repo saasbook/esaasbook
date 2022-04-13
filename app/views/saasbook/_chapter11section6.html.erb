@@ -171,6 +171,15 @@ conditionals throughout the code.</p>
 <span class="linenos">15</span><span class="k">end</span>
 </pre></div>
 </div>
+
+<figure>
+  <figcaption>
+  Figure 11.19: Top: a naive way to disable a behavior is to “condition it out” wherever it occurs. Bottom: the Null Object
+pattern eliminates the conditionals by providing “dummy” methods that are safe to call but don’t do anything.
+  </figcaption>
+</figure>
+
+
 <p>Figure 11.20 shows the UML class diagrams corresponding to the various versions of our
 DIP example.</p>
 <p>An interesting relative of the Adapter and Façade patterns is the <strong>Proxy pattern</strong>, in which
@@ -191,6 +200,19 @@ the Internet. If the real Internet-based email service is accessed via a send_em
 proxy object could provide a <code class="code docutils literal notranslate"><span class="pre">send_email</span></code> method that just stores an email on the local disk
 until the next time the computer is connected to the Internet. This proxy shields the client
 (email GUI) from having to change its behavior when the user isn’t connected.</p>
+
+<figure>
+  <%= image_tag "Chapter11/11.20.svg", class:"center", alt: "11.20" %>
+  <figcaption>
+  Figure 11.20: Left: Without dependency injection, EmailList depends directly on MailerMonkey. Center: With
+dependency injection, @mailer can be set at runtime to use any of MailerMonkey, NullMailer (which implements the Null
+Object pattern to disable email), or AmikoAdapter (which implements the Adapter/Façade pattern over Amiko), all of
+which have the same API. Right: In statically typed languages, the abstract superclass GenericMailer formalizes the fact
+that all three mailers have compatible APIs, but in Ruby this superclass is often omitted if it consists entirely of abstract
+methods (as is the case here), since abstract methods and classes aren’t part of the language.
+  </figcaption>
+</figure>
+
 <p><strong>Self-Check 11.6.1.</strong> <em>Why does proper use of DIP have higher impact in statically
 typed languages?</em></p>
 <blockquote>

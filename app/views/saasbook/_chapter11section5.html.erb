@@ -86,6 +86,14 @@ preserve <span class="math notranslate nohighlight">\(T\)</span>’s “contract
 <span class="linenos">21</span><span class="k">end</span>
 </pre></div>
 </div>
+
+<figure>
+  <figcaption>
+  Figure 11.16: Behaviorally, rectangles have some capabilities that squares don’t have—for example, the ability to set the
+lengths of their sides independently, as in Rectangle#make_twice_as_wide_as_high.
+  </figcaption>
+</figure>
+
 <p>This may seem like common sense, but it’s subtly easy to get wrong. Consider the code
 in Figure 11.16, which suffers from an LSP violation. You might think a <code class="code docutils literal notranslate"><span class="pre">Square</span></code> is just a
 special case of <code class="code docutils literal notranslate"><span class="pre">Rectangle</span></code> and should therefore inherit from it. But <em>behaviorally</em>, a square
@@ -120,6 +128,25 @@ have to introduce an explicit interface capturing the operations common to both 
 <span class="linenos">14</span><span class="k">end</span>
 </pre></div>
 </div>
+
+<figure>
+  <figcaption>
+  Figure 11.17: As with some OCP violations, the problem arises from a misuse of inheritance. As Figure 11.18 shows,
+preferring composition and delegation to inheritance fixes the problem. Line 12 shows a concise syntax for delegation
+available to apps using ActiveSupport (and all Rails apps do); similar functionality for non-Rails Ruby apps is provided by
+the Forwardable module in Ruby’s standard library.
+  </figcaption>
+</figure>
+
+<figure>
+  <%= image_tag "Chapter11/11.18.svg", class:"center", alt: "11.18" %>
+  <figcaption>
+  Figure 11.18: Left: The UML class diagram representing the original LSP-violating code in Figure 11.16, which
+destructively overrides Rectangle#make_twice_as_wide_as_high. Right: the class diagram for the refactored
+LSP-compliant code in Figure 11.17.
+  </figcaption>
+</figure>
+
 <p><strong>Self-Check 11.5.1.</strong> <em>Why is</em> <code class="code docutils literal notranslate"><span class="pre">Forwardable</span></code> <em>in the Ruby standard library provided as a
 module rather than a class?</em></p>
 <blockquote>

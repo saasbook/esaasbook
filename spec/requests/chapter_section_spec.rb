@@ -43,7 +43,7 @@ RSpec.describe 'Search Requests', type: :request do
     it 'Succeeeds and renders the correct page' do
       get search_path
       expect(response).to be_successful
-      assert_select '#id', 'search-results'
+      assert_select 'id', 'search-results'
     end
   end
 end

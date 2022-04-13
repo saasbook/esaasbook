@@ -199,6 +199,17 @@ which “wraps” all views by default, as Figure 4.6 shows.</p>
 <span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s1">&#39;Back to movie list&#39;</span><span class="p">,</span> <span class="n">movies_path</span><span class="p">,</span> <span class="ss">:class</span> <span class="o">=&gt;</span> <span class="s1">&#39;btn btn-primary&#39;</span> <span class="cp">%&gt;</span><span class="x"></span>
 </pre></div>
 </div>
+
+<figure>
+    <figcaption>
+    Figure 4.5: The controller code and template markup to support the RESTful actions index and show. The index method
+just retrieves all movies, while the show method examines params[], which has been prepared by the routing subsystem, to
+retrieve the desired movie’s id field from the route URI. Controller instance variables defined in each action are available in
+the corresponding view. The row and col-n classes applied to the div elements in the movie list take advantage of the
+Bootstrap framework’s 12-column grid system to display a tabular view.
+    </figcaption>
+</figure>
+
 <div class="highlight-erb notranslate"><div class="highlight"><pre><span></span><span class="x">&lt;!DOCTYPE html&gt;</span>
 <span class="x">    &lt;html&gt;</span>
 <span class="x">    &lt;head&gt;</span>
@@ -220,6 +231,15 @@ which “wraps” all views by default, as Figure 4.6 shows.</p>
 <span class="x">&lt;/html&gt;</span>
 </pre></div>
 </div>
+
+<figure>
+    <figcaption>
+    Figure 4.6: Our generic application template “wraps” every view. Rails provides a generic version of this file when you start
+a new app; in our version, we have added a line to use the Bootstrap CSS framework, and annotated the HTML elements in
+our individual views to use Bootstrap’s classes. Section 4.6 explains the meaning and purpose of lines 11–15.
+    </figcaption>
+</figure>
+
 <p><strong>Self-Check 4.4.1.</strong> <em>The route helper for Show or Update take an argument, as in</em> <code class="code docutils literal notranslate"><span class="pre">movie_path(&#64;movie),</span></code> <em>but the route helpers for
 New and Create (</em> <code class="code docutils literal notranslate"><span class="pre">new_movie_path</span></code> and <code class="code docutils literal notranslate"><span class="pre">movies_path</span></code> <em>) do not. Why the difference?</em></p>
 <blockquote>

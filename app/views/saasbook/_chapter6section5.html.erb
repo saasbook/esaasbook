@@ -140,6 +140,19 @@ requirements that applications need to follow to be considered legally accessibl
 extension, available for Chrome and Firefox, runs numerous checks for WCAG 2 compliance on any displayed page. Similarly,
 the W3C maintains the ARIA Authoring Practices specification, which contains dozens of examples (with working JavaScript)
 for common UI patterns across applications.</p>
+
+<figure>
+    <%= image_tag "Chapter6/6.9.jpg", class:"center", alt: "6.9" %>
+    <figcaption>
+    Figure 6.9: A few of the JavaScript events defined by the jQuery API. Set a handler for an event with
+element.on(’evt’, func) or as a shortcut, element.evt(func). Hence, $(’h1’).on(’click’, function() {...}) is
+equivalent to $(’h1’).click(function() {...}). The callback func will be passed an argument (which you’re free to
+ignore) whose value is the jQuery Event object describing the event that was triggered. Remember that on and its shortcuts
+will bind the callback to all elements matching the selector, so be sure the selector you pass is unambiguous, for example by
+identifying an element by its ID.
+    </figcaption>
+</figure>
+
 </div>
 
 

@@ -103,6 +103,15 @@ rake db:schema:load
 rake db:fixtures:load
 </pre></div>
 </div>
+
+<figure>
+  <figcaption>
+  Figure 9.3: You can create an empty development database that has the same schema as the production database and then
+populate it with fixtures. Although Chapter 8 cautions against the abuse of fixtures, in this case we are using them to
+replicate known behavior from the production environment in your development environment.
+  </figcaption>
+</figure> 
+
 <p>Once the app is running in development, have one or two experienced customers demonstrate
 how they use the app, indicating during the demo what changes they have in mind (Nierstrasz
 et al. 2009). Ask them to talk through the demo as they go; although their comments will
@@ -125,6 +134,20 @@ since not all classes play an equally important structural role, you can identif
 connected” classes that are probably central to the application’s functions. For example,
 in Figure 9.4, the <code class="code docutils literal notranslate"><span class="pre">Customer</span></code> and <code class="code docutils literal notranslate"><span class="pre">Voucher</span></code> classes are connected to each other and to many other
 classes. You can then identify the tables corresponding to these classes in the database schema.</p>
+
+<figure>
+  <%= image_tag "Chapter9/9.4.svg", class:"center", alt: "9.4" %>       
+  <figcaption>
+  Figure 9.4: This simplified Unified Modeling Language (UML) class diagram, produced automatically by the railroady
+gem, shows the models in a Rails app that manages ticket sales, donations, and performance attendance for a small theater.
+Edges with arrowheads or circles show relationships between classes: a Customer has many Visits and Vouchers (open
+circle to arrowhead), has one most_recent_visit (solid circle to arrowhead), and has and belongs to many Labels
+(arrowhead to arrowhead). Plain edges show inheritance: Donation and Voucher are subclasses of Item. (All of the
+important classes here inherit from ActiveRecord::Base, but railroady draws only the app’s classes.) We will see other
+types of UML diagrams in Chapter 11.
+  </figcaption>
+</figure> 
+
 <p>Having familiarized yourself with the app’s architecture, most important data structures, and
 major classes, you are ready to look at the code. The goal of inspecting the code is to get a
 sense of its overall quality, test coverage, and other statistics that serve as a proxy for how
@@ -139,6 +162,19 @@ test suites exist, run them; assuming most tests pass, read the tests to help un
 original developers’ intentions. Then spend one hour (Nierstrasz et al. 2009) inspecting the
 code in the most important classes as well as those you believe you’ll need to modify (the
 <em>change points</em>), which by now you should be getting a good sense of.</p>
+
+<figure>
+  <%= image_tag "Chapter9/9.5.jpg", class:"center", alt: "9.5" %>       
+  <figcaption>
+  Figure 9.5: A 3-by-5 inch (or A7 size) Class–Responsibility–Collaborator (CRC) card representing the Voucher class from
+Figure 9.4. The left column represents Voucher’s responsibilities—things it knows (instance variables) or does (instance
+methods). Since Ruby instance variables are always accessed through instance methods, we can determine responsibilities
+by searching the class file voucher.rb for instance methods and calls to attr_accessor. The right column represents
+Voucher’s collaborator classes; for Rails apps we can determine many of these by looking for has_many and belongs_to in
+voucher.rb.
+  </figcaption>
+</figure> 
+
 <p><strong>Self-Check 9.2.1.</strong> <em>What are some reasons it is important to get the app running in development
 even if you don’t plan to make any code changes right away?</em></p>
 <blockquote>

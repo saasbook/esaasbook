@@ -106,6 +106,37 @@ Hence <code class="code docutils literal notranslate"><span class="pre">5.class<
 <p>Furthermore, since everything is an object, the result of every expression is, by definition, something on which you can call other methods. Hence <code class="code docutils literal notranslate"><span class="pre">(5.class).superclass</span></code>
 tells you what <code class="code docutils literal notranslate"><span class="pre">Fixnum</span></code>’s superclass is, by sending the <code class="code docutils literal notranslate"><span class="pre">superclass</span></code> method call with no arguments to <code class="code docutils literal notranslate"><span class="pre">Fixnum</span></code>, an object representing the class to which <code class="code docutils literal notranslate"><span class="pre">5</span></code> belongs.
 Method calls associate to the left, so this example could be written <code class="code docutils literal notranslate"><span class="pre">5.class.superclass</span></code>. Such <em>method chaining</em> is extremely idiomatic in Ruby.</p>
+
+<figure>
+    <%= image_tag "Chapter2/2.2.jpg", class:"center", alt: "2.2 Basic Ruby elements and control structures" %>
+    <figcaption>
+        Figure 2.2: Basic Ruby elements and control structures, with optional items in [square brackets]. Statements are separated
+        by newlines (most commonly) or semicolons (rarely). Indentation is insignificant. Besides the usual basic primitive types and
+        collection types, hashes (also known as associative arrays or hashmaps; Ruby class Hash) are ubiquitous.
+    </figcaption>
+</figure>
+
+
+<figure>
+    <%= image_tag "Chapter2/2.3.jpg", class:"center", alt: "2.3 PCRE in Ruby" %>
+    <figcaption>
+        Figure 2.3: Like most modern languages, Ruby supports Perl compatible regular expressions (PCRE), often shortened to
+        regex(es) or regexp(s). The name PCRE is inspired by the vastly expanded regular-expression capabilities that first appeared
+        in the Perl scripting language.
+    </figcaption>
+</figure>
+
+
+<figure>
+    <%= image_tag "Chapter2/2.4.jpg", class:"center", alt: "2.4" %>
+    <figcaption>
+        Figure 2.4: The first column is Ruby’s syntactic sugar for common operations, the second column shows the explicit method
+        call, and the third column shows how to perform the same method call using Ruby’s send, which accepts either a string or
+        (more idiomatically) a symbol for the method name.
+    </figcaption>
+</figure>
+
+
 <p>As Figure 2.4 shows, even basic math operations and array references are actually method calls on their receivers. Hence, concepts such as <strong>type casting</strong> rarely apply in Ruby:
 while you can certainly call <code class="code docutils literal notranslate"><span class="pre">5.to_s</span></code> or <code class="code docutils literal notranslate"><span class="pre">&quot;5&quot;.to_i</span></code> to convert between strings and integers, for example, writing <code class="code docutils literal notranslate"><span class="pre">a+b</span></code> means calling method <code class="code docutils literal notranslate"><span class="pre">+</span></code> on receiver a, so the behavior depends
 entirely on how <code class="code docutils literal notranslate"><span class="pre">a</span></code>’s class (or one of its ancestors or mix-ins) implements the instance method <code class="code docutils literal notranslate"><span class="pre">+</span></code>. Hence, both <code class="code docutils literal notranslate"><span class="pre">3+2</span></code> and <code class="code docutils literal notranslate"><span class="pre">&quot;foo&quot;+&quot;bar&quot;</span></code> are legal Ruby expressions, but the first one
@@ -125,9 +156,12 @@ have names ending in <code class="code docutils literal notranslate"><span class
 lines 33–34, it is impossible to tell whether a given method simply “wraps” access to an instance variable (as <code class="code docutils literal notranslate"><span class="pre">title</span></code> does) or produces its result by computing something
 (as <code class="code docutils literal notranslate"><span class="pre">full_title</span></code> does). This design choice illustrates Ruby’s hard-line position on the <strong>Uniform Access Principle</strong>, which concerns one aspect of <strong>encapsulation</strong> in object-oriented programming:
 It should be impossible to determine the implementation details of an object’s state or its operations from outside the object.</p>
+
 <p>Beware! If you’re used to Java or Python, it’s very easy to think of the syntax in line 33
 as <em>assignment to an attribute or instance variable</em>, but it is just a method call, and in fact could be written as <code class="code docutils literal notranslate"><span class="pre">beautiful.send(’title=’,</span> <span class="pre">’La</span> <span class="pre">vita</span> <span class="pre">e</span> <span class="pre">bella’)</span></code>.
 Furthermore, note that any instance variable that has not previously been assigned to will silently evaluate to <code class="code docutils literal notranslate"><span class="pre">nil</span></code>.</p>
+
+
 <div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Movie</span>
     <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">year</span><span class="p">)</span>
         <span class="vi">@title</span> <span class="o">=</span> <span class="n">title</span>
@@ -165,6 +199,15 @@ Furthermore, note that any instance variable that has not previously been assign
 <span class="n">beautiful</span><span class="o">.</span><span class="n">year</span> <span class="o">=</span> <span class="mi">1998</span>   <span class="c1"># =&gt; ERROR: no method &#39;year=&#39;</span>
 </pre></div>
 </div>
+<figure>
+    <figcaption>
+        Figure 2.5: A simple class definition in Ruby showing that explicit getter and setter methods are the only way to access
+        instance variables from outside a class, and that Ruby provides shortcuts (lines 26–27) that avoid having to define every
+        accessor method explicitly. Rather than distinguish “private” vs. “public” instance and class variables, one simply provides
+        public accessor methods (read-only, write-only, or read/write) for state that should be publicly visible
+    </figcaption>
+</figure>
+
 <div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="c1">#  Time#now, Time#+ and Time#- represent time as &#39;seconds since 1/1/70&#39;</span>
 <span class="k">class</span> <span class="nc">Fixnum</span>
      <span class="k">def</span> <span class="nf">seconds</span>  <span class="p">;</span> <span class="nb">self</span> <span class="p">;</span> <span class="k">end</span>
@@ -180,6 +223,14 @@ Furthermore, note that any instance variable that has not previously been assign
 <span class="mi">3</span><span class="o">.</span><span class="n">hours</span><span class="o">.</span><span class="n">from_now</span>        <span class="c1"># =&gt; 2018-11-22 19:58:45 +0100</span>
 </pre></div>
 </div>
+<figure>
+    <figcaption>
+        Figure 2.6: By reopening Ruby’s core Fixnum class and adding six new instance methods to it, we get a beautiful syntax for
+        time arithmetic. (Rails includes a more complete version of this facility.) Unix was invented in 1970, so its designers chose to
+        represent time as the number of seconds since midnight (GMT) 1970–01–01, sometimes called the beginning of the epoch.
+    </figcaption>
+</figure>
+
 <p><strong>Self-Check 2.3.1.</strong> <em>What is the explicit-send equivalent of each of the following
 expressions:</em>  <code class="code docutils literal notranslate"><span class="pre">a&lt;b,</span> <span class="pre">a==b,</span> <span class="pre">x[0],</span> <span class="pre">x[0]=’foo’</span></code>.</p>
 <blockquote>
@@ -225,6 +276,17 @@ regexps:</em>
 <blockquote>
 <div><p><strong>(a)</strong> the string “1” <strong>(b)</strong> the string “ to ” (including the leading and trailing spaces)</p>
 </div></blockquote>
+
+<figure>
+    <%= image_tag "Chapter2/2.7.jpg", class:"center", alt: "2.7" %>
+    <figcaption>
+    Figure 2.7: Three legal and equivalent calls to the method link_to (which we’ll meet in Section 4.4) that takes one string
+    argument and one hash argument. The first is fully parenthesized, the second omits the parentheses around the call
+    arguments and the curly braces around the final hash argument, and the third uses the alternative (Ruby ≥ 2.0) syntax for
+    the hash keys in the second argument.
+    </figcaption>
+</figure>
+
 <p><strong>Self-Check 2.3.9.</strong> <em>Consider line 18 of Figure 2.5. Explain why the following would be an acceptable alternative way to define the</em> <code class="code docutils literal notranslate"><span class="pre">full_title</span></code> <em>method,
 and the pros and cons compared to the way it appears in the figure:</em>
 <code class="code docutils literal notranslate"><span class="pre">def</span> <span class="pre">full_title</span> <span class="pre">;</span> <span class="pre">&quot;#title</span> <span class="pre">(#year)&quot;;</span> <span class="pre">end</span></code></p>

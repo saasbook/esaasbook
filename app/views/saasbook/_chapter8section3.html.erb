@@ -100,6 +100,14 @@ service’s movie database, and display the movie info so the user can write a r
 <span class="k">end</span>
 </pre></div>
 </div>
+
+<figure>
+  <figcaption>
+  Figure 8.4: A simple controller method that tries to search a remote database for one or more matches to a movie title. The
+call to the remote service happens from within the find_in_tmdb class method.
+  </figcaption>
+</figure>
+
 <p>How would we unit-test this controller action? The Arrange step consists of preparing <code class="code docutils literal notranslate"><span class="pre">params</span></code>
 to hold some search string. The Act step consists of calling the controller action with that
 search string. But the Assert step depends on whether the call to <code class="code docutils literal notranslate"><span class="pre">find_in_tmdb</span></code> returns an
@@ -119,6 +127,14 @@ test each of them, we essentially need to be able to control the <em>behavior of
 <span class="k">end</span>
 </pre></div>
 </div>
+
+<figure>
+  <figcaption>
+  Figure 8.5: This RSpec example (test case) stubs Movie.find_in_tmdb to isolate the controller action from its
+collaborators for the purposes of unit testing.
+  </figcaption>
+</figure>
+
 <p>Michael Feathers (Feathers 2004) defines a seam as “a place where you can alter
 behavior in your program without editing in that place.” In our case, we want to
 alter (control) the behavior of <code class="code docutils literal notranslate"><span class="pre">find_in_tmdb</span></code> but without changing the source code
@@ -153,6 +169,14 @@ application, but in the rest of this chapter we will see many more examples of s
 testing. Seams are useful in testing because they let us break dependencies between a piece
 of code we want to test and its collaborators, allowing the collaborators to behave differently
 under test than they would in real life.</p>
+
+<figure>
+  <%= image_tag "Chapter8/8.6.jpg", class:"center", alt: "8.6" %>
+  <figcaption>
+  Figure 8.6: Strategy to properly isolate the SUT when it is not a pure function, not a leaf method, or both.
+  </figcaption>
+</figure>
+
 <p>The kind of seam we just described is called a <strong>method stub</strong> or simply <em>stub</em>, because it is a
 piece of code that replaces the real method’s code with a controllable or fixed behavior
 for testing purposes. A <strong>mock object</strong> or simply <em>mock</em> is a simplified “stunt double” of an object
@@ -162,6 +186,7 @@ because it has other dependencies, yet only a few specific properties of the obj
 necessary for the SUT to work properly. The term <strong>test double</strong> generically covers these and a
 few other types of seams. Figure 8.6 summarizes typical strategies for using these doubles in
 various unit-testing scenarios, and Figure 8.7 shows examples of each strategy using RSpec.</p>
+
 <div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Pure leaf function: test critical values and noncritical regions</span>
 <span class="n">it</span> <span class="s1">&#39;occurs when multiple of 4 but not 100&#39;</span> <span class="k">do</span>
     <span class="n">expect</span><span class="p">(</span><span class="n">leap?</span><span class="p">(</span><span class="mi">2008</span><span class="p">))</span><span class="o">.</span><span class="n">to</span> <span class="n">be_truthy</span>
@@ -200,6 +225,13 @@ various unit-testing scenarios, and Figure 8.7 shows examples of each strategy u
 <span class="k">end</span>
 </pre></div>
 </div>
+
+<figure>
+  <figcaption>
+  Figure 8.7: RSpec examples corresponding to Figure 8.6.
+  </figcaption>
+</figure>
+
 <p><strong>Self-Check 8.3.1.</strong> <em>Name two likely violations of FIRST that arise when unit tests
 actually call an external service as part of testing.</em></p>
 <blockquote>

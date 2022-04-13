@@ -119,6 +119,17 @@ when we call the method under test.</p>
 <span class="linenos">19</span><span class="k">end</span>
 </pre></div>
 </div>
+
+<figure>
+  <figcaption>
+  Figure 11.22: (Top) If Moviegoer delegates credit_balance to its wallet, MovieTheater no longer has to know about
+the implementation of Wallet. However, it may still be undesirable that the payment behavior (subtract payment from
+credit balance) is exposed to MovieTheater when it should really be the responsibility of Moviegoer or Wallet only.
+(Bottom) Delegating the behavior of payment, rather than the attributes through which it’s accomplished, solves the
+problem and eliminates the Demeter violation.
+  </figcaption>
+</figure>
+
 <p>Once again, delegation comes to the rescue. A simple improvement comes from delegating the
 <code class="code docutils literal notranslate"><span class="pre">credit_balance</span></code> attribute, as Figure 11.22 (top) shows. But the best delegation is that in
 Figure 11.22 (bottom), since now the behavior of payment is entirely encapsulated within
@@ -165,6 +176,14 @@ an <code class="code docutils literal notranslate"><span class="pre">EmailList</
 <span class="linenos">12</span><span class="k">end</span>
 </pre></div>
 </div>
+
+<figure>
+  <figcaption>
+  Figure 11.23: An email list subsystem observes other models so it can generate email in response to certain events. The
+Observer pattern is an ideal fit since it collects all the concerns about when to send email in one place.
+  </figcaption>
+</figure>
+
 <ol class="arabic simple">
 <li><p>When a new review is added, it emails all moviegoers who have already reviewed that same movie.</p></li>
 <li><p>When a new moviegoer signs up, it sends her a “Welcome” email.</p></li>

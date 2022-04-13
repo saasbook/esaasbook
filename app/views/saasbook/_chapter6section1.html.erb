@@ -121,6 +121,15 @@ and the jQuery library. In general, unobtrusive JavaScript emphasizes:</p>
 <li><p><strong>Separation of HTML markup (content) from JavaScript (behavior):</strong> JavaScript mixed into HTML pages (as was sadly common for early SaaS apps) is hard to read and maintain. JavaScript should instead reside in separate files, using event handlers to “tie” JavaScript code to page elements, as Section 6.7 describes.</p></li>
 <li><p><strong>Progressive enhancement:</strong> While JavaScript may enhance aspects of the site’s user experience, the site should remain accessible to users with disabilities (Section 6.5) and users whose browsers have compatibility issues related to the JavaScript Application Programming Interface (JSAPI), the browser functionality that lets JavaScript code manipulate the content of the current HTML page. Both conditions can be largely but not completely addressed by using JavaScript libraries such as jQuery (Section 6.4).</p></li>
 </ul>
+
+<figure>
+    <%= image_tag "Chapter6/6.1.jpg", class:"center", alt: "6.1" %>
+    <figcaption>
+    Figure 6.1: The correspondence between our exposition of server-side programming with Ruby and Rails and client-side
+    programming with JavaScript continues our focus on productively creating DRY, concise code that is well covered by tests
+    </figcaption>
+</figure>
+
 <p>Testing JavaScript is particularly important since most browsers do not display user-visible error messages as a result of
 JavaScript bugs; instead, the site often simply refuses to work (“silent failure”), or the UI freezes, or the user sees a
 confusing error message result- ing from a cascading failure rather than directly describing the actual failure. As we will

@@ -98,6 +98,12 @@ of those objects.</p>
 <span class="linenos">20</span><span class="nx">juno</span><span class="p">.</span><span class="nx">full_title</span><span class="p">();</span>  <span class="c1">// error: &#39;undefined&#39; has no properties</span>
 </pre></div>
 </div>
+<figure>
+    <figcaption>
+    Figure 6.6: Since functions are first-class objects, it is fine for an object to have a property whose value is a function, as
+    full_title is. We will make extensive use of this characteristic. Note the pitfall in lines 14–18.
+    </figcaption>
+</figure>
 <p>If we call the Movie function using JavaScript’s new keyword (line 13), the value of this in the function body
 will be a new JavaScript object that will eventually be returned by the function, similar to Ruby’s <code class="code docutils literal notranslate"><span class="pre">self</span></code> inside
 an <code class="code docutils literal notranslate"><span class="pre">initialize</span></code> constructor method. In this case, the returned object will have properties <code class="code docutils literal notranslate"><span class="pre">title</span></code>, <code class="code docutils literal notranslate"><span class="pre">year</span></code>,
@@ -140,6 +146,17 @@ JavaScript code?</em></p>
 <span class="p">};</span>
 </pre></div>
 </div>
+
+<figure>
+    <%= image_tag "Chapter6/6.7.jpg", class:"center", alt: "6.7" %>
+    <figcaption>
+    Figure 6.7: A simplified view of the DOM tree corresponding to the RottenPotatoes “list of movies” page with skeletal
+HTML markup. An open triangle indicates places where we’ve elided the rest of the subtree for brevity. this.document is
+set to point to the DOM tree’s root when a page is loaded.
+    </figcaption>
+</figure>
+
+
 <p></p>
 <blockquote>
 <div><p><code class="code docutils literal notranslate"><span class="pre">square.area()</span></code> is a function call that in this case will return 9, whereas square.area is an unapplied function object.</p>

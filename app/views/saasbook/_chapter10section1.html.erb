@@ -59,7 +59,7 @@
   <div class="section" id="it-takes-a-team-two-pizza-and-scrum">
 
 <figure>
-  <%= image_tag "Chapter10/10.1.svg", class:"center", alt: "10.1" %>
+  <%= image_tag "Chapter10/10.1.jpg", class:"center", alt: "10.1" %>
   <figcaption>
   Figure 10.1: The Agile software lifecycle and its relationship to the chapters in this book. This chapter emphasizes
   evaluating the productivity of the team so as to come up with schedules that are more accurate by tracking velocity
@@ -174,4 +174,106 @@ of central planning with command and control.</p>
       </p>
     </div>
   </footer>
+  
+  <%= stylesheet_link_tag "recogito.min.css">
+  <%= javascript_include_tag "recogito.min.js" %>
+
+  <script type="text/javascript">
+  var myAnnotation = {
+    '@context': 'http://www.w3.org/ns/anno.jsonld',
+    'id': 'https://www.example.com/recogito-js-example/foo',
+    'type': 'Annotation',
+    'body': [{
+      'type': 'TextualBody',
+      'value': 'This annotation was added via JS.'
+    }],
+    'target': {
+      'selector': [{
+        'type': 'TextQuoteSelector',
+        'exact': 'team wins'
+      }, {
+        'type': 'TextPositionSelector',
+        'start': 478,
+        'end': 486
+      }]
+    }
+  };
+
+  (function() {
+    <!-- Intialize Recogito -->
+    var r = Recogito.init({
+      content: 'main-content', <!-- Element id or DOM node to attach to -->
+      locale: 'auto',
+      allowEmpty: true,
+        widgets: [
+        { widget: 'COMMENT' },
+        { widget: 'TAG', vocabulary: [ 'Place', 'Person', 'Event', 'Organization', 'Animal' ] }
+      ],
+      relationVocabulary: [ 'isRelated', 'isPartOf', 'isSameAs ']
+    });
+
+    r.loadAnnotations('example_annotations.w3c.json')
+      .then(() => console.log('loaded'));
+
+    r.on('selectAnnotation', function(a) {
+      console.log('selected', a);
+    });
+
+    r.on('createAnnotation', function(a) {
+      console.log('created', a);
+    });
+
+    r.on('updateAnnotation', function(annotation, previous) {
+      console.log('updated', previous, 'with', annotation);
+    });
+
+    <!-- Wire the Add/Update/Remove buttons -->
+    document.getElementById('add-annotation').addEventListener('click', function() {
+      r.addAnnotation(myAnnotation);
+    });
+
+    document.getElementById('update-annotation').addEventListener('click', function() {
+      r.addAnnotation(Object.assign({}, myAnnotation, {
+        'body': [{
+          'type': 'TextualBody',
+          'value': 'This annotation was added via JS, and has been updated now.'
+        }],
+        'target': {
+          'selector': [{
+            'type': 'TextQuoteSelector',
+            'exact': 'ingenious hero who'
+          }, {
+            'type': 'TextPositionSelector',
+            'start': 43,
+            'end': 61
+          }]
+        }
+      }));
+    });
+
+    document.getElementById('remove-annotation').addEventListener('click', function() {
+      r.removeAnnotation(myAnnotation);
+    });
+
+    document.getElementById('select-annotation').addEventListener('click', function() {
+      r.selectAnnotation('#d7197c87-b45d-4217-9c4f-27573030448f');
+    });
+    
+    <!-- Switch annotation mode (annotation/relationships) -->
+    var annotationMode = 'ANNOTATION'; 
+
+    var toggleModeBtn = document.getElementById('toggle-mode');
+    toggleModeBtn.addEventListener('click', function() {
+      if (annotationMode === 'ANNOTATION') {
+        toggleModeBtn.innerHTML = 'MODE: RELATIONS';
+        annotationMode = 'RELATIONS';
+      } else  {
+        toggleModeBtn.innerHTML = 'MODE: ANNOTATION';
+        annotationMode = 'ANNOTATION';
+      }
+
+      r.setMode(annotationMode);
+    });
+  })();
+</script>
 </main>

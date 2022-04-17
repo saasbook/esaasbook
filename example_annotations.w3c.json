@@ -18,11 +18,11 @@
       "target": {
         "selector": [{
           "type": "TextQuoteSelector",
-          "exact": "Troy"
+          "exact": "hero programmer"
         }, {
           "type": "TextPositionSelector",
-          "start": 124,
-          "end": 128
+          "start": 17,
+          "end": 31
         }]
       }
     }, {
@@ -36,45 +36,12 @@
       "target": {
         "selector": [{
           "type": "TextQuoteSelector",
-          "exact": "death in battle"
+          "exact": "great design and coding skills"
         }, {
           "type": "TextPositionSelector",
-          "start": 646,
-          "end": 661
+          "start": 279,
+          "end": 302
         }]
       }
-    }, {
-      "@context": "http://www.w3.org/ns/anno.jsonld",
-      "id": "#d7197c87-b45d-4217-9c4f-27573030448f",
-      "type": "Annotation",
-      "body": [{
-        "type": "TextualBody",
-        "value": "Comment..."
-      }],
-      "target": {
-        "selector": [{
-          "type": "TextQuoteSelector",
-          "exact": "Ithaca"
-        }, {
-          "type": "TextPositionSelector",
-          "start": 963,
-          "end": 970
-        }]
-      }
-    }, { 
-      "@context": "http://www.w3.org/ns/anno.jsonld",
-      "id": "#9ba844a7-e8ec-4127-ad12-1f7f16a240c6",
-      "type": "Annotation",
-      "motivation": "linking",
-      "body": [{
-        "type": "TextualBody",
-        "value": "isRelatedTo",
-        "purpose": "tagging"
-      }],
-      "target": [{
-        "id": "#ce0ed291-766b-4763-8e91-90ce1d04e706"
-      }, {
-        "id": "#447d4bea-08dc-4bd0-ae51-31f5ed7a95a0"
-      }]
     }
   ]

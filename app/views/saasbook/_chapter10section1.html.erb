@@ -174,11 +174,10 @@ of central planning with command and control.</p>
       </p>
     </div>
   </footer>
-  
-  <%= stylesheet_link_tag "recogito.min.css">
-  <%= javascript_include_tag "recogito.min.js" %>
+</main>
 
-  <script type="text/javascript">
+<%=stylesheet_link_tag "recogito.min.css"%>
+<script type="text/javascript">
   var myAnnotation = {
     '@context': 'http://www.w3.org/ns/anno.jsonld',
     'id': 'https://www.example.com/recogito-js-example/foo',
@@ -258,22 +257,5 @@ of central planning with command and control.</p>
     document.getElementById('select-annotation').addEventListener('click', function() {
       r.selectAnnotation('#d7197c87-b45d-4217-9c4f-27573030448f');
     });
-    
-    <!-- Switch annotation mode (annotation/relationships) -->
-    var annotationMode = 'ANNOTATION'; 
-
-    var toggleModeBtn = document.getElementById('toggle-mode');
-    toggleModeBtn.addEventListener('click', function() {
-      if (annotationMode === 'ANNOTATION') {
-        toggleModeBtn.innerHTML = 'MODE: RELATIONS';
-        annotationMode = 'RELATIONS';
-      } else  {
-        toggleModeBtn.innerHTML = 'MODE: ANNOTATION';
-        annotationMode = 'ANNOTATION';
-      }
-
-      r.setMode(annotationMode);
-    });
   })();
 </script>
-</main>

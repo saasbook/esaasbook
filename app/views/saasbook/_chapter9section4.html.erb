@@ -19,6 +19,15 @@ legacy code. Good comments have two properties:</p>
 </ol>
 <p>Figure 9.8 shows examples of comments that violate both properties, and
 Figure 9.9 shows a better example.</p>
+
+<figure>
+  <%= image_tag "Chapter9/9.8.jpg", class:"center", alt: "9.8" %>       
+  <figcaption>
+  Figure 9.8: Examples of bad comments, which state the obvious. You’d be surprised how often comments just mimic code
+even in otherwise well-written apps. (Thanks to John Ousterhout for these examples and some of this advice on comments.)
+  </figcaption>
+</figure> 
+
 <div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="c1"># Good Comment:</span>
 <span class="c1"># Scan the array to see if the symbol exists</span>
 
@@ -30,6 +39,14 @@ Figure 9.9 shows a better example.</p>
 <span class="c1"># find it.</span>
 </pre></div>
 </div>
+
+<figure>
+  <figcaption>
+  Figure 9.9: Example of comments that raises the level of abstraction compared to comments that describe how you
+implement it.
+  </figcaption>
+</figure> 
+
 <p>First, if you write comments as you code, much of what your code does is surely obvious
 to you, since you just wrote it. (Alas, not commenting as you go is a common defect of
 legacy code.) But if you or someone else reads your code later, long after you’ve forgotten

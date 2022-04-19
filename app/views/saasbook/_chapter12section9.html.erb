@@ -100,6 +100,24 @@ Indeed, when you use <code class="code docutils literal notranslate"><span class
 <span class="linenos">6</span><span class="k">end</span>
 </pre></div>
 </div>
+
+<figure>
+  <figcaption>
+  Figure 12.11: Code that is vulnerable to a SQL injection attack. Uncommenting line 4 and deleting line 3 would thwart the
+attack using a prepared statement, which lets ActiveRecord “sanitize” malicious input before inserting it in the query.
+  </figcaption>
+</figure>
+
+<figure>
+  <%= image_tag "Chapter12/12.12.jpg", class:"center", alt: "12.12" %>
+  <figcaption>
+  Figure 12.12: If Mallory enters the text in the second row of the table as a movie title, line 3 of Figure 12.11 becomes a
+dangerous SQL statement that deletes the whole table. (The final --, the SQL comment character, avoids executing any SQL
+code that might have come after DROP TABLE.) SQL injection was often successful against early frameworks such as PHP, in
+which queries were hand-coded by programmers.
+  </figcaption>
+</figure>
+
 <p><strong>SQL injection and cross-site scripting.</strong> Both of these attacks exploit SaaS apps that handle
 attacker-provided content unsafely. Defending against both can be summarized by the same
 advice: <em>sanitize any content coming from the user.</em> In <strong>SQL injection</strong>, Mallory enters form
@@ -131,6 +149,16 @@ first received from Mallory.</p>
 <span class="linenos">2</span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span> Released on 1992-11-25 00:00:00 UTC. Rated G.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 </pre></div>
 </div>
+
+<figure>
+  <figcaption>
+  Figure 12.13: Top: a fragment of a view template that Mallory hopes to exploit. Middle: Mallory creates a new movie whose
+  “title” is the string <script>alert("Danger!");</script>, hoping that RottenPotatoes will send an HTML page that
+  causes the JavaScript code to be executed. Bottom: What RottenPotatoes actually sends; the Erb renderer automatically
+  sanitizes any strings interpolated into HTML, thwarting Mallory’s attack.
+  </figcaption>
+</figure>
+
 <p><strong>Clickjacking</strong> or <em>UI redress attacks</em> are aimed at getting the user to take a UI action they
 normally wouldn’t take, by obfuscating that action in the UI. Like XSS, they rely on
 deceiving the user regarding which site is actually displaying what they’re seeing. For
@@ -179,6 +207,14 @@ year to any site that does this (to prevent credit card fraud), and the burden i
 slightly less severe if your code ever manipulates a credit card number even if you don’t
 store it. Instead, offload this responsibility to sites like PayPal or Stripe that specialize
 in meeting these heavy burdens.</p>
+
+<figure>
+  <%= image_tag "Chapter12/12.14.jpg", class:"center", alt: "12.14" %>
+  <figcaption>
+    Figure 12.14: Some common attacks against SaaS apps and the Rails mechanisms that defend against them.
+  </figcaption>
+</figure>
+
 <p><strong>Self-Check 12.9.1.</strong> <em>True or false: If a site has a valid public key certificate, Cross-Site
 Request Forgery (CSRF) and SQL Injection attacks are harder to mount against it.</em></p>
 <blockquote>

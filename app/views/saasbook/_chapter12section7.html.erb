@@ -51,6 +51,16 @@ Two common mistakes for less-experienced SaaS authors arise in the presence of a
 <span class="linenos">21</span>    <span class="sr">//</span> <span class="ss">BAD</span><span class="p">:</span> <span class="n">we</span> <span class="n">never</span> <span class="n">used</span> <span class="n">the</span> <span class="ss">:movies</span> <span class="n">that</span> <span class="n">were</span> <span class="n">preloaded!</span>
 </pre></div>
 </div>
+
+<figure>
+  <figcaption>
+  Figure 12.8: The query in the controller action (line 4) accesses the database once to retrieve rows of @fans, but each pass
+through the loop in lines 8–10 causes another separate database access, resulting in n + 1 accesses for a fan who has
+reviewed n movies. Line 15, in contrast, performs a single eager load query that also retrieves all the movies, which is nearly
+as fast as line 4 since most of the overhead of small queries is in performing the database access.
+  </figcaption>
+</figure>
+
 <p>Lines 1–17 of Figure 12.8 illustrate the so-called n+1 queries problem when traversing
 associations, and also show why the problem is more likely to arise when code creeps into
 your views: there would be no way for the view to know the damage it was causing. Of course,
@@ -65,6 +75,26 @@ The <code class="code docutils literal notranslate"><span class="pre">bullet</sp
 <span class="linenos">7</span><span class="k">end</span>
 </pre></div>
 </div>
+
+<figure>
+  <figcaption>
+  Figure 12.9: Adding an index on a column speeds up queries that match on that column. The index is even faster if you
+specify :unique, which is a promise you make that no two rows will have the same value for the indexed attribute; to avoid
+errors in case of a duplicate value, use this in conjunction with a uniqueness validation as described in Section 5.1.
+  </figcaption>
+</figure>
+
+<figure>
+  <%= image_tag "Chapter12/12.10.jpg", class:"center", alt: "12.10" %>
+  <figcaption>
+  Figure 12.10: For a PostgreSQL shared database on Heroku containing 1K movies, 1K moviegoers, and 2K to 200K reviews,
+this table shows the benefits and penalties of indexing. The first part compares the time in seconds to read 100 reviews with
+no indices vs. with foreign key (FK) indices on movie_id and moviegoer_id in the reviews table. The second part
+compares the time to create 1,000 reviews in the absence of indices and in the presence of indices over every possible pair of
+reviews columns, showing that even in this pathological case, the penalty for using indices is slight.
+  </figcaption>
+</figure>
+
 <p>Another database abuse to avoid is queries that result in a <strong>full table scan</strong>. Consider line 4
 of Figure 12.8: in the worst case, the database would have to examine every row of the
 <code class="code docutils literal notranslate"><span class="pre">moviegoers</span></code> table to find a match on the <code class="code docutils literal notranslate"><span class="pre">email</span></code> column, so the query will run more and more

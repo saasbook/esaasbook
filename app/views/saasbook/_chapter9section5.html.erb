@@ -18,6 +18,17 @@ beautiful code is easier and less expensive to maintain. Given that software can
 longer than hardware, even engineers whose aesthetic sensibilities aren’t moved by the idea
 of beautiful code can appreciate the practical economic advantage of reducing lifetime
 maintenance costs.</p>
+
+<figure>
+  <%= image_tag "Chapter9/9.10.svg", class:"center", alt: "9.10" %>
+  <figcaption>
+  Figure 9.10: The node numbers in this control ﬂow graph correspond to line numbers in Figure 9.6. 
+  Cyclomatic complexity is E − N + 2P where E is the number of edges, N the number of nodes, and P the number 
+  of connected components. convert scores a cyclomatic complexity of 4 as measured by saikuro and an ABC score 
+  (Assignments, Branches, Conditionals) of 23 as measured by flog. Figure 9.11 puts these scores in context.
+  </figcaption>
+</figure> 
+
 <p>How can you tell when code is less than beautiful, and how do you improve it? We’ve all seen
 examples of code that’s less than beautiful, even if we can’t always pin down the specific
 problems. We can identify problems in two ways: quantitatively using <strong>software metrics</strong> and
@@ -50,6 +61,25 @@ service: by creating an account there and linking your GitHub repository to it, 
 view a “report card” of your code metrics anytime, and the report is automatically updated
 when you push new code to GitHub. Figure 9.11 summarizes useful metrics we’ve seen so far
 that speak to testability and therefore to code beauty.</p>
+
+<figure>
+  <%= image_tag "Chapter9/9.11.jpg", class:"center", alt: "9.11" %>
+  <figcaption>
+  Figure 9.11: A summary of useful metrics we’ve seen so far that highlight the connection between beauty and testability,
+including Ruby tools that compute them and suggested “normal” ranges. (The recommended value for cyclomatic
+complexity comes from NIST, the U.S. National Institute of Standards and Technologies.) The metric_fu gem includes
+flog, saikuro, and additional tools for computing metrics we’ll meet in Chapter 11.
+</figure> 
+
+<figure>
+  <%= image_tag "Chapter9/9.12.jpg", class:"center", alt: "9.12" %>
+  <figcaption>
+  Figure 9.12: Four whimsically-named code smells from Fowler’s list of 22, along with the refactorings (some of which we’ll
+meet in the next section) that might remedy the smell if applied. Refer to Fowler’s book for the refactorings mentioned in the
+table but not introduced in this book.
+  </figcaption>
+</figure> 
+
 <p>The second way to spot code problems is by looking for <strong>code smells</strong>, which are structural
 characteristics of source code not readily captured by metrics. Like real smells, code
 smells call our attention to places that may be problematic. Martin Fowler’s classic book
@@ -66,6 +96,16 @@ identified by the acronym <strong>SOFA</strong>, which states that a well-writte
 <li><p>take <strong>F</strong>ew arguments, so that all-important combinations of argument values can be tested;</p></li>
 <li><p>maintain a consistent level of <strong>A</strong>bstraction, so that it doesn’t jump back and forth between saying <em>what to do</em> and saying <em>how to do it</em>.</p></li>
 </ul>
+
+<figure>
+  <%= image_tag "Chapter9/9.13.jpg", class:"center", alt: "9.13" %>
+  <figcaption>
+  Figure 9.13: variable-naming guidelines based on simple English, excerpted from Green and Ledgard 2011. Given that disk
+space is free and modern editors have auto-completion that saves you retyping the full name, your colleagues will thank you
+for writing @is_oscar_winner instead of OsWin.
+  </figcaption>
+</figure>  
+
 <p>Figure 9.6 violates at least the first and last of these, and exhibits other smells as
 well, as we can see by running reek on it:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>time_setter.rb -- <span class="m">5</span> warnings:
@@ -76,6 +116,16 @@ well, as we can see by running reek on it:</p>
     TimeSetter#self.convert has the variable name <span class="s1">&#39;y&#39;</span> <span class="o">(</span>UncommunicativeName<span class="o">)</span>
 </pre></div>
 </div>
+
+<figure>
+  <figcaption>
+  Figure 9.14: The computation of the current year given the number of days since the beginning of a start year (1980) is
+much more clear when written in pseudocode. Notice that what the method does is quick to grasp, even though each step
+would have to be broken down into more detail when turned into code. We will refactor the Ruby code to match the clarity
+and conciseness of this pseudocode.
+  </figcaption>
+</figure> 
+
 <p><strong>Not DRY</strong> (line 2). Admittedly this is only a minor duplication, but as with any smell,
 it’s worth asking ourselves why the code turned out that way.</p>
 <p><strong>Uncommunicative names</strong> (lines 4–6). Variable y appears to be an integer (lines 6, 7, 10, 14)

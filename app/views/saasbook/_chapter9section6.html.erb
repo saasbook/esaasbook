@@ -43,6 +43,24 @@ of mechanical steps for performing the refactoring, in some cases referring to o
 refactorings that may be necessary in order to apply this one. For example, Figure 9.16 shows
 the first few steps for applying the Extract Method refactoring. With these examples in
 mind, we can refactor Figure 9.6.</p>
+
+<figure>
+  <%= image_tag "Chapter9/9.15.jpg", class:"center", alt: "9.15" %>
+  <figcaption>
+  Figure 9.15: Four example refactorings, with parentheses around the chapter in which each appears in Fowler’s book. Each
+refactoring has a name, a problem that it solves, and an overview of the code transformation(s) that solve the problem.
+Fowler’s book also includes detailed mechanics for each refactoring, as Figure 9.16 shows.
+  </figcaption>
+</figure> 
+
+<figure>
+  <%= image_tag "Chapter9/9.16.jpg", class:"center", alt: "9.16" %>
+  <figcaption>
+  Figure 9.16: Fowler’s detailed steps for the Extract Method refactoring. In his book, each refactoring is described as a
+step-by-step code transformation process that may refer to other refactorings.
+  </figcaption>
+</figure> 
+
 <p>Long method is the most obvious code smell in Figure 9.6, but that’s just an overall symptom
 to which various specific problems contribute. The high ABC score (23) of <code class="code docutils literal notranslate"><span class="pre">convert</span></code> suggests
 one place to start focusing our attention: the condition of the if in lines 6–7 is difficult
@@ -81,6 +99,16 @@ to maintain a consistent level of <strong>A</strong>bstraction.</p>
 <span class="linenos">23</span><span class="k">end</span>
 </pre></div>
 </div>
+
+<figure>
+<figcaption>
+Figure 9.17: Applying the Extract Method refactoring to lines 6–7 of Figure 9.6 makes the conditional’s purpose
+immediately clear (line 6) by replacing the condition with a well-named method (lines 19–22), which we declare private to
+keep the class’s implementation details well encapsulated. For even more transparency, we could apply Extract Method
+again to leap_year? by extracting methods every_400_years? and every_4_years_except_centuries?.
+</figcaption>
+</figure> 
+
 <p>The conditional is also nested two-deep, making it hard to understand and increasing <code class="code docutils literal notranslate"><span class="pre">convert</span></code>’s
 ABC score. The <em>Decompose Conditional</em> refactoring also breaks up the complex condition by
 replacing each arm of the conditional with an extracted method. Notice, though, that the two
@@ -122,6 +150,15 @@ a class variable, we no longer need to pass it as an explicit argument to <code 
 <span class="linenos">29</span><span class="k">end</span>
 </pre></div>
 </div>
+
+<figure>
+<figcaption>
+Figure 9.18: We decompose the conditional in line 7 by replacing each branch with an extracted method. Note that while the
+total number of lines of code has increased, convert itself has become Shorter, and its steps now correspond closely to the
+pseudocode in Figure 9.14, sticking to a single level of Abstraction while delegating details to the extracted helper methods.
+</figcaption>
+</figure> 
+
 <p>As long as we’re cleaning up, the code in Figure 9.18 also fixes two minor code
 smells. The first is uncommunicative variable names: <code class="code docutils literal notranslate"><span class="pre">convert</span></code> doesn’t describe very
 well what this method does, and the parameter name <code class="code docutils literal notranslate"><span class="pre">d</span></code> is not useful. The other is
@@ -181,6 +218,15 @@ operate on the instance variables.</p>
 <span class="linenos">34</span><span class="k">end</span>
 </pre></div>
 </div>
+
+<figure>
+<figcaption>
+Figure 9.19: If we use Fowler’s recommended refactoring, the code is cleaner because we now use instance variables rather
+than class variables to track side effects, but it changes the way calculate_current_year is called because it’s now an
+instance method. This would break existing code and tests, and so might be deferred until later in the refactoring process.
+</figcaption>
+</figure> 
+
 <p>Figure 9.19 shows the result of applying such a refactoring, but there is an important
 caveat. So far, none of our refactorings have caused our characterization specs to fail,
 since the specs were just calling <code class="code docutils literal notranslate"><span class="pre">TimeSetter.convert</span></code>. But applying <em>Replace Method With

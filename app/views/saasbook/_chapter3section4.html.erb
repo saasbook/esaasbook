@@ -63,6 +63,15 @@ inside the “boundary” of the bookstore, which is shown as a dotted rectangle
 example, if the reviews subsystem wants to update a user’s profile to indicate that the user has written a review, the reviews subsystem can’t reach
 directly into the users database. Instead, it has to ask the users <strong>service</strong> to update the user’s information, via whatever interface is provided for
 that purpose. If no such operation is provided, the reviews team must negotiate with the user database team to get them to expose the necessary operation.</p>
+
+<figure>
+    <%= image_tag "Chapter3/3.3.jpg", class:"center", alt: "3.3" %>
+    <figcaption>
+    Figure 3.3: Left: Silo version of a fictitious bookstore service, with all subsystems behind a single API. Right: SOA version
+of a fictitious bookstore service, where all three subsystems are independent and available via APIs.
+    </figcaption>
+</figure>
+
 <p>Of course, you as an independent web developer cannot access Amazon’s User Profile service to manage users profiles for your own e-commerce site; it’s
 for Amazon’s internal use only. A <strong>microservice</strong>, in contrast, is a standalone service that performs just one type of task, <em>and</em> is specifically designed
 to be accessible from and incorporated into the functionality of any other outside service (perhaps for a fee). Though there is no hard-and-fast criterion
@@ -75,6 +84,15 @@ between a service and a microservice, we will use the term service throughout. W
 al. 2016: “A (micro)service is an independently deployable component of bounded scope that supports interoperability though message-based communication.”
 Based on this definition, we can see that the monolithic bookstore fails to be “micro” not just because of its size, but because its components are not
 independently deployable since they share access to databases.</p>
+
+<figure>
+    <%= image_tag "Chapter3/3.4.jpg", class:"center", alt: "3.4" %>
+    <figcaption>
+    Figure 3.4: Left: Silo version of a fictitious bookstore service, with all subsystems behind a single API. Right: SOA version
+of a fictitious bookstore service, where all three subsystems are independent and available via APIs.
+    </figcaption>
+</figure>
+
 <p>As Figure 3.4 shows, there are both pros and cons to preferring a service-oriented archi- tecture over a monolithic one. In short, we can think of microservices
 as a manifestation of extreme programming (XP) as applied to service-oriented architecture: If it’s good for services to be independently evolvable, make each
 one as compact as possible to maximize that independence. Microservices may also arise by design or by splitting up an existing

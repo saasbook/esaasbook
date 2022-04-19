@@ -46,6 +46,15 @@ takes place entirely between the user and the provider: the requesting app has n
 <span class="k">end</span>
 </pre></div>
 </div>
+
+<figure>
+    <figcaption>
+    Figure 5.7: Top (a): Type this command in a terminal to create a moviegoers model and migration, and run rake
+db:migrate to apply the migration. Bottom (b): Then edit the generated app/models/moviegoer.rb file to match this
+code, which the text explains.
+    </figcaption>
+</figure>
+
 <p>Once authentication succeeds, the provider generates an HTTP <code class="code docutils literal notranslate"><span class="pre">POST</span></code> to a particular route on the requesting app.
 This post request contains an <strong>access token</strong>—a string created using cryptographic techniques that can be passed back
 to the provider later, allowing the provider to verify that the token could only have been created as the result
@@ -118,6 +127,17 @@ of tweeting using your Twitter ID.</em></p>
 allow the requesting app to ask for permission to do specific things, and leave it up to the user to decide
 whether to allow it.</p>
 </div></blockquote>
+
+<figure>
+    <%= image_tag "Chapter5/5.9.jpg", class:"center", alt: "5.9" %>
+    <figcaption>
+    Figure 5.9: Each end of an association is labeled with its cardinality, or the number of entities participating in that “side” of
+the association, with an asterisk meaning “zero or more”. In the figure, each Review belongs to a single Moviegoer and a
+single Movie, and a Review without a Moviegoer or without a Movie is not allowed. (A cardinality notation of “0..1” rather
+than “1” would allow “orphaned” reviews.
+    </figcaption>
+</figure>
+
 </div>
 
 

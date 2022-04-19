@@ -62,6 +62,17 @@ execution of a controller action.</p>
 <span class="k">end</span>
 </pre></div>
 </div>
+
+<figure>
+    <figcaption>
+    Figure 4.8: Rails’ “strong parameters” mechanism requires us to declare which values from params are required to be
+    present and which values are permitted to be used to update the model. require and permit operate on the params hash
+    or any of its sub-hashes, as the Rails documentation8
+    explains. In Section 5.1 we introduce before-filters, which can be used
+    to DRY out this code rather than repeating it in any controller action that might try to create or modify a model instance.
+    </figcaption>
+</figure>
+
 <p>At this point, the controller action has used <code class="code docutils literal notranslate"><span class="pre">params[’movies’]</span></code> to create a new movie record, ostensibly successfully. But what should we display when the <code class="code docutils literal notranslate"><span class="pre">create</span></code> action completes?
 Strict convention over configuration suggests a view <code class="code docutils literal notranslate"><span class="pre">app/views/movies/create.html.erb</span></code> that simply confirms the movie was created, and provides a link or other mechanism to go back
 to the list of movies, but it seems clumsy to have a separate view just to do that. One alternative would be to streamline the user experience by just sending the user back to the
@@ -115,6 +126,16 @@ with a redirect is so common that the Rails <code class="code docutils literal n
 <span class="k">end</span>
 </pre></div>
 </div>
+
+<figure>
+    <figcaption>
+    Figure 4.9: Putting together the main ideas of this section, here is a simple controller that handles the CRUD actions for the
+Movie model. The create and update actions make use of the fact that Rails form helpers arrange to populate
+params[’movies’] with a hash of attribute values ready to pass to ActiveRecord, but the private movie_params method
+tells Rails which params are required and which are “safe” to pass along to ActiveRecord.
+    </figcaption>
+</figure>
+
 <p>But which view(s) should attempt to display the contents of the flash? In this example,
 we chose to redirect the user to the movies listing, so perhaps we should add code to the Index view to display the message.
 But in the future we might decide to redirect the user someplace else instead, and in any case, the idea of displaying a confirmation

@@ -48,6 +48,15 @@ values encoded in the URI; you must check the API documentation for details.</p>
 <span class="s2">&quot;$BASE/movie/364/rating?api_key=$KEY&amp;guest_session_id=$SESSION&quot;</span>
 </pre></div>
 </div>
+
+<figure>
+    <figcaption>
+    Figure 3.7: Try the lines of this shell script one at a time, replacing the value of KEY with your TMDb API key. After line 8
+    you’ll have to visually parse out the correct movie ID from the JSON response, and after line 10 the correct guest session ID
+    to use in line 12. If your system doesn’t have json_pp installed, you can omit it.
+    </figcaption>
+</figure>
+
 <p>HTTP headers are sometimes used to pass very specialized types of parameters. For example, some APIs require you to add the HTTP header Content-Type: <code class="code docutils literal notranslate"><span class="pre">application/json</span></code>
 to a request that will be accompanied by a JSON payload, while others don’t. Finally, nearly all APIs require authorization—the client must prove it has the right to make
 each API call. While authorization schemes vary, the mostcommonistoincludeaclient-specificAPIkeywitheachrequest. APIkeysareusually requested manually and may be free or

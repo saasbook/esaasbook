@@ -48,6 +48,18 @@ Server, either of which can be deployed on hundreds of computers efficiently ser
 copies of the same site to millions of users. When a Web server receives a request for you
 app, it selects one of several available application servers to handle dynamic-content
 generation, allowing computers to be added or removed from each tier as needed to handle demand.</p>
+
+<figure>
+  <%= image_tag "Chapter12/12.2.svg", class:"center", alt: "12.2" %>
+  <figcaption>
+  Figure 12.2: The 3-tier shared-nothing architecture, so called because entities within a tier generally do not communicate
+    with each other, allows adding computers to each tier independently to match demand. Load balancers, which distribute
+    workload evenly, can be either hardware appliances or specially-configured Web servers. The statelessness of HTTP makes
+    shared-nothing possible: since all requests are independent, any server in the presentation or logic tier can be assigned to
+    any request. However, scaling the persistence tier is much more challenging, as the text explains.
+  </figcaption>
+</figure>
+
 <p>However, as the Fallacies and Pitfalls section explains, making the persistence layer
 “shared-nothing” is much more complicated. Figure 12.2 shows one approach: a <strong>primary/replica</strong>
 or primary/secondary configuration, used when the database is read much more frequently than

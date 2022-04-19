@@ -27,6 +27,16 @@ another table to establish an association between the objects represented by tho
 Rails migrations create tables whose primary key column is called <code class="code docutils literal notranslate"><span class="pre">id</span></code>. Figure 5.10 shows a Moviegoers table to keep
 track of different users and a Reviews table with foreign key columns <code class="code docutils literal notranslate"><span class="pre">moviegoer_id</span></code> and <code class="code docutils literal notranslate"><span class="pre">movie_id</span></code>, allowing each review
 to refer to the primary keys (ids) of the user who authored it and the movie it’s about.</p>
+
+<figure>
+    <%= image_tag "Chapter5/5.10.jpg", class:"center", alt: "5.10" %>
+    <figcaption>
+    Figure 5.10: In this figure, Alice has given 5 potatoes to Star Wars and 4 potatoes to Inception, Bob has given 3 potatoes to
+Inception, Carol hasn’t provided any reviews, and no one has reviewed It’s Complicated. For brevity and clarity, the other
+fields of the movies and reviews tables are not shown.
+    </figcaption>
+</figure>
+
 <p>For example, to find all reviews for Star Wars, we would first form the <strong>Cartesian product</strong> of all the rows of the
 <code class="code docutils literal notranslate"><span class="pre">movies</span></code> and <code class="code docutils literal notranslate"><span class="pre">reviews</span></code> tables by concatenating each row of the
 <code class="code docutils literal notranslate"><span class="pre">movies</span></code> table with each possible row of the <code class="code docutils literal notranslate"><span class="pre">reviews</span></code> table. This would give us a new table with 9 rows (since there
@@ -53,6 +63,14 @@ the query would look something like this:</p>
 <span class="n">inception</span><span class="o">.</span><span class="n">reviews</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">r</span><span class="o">|</span> <span class="n">r</span><span class="o">.</span><span class="n">moviegoer</span><span class="o">.</span><span class="n">name</span> <span class="p">}</span> <span class="c1"># =&gt; [&#39;alice&#39;,&#39;bob&#39;]</span>
 </pre></div>
 </div>
+
+<figure>
+    <figcaption>
+    Figure 5.11: A straightforward implementation of associations would allow us to refer directly to associated objects, even
+though they’re stored in different database tables.
+    </figcaption>
+</figure>
+
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">reviews</span><span class="p">.</span><span class="o">*</span>
     <span class="k">FROM</span> <span class="n">movies</span> <span class="k">JOIN</span> <span class="n">reviews</span> <span class="k">ON</span> <span class="n">movies</span><span class="p">.</span><span class="n">id</span><span class="o">=</span><span class="n">reviews</span><span class="p">.</span><span class="n">movie_id</span>
     <span class="k">WHERE</span> <span class="n">movies</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="mi">41</span><span class="p">;</span>
@@ -91,6 +109,15 @@ the examples in Fig- ure 5.11.</p>
 <span class="n">has_many</span> <span class="ss">:reviews</span>
 </pre></div>
 </div>
+
+<figure>
+    <figcaption>
+    Figure 5.12: Top (a): Create and apply this migration to create the Reviews table. The new model’s foreign keys are related
+to the existing movies and moviegoers tables by convention over configuration. Middle (b): Put this new Review model in
+app/models/review.rb. Bottom (c): Make this one-line change to each of the existing files movie.rb and moviegoer.rb.
+    </figcaption>
+</figure>
+
 <p>How does this work? Since everything in Ruby is a method call, we know that Line 8 in Figure 5.11 is really
 a call to the instance method <code class="code docutils literal notranslate"><span class="pre">reviews=</span></code> on a <strong>Movie</strong> object. This instance method remembers its assigned value
 (an array of Alice’s and Bob’s reviews) in memory. Recall, though, that since a Review is on the “belongs to”
@@ -105,6 +132,17 @@ use functional idioms like <code class="code docutils literal notranslate"><span
 <p>What about the <code class="code docutils literal notranslate"><span class="pre">belongs_to</span></code> method calls in <code class="code docutils literal notranslate"><span class="pre">review.rb</span></code>? As you might guess, <code class="code docutils literal notranslate"><span class="pre">belongs_to</span> <span class="pre">:movie</span></code> gives <strong>Review</strong> objects a movie
 instance method that looks up and returns the movie to which this review belongs. Since a review belongs to at most one
 movie, the method name is singular rather than plural, and returns a single object rather than an enumerable.</p>
+
+<figure>
+    <%= image_tag "Chapter5/5.13.jpg", class:"center", alt: "5.13" %>
+    <figcaption>
+    Figure 5.13: A subset of the association methods created by movie has_many :reviews and review belongs_to
+:movie, assuming m is an existing Movie object and r1,r2 are Review objects. Consult the
+ActiveRecord::Associations documentation13 for a full list. Method names of association methods follow convention
+over configuration based on the name of the associated mode
+    </figcaption>
+</figure>
+
 <p><strong>Self-Check 5.4.1.</strong> <em>In Figure 5.12(a), why did we add foreign keys (references) only to the</em> <code class="code docutils literal notranslate"><span class="pre">reviews</span></code> <em>table and not to the</em>
 <code class="code docutils literal notranslate"><span class="pre">moviegoers</span></code> <em>or</em> <code class="code docutils literal notranslate"><span class="pre">movies</span></code> <em>tables?</em></p>
 <blockquote>

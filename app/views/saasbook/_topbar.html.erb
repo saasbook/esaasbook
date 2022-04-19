@@ -36,13 +36,13 @@
                 </div>
             </div>
 
-            <!-- Source interaction buttons -->
-            <a class="annotation-button" ><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                    data-placement="bottom" title="Make annotation"><i
+            <!-- Annotate button -->
+            <a class="annotate-button" ><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" title="Annotate"><i
                         class="fa fa-comment"></i></button></a>
-
-            <a class="highlighter-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                    data-placement="bottom" title="Highlighter"><i
+            <!-- highlight button -->
+            <a class="highlight-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" title="Highlight"><i
                         class="fas fa-highlighter"></i></button></a>
             <!-- Full screen (wrap in <a> to have style consistency -->
 
@@ -65,8 +65,8 @@
                 <a class="user-page-button" href= "user-page-path%>">
                     <button type="submit" class="btn btn-default" title="User page" 
                             data-toggle="tooltip" data-placement="bottom">
-                        <%= current_user.full_name %>
-                        <%= image_tag("http://github.com/#{current_user.full_name}.png", width: "15%")%>
+                        <%= current_user.nickname %>
+                        <%= image_tag("http://github.com/#{current_user.nickname}.png", width: "15%")%>
                     </button>
                 </a>
             <% else %>
@@ -78,11 +78,5 @@
                 </a>
             <% end %>
         </div>
-
-        
-            
-        
-
-
     </div>
 </div>

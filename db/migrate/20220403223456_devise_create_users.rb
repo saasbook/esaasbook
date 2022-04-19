@@ -7,7 +7,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       t.datetime :remember_created_at
       t.string :email, null: false
       t.string :encrypted_password, null: false
-      t.string :full_name
+      t.string :nickname
       t.string :uid
       t.string :avatar_url
       t.string :provider, null: false

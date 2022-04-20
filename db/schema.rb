@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_19_233558) do
+ActiveRecord::Schema.define(version: 2022_04_19_011822) do
 
   create_table "page_annotations", force: :cascade do |t|
     t.integer "chapter"
@@ -34,13 +34,13 @@ ActiveRecord::Schema.define(version: 2022_04_19_233558) do
   create_table "users", force: :cascade do |t|
     t.datetime "remember_created_at"
     t.string "email", null: false
+    t.string "encrypted_password", null: false
     t.string "nickname"
     t.string "uid"
     t.string "avatar_url"
     t.string "provider", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "encrypted_password", default: "", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

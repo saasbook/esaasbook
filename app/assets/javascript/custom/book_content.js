@@ -1,7 +1,8 @@
 // book_content.js
-// By Joshua Delrosario
-// Checks what chapter/section we are on and highlights the corresponding menu item
+// Scripts for this project
 
+
+// Checks what chapter/section we are on and highlights the corresponding menu item
 $(document).ready(function() {
     let my_loc = window.location.href;
     let chapter_pattern = /chapter\/(\d+)/;
@@ -26,3 +27,6 @@ $(document).ready(function() {
         $("#p0").addClass("active");
     }
 });
+
+
+

@@ -37,15 +37,31 @@
             </div>
 
             <!-- Annotate button -->
-            <a class="annotate-button" ><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                    data-placement="bottom" title="Annotate"><i
-                        class="fa fa-comment"></i></button></a>
-            <!-- highlight button -->
-            <a class="highlight-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                    data-placement="bottom" title="Highlight"><i
-                        class="fas fa-highlighter"></i></button></a>
-            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="annotate-button" >
+            <button type="button" 
+                class="btn btn-secondary topbarbtn<% unless user_signed_in? %> disabled<% end %>"
+                data-toggle="tooltip" data-placement="bottom" id="annotateButton"
+                title="<% if user_signed_in? %>Annotate<% else %>Log in to use this feature!<% end %>">
+                    <i class="fa fa-comment"></i></button></a>
 
+            <!-- highlight button -->
+            <div class ="btn-group" id = "highlight-dropdown">
+                <button type="button" 
+                    class="btn topbarbtn btn-secondary <% unless user_signed_in? %> disabled<% end %>"
+                    id="highlight-button"
+                    title="<% if user_signed_in? %>Highlight<% else %>Log in to use this feature!<% end %>">
+                    <i class="fas fa-highlighter"></i>
+                </button>
+                <button type="button"
+                    class="btn topbarbtn btn-secondary dropdown-toggle dropdown-toggle-split" id="highlight-toggle"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                </button>
+                <div class="dropdown-menu" id="color-dropdown">
+                    <span id="color-dropdown-items"></span>
+                </div>
+            </div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
             <a class="full-screen-button">
                 <button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
                     data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"

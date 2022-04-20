@@ -6,13 +6,12 @@ Rails.application.routes.draw do
   get '/chapter/:chapter_id', to: 'saasbook#show_chapter', as: 'chapter'
   get '/preface', to: 'saasbook#preface', as: 'preface'
   get '/', to: 'saasbook#index', as: 'home'
-<<<<<<< HEAD
-  #devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth' }
-=======
+
+  post '/annotate', to: 'saasbook#annotate', as: 'annotate'
+  get '/fetch_annotations', to: 'saasbook#fetch_annotations', as: 'fetch_annotations'
 
   get '/search', to: 'saasbook#search'
 
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth' }
-
->>>>>>> origin
+  
 end

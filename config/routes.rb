@@ -13,5 +13,4 @@ Rails.application.routes.draw do
   get '/search', to: 'saasbook#search'
 
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth' }
-  
 end

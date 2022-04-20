@@ -2,6 +2,7 @@
 
 # Controller for the Saasbook website. Temporary maybe?
 class SaasbookController < ApplicationController
+  before_action :annotation_ajax_prep, only: %i[annotate fetch_annotations]
   def index
     @body_contents = 'index'
     @chapter_id = 0
@@ -42,33 +43,31 @@ class SaasbookController < ApplicationController
     render('book_content')
   end
 
-  def annotate
-    return unless user_signed_in?
-
+  def annotation_ajax_prep
     @chapter = params[:chapter]
     @section = params[:section]
     @user = current_user
+  end
+
+  def annotate
+    return unless user_signed_in?
+
     @anno = @user.page_annotations.where(chapter: @chapter, section: @section).first_or_create
     @anno.update(annotation: params[:annotation])
   end
 
   def fetch_annotations
-    return unless user_signed_in?
+    respond_to do |format|
+      format.html { redirect_to home_path }
+      format.json
+    end
 
-    @chapter = params[:chapter]
-    @section = params[:section]
-    @user = current_user
+    return unless user_signed_in?
 
     @anno = @user.page_annotations.find_by(chapter: @chapter, section: @section)
 
-    if @anno != nil
-      @anno = @anno.annotation
-    end
+    @anno = @anno.annotation unless @anno.nil?
 
-    respond_to do |format|
-      format.html { redirect_to home_path }
-      format.json { render json: @anno.to_json }
-    end
-
+    render json: @anno.to_json
   end
 end

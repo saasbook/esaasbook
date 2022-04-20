@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :user do
     email { 'gob_github@githubtest.com' }
-    full_name { 'Gob Github' }
+    nickname { 'Gob Github' }
     provider { 'github' }
     uid { 43_231 }
     created_at { Time.current }

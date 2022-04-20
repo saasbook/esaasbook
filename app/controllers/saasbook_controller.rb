@@ -27,4 +27,12 @@ class SaasbookController < ApplicationController
 
     render('book_content')
   end
+
+  def search
+    @search_params = params[:q]
+    @body_contents = "search"
+    
+
+    render('book_content')
+  end
 end

@@ -20,6 +20,10 @@
     background-color: #add8e6 !important;
     color: black;
 }
+.default-annotation {
+    background-color: lavender !important;
+    color: black;
+}
 
 .dropdown-menu {
     transform: translate(0px, 36px) !important;

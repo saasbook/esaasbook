@@ -6,11 +6,32 @@ $(document).ready(function() {
     var highlightClassIndex = 0;
     var highlighterColors = ["Yellow", "Green", "Blue"];
     var highlightClassnames = ["yellow-highlight", "green-highlight", "blue-highlight"];
-    var highlighterRGBs = ["#ffff80", "#8cff32", "#add8e6"]
+    var highlighterRGBs = ["#ffff80", "#8cff32", "#add8e6"];
+    var annotationClassname = "default-annotation";
+    var loadingAnnotations = true;
 
     var highlightFormatter = function(annotation) {
-        return highlightClassnames[highlightClassIndex];
-    } 
+        console.log("Formatting!");
+        if (!loadingAnnotations) {
+            if (highlightOn) {
+                annotation.underlying.style = highlightClassnames[highlightClassIndex];
+            } else {
+                annotation.underlying.style = annotationClassname;
+            }
+        }
+        console.log(annotation);
+        return annotation.underlying.style;
+        /*if (loadingAnnotations) {
+            return annotation.underlying.body[0].style;
+        }*/
+        /*if (highlightOn) {
+            annotation.underlying.body[0].style = highlightClassnames[highlightClassIndex];
+            return highlightClassnames[highlightClassIndex];
+        } else {
+            annotation.underlying.body[0].style = annotationClassname;
+            return annotationClassname;
+        }*/
+    }
 
     var reco = Recogito.init({
         content: 'main-content', 
@@ -42,11 +63,11 @@ $(document).ready(function() {
     //var highlightColor = $("#selectedColor").find("option:selected").text()
 
     function changeHighlightColor(idx) {
-        console.log('selected color is ' + idx);
         if (!highlightOn || (highlightOn && idx == highlightClassIndex)) {
-            HighlightOnOff();
+            highlightOnOff();
         }
         highlightClassIndex = idx;
+        $("#highlight-button").css("color", highlighterRGBs[highlightClassIndex]);
     }
 
     function setupColorDropdown() {
@@ -68,9 +89,9 @@ $(document).ready(function() {
     }
 
     
-    function HighlightOnOff() {
+    function highlightOnOff() {
         if (annotateOn) {
-            AnnotationOnOff();
+            annotationOnOff();
         }
 
         highlightOn = !highlightOn;
@@ -79,7 +100,6 @@ $(document).ready(function() {
             reco.disableEditor = true;
             reco.readOnly = false;
             $("#highlight-button").addClass("active");
-            // $("#highlight-button").css("color", selColor);
             $("#highlight-toggle").addClass("active");
         } else {
             reco.readOnly = true;
@@ -98,12 +118,11 @@ $(document).ready(function() {
       });
 
     
-    function AnnotationOnOff() {
+    function annotationOnOff() {
         if (highlightOn) {
-            HighlightOnOff();
+            highlightOnOff();
         }
         annotateOn = !annotateOn;
-        console.log("Annotations are now " + annotateOn);
         if (annotateOn) {
             $("#annotateButton").addClass("active");
             reco.disableEditor = false;
@@ -117,6 +136,7 @@ $(document).ready(function() {
     function uploadAnnotations() {
         let chapter_id = $('.page_information').data('chapter');
         let section_id = $('.page_information').data('section');
+        console.log(reco.getAnnotations());
         $.post("/annotate", {
             chapter: chapter_id,
             section: section_id,
@@ -125,11 +145,13 @@ $(document).ready(function() {
     }
 
     function loadAnnotations(data) {
-        reco.setAnnotations(JSON.parse(data));
+        console.log("load called");
+        reco.setAnnotations(JSON.parse(data)).then(function() {
+            loadingAnnotations = false;
+        });
     }
 
     function getAnnotations() {
-        console.log("Trying to get annotations...");
         let chapter_id = $('.page_information').data('chapter');
         let section_id = $('.page_information').data('section');
         $.getJSON("/fetch_annotations", 
@@ -141,16 +163,16 @@ $(document).ready(function() {
         );
     }
 
-    function customTestFunc() {
-        getAnnotations();
-    }
-
     function clickedHighlightButton(e) {
-        e.stopPropagation();
-        $(".dropdown-toggle").dropdown("toggle");
+        if (highlightOn) {
+            highlightOnOff();
+        } else {
+            e.stopPropagation();
+            $(".dropdown-toggle").dropdown("toggle");
+        }
     }
 
-    $("#annotateButton").click(AnnotationOnOff);
+    $("#annotateButton").click(annotationOnOff);
     getAnnotations();
     setupColorDropdown();
     $("#highlight-button").click(function(e) { clickedHighlightButton(e) });

@@ -4,8 +4,7 @@
     
     <meta name="google-site-verification" content="<%= ENV['GOOGLE_VERIFICATION'] %>" />
     <title>
-      <% doc = Nokogiri::HTML(request.url) %>
-	  <% yield(@chapter_id + "." + @section_id + doc.css(h1).text) %>
+      <%= yield(:title) %>
     </title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>

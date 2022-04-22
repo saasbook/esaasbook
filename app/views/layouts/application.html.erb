@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
+    
     <meta name="google-site-verification" content="<%= ENV['GOOGLE_VERIFICATION'] %>" />
-    <title>Esaasbook</title>
+    <title>
+      <% doc = Nokogiri::HTML(request.url) %>
+	  <% yield(@chapter_id + "." + @section_id + doc.css(h1).text) %>
+    </title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>

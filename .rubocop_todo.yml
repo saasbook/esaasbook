@@ -21,6 +21,9 @@ Lint/Debugger:
 # IgnoredMethods: refine
 Metrics/BlockLength:
   Max: 27
+  Exclude: 
+    - 'db/schema.rb'
+    - 'spec/**/*'
 
 # Offense count: 1
 # Configuration parameters: IgnoredMethods.

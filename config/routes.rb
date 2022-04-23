@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get '/preface', to: 'saasbook#preface', as: 'preface'
   get '/', to: 'saasbook#index', as: 'home'
   post '/annotate', to: 'saasbook#annotate', as: 'annotate'
+  get '/fetch_annotations', to: 'saasbook#fetch_annotations', as: 'fetch_annotations'
 
   get '/search', to: 'saasbook#search'
 

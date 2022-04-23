@@ -27,6 +27,3 @@ $(document).ready(function() {
         $("#p0").addClass("active");
     }
 });
-
-
-

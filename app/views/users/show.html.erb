@@ -46,18 +46,18 @@
                             <%= image_tag "http://github.com/#{current_user.nickname}.png", width: "50%" %>
                         </div>
                         <div class="col-12 col-md-4 pl-md-6 pr-md-0 text-center">
-                            <%= @user.nickname %>
+                            <h1><%= @user.nickname %></h1>
                         </div>
                         <div class="col-12 col-md-2 pl-md-9 pr-md-2 text-center">
                             <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
                         </div>
                     </div>
 
-                    <table class="table table-hover">
-                        <thead class="thead-light">
+                    <table class="table table-hover text-center" >
+                        <h3 class='text-center'> Annotations/Highlights </h3>
+                        <thead class="thead-light ">
                             <tr>
-                                <th>link</th>
-                                <th>Annotation</th>
+                                <th>Links</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -72,7 +72,6 @@
                                     <% else %>
                                         <td><%= link_to "Chapter#{x.chapter}Section#{x.section}", section_path(chapter_id: x.chapter, section_id: x.section) %></td>
                                     <% end %> 
-                                    <td><%= eval(x.annotation).first[:body].first[:value] %></td>
                                 </tr>
                             <% end %>
                         </tbody>

@@ -388,6 +388,7 @@ DEPENDENCIES
   guard-rubocop
   jbuilder (~> 2.7)
   listen (~> 3.3)
+  nokogiri (~> 1.13, >= 1.13.4)
   omniauth-github (~> 1.1, >= 1.1.2)
   pg
   puma (~> 5.0)

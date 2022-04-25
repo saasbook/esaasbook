@@ -18,7 +18,7 @@ class SaasbookController < ApplicationController
     @chapter_id = params[:chapter_id]
     @section_id = params[:section_id]
     @title = Page.where(chapter: @chapter_id, section: @section_id)[0].title
-    @title = @chapter_id + "." + @section_id.to_s + ". " + @title
+    @title = @chapter_id + "." + @section_id + ". " + @title
     @body_contents = "chapter#{@chapter_id}section#{@section_id}"
 
     render('book_content')

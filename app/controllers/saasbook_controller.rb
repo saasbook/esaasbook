@@ -4,11 +4,13 @@
 class SaasbookController < ApplicationController
   def index
     @body_contents = 'index'
+    @title = "Engineering Software as a Service: An Agile Approach Using Cloud Computing"
     render('book_content')
   end
 
   def preface
     @body_contents = 'preface'
+    @title = "Preface"
     render('book_content')
   end
 
@@ -35,7 +37,7 @@ class SaasbookController < ApplicationController
   def search
     @search_params = params[:q]
     @body_contents = 'search'
-
+    @title = "Search the Book - #{@search_params} "
     render('book_content')
   end
 

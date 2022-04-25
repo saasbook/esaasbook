@@ -40,18 +40,44 @@
                 <!-- USER PAGE RENDER HERE -->
                 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
-                <div id="main-content" class="row">
-                    <div class="col-12 col-md-4 pl-md-3 pr-md-0 text-center">
-                    
-                        <%= image_tag "http://github.com/#{current_user.nickname}.png", width: "50%" %>
+                    <div id="main-content" class="row">
+                        <div class="col-12 col-md-4 pl-md-3 pr-md-0 text-center">
+                        
+                            <%= image_tag "http://github.com/#{current_user.nickname}.png", width: "50%" %>
+                        </div>
+                        <div class="col-12 col-md-4 pl-md-6 pr-md-0 text-center">
+                            <%= @user.nickname %>
+                        </div>
+                        <div class="col-12 col-md-2 pl-md-9 pr-md-2 text-center">
+                            <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
+                        </div>
                     </div>
-                    <div class="col-12 col-md-4 pl-md-6 pr-md-0 text-center">
-                        <%= @user.nickname %>
-                    </div>
-                    <div class="col-12 col-md-2 pl-md-9 pr-md-2 text-center">
-                        <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
-                    </div>
-                </div>
+
+                    <table class="table table-hover">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>link</th>
+                                <th>Annotation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%= @user.page_annotations.where(user_id: @user.id).each do |x| %>
+                                <tr>
+                                    <% if x.section = 0 %>
+                                        <% if x.chapter = 0 %>
+                                            <td><%= link_to "Preface", preface_path() %></td>
+                                        <% else %>
+                                            <td><%= link_to "Chapter#{x.chapter}", chapter_path(chapter_id: x.chapter) %></td>
+                                        <% end %>
+                                    <% else %>
+                                        <td><%= link_to "Chapter#{x.chapter}Section#{x.section}", section_path(chapter_id: x.chapter, section_id: x.section) %></td>
+                                    <% end %> 
+                                    <td><%= eval(x.annotation).first[:body].first[:value] %></td>
+                                </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
+
                     <footer class="footer mt-5 mt-md-0">
                         <div class="container">
                         <p>

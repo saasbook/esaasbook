@@ -6,3 +6,6 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Page.new
+Page.create(chapter: 1,section: 0 ,title: "Introduction to Software as a Service, Agile Development, and Cloud Computing" )
+Page.create(chapter: 1 ,section: 1 ,title: "Introduction" )

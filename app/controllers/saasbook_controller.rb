@@ -15,7 +15,8 @@ class SaasbookController < ApplicationController
   def show_section
     @chapter_id = params[:chapter_id]
     @section_id = params[:section_id]
-
+    @title = Page.where(chapter: @chapter_id, section: @section_id)[0].title
+    @title = @chapter_id + "." + @section_id.to_s + ". " + @title
     @body_contents = "chapter#{@chapter_id}section#{@section_id}"
 
     render('book_content')
@@ -23,6 +24,9 @@ class SaasbookController < ApplicationController
 
   def show_chapter
     @chapter_id = params[:chapter_id]
+    @section_id = 0
+    @title = Page.where(chapter: @chapter_id, section: @section_id)[0].title
+    @title = @chapter_id + ". " + @title
     @body_contents = "chapter#{@chapter_id}"
 
     render('book_content')

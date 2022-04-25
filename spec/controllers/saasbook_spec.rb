@@ -83,5 +83,30 @@ RSpec.describe SaasbookController, type: :controller do
         expect(@num_annotations_after).to eq(@num_annotations_before)
       end
     end
+    describe 'accessing the fetch_annotations page via hhtp' do
+      it 'should redirect you' do
+        get :fetch_annotations
+        expect(response).to redirect_to(home_path)
+      end
+    end
+    describe 'accessing the fetch_annotations page via hhtp' do
+      it 'should redirect you' do
+        get :fetch_annotations
+        expect(response).to redirect_to(home_path)
+      end
+    end
+    describe 'getting annotations from a page' do
+      login_user
+      it 'should return the annotation' do
+        post :annotate, params: { chapter: '1', section: '4', annotation: 'hello world' }
+        @user = User.find_by(uid: 43_231, provider: 'github')
+        @annotation_find = @user.page_annotations.find_by(chapter: '1', section: '4')
+        expect(@annotation_find.annotation).to eq('hello world')
+
+        get :fetch_annotations, params: { chapter: 1, section: 4 }, format: 'json'
+        expect(response).not_to be_nil
+        expect(response.body).to eq('hello world'.to_json)
+      end
+    end
   end
 end

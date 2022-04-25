@@ -61,10 +61,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <%= @annotations.each do |x| %>
+                            <% @annotations.each do |x| %>
                                 <tr>
-                                    <% if x.section = 0 %>
-                                        <% if x.chapter = 0 %>
+                                    <% if x.section == 0 %>
+                                        <% if x.chapter == 0 %>
                                             <td><%= link_to "Preface", preface_path() %></td>
                                         <% else %>
                                             <td><%= link_to "Chapter#{x.chapter}", chapter_path(chapter_id: x.chapter) %></td>

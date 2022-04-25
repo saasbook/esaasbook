@@ -17,9 +17,10 @@
 
         
         <%= javascript_include_tag "vendor.js" %>
-        <%= javascript_include_tag "documentation_options.js", id: "documentation_options" %>
-        <%= javascript_include_tag "book_content.js" %>
-        
+        <%= javascript_include_tag "custom.js" %>
+        <% if user_signed_in? && @section_id != -1 %>
+            <%= javascript_include_tag "highlight-annotate.js" %>
+        <% end %>
         
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="docsearch:language" content="en" />
@@ -35,31 +36,19 @@
                 <%= render "saasbook/table_of_contents" %>
                 <!-- RENDER TOPBAR -->
                 <%= render "saasbook/topbar" %>
-
-                <!-- USER PAGE RENDER HERE -->
-                <div class="user-page-container">
-                    <div class="avatar">
-                        
-                    </div>
-                    <div class="username">
-                        <h3 class="text-center">
-                            
-                        </h3>
-                    </div>
-                    <div class="signout-button">
-                        
-                    </div>
-                </div>
-
+                <!-- MAIN CONTENTS RENDER HERE -->
+                
                 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
                 <div id="main-content" class="row">
-                    <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+                    <div class="col-12 col-md-4 pl-md-3 pr-md-0 text-center">
                     
-                        <%= image_tag "http://github.com/#{current_user.nickname}.png" %>
-                            
+                        <%= image_tag "http://github.com/#{current_user.nickname}.png", width: "50%" %>
+                    </div>
+                    <div class="col-12 col-md-4 pl-md-6 pr-md-0 text-center">
                         <%= @user.nickname %>
-
+                    </div>
+                    <div class="col-12 col-md-2 pl-md-9 pr-md-2 text-center">
                         <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
                     </div>
                 </div>
@@ -74,7 +63,6 @@
                         </div>
                     </footer>
                 </main>
-
 
             </div>
         </div>

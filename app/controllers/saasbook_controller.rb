@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
-# Controller for the Saasbook website. Temporary maybe?
+# Controller for the Saasbook website
+# #index, #preface, #show_section and #show_chapter help render the correct content for the page
+# #search enables search function on the web page
+# #annotation_ajax_prep prepares the ajax call to create an annotation
+# #annotate updates/creates an annotation object for the user
+# #fetch_annotations retrive all the annotations the user has made in JSON format
 class SaasbookController < ApplicationController
   before_action :annotation_ajax_prep, only: %i[annotate fetch_annotations]
   def index

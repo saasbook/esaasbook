@@ -31,6 +31,18 @@ to simplify its use. It’s sometimes called a <em>through-association</em>, sin
 <em>through</em> their reviews and vice versa. Figure 5.15 shows how to use the <code class="code docutils literal notranslate"><span class="pre">:through</span></code> option to Rails’ <code class="code docutils literal notranslate"><span class="pre">has_many</span></code>
 to represent this indirect association. You can similarly add <code class="code docutils literal notranslate"><span class="pre">has_many</span> <span class="pre">:moviegoers,</span> <span class="pre">:through=&gt;:reviews</span></code> to the Movie model, and
 write <code class="code docutils literal notranslate"><span class="pre">movie.moviegoers</span></code> to ask which moviegoers are associated with (wrote reviews for) a given movie.</p>
+
+<figure>
+    <%= image_tag "Chapter5/5.14.jpg", class:"center", alt: "5.14" %>
+    <figcaption>
+    Figure 5.14: In the Active Record design pattern (left), used by Rails and implemented in the ActiveRecord module, the
+model object itself knows how it’s stored in the persistence tier, and how its relationship to other types of models is
+represented there. In the Data Mapper pattern (right), used by Google AppEngine, PHP and Sinatra, a separate class
+isolates model objects from the underlying storage layer. Each approach has pros and cons. This class diagram is one form
+of Unified Modeling Language (UML) diagram, which we’ll learn more about in Chapter 11.
+    </figcaption>
+</figure>
+
 <p>How is a through-association “traversed” in the database? Referring again to Figure 5.10, finding all the movies reviewed
 by Gloria first requires forming the Cartesian product of the <em>three</em> tables (<code class="code docutils literal notranslate"><span class="pre">movies,</span> <span class="pre">reviews,</span> <span class="pre">moviegoers</span></code>), resulting in a
 table that conceptually has 27
@@ -49,6 +61,18 @@ the SQL query might look like this:</p>
 <span class="linenos">10</span><span class="n">gloria</span><span class="o">.</span><span class="n">movies</span> <span class="o">&lt;&lt;</span> <span class="no">Movie</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:title</span> <span class="o">=&gt;</span> <span class="s1">&#39;Inception&#39;</span><span class="p">)</span> <span class="c1"># Don&#39;t do this!</span>
 </pre></div>
 </div>
+
+<figure>
+    <figcaption>
+    Figure 5.15: Using through-associations in Rails. As before, the object returned by alice.movies in line 8 quacks like a
+collection. Note, however, that since the association between a Movie and a Moviegoer occurs through a Review belonging to
+both, the syntax in line 10 will cause a Review object to be created to “link” the association, and by default all its attributes
+will be nil. This is almost certainly not what you want, and if you have validations on the Review object (for example, the
+number of potatoes must be an integer), the newly-created Review object will fail validation and cause the entire operation
+to abort.
+    </figcaption>
+</figure>
+
 <div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">class</span> <span class="nc">Review</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
 <span class="linenos">2</span>    <span class="c1"># review is valid only if it&#39;s associated with a movie:</span>
 <span class="linenos">3</span>    <span class="n">validates</span> <span class="ss">:movie_id</span> <span class="p">,</span> <span class="ss">:presence</span> <span class="o">=&gt;</span> <span class="kp">true</span>
@@ -58,6 +82,14 @@ the SQL query might look like this:</p>
 <span class="linenos">7</span><span class="k">end</span>
 </pre></div>
 </div>
+
+<figure>
+    <figcaption>
+    Figure 5.16: This example validation on an association ensures that a review is only saved if it has been associated with
+some movie.
+    </figcaption>
+</figure>
+
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">movies</span> <span class="p">.</span><span class="o">*</span>
     <span class="k">FROM</span> <span class="n">movies</span> <span class="k">JOIN</span> <span class="n">reviews</span> <span class="k">ON</span> <span class="n">movies</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">reviews</span><span class="p">.</span><span class="n">movie_id</span>
     <span class="k">JOIN</span> <span class="n">moviegoers</span> <span class="k">ON</span> <span class="n">moviegoers</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">reviews</span><span class="p">.</span><span class="n">moviegoer_id</span>

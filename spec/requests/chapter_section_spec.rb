@@ -37,3 +37,12 @@ RSpec.describe 'Index and Preface Requests', type: :request do
     end
   end
 end
+
+RSpec.describe 'Search Requests', type: :request do
+  describe 'GET search' do
+    it 'Succeeeds and renders the correct page' do
+      get search_path
+      expect(response).to be_successful
+    end
+  end
+end

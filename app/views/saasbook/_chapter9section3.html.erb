@@ -44,6 +44,16 @@ in the outside-in Agile cycle.</p>
 <span class="k">end</span>
 </pre></div>
 </div>
+
+<figure>
+  <figcaption>
+  Figure 9.6: This method is hard to understand, hard to test, and therefore, by Feathers’s definition of legacy code, hard to
+modify. In fact, it contains a bug—this example is a simplified version of a bug in the Microsoft Zune music player that
+caused any Zune booted on December 31, 2008, to freeze permanently, and for which the only resolution was to wait until
+the first minute of January 1, 2009, before rebooting.
+  </figcaption>
+</figure> 
+
 <p>Whereas integration-level characterization tests just capture behaviors that we observe without
 requiring us to understand <em>how</em> those behaviors happen, a unit-level characterization test seems
 to require us to understand the implementation. For example, consider the code in Figure 9.6.
@@ -74,6 +84,14 @@ Figure 9.7 and even finds a bug in the process!</p>
 <span class="k">end</span>
 </pre></div>
 </div>
+
+<figure>
+  <figcaption>
+  Figure 9.7: This simple spec, resulting from the reverse-engineering technique of creating characterization tests achieves
+100% C0 coverage and helps us find a bug in Figure 9.6.
+  </figcaption>
+</figure> 
+
 <p>Feathers describes a useful technique for “reverse engineering” specs from a piece of code
 we don’t yet understand: create a spec with an assertion that we know will probably fail,
 run the spec, and use the information in the error message to change the spec to match actual

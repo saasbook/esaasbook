@@ -18,6 +18,17 @@ and handle server exceptions (errors in execution), and so on, just as when an a
 but all subject to the constraints of using HTTP for communication. The term <strong>API</strong>, or Application
 Programming Interface, refers to the “contract” between a caller and callee, whether these are a program calling a
 library function or a SaaS client invoking a service on a SaaS server, as Figure 3.5 shows.</p>
+
+<figure>
+    <%= image_tag "Chapter3/3.5.jpg", class:"center", alt: "3.5" %>
+    <figcaption>
+    Figure 3.5: APIs describe any caller–callee contract, whether calling a service in an SOA or a Python library function. API
+documentation specifies which operations are available, how URIs should be constructed to invoke those operations, how
+errors are reported, and what other operational requirements must be met (for example, limiting the number of calls made
+per day to a microservice, or including an account identifier or password with each API call).
+    </figcaption>
+</figure>
+
 <p>Unfortunately, rows 2 and 3 in the figure are problematic, because HTTP does not pre- scribe a way to “name a remote function”
 or “pass parameters” since those tasks were never part of its original design. In particular, the HTTP and URI specifications
 offer no conventions regarding the <em>semantics</em> (implied meaning) of how URIs are constructed or how these tasks should occur.
@@ -76,6 +87,17 @@ to express different sub-operations on a resource rather than relationships amon
 RESTful API, such an Index call might just return a list of review IDs, and the client could then retrieve the contents of individual reviews by their review ID.
 It’s possible that the TMDb API sought to make things more efficient so that enough information is returned for each review that the client could decide which reviews
 were worth getting more details on. But if a movie had thousands of reviews, returning review data rather than just review IDs for all those reviews might become unwieldy.</p>
+
+<figure>
+    <%= image_tag "Chapter3/3.6.jpg", class:"center", alt: "3.6" %>
+    <figcaption>
+    Figure 3.6: Non-RESTful requests and routes are those that depend on the results of previous requests but don’t make those
+    dependencies visible or explicit as part of the current request. In a Service-Oriented Architecture, a client of the RESTful
+    site could immediately request to view the cart (line 4), but a client of the non-RESTful site would first have to perform steps
+    1–3 to set up the implicit information on which step 4 depends.
+    </figcaption>
+</figure>
+
 <p>RESTfulness may seem an obvious design choice, but until Fielding crisply character- ized the REST philosophy and began promulgating it, many Web apps were designed
 non-RESTfully. Figure 3.6 shows how a hypothetical non-RESTful e-commerce site might im- plement the functionality of allowing a user to login, adding a specific item
 to his shopping cart, and proceeding to checkout. For the hypothetical non-RESTful site, every request after the login (line 3) relies on implicit information: line 4

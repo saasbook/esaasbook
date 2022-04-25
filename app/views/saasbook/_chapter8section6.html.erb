@@ -74,6 +74,14 @@ attributes, as Figure 8.8 shows.</p>
 <span class="k">end</span>
 </pre></div>
 </div>
+
+<figure>
+  <figcaption>
+  Figure 8.8: Using factories rather than fixtures preserves Independence among tests. Frameworks such as FactoryBot
+(gem ’factory_bot_rails’ in Gemfile) make factory creation easy.
+  </figcaption>
+</figure>
+
 <p>In database-backed MVC apps, one other source of “real” objects for use in tests is <strong>fixtures</strong>—a
 set of objects whose existence is guaranteed and fixed, and can be assumed by all test cases.
 The term <em>fixture</em> comes from the manufacturing world: a test fixture is a device that holds
@@ -111,6 +119,14 @@ to your specs via their symbolic names, as Figure 8.9 shows.</p>
 <span class="k">end</span>
 </pre></div>
 </div>
+
+<figure>
+  <figcaption>
+  Figure 8.9: Fixtures declared in YAML files (top) are automatically loaded into the test database before each spec is
+executed (bottom). After each example runs, the database is cleared out and the fixtures reloaded.
+  </figcaption>
+</figure>
+
 <p>But unless used carefully, fixtures can interfere with tests being <strong>I</strong>ndependent, as every
 test now depends implicitly on the fixture state, so changing the fixtures might change
 the behavior of tests. In addition, although any given test probably relies on only one or
@@ -133,6 +149,22 @@ and then expects to find a certain number of model objects in the table as a res
 how the use of fixtures may affect the Independence of the tests in this suite, and how the
 use of Factories can remedy this problem.</em></p>
 <blockquote>
+
+<figure>
+  <%= image_tag "Chapter8/8.10.jpg", class:"center", alt: "8.10" %>
+  <figcaption>
+  Figure 8.10: Some of the most useful RSpec methods introduced in this chapter. See the rspec.info documentation site for
+details and additional methods not listed here.
+  </figcaption>
+</figure>
+
+<figure>
+  <%= image_tag "Chapter8/8.11.jpg", class:"center", alt: "8.11" %>
+  <figcaption>
+  Figure 8.11: Continuation of summary of useful RSpec methods introduced in this chapter.
+  </figcaption>
+</figure>
+
 <div><p>If the fixtures file is ever changed so that the number of items initially populating that
 table changes, this test may suddenly start failing because its assumptions about the initial
 state of the table no longer hold. In contrast, a factory can be used to quickly create only

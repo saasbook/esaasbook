@@ -36,16 +36,33 @@
                 </div>
             </div>
 
-            <!-- Source interaction buttons -->
-            <a class="annotation-button" ><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                    data-placement="bottom" title="Make annotation"><i
-                        class="fa fa-comment"></i></button></a>
+            <!-- Annotate button -->
+            <a class="annotate-button" >
+            <button type="button" 
+                class="btn btn-secondary topbarbtn<% unless user_signed_in?  && @section_id != -1 %> disabled<% end %>"
+                data-toggle="tooltip" data-placement="bottom" id="annotateButton"
+                title="<% if user_signed_in? %>Annotate<% else %>Log in to use this feature!<% end %>">
+                    <i class="fa fa-comment"></i></button></a>
 
-            <a class="highlighter-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                    data-placement="bottom" title="Highlighter"><i
-                        class="fas fa-highlighter"></i></button></a>
+            <!-- highlight button -->
+            <div class ="btn-group" id = "highlight-dropdown">
+                <button type="button" 
+                    class="btn topbarbtn btn-secondary <% unless user_signed_in? && @section_id != -1 %> disabled<% end %>"
+                    id="highlight-button"
+                    title="<% if user_signed_in? %>Highlight<% else %>Log in to use this feature!<% end %>">
+                    <i class="fas fa-highlighter"></i>
+                </button>
+                <button type="button"
+                    class="btn topbarbtn btn-secondary dropdown-toggle dropdown-toggle-split 
+                    <% unless user_signed_in? && @section_id != -1 %> disabled<% end %>" id="highlight-toggle"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                </button>
+                <div class="dropdown-menu" id="color-dropdown">
+                    <span id="color-dropdown-items"></span>
+                </div>
+            </div>
+
             <!-- Full screen (wrap in <a> to have style consistency -->
-
             <a class="full-screen-button">
                 <button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
                     data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
@@ -78,11 +95,5 @@
                 </a>
             <% end %>
         </div>
-
-        
-            
-        
-
-
     </div>
 </div>

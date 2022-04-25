@@ -17,9 +17,10 @@
 
         
         <%= javascript_include_tag "vendor.js" %>
-        <%= javascript_include_tag "documentation_options.js", id: "documentation_options" %>
-        <%= javascript_include_tag "book_content.js" %>
-        
+        <%= javascript_include_tag "custom.js" %>
+        <% if user_signed_in? && @section_id != -1 %>
+            <%= javascript_include_tag "highlight-annotate.js" %>
+        <% end %>
         
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="docsearch:language" content="en" />
@@ -39,5 +40,6 @@
                 <%= render @body_contents %>
             </div>
         </div>
+        <%= content_tag :div, class: "page_information", data: {chapter: @chapter_id, section: @section_id} do %><% end %>
     </body>
 </html>

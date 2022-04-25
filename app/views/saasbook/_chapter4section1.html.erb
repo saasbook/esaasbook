@@ -44,6 +44,9 @@ reflecting model changes in the view.</p>
 experienced colleagues to give you a “developer’s-eye view” of a new language or framework. If you asked an experienced
 Rails developer to concisely describe the framework to you, you might get something like the following description.</p>
 <ul class="simple">
+
+
+
 <li><p>Rails is designed to support apps that follow the Model–View–Controller pattern. The framework provides powerful base classes from which your app’s models, views, and controllers inherit.</p></li>
 <li><p>Each Rails model is a resource type whose instances are rows in a particular table of a relational database. The database-stored models are exposed to Ruby code via a design pattern known as Active Record (Section 4.2), in which each type of model behaves more or less like a data structure whose fields (attributes) are semi-automatically seri- alized to the database.</p></li>
 <li><p>A Rails app is best viewed as a collection of RESTful resources, each consisting of its own model, controller, and set of views. Resources may have relationships to each other; for example, in a movie-reviewing application, we might say that Movie and Review are each a type of resource, that a single Movie can have many Reviews, and that any given Review belongs to some Movie. <strong>Foreign keys</strong> in the database tables (Section 5.4) capture such relationships.</p></li>

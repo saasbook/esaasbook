@@ -24,6 +24,15 @@ behaves the same way in every environment in which it’s run.</p>
 <p>To manage complex dependencies, we need a dependency manager or package manager, such as <code class="code docutils literal notranslate"><span class="pre">pip</span></code>
 for Python, npm for Node.js, or Apache Maven for Java. Ruby’s package manager, Bundler, is itself a
 gem. Once Bundler is installed with <code class="code docutils literal notranslate"><span class="pre">gem</span> <span class="pre">install</span> <span class="pre">bundler</span></code>, you should allow it to do your dependency management.</p>
+
+<figure>
+    <%= image_tag "Chapter2/2.13.jpg", class:"center", alt: "2.13" %>
+    <figcaption>
+    Figure 2.13: Frequently used commands for working with gems and Bundler. We will learn about Bundler “environments”
+in Section 4.1.
+    </figcaption>
+</figure>
+
 <p>To use Bundler, a Ruby project should have a file called <code class="code docutils literal notranslate"><span class="pre">Gemfile</span></code> in its top-level directory that records the
 dependencies of the app on particular libraries. Bundler reads this file and tries to compute a set of library
 version(s) that respects all the constraints in the file. For example, if the app depends on version ≥ 3.0 and ≤ 4.0

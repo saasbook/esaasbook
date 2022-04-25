@@ -2,6 +2,7 @@
 
 # User account model
 class User < ApplicationRecord
+  has_many :page_annotations
   devise :database_authenticatable, :rememberable, :omniauthable, omniauth_providers: [:github]
   def self.create_from_provider_data(provider_data)
     where(provider: provider_data.provider, uid: provider_data.uid).first_or_create do |user|

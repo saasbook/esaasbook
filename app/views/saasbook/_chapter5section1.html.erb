@@ -30,6 +30,15 @@ Figure 5.1 shows.</p>
 <span class="x">&lt;/div&gt;</span>
 </pre></div>
 </div>
+
+<figure>
+    <figcaption>
+    Figure 5.1: (Top) Main view that uses a partial for each row of the movies table; (Bottom) Partial containing the code to
+    render one row. To leverage convention over configuration, we name it _movie.html.erb: Rails uses the filename (without
+    the underscore) to set a local variable (movie) to each item of the @movies collection in turn.
+    </figcaption>
+</figure>
+
 <p>Partials rely heavily on convention over configuration. Their names must begin with an underscore
 (we used <code class="code docutils literal notranslate"><span class="pre">_movie_form.html.erb</span></code>) which is <em>absent from</em> the code that references the partial. A partial may
 be in a different directory as the view that uses it, in which case a path such as <strong>’layouts/footer’</strong> would
@@ -77,6 +86,16 @@ for controllers.</p>
 <span class="linenos">24</span><span class="n">m</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">full_messages</span> <span class="c1"># =&gt; [&quot;Title can&#39;t be blank&quot;, &quot;Release date must be 1930 or later&quot;]</span>
 </pre></div>
 </div>
+
+<figure>
+    <figcaption>
+    Figure 5.2: Lines 3–5 use predefined validation behaviors in ActiveModel::Validations::ClassMethods3. Lines 6–15 show
+how you can create your own validation methods, which receive the object to be validated as an argument and add error
+messages describing any problems. Note that we first validate the presence of release_date, otherwise the comparisons in
+lines 10 and 14 could fail if release_date is nil.
+    </figcaption>
+</figure>
+
 <p>Model validations, like migrations, are expressed in a mini-DSL embedded in Ruby, as Figure 5.2 shows.
 Validation checks are triggered when you call the instance method <code class="code docutils literal notranslate"><span class="pre">valid?</span></code> or when you try to save the model
 to the database (which calls <code class="code docutils literal notranslate"><span class="pre">valid?</span></code> before doing so). Any validation errors are recorded in the
@@ -88,12 +107,24 @@ fails (as indicated by a falsy return value from <code class="code docutils lite
 informed by the contents of the movie errors object. We then <code class="code docutils literal notranslate"><span class="pre">render</span></code> (<em>not</em> redirect to) the form that brought us here,
 with <code class="code docutils literal notranslate"><span class="pre">&#64;movie</span></code> still holding the values the user entered the first time, so the form will be prepopulated with those
 values. A redirect would start an entire new request cycle, and <code class="code docutils literal notranslate"><span class="pre">&#64;movie</span></code> would not be preserved.</p>
+
 <p>In fact, validations are just a special case of a more general mechanism, Active Record lifecycle callbacks, which
 allow you to provide methods that “intercept” a model object at various relevant points in its lifecycle. Figure 5.3
 shows what callbacks are available; Figure 5.4 illustrates how to use this mechanism to “canonicalize” (standardize the
 format of)
 certain model fields before the model is saved. We will see another use of lifecycle callbacks when we discuss the Observer
 design pattern in Section 11.7 and caching in Chapter 12.6.</p>
+
+<figure>
+    <%= image_tag "Chapter5/5.3.jpg", class:"center", alt: "5.3" %>
+    <figcaption>
+    Figure 5.3: The various points at which you can “hook into” the lifecycle of an ActiveRecord model object. All
+ActiveRecord operations that modify the database (update, create, and so on) all eventually call save, so a before_save
+callback can intercept every change to the database. See this Rails Guide6
+for additional details and examples.
+    </figcaption>
+</figure>
+
 <div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">class</span> <span class="nc">Movie</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
 <span class="linenos"> 2</span>    <span class="n">before_save</span> <span class="ss">:capitalize_title</span>
 <span class="linenos"> 3</span>    <span class="k">def</span> <span class="nf">capitalize_title</span>
@@ -106,6 +137,15 @@ design pattern in Section 11.7 and caching in Chapter 12.6.</p>
 <span class="linenos">10</span><span class="n">m</span><span class="o">.</span><span class="n">title</span>  <span class="c1"># =&gt; &quot;Star Wars&quot;</span>
 </pre></div>
 </div>
+
+<figure>
+    <figcaption>
+    Figure 5.4: This before_save hook capitalizes each word of a movie title, downcases the rest of the word, and compresses
+multiple spaces between words to a single space, turning STAR wars into Star Wars. Coincidentally, Rails’
+ActiveSupport::Inflector#titleize provides this functionality
+    </figcaption>
+</figure>
+
 <div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">class</span> <span class="nc">ApplicationController</span> <span class="o">&lt;</span> <span class="no">ActionController</span><span class="o">::</span><span class="no">Base</span>
 <span class="linenos">2</span>    <span class="n">before_filter</span> <span class="ss">:set_current_user</span>
 <span class="linenos">3</span>    <span class="kp">protected</span> <span class="c1"># prevents method from being invoked by a route</span>
@@ -117,6 +157,16 @@ design pattern in Section 11.7 and caching in Chapter 12.6.</p>
 <span class="linenos">9</span><span class="k">end</span>
 </pre></div>
 </div>
+
+<figure>
+    <figcaption>
+    Figure 5.5: If there is a logged-in user, the redirect will not occur, and the controller instance variable @current_user will
+be available to the action and views. Otherwise, a redirect will occur to login_path, which is assumed to correspond to a
+route that takes the user to a login page, as Section 5.2 explains. (and is just like && but has lower precedence, thus it parses
+as ((redirect_to login_path) and (return)) unless...)
+    </figcaption>
+</figure>
+
 <p>Analogous to a validation is a controller filter—a method that checks whether certain conditions are true
 before an action is run, or sets up common conditions that many actions rely on. If the conditions are not
 fulfilled, the filter can choose to “stop the show” by rendering a view template or redirecting to another
@@ -145,8 +195,20 @@ this object is ready to be saved.”</p>
 <code class="code docutils literal notranslate"><span class="pre">validate</span></code>, which isn’t what we want—we want <code class="code docutils literal notranslate"><span class="pre">released_1930_or_later</span></code> to be called at the time any
 validation is to occur.</p>
 </div></blockquote>
-</div>
 
+<figure>
+    <%= image_tag "Chapter5/5.6.jpg", class:"center", alt: "5.6" %>
+    <figcaption>
+    Figure 5.6: Third-party authentication enables SSO by allowing a SaaS app to request that the user authenticate himself via
+    a third-party provider. Once the user has done so, the provider sends a token to the requesting app proving that the user
+    authenticated themselves correctly and possibly encoding additional privileges the user grants to the requesting app. The
+    flow shown is a simplified version of OAuth, an evolving (and mildly controversial) open standard for authentication and
+    authorization used by Twitter, Facebook, Microsoft, Google, Netflix, and many others. Twitter logo and image copyright
+    2012 Twitter Inc., used for instructional purposes only.
+    </figcaption>
+</figure>
+
+</div>
 
               </div>
               

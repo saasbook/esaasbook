@@ -45,6 +45,17 @@ or a JavaScript mechanism that looks and works almost but not quite like its Rub
 uses nil to mean both “undefined” (a variable that has never been given a value) and “empty” (a value that is always false),
 JavaScript’s null is distinct from its <code class="code docutils literal notranslate"><span class="pre">undefined</span></code>, which is what you get as the “value” of a variable that has never been
 initialized.</p>
+
+<figure>
+    <%= image_tag "Chapter6/6.2.jpg", class:"center", alt: "6.2" %>
+    <figcaption>
+    Figure 6.2: Analogous to Figure 2.2, this table summarizes basic constructs of JavaScript. See the text for important pitfalls.
+    Whereas Ruby uses nil as both an explicit null value and the value returned for nonexistent instance variables, JavaScript
+    distinguishes undefined, which is returned for undeclared or unassigned variables, from the special value null and
+    Boolean false. However, all three are “falsy”—they evaluate to false in a conditional.
+    </figcaption>
+</figure>
+
 <p>As the first row of Figure 6.2 shows, JavaScript’s fundamental type is the <code class="code docutils literal notranslate"><span class="pre">object</span></code>, an
 unordered collection of key/value pairs, or as they are called in JavaScript, <em>properties</em> or <em>slots</em>. The name of a
 property can be any string, including the empty string. The value of a property can be any JavaScript expression,
@@ -67,6 +78,17 @@ including another object; it cannot be undefined.</p>
 <span class="nx">potatoReview</span><span class="p">[</span><span class="s1">&#39;blah&#39;</span><span class="p">]</span> <span class="c1">// =&gt; undefined</span>
 </pre></div>
 </div>
+
+<figure>
+    <figcaption>
+    Figure 6.3: JavaScript notation for object literals, that is, objects you specify by enumerating their properties and values
+    explicitly. If the property name is a legal JavaScript variable name, quotes can be omitted or the idiomatic dot-notation
+    shortcut (lines 13–14) can be used, although quotes are always required around all strings when an object is expressed in
+    JSON format. Since objects can contain other objects, hierarchical data structures can be built (line 5) and traversed (lines
+    13–15).
+    </figcaption>
+</figure>
+
 <p>JavaScript allows you to express <em>object literals</em> by specifying their properties and values directly, as Figure 6.3 shows.
 This simple object-literal syntax is the basis of <strong>JSON</strong>, or JavaScript Object Notation, which we introduced in Section 3.6.
 Despite its name, JSON has become a language-independent way to represent data that can be exchanged between SaaS services
@@ -82,6 +104,16 @@ all their functions and variables into a single <strong>namespace</strong>. For 
 single global variable jQuery through which all features of the jQuery library are accessed, rather than littering the
 global namespace with the many objects in the library. We will follow a similar practice by defining a small number of
 global variables to encapsulate all our JavaScript code.</p>
+
+<figure>
+    <%= image_tag "Chapter6/6.4.jpg", class:"center", alt: "6.4" %>
+    <figcaption>
+    Figure 6.4: A variety of tools for debugging your JavaScript code and associated data structures and server interactions.
+    One challenge is that just as with the C language, there are many competing coding guidelines for JavaScript—Google’s,
+    Yahoo’s, the Node.js project’s, and others—and different tools check and enforce different coding styles.
+    </figcaption>
+</figure>
+
 <p>The term <em>client-side JavaScript</em> refers specifically to JavaScript code that is associated with HTML pages and therefore
 runs in the browser. Each page in your app that wants to use JavaScript functions or variables must include the necessary
 JavaScript code itself. The recommended and unobtrusive way to do this is using a <code class="code docutils literal notranslate"><span class="pre">script</span></code> tag referencing the file containing
@@ -122,6 +154,17 @@ that is part of every page served by your app. If you then place your code in on
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </pre></div>
 </div>
+
+<figure>
+    <figcaption>
+    Figure 6.5: Top: The unobtrusive and recommended way to load JavaScript code in your HTML view(s). Bottom: Three
+    obtrusive ways to embed JavaScript into HTML pages, all deprecated because they mix JavaScript code with HTML
+    markup. Sadly, all are common in the “street JavaScript” found on poorly-engineered sites, yet all are easily avoided by
+    using the script src= method and by using the unobtrusive techniques described in the rest of this chapter for connecting
+    JavaScript code to HTML elements.
+    </figcaption>
+</figure>
+
 <p>This automatic behavior, supported by modern production environments including Heroku, is called the <em>asset
 pipeline</em>. Described more fully in this guide, the asset pipeline also allows us to use languages like
 CoffeeScript, as we’ll see later. You might think it wasteful for the user’s browser to load a single enormous

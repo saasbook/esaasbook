@@ -25,6 +25,19 @@ offer few benefits and are difficult to maintain. Finally, unlike a real tree br
 branch can be merged back into another branch later—either the branch from which it split off,
 or some other branch. A branch can also be deleted, for example, if the project
 decides to abandon the work-in-progress that branch represents.</p>
+
+<figure>
+  <%= image_tag "Chapter10/10.2.jpg", class:"center", alt: "10.2" %>
+  <figcaption>
+  Figure 10.2: Each circle represents a commit. Amy, Bob and Dee each start branches based on the same commit (a) to work
+on different RottenPotatoes features. After several commits, Bob decides his feature won’t work out, so he deletes his
+branch (b); meanwhile, Amy completes her work and merges her feature branch back into the main branch, creating the
+merge-commit (c). Finally, Dee completes her feature, but since the main branch has changed due to Amy’s merge-commit
+(c), Dee has to do some manual conflict resolution to complete her merge-commit (d).
+  </figcaption>
+</figure> 
+
+
 <p>We highlight two common branch management strategies that can be used together or
 separately, both of which strive to ensure that the main branch always contains a stable working
 version of the code. Figure 10.2 shows a <em>feature branch</em>, which allows a developer or sub-team
@@ -48,6 +61,28 @@ deployment further in Chapter 12.</p>
 branch</em> is whichever one you’re working on in your copy of the repo. Since in general each copy
 of the repo contains all the branches, you can quickly switch back and forth between branches
 in the same repo (but see Fallacies and Pitfalls for an important caveat about doing so).</p>
+
+<figure>
+    <%= image_tag "Chapter10/10.3.jpg", class:"center", alt: "10.3" %>
+    <figcaption>
+    Figure 10.3: (a) A new release branch is created to “snapshot” version 1.3 of RottenPotatoes. A bug is found in the release
+and the fix is committed in the release branch (b); the app is redeployed from the release branch. The commit(s) containing
+the fix are merged into the main branch (c), but the code in the main branch has evolved sufficiently from the code in the
+release that manual adjustments to the bug fix need to be made. Meanwhile, the dev team working on the main branch finds
+a critical security flaw and fixes it with one commit (d). The specific commit containing the security fix can be merged into
+the release branch (e) using git cherry-pick, since we don’t want to apply any other main branch changes to the release
+branch except for this fix.
+    </figcaption>
+</figure> 
+
+<figure>
+    <%= image_tag "Chapter10/10.4.jpg", class:"center", alt: "10.4" %>
+    <figcaption>
+    Figure 10.4: Common Git commands for handling branches and merging. Branch management involves merging;
+Figure 10.6 tells how to undo merges gone awry
+    </figcaption>
+</figure> 
+
 <p>Small teams working on a common set of features commonly use a <em>shared-repository</em> model for
 managing the repo: one particular copy of the repo, referred to as the origin repo, is
 designated as authoritative, and all developers agree to push their changes to the origin
@@ -87,6 +122,17 @@ ProjectLocker rocks,
 and so <span class="k">do</span> you.
 </pre></div>
 </div>
+
+<figure>
+    <figcaption>
+    Figure 10.5: When Bob tries to merge Amy’s changes, Git inserts conflict markers in poem.txt to show a merge conflict.
+Line 3 marks the beginning of the conflicted region with <<<; everything until === (line 5) shows the contents of the file in
+HEAD (the latest commit in Bob’s local repo) and everything thereafter until the end-of-conflict marker >>>(line 7) shows
+Amy’s changes (the file as it appears in Amy’s conflicting commit, whose commit-ID is on line 7). Lines 1,2 and 8 were either
+unaffected or merged automatically by Git.
+    </figcaption>
+</figure> 
+
 <p>But if Dee and Amy had edited parts of the same file that were within a few lines of each other,
 as in Figure 10.5, Git will conclude that there is no safe way to automatically
 create a version of the file that reflects both sets of changes, and it will leave a conflicted

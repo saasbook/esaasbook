@@ -35,6 +35,13 @@ coverage terms.</p>
 <span class="k">end</span>
 </pre></div>
 </div>
+
+<figure>
+  <figcaption>
+  Figure 8.12: A simple code example to illustrate basic coverage concepts.  
+  </figcaption>
+</figure>
+
 <ul class="simple">
 <li><p>S0 or Method coverage: Is every method executed at least once by the test suite? Satisfying S0 requires calling <code class="code docutils literal notranslate"><span class="pre">foo</span></code> and <code class="code docutils literal notranslate"><span class="pre">bar</span></code> at least once each.</p></li>
 <li><p>S1 or Call coverage or Entry/Exit coverage: Has each method been called from every place it could be called? Satisfying S1 requires calling bar from both line 4 and line 6.</p></li>
@@ -84,6 +91,14 @@ tests. Figure 8.13 summarizes the relative strengths and weaknesses of different
 <p>We have focused on testing for correctness (“did you build the thing right,”) but in practice,
 other flavors of tests are part of any comprehensive test suite:</p>
 <ul class="simple">
+
+<figure>
+  <%= image_tag "Chapter8/8.13.jpg", class:"center", alt: "8.13" %>
+  <figcaption>
+  Figure 8.13: Summary of the differences among unit tests, functional tests, and integration or whole-system tests
+ </figcaption>
+</figure>
+
 <li><p>A <strong>smoke test</strong> consists of a minimal attempt to operate the software, to see whether anything is obviously wrong before running the rest of the test suite. For example, if a low-level coding error prevents a SaaS app from displaying its home page or accepting logins, there is no point in running further tests.</p></li>
 <li><p><strong>Compatibility testing</strong> is less prominent in SaaS since the app developers control the server environment, but may still be important for testing the app’s UI in different browsers. For example, Sauce Labs supports running SaaS integration tests on a variety of browsers and operating systems to check correct client behavior, and even captures a screencast of each run so you can visually check behaviors such as whether the same fonts look good in different browsers.</p></li>
 <li><p><strong>Regression testing</strong> ensures that previously-fixed bugs do not reappear. We return to regression tests in Section 10.6.</p></li>

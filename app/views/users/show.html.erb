@@ -61,7 +61,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <%= @user.page_annotations.where(user_id: @user.id).each do |x| %>
+                            <%= @annotations.each do |x| %>
                                 <tr>
                                     <% if x.section = 0 %>
                                         <% if x.chapter = 0 %>

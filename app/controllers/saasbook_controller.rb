@@ -7,14 +7,14 @@ class SaasbookController < ApplicationController
     @body_contents = 'index'
     @chapter_id = 0
     @section_id = 0
-    render('book_content')
+    render('main_content')
   end
 
   def preface
     @body_contents = 'preface'
     @chapter_id = 0
     @section_id = 1
-    render('book_content')
+    render('main_content')
   end
 
   def show_section
@@ -23,7 +23,7 @@ class SaasbookController < ApplicationController
 
     @body_contents = "chapter#{@chapter_id}section#{@section_id}"
 
-    render('book_content')
+    render('main_content')
   end
 
   def show_chapter
@@ -31,7 +31,7 @@ class SaasbookController < ApplicationController
     @section_id = -1
     @body_contents = "chapter#{@chapter_id}"
 
-    render('book_content')
+    render('main_content')
   end
 
   def search
@@ -40,7 +40,7 @@ class SaasbookController < ApplicationController
     @search_params = params[:q]
     @body_contents = 'search'
 
-    render('book_content')
+    render('main_content')
   end
 
   def annotation_ajax_prep

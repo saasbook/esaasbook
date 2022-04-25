@@ -9,39 +9,43 @@
             <h1><%= @user.nickname %></h1>
         </div>
         <div class="col-12 col-md-2 pl-md-9 pr-md-2 text-center">
-            <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
+                <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "btn btn-outline-primary" %>
         </div>
     </div>
 
-    <table class="table table-hover text-center" >
-        <h3 class='text-center'> Annotations/Highlights </h3>
-        <thead class="thead-light ">
-            <tr>
-                <th>Links</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% @annotations.each do |x| %>
-            <% next if eval(x.annotation).empty? %>
+    <div class="row">
+        <div class="col-12 col-md-4 pl-md-3 pr-md-0 text-center"></div>
+        <div class="col-12 col-md-4 pl-md-3 pr-md-0 text-center">
+        <table class="table table-hover text-center" >
+            <h3 class='text-center'> Annotations/Highlights </h3>
+            <thead class="thead-light ">
                 <tr>
-                    <% if x.section == 0 %>
-                        <% if x.chapter == 0 %>
-                            <td><%= link_to "Home", home_path() %></td>
-                        <% else %>
-                            <td><%= link_to "Chapter#{x.chapter}", chapter_path(chapter_id: x.chapter) %></td>
-                        <% end %>
-                    <% else %>
-                        <% if x.chapter == 0 %>
-                            <td><%= link_to "Preface", preface_path() %></td>
-                        <% else %>
-                            <td><%= link_to "Chapter#{x.chapter}Section#{x.section}", section_path(chapter_id: x.chapter, section_id: x.section) %></td>
-                        <% end %>
-                    <% end %> 
+                    <th style="width: 25%">Links</th>
                 </tr>
-            <% end %>
-        </tbody>
-    </table>
-
+            </thead>
+            <tbody>
+                <% @annotations.each do |x| %>
+                <% next if eval(x.annotation).empty? %>
+                    <tr>
+                        <% if x.section == 0 %>
+                            <% if x.chapter == 0 %>
+                                <td><%= link_to "Home", home_path() %></td>
+                            <% else %>
+                                <td><%= link_to "Chapter#{x.chapter}", chapter_path(chapter_id: x.chapter) %></td>
+                            <% end %>
+                        <% else %>
+                            <% if x.chapter == 0 %>
+                                <td><%= link_to "Preface", preface_path() %></td>
+                            <% else %>
+                                <td><%= link_to "Chapter#{x.chapter}, Section#{x.section}", section_path(chapter_id: x.chapter, section_id: x.section) %></td>
+                            <% end %>
+                        <% end %> 
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+    </div>
     <footer class="footer mt-5 mt-md-0">
         <div class="container">
         <p>

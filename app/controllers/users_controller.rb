@@ -3,6 +3,9 @@ class UsersController < ApplicationController
 	def show
 		@user = current_user
 		@annotations = @user.page_annotations
+		@chapter_id = 0
+		@section_id = -1
+		@body_contents = 'user_page'
 	end
 
 end

@@ -1,6 +1,3 @@
-# frozen_string_literal: true
-
-# Controller for the Saasbook website. Temporary maybe?
 class SaasbookController < ApplicationController
   before_action :annotation_ajax_prep, only: %i[annotate fetch_annotations]
   def index

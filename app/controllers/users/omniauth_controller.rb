@@ -16,7 +16,6 @@ module Users
     end
 
     def failure
-      # Can change redirect/message later
       flash[:error] = 'There was a problem signing you in. Please register or try signing in later.'
       redirect_to home_path
     end

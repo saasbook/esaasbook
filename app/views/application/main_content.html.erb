@@ -37,7 +37,10 @@
                 <!-- RENDER TOPBAR -->
                 <%= render "topbar" %>
                 <!-- MAIN CONTENTS RENDER HERE -->
-                <%= render @body_contents %>
+                <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+                    <%= render @body_contents %>
+                    <%= render "footnote" %>
+                </main>
             </div>
         </div>
         <%= content_tag :div, class: "page_information", data: {chapter: @chapter_id, section: @section_id} do %><% end %>

@@ -40,3 +40,184 @@ Figure 5.1 shows.</p>
 
 <p>Partials rely heavily on convention over configuration. Their names must begin with an underscore
 (we used <code class="code docutils literal notranslate"><span class="pre">_movie_form.html.erb</span></code>) which is <em>absent from</em> the code that references the partial. A partial may
+be in a different directory as the view that uses it, in which case a path such as <strong>’layouts/footer’</strong> would
+cause Rails to look for <code class="code docutils literal notranslate"><span class="pre">app/views/layouts/_footer.html.erb</span></code>. A partial can access all the same instance
+variables as the view that in- cludes it, but partials that may be used from different views usually do
+not reference controller instance variables, since those may be set differently (or not at all) by different
+controller actions. A particularly nice use of a partial is to render a table or other collection in which
+all elements are the same, as Figure 5.1 demonstrates.</p>
+<p>Partials are simple and straightforward, but the mechanisms provided by Rails for DRYing out models and controllers
+are more subtle and sophisticated. It’s common in SaaS apps to want to enforce certain validity constraints on a
+given type of model object or constraints on when certain actions can be performed. For example, when a new movie
+is added to RottenPotatoes, we may want to check that the title isn’t blank, that the release year is a valid date,
+and that the rating is one of the allowed ratings. (You may think there’s no way for the user to specify an invalid
+rating if they’re choosing it from a dropdown menu, but the request might be constructed by a malicious user or a <strong>bot</strong>.)
+With SaaS, you can’t trust anyone: the server must <em>always</em> check its inputs rather than trust them, or risk attack by
+methods we’ll see in Chapter 12.</p>
+<p>As another example, perhaps we want to allow any user to add new movies, but only
+allow special “admin” users to delete movies. Both examples involve specifying constraints on entities or actions, and
+although there might be many places in an app where such con- straints should be considered, the DRY philosophy urges us
+to centralize them in <em>one</em> place. Rails provides two analogous facilities for doing this: validations for models and filters
+for controllers.</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">class</span> <span class="nc">Movie</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+<span class="linenos"> 2</span>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">all_ratings</span> <span class="p">;</span> <span class="sx">%w[G PG PG-13 R NC-17]</span> <span class="p">;</span> <span class="k">end</span> <span class="c1">#  shortcut: array of strings</span>
+<span class="linenos"> 3</span>    <span class="n">validates</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">:presence</span> <span class="o">=&gt;</span> <span class="kp">true</span>
+<span class="linenos"> 4</span>    <span class="n">validates</span> <span class="ss">:release_date</span><span class="p">,</span> <span class="ss">:presence</span> <span class="o">=&gt;</span> <span class="kp">true</span>
+<span class="linenos"> 5</span>    <span class="n">validate</span> <span class="ss">:released_1930_or_later</span> <span class="c1"># uses custom validator below</span>
+<span class="linenos"> 6</span>    <span class="n">validates</span> <span class="ss">:rating</span><span class="p">,</span> <span class="ss">:inclusion</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:in</span> <span class="o">=&gt;</span> <span class="no">Movie</span><span class="o">.</span><span class="n">all_ratings</span><span class="p">},</span>
+<span class="linenos"> 7</span>        <span class="ss">:unless</span> <span class="o">=&gt;</span> <span class="ss">:grandfathered?</span>
+<span class="linenos"> 8</span>    <span class="k">def</span> <span class="nf">released_1930_or_later</span>
+<span class="linenos"> 9</span>        <span class="n">errors</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="ss">:release_date</span><span class="p">,</span> <span class="s1">&#39;must be 1930 or later&#39;</span><span class="p">)</span> <span class="k">if</span>
+<span class="linenos">10</span>        <span class="n">release_date</span> <span class="o">&amp;&amp;</span> <span class="n">release_date</span> <span class="o">&lt;</span> <span class="no">Date</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;1 Jan 1930&#39;</span><span class="p">)</span>
+<span class="linenos">11</span>    <span class="k">end</span>
+<span class="linenos">12</span>    <span class="vc">@@grandfathered_date</span> <span class="o">=</span> <span class="no">Date</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;1 Nov 1968&#39;</span><span class="p">)</span>
+<span class="linenos">13</span>    <span class="k">def</span> <span class="nf">grandfathered?</span>
+<span class="linenos">14</span>        <span class="n">release_date</span> <span class="o">&amp;&amp;</span> <span class="n">release_date</span> <span class="o">&lt;</span> <span class="vc">@@grandfathered_date</span>
+<span class="linenos">15</span>    <span class="k">end</span>
+<span class="linenos">16</span><span class="k">end</span>
+<span class="linenos">17</span><span class="c1"># try in console:</span>
+<span class="linenos">18</span><span class="n">m</span> <span class="o">=</span> <span class="no">Movie</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:title</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="ss">:rating</span> <span class="o">=&gt;</span> <span class="s1">&#39;RG&#39;</span><span class="p">,</span> <span class="ss">:release_date</span> <span class="o">=&gt;</span> <span class="s1">&#39;1929-01-01&#39;</span><span class="p">)</span>
+<span class="linenos">19</span><span class="c1"># force validation checks to be performed:</span>
+<span class="linenos">20</span><span class="n">m</span><span class="o">.</span><span class="n">valid?</span>  <span class="c1"># =&gt; false</span>
+<span class="linenos">21</span><span class="n">m</span><span class="o">.</span><span class="n">errors</span><span class="o">[</span><span class="ss">:title</span><span class="o">]</span> <span class="c1"># =&gt; [&quot;can&#39;t be blank&quot;]</span>
+<span class="linenos">22</span><span class="n">m</span><span class="o">.</span><span class="n">errors</span><span class="o">[</span><span class="ss">:rating</span><span class="o">]</span> <span class="c1"># =&gt; [] - validation skipped for grandfathered movies</span>
+<span class="linenos">23</span><span class="n">m</span><span class="o">.</span><span class="n">errors</span><span class="o">[</span><span class="ss">:release_date</span><span class="o">]</span> <span class="c1"># =&gt; [&quot;must be 1930 or later&quot;]</span>
+<span class="linenos">24</span><span class="n">m</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">full_messages</span> <span class="c1"># =&gt; [&quot;Title can&#39;t be blank&quot;, &quot;Release date must be 1930 or later&quot;]</span>
+</pre></div>
+</div>
+
+<figure>
+    <figcaption>
+    Figure 5.2: Lines 3–5 use predefined validation behaviors in ActiveModel::Validations::ClassMethods3. Lines 6–15 show
+how you can create your own validation methods, which receive the object to be validated as an argument and add error
+messages describing any problems. Note that we first validate the presence of release_date, otherwise the comparisons in
+lines 10 and 14 could fail if release_date is nil.
+    </figcaption>
+</figure>
+
+<p>Model validations, like migrations, are expressed in a mini-DSL embedded in Ruby, as Figure 5.2 shows.
+Validation checks are triggered when you call the instance method <code class="code docutils literal notranslate"><span class="pre">valid?</span></code> or when you try to save the model
+to the database (which calls <code class="code docutils literal notranslate"><span class="pre">valid?</span></code> before doing so). Any validation errors are recorded in the
+<code class="code docutils literal notranslate"><span class="pre">ActiveModel::Errors</span></code> object associated with each model; this object is returned by the instance method errors.
+As line 6 shows,validations can be conditional: the movie’s rating is validated <em>unless</em> the movie was released
+before the ratings system went into effect (in the USA, 1 November 1968).</p>
+<p>We can now understand lines 10–12 and 23–25 from Figure 4.9 in the last chapter. When creating or updating a movie
+fails (as indicated by a falsy return value from <code class="code docutils literal notranslate"><span class="pre">create</span></code> or <code class="code docutils literal notranslate"><span class="pre">update_attributes</span></code>), we set <code class="code docutils literal notranslate"><span class="pre">flash[:alert]</span></code> to an error message
+informed by the contents of the movie errors object. We then <code class="code docutils literal notranslate"><span class="pre">render</span></code> (<em>not</em> redirect to) the form that brought us here,
+with <code class="code docutils literal notranslate"><span class="pre">&#64;movie</span></code> still holding the values the user entered the first time, so the form will be prepopulated with those
+values. A redirect would start an entire new request cycle, and <code class="code docutils literal notranslate"><span class="pre">&#64;movie</span></code> would not be preserved.</p>
+
+<p>In fact, validations are just a special case of a more general mechanism, Active Record lifecycle callbacks, which
+allow you to provide methods that “intercept” a model object at various relevant points in its lifecycle. Figure 5.3
+shows what callbacks are available; Figure 5.4 illustrates how to use this mechanism to “canonicalize” (standardize the
+format of)
+certain model fields before the model is saved. We will see another use of lifecycle callbacks when we discuss the Observer
+design pattern in Section 11.7 and caching in Chapter 12.6.</p>
+
+<figure>
+    <%= image_tag "Chapter5/5.3.jpg", class:"center", alt: "5.3" %>
+    <figcaption>
+    Figure 5.3: The various points at which you can “hook into” the lifecycle of an ActiveRecord model object. All
+ActiveRecord operations that modify the database (update, create, and so on) all eventually call save, so a before_save
+callback can intercept every change to the database. See this Rails Guide6
+for additional details and examples.
+    </figcaption>
+</figure>
+
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">class</span> <span class="nc">Movie</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+<span class="linenos"> 2</span>    <span class="n">before_save</span> <span class="ss">:capitalize_title</span>
+<span class="linenos"> 3</span>    <span class="k">def</span> <span class="nf">capitalize_title</span>
+<span class="linenos"> 4</span>        <span class="nb">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="nb">self</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sr">/\s+/</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:downcase</span><span class="p">)</span><span class="o">.</span>
+<span class="linenos"> 5</span>        <span class="n">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:capitalize</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+<span class="linenos"> 6</span>    <span class="k">end</span>
+<span class="linenos"> 7</span><span class="k">end</span>
+<span class="linenos"> 8</span><span class="c1"># now try in console:</span>
+<span class="linenos"> 9</span><span class="n">m</span> <span class="o">=</span> <span class="no">Movie</span><span class="o">.</span><span class="n">create!</span><span class="p">(</span><span class="ss">:title</span> <span class="o">=&gt;</span> <span class="s1">&#39;STAR  wars&#39;</span><span class="p">,</span> <span class="ss">:release_date</span> <span class="o">=&gt;</span> <span class="s1">&#39;27-5-1977&#39;</span><span class="p">,</span> <span class="ss">:rating</span> <span class="o">=&gt;</span> <span class="s1">&#39;PG&#39;</span><span class="p">)</span>
+<span class="linenos">10</span><span class="n">m</span><span class="o">.</span><span class="n">title</span>  <span class="c1"># =&gt; &quot;Star Wars&quot;</span>
+</pre></div>
+</div>
+
+<figure>
+    <figcaption>
+    Figure 5.4: This before_save hook capitalizes each word of a movie title, downcases the rest of the word, and compresses
+multiple spaces between words to a single space, turning STAR wars into Star Wars. Coincidentally, Rails’
+ActiveSupport::Inflector#titleize provides this functionality
+    </figcaption>
+</figure>
+
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">class</span> <span class="nc">ApplicationController</span> <span class="o">&lt;</span> <span class="no">ActionController</span><span class="o">::</span><span class="no">Base</span>
+<span class="linenos">2</span>    <span class="n">before_filter</span> <span class="ss">:set_current_user</span>
+<span class="linenos">3</span>    <span class="kp">protected</span> <span class="c1"># prevents method from being invoked by a route</span>
+<span class="linenos">4</span>    <span class="k">def</span> <span class="nf">set_current_user</span>
+<span class="linenos">5</span>        <span class="c1"># we exploit the fact that the below query may return nil</span>
+<span class="linenos">6</span>        <span class="vi">@current_user</span> <span class="o">||=</span> <span class="no">Moviegoer</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:id</span> <span class="o">=&gt;</span> <span class="n">session</span><span class="o">[</span><span class="ss">:user_id</span><span class="o">]</span><span class="p">)</span>
+<span class="linenos">7</span>        <span class="n">redirect_to</span> <span class="n">login_path</span> <span class="ow">and</span> <span class="k">return</span> <span class="k">unless</span> <span class="vi">@current_user</span>
+<span class="linenos">8</span>    <span class="k">end</span>
+<span class="linenos">9</span><span class="k">end</span>
+</pre></div>
+</div>
+
+<figure>
+    <figcaption>
+    Figure 5.5: If there is a logged-in user, the redirect will not occur, and the controller instance variable @current_user will
+be available to the action and views. Otherwise, a redirect will occur to login_path, which is assumed to correspond to a
+route that takes the user to a login page, as Section 5.2 explains. (and is just like && but has lower precedence, thus it parses
+as ((redirect_to login_path) and (return)) unless...)
+    </figcaption>
+</figure>
+
+<p>Analogous to a validation is a controller filter—a method that checks whether certain conditions are true
+before an action is run, or sets up common conditions that many actions rely on. If the conditions are not
+fulfilled, the filter can choose to “stop the show” by rendering a view template or redirecting to another
+action. If the filter allows the action to proceed, it will be the action’s responsibility to provide a
+response, as usual.</p>
+<p>As an example, an extremely common use of filters is to enforce the requirement that a user be logged in before
+certain actions can be performed. Assume for the mo- ment that we have verified the identity of some user and
+stored her primary key (ID) in <code class="code docutils literal notranslate"><span class="pre">session[:user_id]</span></code> to remember the fact that she has logged in. Figure 5.5 shows a
+filter that enforces that a valid user is logged in. In Section 5.2 we will show how to combine this filter with
+the other “moving parts” involved in dealing with logged-in users.</p>
+<p>Filters normally apply to all actions in the controller, but as the documentation on filters states, <code class="code docutils literal notranslate"><span class="pre">:only</span></code>
+or <code class="code docutils literal notranslate"><span class="pre">:except</span></code> can be used to restrict a filter to guarding only certain actions. You can define multiple filters:
+they are run in the order in which they are declared. You can also define after-filters, which run after certain actions
+are completed, and around-filters, which specify actions to run before and after, as you might do for auditing or timing.</p>
+<p><strong>Self-Check 5.1.1.</strong> <em>Why didn’t the Rails designers choose to trigger validation when you first instantiate a
+movie using</em> <code class="code docutils literal notranslate"><span class="pre">Movie#new</span></code> <em>, rather than waiting until you try to persist the object?</em></p>
+<blockquote>
+<div><p>As you’re filling in the attributes of the new object, it might be in a temporarily invalid state, so triggering
+validation at that time might make it difficult to manipulate the object. Persisting the object tells Rails “I believe
+this object is ready to be saved.”</p>
+</div></blockquote>
+<p><strong>Self-Check 5.1.2.</strong> <em>In line 5 of Figure 5.2, why can’t we write</em> <code class="code docutils literal notranslate"><span class="pre">validate</span> <span class="pre">released_1930_or_later</span></code> <em>, that is, why must the argument to</em> <code class="code docutils literal notranslate"><span class="pre">validate</span></code>
+<em>be either a symbol or a string?</em></p>
+<blockquote>
+<div><p>If the argument is just the “bare” name of the method, Ruby will try to evaluate it at the moment it executes
+<code class="code docutils literal notranslate"><span class="pre">validate</span></code>, which isn’t what we want—we want <code class="code docutils literal notranslate"><span class="pre">released_1930_or_later</span></code> to be called at the time any
+validation is to occur.</p>
+</div></blockquote>
+
+<figure>
+    <%= image_tag "Chapter5/5.6.jpg", class:"center", alt: "5.6" %>
+    <figcaption>
+    Figure 5.6: Third-party authentication enables SSO by allowing a SaaS app to request that the user authenticate himself via
+    a third-party provider. Once the user has done so, the provider sends a token to the requesting app proving that the user
+    authenticated themselves correctly and possibly encoding additional privileges the user grants to the requesting app. The
+    flow shown is a simplified version of OAuth, an evolving (and mildly controversial) open standard for authentication and
+    authorization used by Twitter, Facebook, Microsoft, Google, Netflix, and many others. Twitter logo and image copyright
+    2012 Twitter Inc., used for instructional purposes only.
+    </figcaption>
+</figure>
+
+</div>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="<%= chapter_path(chapter_id: 5) %>" title="previous page"><span class="section-number">5. </span>SaaS Framework: Advanced Programming Abstractions for SaaS</a>
+    <a class='right-next' id="next-link" href="<%= section_path(chapter_id: 5, section_id: 2) %>" title="next page"><span class="section-number">5.2. </span>Single Sign-On and Third-Party Authentication</a>
+
+        </div>
+        
+        </div>
+    </div>

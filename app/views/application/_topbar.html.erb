@@ -79,7 +79,7 @@
         <!-- user_github_omniauth_authorize_path -->
         <div class="d-none d-md-block col-md-2 py-1 show">
             <% if user_signed_in? %>
-                <a class="user-page-button" href= "user-page-path%>">
+                <a class="user-page-button" href= "<%= user_path%>">
                     <button type="submit" class="btn btn-default" title="User page" 
                             data-toggle="tooltip" data-placement="bottom">
                         <%= current_user.nickname %>

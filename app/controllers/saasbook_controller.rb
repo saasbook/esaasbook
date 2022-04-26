@@ -13,7 +13,7 @@ class SaasbookController < ApplicationController
     @title = "Engineering Software as a Service: An Agile Approach Using Cloud Computing"
     @chapter_id = 0
     @section_id = 0
-    render('book_content')
+    render('main_content')
   end
 
   def preface
@@ -21,7 +21,7 @@ class SaasbookController < ApplicationController
     @title = "Preface"
     @chapter_id = 0
     @section_id = 1
-    render('book_content')
+    render('main_content')
   end
 
   def show_section
@@ -31,7 +31,7 @@ class SaasbookController < ApplicationController
     @title = @chapter_id + "." + @section_id + ". " + @title
     @body_contents = "chapter#{@chapter_id}section#{@section_id}"
 
-    render('book_content')
+    render('main_content')
   end
 
   def show_chapter
@@ -42,7 +42,7 @@ class SaasbookController < ApplicationController
 
     @body_contents = "chapter#{@chapter_id}"
 
-    render('book_content')
+    render('main_content')
   end
 
   def search
@@ -50,8 +50,9 @@ class SaasbookController < ApplicationController
     @section_id = -1
     @search_params = params[:q]
     @body_contents = 'search'
+
     @title = "Search the Book - #{@search_params} "
-    render('book_content')
+    render('main_content')
   end
 
   def annotation_ajax_prep

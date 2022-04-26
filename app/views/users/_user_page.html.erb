@@ -1,0 +1,46 @@
+    
+<div id="main-content" class="row">
+    <div class="col-12 col-md-4 text-center">
+    
+        <%= image_tag "http://github.com/#{current_user.nickname}.png", width: "50%" %>
+    </div>
+    <div class="col-12 col-md-4 text-center">
+        <h1><%= @user.nickname %></h1>
+    </div>
+    <div class="col-12 col-md-2 text-center">
+            <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "btn btn-outline-primary" %>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-md-3 text-center"></div>
+    <div class="col-12 col-md-6 text-center">
+    <table class="table table-hover text-center" >
+        <thead class="thead-light ">
+            <tr>
+                <th>Pages with Annotations/Highlights</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @annotations.each do |x| %>
+            <% next if eval(x.annotation).empty? %>
+                <tr>
+                    <% if x.section == 0 %>
+                        <% if x.chapter == 0 %>
+                            <td><%= link_to "Home", home_path() %></td>
+                        <% else %>
+                            <td><%= link_to "#{x.chapter}. #{Page.where(chapter: x.chapter, section: x.section)[0].title}", chapter_path(chapter_id: x.chapter) %></td>
+                        <% end %>
+                    <% else %>
+                        <% if x.chapter == 0 %>
+                            <td><%= link_to "Preface", preface_path() %></td>
+                        <% else %>
+                            <td><%= link_to "#{x.chapter}.#{x.section}. #{Page.where(chapter: x.chapter, section: x.section)[0].title}", section_path(chapter_id: x.chapter, section_id: x.section) %></td>
+                        <% end %>
+                    <% end %> 
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>
+</div>

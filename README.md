@@ -76,6 +76,6 @@ Words of advice for the next generation:
     - The table of contents was extracted from the RSTs, but then heavily modified to fit the layout that we are using (`/chapter/*number*/section/*number*`)
 
 ## Credits
-This version of the repository was created by Joshua Delrosario, Sibo Ma, Christopher Thomas, and Hellen Wang for CS169L Spring Semester 2022  
+This version of the repository was created by Joshua Delrosario, Sibo Ma, Chris Thomas, and Hellen Wang for CS169L Spring Semester 2022  
 
 Feel free to blame us when something random breaks :) 

@@ -30,13 +30,13 @@
                             <% if x.chapter == 0 %>
                                 <td><%= link_to "Home", home_path() %></td>
                             <% else %>
-                                <td><%= link_to "Chapter#{x.chapter}", chapter_path(chapter_id: x.chapter) %></td>
+                                <td><%= link_to "#{x.chapter}. #{Page.where(chapter: x.chapter, section: x.section)[0].title}", chapter_path(chapter_id: x.chapter) %></td>
                             <% end %>
                         <% else %>
                             <% if x.chapter == 0 %>
                                 <td><%= link_to "Preface", preface_path() %></td>
                             <% else %>
-                                <td><%= link_to "Chapter#{x.chapter}, Section#{x.section}", section_path(chapter_id: x.chapter, section_id: x.section) %></td>
+                                <td><%= link_to "#{x.chapter}.#{x.section}. #{Page.where(chapter: x.chapter, section: x.section)[0].title}", section_path(chapter_id: x.chapter, section_id: x.section) %></td>
                             <% end %>
                         <% end %> 
                     </tr>

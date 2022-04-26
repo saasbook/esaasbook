@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_19_011822) do
+ActiveRecord::Schema.define(version: 2022_04_25_054309) do
 
   create_table "page_annotations", force: :cascade do |t|
     t.integer "chapter"
@@ -20,6 +20,14 @@ ActiveRecord::Schema.define(version: 2022_04_19_011822) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_page_annotations_on_user_id"
+  end
+
+  create_table "pages", force: :cascade do |t|
+    t.string "title"
+    t.integer "chapter"
+    t.integer "section"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "sessions", force: :cascade do |t|

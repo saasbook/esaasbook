@@ -9,6 +9,8 @@ require 'simplecov'
 # files.
 
 require 'cucumber/rails'
+require File.dirname(__FILE__) + '/seeds'
+# frozen_string_literal: true
 
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any

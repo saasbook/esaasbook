@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 	before_action :authenticate_user!
-	def show
+	def profile
 		@user = current_user
 		@annotations = @user.page_annotations
 		@chapter_id = 0

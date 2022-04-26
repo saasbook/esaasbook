@@ -11,7 +11,7 @@ RSpec.describe UsersController, type: :controller do
       login_user
       it 'should show username' do
         @user = User.find_by(uid: 43_231, provider: 'github')
-        get :show, params: {user: @user}
+        get :profile
         expect(response).not_to be_nil
         expect(response.body).to include('Gob Github')
       end

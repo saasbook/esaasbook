@@ -74,3 +74,7 @@ Words of advice for the next generation:
     - Page titles **are manually defined** in the database seeds. If the titles are changed at a higher level you will need to modify the seeds!
         - On the topic of page titles, right now they are all **implemented as fixtures for testing purposes**. Just be aware of this and be prepared to change it to a safer method (proper stubbing)
     - The table of contents was extracted from the RSTs, but then heavily modified to fit the layout that we are using (`/chapter/*number*/section/*number*`)
+
+## Credits
+This version of the repository was created by Joshua Delrosario, Sibo Ma, Christopher Thomas, and Hellen Wang for CS169L Spring Semester
+Feel free to blame us when something random breaks :) 

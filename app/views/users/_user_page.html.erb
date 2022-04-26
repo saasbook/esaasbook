@@ -1,25 +1,24 @@
     
 <div id="main-content" class="row">
-    <div class="col-12 col-md-4 pl-md-3 pr-md-0 text-center">
+    <div class="col-12 col-md-4 text-center">
     
         <%= image_tag "http://github.com/#{current_user.nickname}.png", width: "50%" %>
     </div>
-    <div class="col-12 col-md-4 pl-md-6 pr-md-0 text-center">
+    <div class="col-12 col-md-4 text-center">
         <h1><%= @user.nickname %></h1>
     </div>
-    <div class="col-12 col-md-2 pl-md-9 pr-md-2 text-center">
+    <div class="col-12 col-md-2 text-center">
             <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "btn btn-outline-primary" %>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-12 col-md-4 pl-md-3 pr-md-0 text-center"></div>
-    <div class="col-12 col-md-4 pl-md-3 pr-md-0 text-center">
+    <div class="col-12 col-md-3 text-center"></div>
+    <div class="col-12 col-md-6 text-center">
     <table class="table table-hover text-center" >
-        <h3 class='text-center'> Annotations/Highlights </h3>
         <thead class="thead-light ">
             <tr>
-                <th style="width: 25%">Links</th>
+                <th>Pages with Annotations/Highlights</th>
             </tr>
         </thead>
         <tbody>

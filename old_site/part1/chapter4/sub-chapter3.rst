@@ -1,2 +1,0 @@
-CHIPS: ActiveRecord Basics
-====================================

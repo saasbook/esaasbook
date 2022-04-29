@@ -21,7 +21,7 @@ $(document).ready(function() {
         with the rest of the annotation.
 
         We need a loadingAnnotations flag because we only want to pull class from 
-        underyling.style when we are downloading them from the server. Trying to do that
+        underlying.style when we are downloading them from the server. Trying to do that
         with a fresh annotation does not end well!
     */
     var highlightFormatter = function(annotation) {
@@ -56,9 +56,6 @@ $(document).ready(function() {
         ],
         relationVocabulary: [ 'isRelated', 'isPartOf', 'isSameAs ']
     });
-    reco.on('selectAnnotation', function(a) {
-    });
-    
     reco.on('createAnnotation', function(a) {
         uploadAnnotations();
     });
@@ -81,20 +78,18 @@ $(document).ready(function() {
     /* Programmatically sets up the highlighter dropdown menu. To configure, see the global variables at the top */
     function setupColorDropdown() {
         let finalHtml = "";
-        for (i=0; i<highlighterColors.length; i++) {
+        for (var i=0; i<highlighterColors.length; i++) {
             finalHtml += "<button class=\"dropdown-item \" id=\'"+ highlighterColors[i]
                 + "\'><div class =\"highlight_button " + highlightClassnames[i] +"\">"
                 + highlighterColors[i] + "</div></button>";
         }
         $("#color-dropdown-items").html(finalHtml);
-        /*
-            For some reason we couldn't DRY this part out.
-            When we try assigning these colors with a for loop, things got weird.
-            Hardcoding them seems to work though?
-        */
-        $("#Yellow").click(function() {changeHighlightColor(0);})
-        $("#Green").click(function() {changeHighlightColor(1);})
-        $("#Blue").click(function() {changeHighlightColor(2);})
+        /* Add the event listeners to each menu item */
+        highlighterColors.forEach(function(color, index) {
+            document.getElementById(color).addEventListener("click", function() {
+                changeHighlightColor(index);
+            })
+        })
     }
     
     function highlightOnOff() {
@@ -115,7 +110,7 @@ $(document).ready(function() {
             reco.disableEditor = false;
             reco.readOnly = true;
             $("#highlight-button").removeClass("active");
-            $("#highlight-button").css("color","");
+            $("#highlight-button").css("color", "");
             $("#highlight-toggle").removeClass("active");
         }
     }
@@ -135,13 +130,19 @@ $(document).ready(function() {
         }
     }
 
-    /* Pulls the chapter and section ID off the page, does an AJAX POST */
-    function uploadAnnotations() {
+    function getPageInformation() {
         let chapterId = $('.page_information').data('chapter');
         let sectionId = $('.page_information').data('section');
+        return [chapterId, sectionId];
+    }
+
+
+    /* Pulls the chapter and section ID off the page, does an AJAX POST */
+    function uploadAnnotations() {
+        let pageInfo = getPageInformation();
         $.post("/annotate", {
-            chapter: chapterId,
-            section: sectionId,
+            chapter: pageInfo[0],
+            section: pageInfo[1],
             annotation: JSON.stringify(reco.getAnnotations())
         });
     }
@@ -160,25 +161,24 @@ $(document).ready(function() {
         Fetches annotations via AJAX, then passes them to loadAnnotations
     */
     function getAnnotations() {
-        let chapterId = $('.page_information').data('chapter');
-        let sectionId = $('.page_information').data('section');
+        let pageInfo = getPageInformation();
         $.getJSON("/fetch_annotations", 
             {
-                chapter: chapterId,
-                section: sectionId
+                chapter: pageInfo[0],
+                section: pageInfo[1]
             },
-            function(data, textStatus, jqXHR){loadAnnotations(data)}
+            function(data){loadAnnotations(data)}
         );
     }
 
-    /*
-        The e.stopPropogation() flag is because after clicking the highlight button,
-        it would close the dropdown immediately. We want the dropdown to stay open!
-    */
     function clickedHighlightButton(e) {
         if (highlightOn) {
             highlightOnOff();
         } else {
+            /*
+                The e.stopPropogation() call is because after clicking the highlight button
+                it would close the dropdown immediately. We want the dropdown to stay open!
+            */
             e.stopPropagation();
             $(".dropdown-toggle").dropdown("toggle");
         }
@@ -187,7 +187,7 @@ $(document).ready(function() {
     $("#annotateButton").click(annotationOnOff);
     getAnnotations();
     setupColorDropdown();
-    $("#highlight-button").click(function(e) { clickedHighlightButton(e) });
+    $("#highlight-button").click(clickedHighlightButton);
 
 
 });

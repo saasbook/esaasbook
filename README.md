@@ -67,6 +67,7 @@
 Words of advice for the next generation:
 
 - Add ESLint or other Javascript linter.
+- Add an HTML Linter and lint the html.erb files. Sphinxbook generates really messy HTML - hand linting is not recommended, especially if you are updating the site via RSTs!
 - Write more robust javascript tests
 - Write a script to automatically extract the book content from the RSTs. At the moment, we are just extracting everything between the `<main></main>` tags. 
 - Many items are **manually defined or inserted**:

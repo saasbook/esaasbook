@@ -36,10 +36,12 @@ class UsersController < ApplicationController
   def get_title_from_page(page)
     @section = page.section
     @chapter = page.chapter
-    if @chapter.positive? && @section.positive?
-      "#{@chapter}.#{@section} #{page.title}"
-    elsif @chapter.positive?
-      "#{@chapter}.0 #{page.title}"
+    if @chapter.positive? 
+      if @section.positive?
+        "#{@chapter}.#{@section} #{page.title}"
+      else
+        "#{@chapter}.0 #{page.title}"
+      end
     else
       page.title
     end

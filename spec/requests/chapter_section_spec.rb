@@ -19,6 +19,13 @@ RSpec.describe 'Chapter and Section Requests', type: :request do
       assert_select 'span.section-number', '1.'
     end
   end
+  describe 'GET section with a negative section number' do
+    it 'Succeeeds and redirects to the chapter page' do
+      get section_path(chapter_id: 1, section_id: -1)
+      expect(response.status).to eq(302)
+      response.should redirect_to chapter_path(chapter_id: 1)
+    end
+  end
 end
 
 RSpec.describe 'Index and Preface Requests', type: :request do

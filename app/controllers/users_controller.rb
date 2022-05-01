@@ -4,12 +4,54 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   def profile
-    @user = current_user
-    @annotations = @user.page_annotations
+    @annotations = current_user.page_annotations.order(:chapter, :section)
+    @anno_nodes = list_anno_with_path(@annotations) unless @annotations.nil?
+
     @chapter_id = 0
     @section_id = -1
     @body_contents = 'user_page'
-    @title = "#{@user.nickname}'s User Page"
+    @title = "#{current_user.nickname}'s User Page"
     render('main_content')
+  end
+
+  # Returns the correct route for a given page
+  def get_path_from_page(page)
+    @section = page.section
+    @chapter = page.chapter
+    if @section.zero?
+      if @chapter.zero?
+        home_path
+      else
+        chapter_path(chapter_id: @chapter)
+      end
+    elsif @chapter.zero?
+      preface_path
+    else
+      section_path(chapter_id: @chapter, section_id: @section)
+    end
+  end
+
+  # Returns a page title given a page object
+  # Includes chapter and section number
+  def get_title_from_page(page)
+    @section = page.section
+    @chapter = page.chapter
+    if @chapter.positive? && @section.positive?
+      "#{@chapter}.#{@section} #{page.title}"
+    elsif @chapter.positive?
+      "#{@chapter}.0 #{page.title}"
+    else
+      page.title
+    end
+  end
+
+  def list_anno_with_path(_annotations)
+    anno_entry = Struct.new(:title, :link)
+    @anno_nodes = []
+
+    @annotations&.each do |x|
+      @anno_nodes.append(anno_entry.new(get_title_from_page(x.page), get_path_from_page(x.page))) unless x.annotation == '[]'
+    end
+    @anno_nodes
   end
 end

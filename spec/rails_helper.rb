@@ -76,7 +76,8 @@ RSpec.configure do |config|
                                                                 provider: 'github',
                                                                 uid: '123545',
                                                                 email: 'githubs@testing.com',
-                                                                full_name: 'bob bobson'
+                                                                nickname: 'GGHub',
+                                                                full_name: 'Gob Github'
                                                               })
 
   # Factorybot

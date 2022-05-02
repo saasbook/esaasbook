@@ -27,6 +27,10 @@ class SaasbookController < ApplicationController
   def show_section
     @chapter_id = params[:chapter_id]
     @section_id = params[:section_id]
+    if Integer(@section_id) <= 0
+      redirect_to chapter_path(chapter_id: @chapter_id)
+      return
+    end
     @title = Page.where(chapter: @chapter_id, section: @section_id)[0].title
     @title = "#{@chapter_id}.#{@section_id}. #{@title}"
     @body_contents = "chapter#{@chapter_id}section#{@section_id}"
@@ -64,8 +68,13 @@ class SaasbookController < ApplicationController
   def annotate
     return unless user_signed_in?
 
+    @page = Page.where(chapter: @chapter, section: @section)
+    # Ensures this is a valid page
+    return if @page.nil?
+
+    @page = @page.first
     @anno = @user.page_annotations.where(chapter: @chapter, section: @section).first_or_create
-    @anno.update(annotation: params[:annotation])
+    @anno.update(annotation: params[:annotation], page: @page)
   end
 
   def fetch_annotations

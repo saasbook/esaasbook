@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_220_425_054_309) do
+ActiveRecord::Schema.define(version: 20_220_501_204_721) do
   create_table 'page_annotations', force: :cascade do |t|
     t.integer 'chapter'
     t.integer 'section'
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 20_220_425_054_309) do
     t.integer 'user_id'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.integer 'page_id', null: false
+    t.index ['page_id'], name: 'index_page_annotations_on_page_id'
     t.index ['user_id'], name: 'index_page_annotations_on_user_id'
   end
 
@@ -52,4 +54,6 @@ ActiveRecord::Schema.define(version: 20_220_425_054_309) do
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['email'], name: 'index_users_on_email', unique: true
   end
+
+  add_foreign_key 'page_annotations', 'pages'
 end

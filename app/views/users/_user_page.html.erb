@@ -5,7 +5,7 @@
         <%= image_tag "http://github.com/#{current_user.nickname}.png", width: "50%" %>
     </div>
     <div class="col-12 col-md-4 text-center">
-        <h1><%= @user.nickname %></h1>
+        <h1><%= current_user.nickname %></h1>
     </div>
     <div class="col-12 col-md-2 text-center">
             <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "btn btn-outline-primary" %>
@@ -22,23 +22,14 @@
             </tr>
         </thead>
         <tbody>
-            <% @annotations.each do |x| %>
-            <% next if eval(x.annotation).empty? %>
-                <tr>
-                    <% if x.section == 0 %>
-                        <% if x.chapter == 0 %>
-                            <td><%= link_to "Home", home_path() %></td>
-                        <% else %>
-                            <td><%= link_to "#{x.chapter}. #{Page.where(chapter: x.chapter, section: x.section)[0].title}", chapter_path(chapter_id: x.chapter) %></td>
-                        <% end %>
-                    <% else %>
-                        <% if x.chapter == 0 %>
-                            <td><%= link_to "Preface", preface_path() %></td>
-                        <% else %>
-                            <td><%= link_to "#{x.chapter}.#{x.section}. #{Page.where(chapter: x.chapter, section: x.section)[0].title}", section_path(chapter_id: x.chapter, section_id: x.section) %></td>
-                        <% end %>
-                    <% end %> 
-                </tr>
+            <% if @anno_nodes.empty? %>
+                <tr><td>You have not made any annotations!</td></tr>
+            <% else %>
+                <% @anno_nodes.each do |x| %>
+                    <tr>
+                        <td><%= link_to x.title, x.link %></td>
+                    </tr>
+                <% end %>
             <% end %>
         </tbody>
     </table>

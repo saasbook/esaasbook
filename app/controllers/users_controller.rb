@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     @section = page.section
     @chapter = page.chapter
     home_path if @chapter.zero? && @section.zero?
-    preface_path if @chapter.zero?
+    preface_path if @chapter.zero? && @section.negative?
     chapter_path(chapter_id: @chapter) if @chapter.positive? && @section.zero?
     section_path(chapter_id: @chapter, section_id: @section) if @chapter.positive? && @section.positive?
   end

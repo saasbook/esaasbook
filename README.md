@@ -66,6 +66,7 @@
 ## Advice
 Words of advice for the next generation:
 
+- Add rubocop to CI. Rubocop is currenly included in the guardfile, but CI is not currently enforcing it
 - Add ESLint or other Javascript linter.
 - Add an HTML Linter and lint the html.erb files. Sphinxbook generates really messy HTML - hand linting is not recommended, especially if you are updating the site via RSTs!
 - Write more robust javascript tests

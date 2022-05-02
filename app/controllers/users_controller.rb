@@ -18,17 +18,10 @@ class UsersController < ApplicationController
   def get_path_from_page(page)
     @section = page.section
     @chapter = page.chapter
-    if @chapter.zero?
-      if @section.zero?
-        home_path
-      else
-        preface_path
-      end
-    elsif @section.zero?
-      chapter_path(chapter_id: @chapter)
-    else
-      section_path(chapter_id: @chapter, section_id: @section)
-    end
+    home_path if @chapter.zero? && @section.zero?
+    preface_path if @chapter.zero?
+    chapter_path(chapter_id: @chapter) if @chapter.positive? && @section.zero?
+    section_path(chapter_id: @chapter, section_id: @section) if @chapter.positive? && @section.positive?
   end
 
   # Returns a page title given a page object

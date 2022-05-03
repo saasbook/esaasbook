@@ -1,0 +1,92 @@
+    
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="fallacies-and-pitfalls">
+<h1><span class="section-number">10.8. </span>Fallacies and Pitfalls<a class="headerlink" href="#fallacies-and-pitfalls" title="Permalink to this headline">¶</a></h1>
+<p><strong>Fallacy: If a software project is falling behind schedule, you can catch up by adding
+more people to the project.</strong></p>
+<p>The main theme of Fred Brooks’s classic book, <em>The Mythical Man-Month</em>, is that not only does
+adding people not help, it makes it worse. The reason is twofold: it takes a while for new
+people to learn about the project, and as the size of the project grows, the amount of
+communication increases, which can reduce the time available for people to get their work
+done. His summary, which some call Brooks’s Law, is</p>
+<blockquote>
+<div><p><em>Adding manpower to a late software project makes it later.</em></p>
+<p class="attribution">—Fred Brooks, Jr.</p>
+</div></blockquote>
+<p><strong>Pitfall: Dividing work based on the software stack rather than on features.</strong></p>
+<p>It’s less common than it used to be to divide the team into a front-end specialist,
+back-end specialist, customer liaison, and so forth, but it still happens. Your authors
+and others believe that better results come from having each team member deliver <em>all</em>
+aspects of a chosen feature or story—Cucumber scenarios, RSpec tests, views, controller
+actions, model logic, and so on. Especially when combined with pair programming, having
+each developer maintain a “full stack” view of the product spreads architectural knowledge
+around the team.</p>
+<p><strong>Fallacy: It’s fine to make simple changes on the main branch.</strong></p>
+<p>Programmers are optimists. When we set out to change our code, we always think it will be a
+one-line change. Then it turns into a five-line change; then we realize the change affects
+another file, which has to be changed as well; then it turns out we need to add or change
+existing tests that relied on the old code; and so on. For this reason, <em>always</em> create a
+feature branch when starting new work. Branching with Git is nearly instantaneous, and if
+the change truly does turn out to be small, you can delete the branch after merging to avoid
+having it clutter your branch namespace.</p>
+<p><strong>Pitfall: Forgetting to add files to the repo.</strong></p>
+<p>If you create a new file but forget to add it to the repo, <em>your</em> copy of the code will still
+work but when others pull your changes your code won’t work for them. Use <code class="code docutils literal notranslate"><span class="pre">git</span> <span class="pre">status</span></code> regularly
+to see the list of Untracked Files, and use the <code class="code docutils literal notranslate"><span class="pre">.gitignore</span></code> file to avoid being warned about
+files you never want to track, such as binary files or temporary files.</p>
+<p><strong>Pitfall: Versioning files that shouldn’t be versioned.</strong></p>
+<p>If a file isn’t required to run the code, it probably shouldn’t be in the repo: temporary
+files, binary files, log files, and so on should not be versioned. If files of test data
+are versioned, they should be part of a proper test suite. Files containing sensitive
+information such as API keys should <em>never</em> be checked into GitHub in plaintext (i.e. without
+encryption). If the files must be checked in, they should be encrypted at rest.</p>
+<p><strong>Pitfall: Accidentally stomping on changes after merging or switching branches.</strong></p>
+<p>If you do a pull or a merge, or if you switch to a different branch, some files may suddenly
+have different contents on disk. If any such files are already loaded into your editor, the
+versions being edited will be <em>out of date</em>, and even worse, if you now save those files, you
+will either overwrite merged changes or save a file that isn’t in the branch you think it is.
+The solution is simple: <em>before</em> you pull, merge or switch branches, make sure you commit all
+current changes; <em>after</em> you pull, merge or switch branches, reload any files in your editor
+that may be affected—or to be really safe, just quit your editor before you commit. Be careful
+too about the potentially destructive behavior of certain Git commands such as <code class="code docutils literal notranslate"><span class="pre">git</span> <span class="pre">reset</span></code>,
+as described in “Gitster” Scott Chacon’s informative and detailed blog post.</p>
+<p><strong>Pitfall: Letting your copy of the repo get too far out of sync with the origin
+(authoritative) copy.</strong></p>
+<p>It’s best not to let your copy of the repo diverge too far from the origin, or merges
+(Section 10.2) will be painful. You should update frequently from the origin repo before
+starting work, and if necessary, rebase incrementally so you don’t drift too far away
+from the main branch.</p>
+<p><strong>Fallacy: Since each subteam is working on its own branch, we don’t need to communicate
+regularly or merge frequently.</strong></p>
+<p>Branches are a great way for different team members to work on different features
+simultaneously, but without frequent merges and clear communication of who’s working on
+what, you risk an increased likelihood of merge conflicts and accidental loss of work when
+one developer “resolves” a merge conflict by deleting another developer’s changes.</p>
+<p><strong>Pitfall: Making commits too large.</strong></p>
+<p>Git makes it quick and easy to do a commit, so you should do them frequently and make
+each one small, so that if some commit introduces a problem, you don’t have to also
+undo all the other changes. For example, if you modified two files to work on feature
+A and three other files to work on feature B, do two separate commits in case one set
+of changes needs to be undone later. In fact, advanced Git users use <code class="code docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span></code> with specific
+files, rather than <code class="code docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">.</span></code> which adds every file in the current directory, to “cherry pick”
+a subset of changed files to include in a commit. And don’t forget that no one else will see
+the commit until you use git push to propagate them to the team’s origin repo.</p>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="<%= section_path(chapter_id: 10, section_id: 7) %>" title="previous page"><span class="section-number">10.7. </span>The Plan-And-Document Perspective on Managing Teams</a>
+    <a class='right-next' id="next-link" href="<%= section_path(chapter_id: 10, section_id: 9) %>" title="next page"><span class="section-number">10.9. </span>Concluding Remarks: From Solo Developer to Teams of Teams</a>
+
+        </div>
+        
+        </div>
+    </div>

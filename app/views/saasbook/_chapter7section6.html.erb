@@ -1,0 +1,112 @@
+    
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="cucumber-from-user-stories-to-acceptance-tests">
+<h1><span class="section-number">7.6. </span>Cucumber: From User Stories to Acceptance Tests<a class="headerlink" href="#cucumber-from-user-stories-to-acceptance-tests" title="Permalink to this headline">¶</a></h1>
+<p>Remarkably enough, the tool <strong>Cucumber</strong> turns customer-understandable user stories into <strong>acceptance tests</strong>, which
+ensure the customer is satisfied, and <strong>integration tests</strong>, which ensure that the interfaces between modules have
+consistent assumptions and communicate correctly. (Chapter 1 describes types of testing.) The key is that Cucumber
+meets halfway between the customer and the developer: user stories don’t look like code, so they are clear to the
+customer and can be used to reach agreement, but they also aren’t completely freeform. This section explains how
+Cucumber accomplishes this minor miracle.</p>
+<p>In the Cucumber context we will use the term <strong>user story</strong> to refer to a single <strong>feature</strong> with one or more <strong>scenarios</strong>
+that show different ways a feature is used. The keywords <code class="code docutils literal notranslate"><span class="pre">Feature</span></code> and <code class="code docutils literal notranslate"><span class="pre">Scenario</span></code> identify the respective components.
+Each scenario is in turn composed of a sequence of typically 3 to 8 <em>steps</em>. Expanding a user story into a set of
+scenarios also helps developers enumerate the various user-visible conditions that will be tested to ensure the
+feature works. For example, consider a fictitious e-commerce site that wants developers to implement the feature
+<em>Customer can use “guest checkout” to make a purchase without creating an account</em>. This might be broken down into
+several scenarios:</p>
+<ul class="simple">
+<li><p>Customer can complete a purchase as guest</p></li>
+<li><p>Customer cannot do a guest purchase if the order includes a gift</p></li>
+<li><p>Multiple guest checkouts associated with same email address group the orders into the same account</p></li>
+</ul>
+<p>Notice in particular the third scenario, which might arise from conversation with the customer while discussing the
+feature: “Well, what happens if the same email address appears on multiple orders but that user has no account? Should
+we associate those orders with the same customer internally?” Indeed, such discussions are vital to fleshing out
+ambiguities in the customer’s desired features.</p>
+<div class="highlight-cucumber notranslate"><div class="highlight"><pre><span></span><span class="k">Feature:</span><span class="nf"> Add a movie to RottenPotatoes</span>
+<span class="nf">         As a movie fan</span>
+<span class="nf">         So that I can share a movie with other movie fans</span>
+<span class="nf">         I want to add a movie to RottenPotatoes database</span>
+<span class="k">Scenario:</span><span class="nf"> Add a movie</span>
+<span class="k">    Given </span><span class="nf">I am on the RottenPotatoes home page</span>
+<span class="nf">    </span><span class="k">When </span><span class="nf">I follow &quot;</span><span class="s">Add new movie</span><span class="nf">&quot;</span>
+<span class="nf">    </span><span class="k">Then </span><span class="nf">I should be on the Create New Movie page</span>
+<span class="nf">    </span><span class="k">When </span><span class="nf">I fill in &quot;</span><span class="s">Title</span><span class="nf">&quot; with &quot;</span><span class="s">Hamilton</span><span class="nf">&quot;</span>
+<span class="nf">    </span><span class="k">And </span><span class="nf">I select &quot;</span><span class="s">PG-13</span><span class="nf">&quot; from &quot;</span><span class="s">Rating</span><span class="nf">&quot;</span>
+<span class="nf">    </span><span class="k">And </span><span class="nf">I select &quot;</span><span class="s">July 4, 2020</span><span class="nf">&quot; as the &quot;</span><span class="s">Released On</span><span class="nf">&quot; date</span>
+<span class="nf">    </span><span class="k">And </span><span class="nf">I press &quot;</span><span class="s">Save Changes</span><span class="nf">&quot;</span>
+<span class="nf">    </span><span class="k">Then </span><span class="nf">I should be on the RottenPotatoes home page</span>
+<span class="nf">    </span><span class="k">And </span><span class="nf">I should see &quot;</span><span class="s">Hamilton</span><span class="nf">&quot;</span>
+</pre></div>
+</div>
+
+<figure>
+  <figcaption>
+  Figure 7.5: Top (a): A repetitive, non-DRY scenario for checking the alphabetical ordering of movies in the list. Middle (b):
+A DRYer, more declarative expression of the same scenario. Bottom (c): Adding this code to movie_steps.rb creates new
+step definitions matching lines 5–7 of the declarative scenario by reusing existing steps. (Recall from Figure 2.2 that %Q is an
+alternative syntax for double-quoting a string.) We will learn about expect, which appears in line 13, in the next chapter.
+  </figcaption>
+</figure>
+
+<p>Figure 7.4 is an example user story, showing a feature with one scenario of adding the movie <em>Hamilton</em>; the scenario has
+nine steps. (We show just a single scenario in this example, but features usually have many scenarios.) Although stilted
+writing, this format that Cucumber can act upon is still easy for the nontechnical customer to understand, providing a
+common representation of the story on which the customer and team can now collaborate — a founding principle of Agile and BDD.</p>
+<p>Each step of a scenario starts with its own keyword. Steps that start with <code class="code docutils literal notranslate"><span class="pre">Given</span></code> usually set up some preconditions, such
+as navigating to a page. Steps that start with <code class="code docutils literal notranslate"><span class="pre">When</span></code> typically use one of Cucumber’s built-in web steps to simulate the user
+pressing a button, for example. Steps that start with <code class="code docutils literal notranslate"><span class="pre">Then</span></code> will usually check to see if some condition is true. The
+conjunction <code class="code docutils literal notranslate"><span class="pre">And</span></code> allows more complicated versions of <code class="code docutils literal notranslate"><span class="pre">Given</span></code>, <code class="code docutils literal notranslate"><span class="pre">When</span></code>, or <code class="code docutils literal notranslate"><span class="pre">Then</span></code> phrases. The only other keyword you see in this
+format is <code class="code docutils literal notranslate"><span class="pre">But</span></code>.</p>
+<p>A separate set of files defines the Ruby code that tests these steps. These are called
+<em>step definitions</em>. How does Cucumber match each step of a scenario with the correct step
+definitions? The trick is that Cucumber uses regular expressions or <strong>regexes</strong> (Chapter 2) to
+match the phrases in the scenario steps to the step definitions themselves. For example, below
+is a string from a step definition in the scenario for RottenPotatoes:</p>
+<div class="highlight-cucumber notranslate"><div class="highlight"><pre><span></span><span class="k">Given </span><span class="nf">/^(?:|I )am on (.+)$/</span>
+</pre></div>
+</div>
+<p>This regex can match the text “I am on the RottenPotatoes home page” on line 6 of Figure 7.4. The regex also
+captures the string after the phrase “am on ” until the end of the line (“the RottenPotatoes home page”). The
+body of the step definition contains Ruby code that tests the step, likely using captured strings such as the
+one above. Thus, most step definitions are typically used by many different steps. You can think of step definitions
+as method definitions, and the steps of the scenarios are analogous to method calls.</p>
+<p>We then need a tool that will act as a user and pretend to use the feature under different scenarios. In the Rails
+world, this tool is called <em>Capybara</em>, and Cucumber integrates seamlessly with it. Capybara “pretends to be a user”
+by taking actions in a simulated web browser, for example, clicking on a link or button. Capybara can interact with
+the app to receive pages, parse the HTML, and submit forms as a user would. In the rest of this chapter and its
+associated CHIPS, you will write your own steps to describe the app’s behavior, then connect the steps to step
+definitions that actually stimulate the app to instantiate the behaviors—the core of Behavior-Driven Design.</p>
+<p>Finally, the simple scenario above only describes one particular <strong>happy path</strong> of the feature in question, but it
+is also important to agree with the customer on what should happen when things go wrong. For example, if the user
+leaves the movie title blank, we would probably want to redisplay the Create New Movie page, but perhaps with an
+error message informing the user of what went wrong. This “sad path” would get its own scenario in the feature file
+and its own storyboard, since describing what happens when things go wrong is part of the overall feature.</p>
+<p><strong>Self-Check 7.6.1.</strong> <em>Given that Cucumber step definitions are just Ruby code, in principle we could just write the entire
+scenario in Ruby, rather than writing steps in stilted English and looking up the step definition for each step. Why do
+you think Cucumber has remained popular despite this fact?</em></p>
+<blockquote>
+<div><p>The customer can (probably) read the Cucumber scenario steps and understand the description of what the app is supposed
+to do, and can determine whether they agree with that description. Most customers would find it much more difficult to
+read Ruby code. Thus the scenarios provide a common ground on which the technical team and customer can meet.</p>
+</div></blockquote>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="<%= section_path(chapter_id: 7, section_id: 5) %>" title="previous page"><span class="section-number">7.5. </span>Agile Cost Estimation</a>
+    <a class='right-next' id="next-link" href="<%= section_path(chapter_id: 7, section_id: 7) %>" title="next page"><span class="section-number">7.7. </span>CHIPS: Intro to BDD and Cucumber</a>
+
+        </div>
+        
+        </div>
+    </div>

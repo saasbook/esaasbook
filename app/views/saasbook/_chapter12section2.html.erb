@@ -1,0 +1,105 @@
+    
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="three-tier-architecture">
+<h1><span class="section-number">12.2. </span>Three-Tier Architecture<a class="headerlink" href="#three-tier-architecture" title="Permalink to this headline">¶</a></h1>
+<p>So far we have treated the overall SaaS server as a “black box”: whereas Chapter 3 considered
+the software architecture of SaaS and SOA generally, and Chapter 4 examined the software
+architecture of SaaS applications using patterns such as Model–View–Controller, we have been
+oblivious to how the other parts of the server are organized. For example, SaaS apps use HTTP
+to communicate, yet you haven’t had to write any of the code that handles the details of such
+communication. We also have largely ignored how SaaS software components are deployed on actual
+hardware in production. While PaaS hides much of the hardware details from you, a high-level
+understanding of the hardware architecture is key to making good decisions about scalability
+in your software architecture. To that end, this section explains how SaaS servers typically
+follow a <strong>three-tier architecture</strong>, how the logical boundaries sepa- rating those tiers are in
+place whether you run a development server on your own computer or deploy on a public cloud
+facility such as Heroku, how the components in the three-tier architecture typically map onto
+the cloud hardware, and what the resulting implications are for scaling up a SaaS app, that is,
+allowing it to serve more and more users.</p>
+<p>Figure 12.2 shows the canonical three-tier architecture. The <em>presentation</em> tier usually consists
+of an <em>HTTP server</em> (or simply “<strong>Web server</strong>”), which accepts HTTP requests from the outside world
+(i.e., users) and handles the serving of static assets such as images, stylesheets, files of
+JavaScript code, and so on.</p>
+<p>The web server forwards requests for dynamic content to the <strong>logic tier</strong>, where your actual
+application runs. The application is typically supported by an <strong>application server</strong> whose job
+is to hide the low-level mechanics of these HTTP interactions from the app writer. We’ve been
+using the Rack application server, which ships with the Rails framework. If you were writing
+in PHP, Python, or Java, you would use an application server that handles code written in
+frameworks that use those languages, such as Django for Python or Node.js for JavaScript.</p>
+<p>Finally, since HTTP is stateless (Chapter 3), application data that must remain stored across
+HTTP requests, such as users’ login and profile information, is stored in the <strong>persistence tier</strong>.
+Popular choices for the persistence tier have traditionally been databases such as the
+open-source MySQL or PostgreSQL, although prior to their proliferation, commercial databases
+such as Oracle or IBM DB2 were also popular choices.</p>
+<p>The “tiers” in the three-tier model are logical tiers. On a site with little content and low
+traffic, the software in all three tiers might run on a single physical computer: when you run
+<code class="code docutils literal notranslate"><span class="pre">rails</span> <span class="pre">server</span></code> to do local development, the simple single-user WEBrick Web server fulfills the
+role of the presentation tier, and a single-user database called SQLite, which stores its
+information directly in files on your local computer, serves for persistence. In production,
+it’s more common for each tier to span one or more physical computers and to use highly
+specialized software. As Figure 12.2 shows, in a typical site, incoming HTTP requests are
+directed to one of several Web servers, possibly Apache or Microsoft Internet Information
+Server, either of which can be deployed on hundreds of computers efficiently serving many
+copies of the same site to millions of users. When a Web server receives a request for you
+app, it selects one of several available application servers to handle dynamic-content
+generation, allowing computers to be added or removed from each tier as needed to handle demand.</p>
+
+<figure>
+  <%= image_tag "Chapter12/12.2.svg", class:"center", alt: "12.2" %>
+  <figcaption>
+  Figure 12.2: The 3-tier shared-nothing architecture, so called because entities within a tier generally do not communicate
+    with each other, allows adding computers to each tier independently to match demand. Load balancers, which distribute
+    workload evenly, can be either hardware appliances or specially-configured Web servers. The statelessness of HTTP makes
+    shared-nothing possible: since all requests are independent, any server in the presentation or logic tier can be assigned to
+    any request. However, scaling the persistence tier is much more challenging, as the text explains.
+  </figcaption>
+</figure>
+
+<p>However, as the Fallacies and Pitfalls section explains, making the persistence layer
+“shared-nothing” is much more complicated. Figure 12.2 shows one approach: a <strong>primary/replica</strong>
+or primary/secondary configuration, used when the database is read much more frequently than
+it is written. In this approach, any replica can perform reads, only the primary can perform
+writes, and the primary updates the replicas with the results of writes as quickly as possible.
+However, in the end, this and other techniques only postpone the scaling
+problem rather than solving it. As one of Heroku’s founders wrote:</p>
+<blockquote>
+<div><p><em>A question I’m often asked about Heroku is: “How do you scale the SQL database?” There’s a lot
+of things I can say about using caching, sharding, and other techniques to take load off the
+database. But the actual answer is: we don’t. SQL databases are fundamentally non-scalable,
+and there is no magical pixie dust that we, or anyone, can sprinkle on them to suddenly make
+them scale.</em></p>
+<p class="attribution">—Adam Wiggins, Heroku, in 2009</p>
+</div></blockquote>
+<p><strong>Self-Check 12.2.1.</strong> <em>Explain why cloud computing might have had a lesser impact on SaaS if most
+SaaS apps didn’t follow the shared-nothing architecture.</em></p>
+<blockquote>
+<div><p>Cloud computing allows easily adding and removing computers while paying only for what you use.
+The shared-nothing architecture takes advantage of this ability to rapidly “absorb” new computers
+into a running app and “release” them when no longer needed.</p>
+</div></blockquote>
+<p><strong>Self-Check 12.2.2.</strong> <em>Which tier(s) of three-tier SaaS apps can be scaled just by adding more
+computers and why?</em></p>
+<blockquote>
+<div><p>The presentation and logic tiers, because since neither HTTP (Web) servers nor app servers
+maintain any of the state associated with user sessions, any computer in those tiers can in
+principle satisfy any user’s request.</p>
+</div></blockquote>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="<%= section_path(chapter_id: 12, section_id: 1) %>" title="previous page"><span class="section-number">12.1. </span>From Development to Deployment</a>
+    <a class='right-next' id="next-link" href="<%= section_path(chapter_id: 12, section_id: 3) %>" title="next page"><span class="section-number">12.3. </span>Responsiveness, Service Level Objectives, and Apdex</a>
+
+        </div>
+        
+        </div>
+    </div>

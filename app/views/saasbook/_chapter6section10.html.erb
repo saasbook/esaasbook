@@ -1,0 +1,135 @@
+    
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="single-page-apps-and-json-apis">
+<h1><span class="section-number">6.10. </span>Single-Page Apps and JSON APIs<a class="headerlink" href="#single-page-apps-and-json-apis" title="Permalink to this headline">¶</a></h1>
+<p>Google Maps was an early example of the emerging category called client-side single-page apps (SPAs). In a
+SPA, after the initial page load from the server, all interaction appears to the user to occur without any page
+reloads. While we won’t develop a full SPA in this section, we will show the techniques necessary to do so.</p>
+<p>So far, we have concentrated on using JavaScript to enhance server-centric SaaS apps; since HTML has long been
+the <em>lingua franca</em> of content served by those apps, rendering a partial and using JavaScript to insert the “ready-made”
+partial into the DOM was a sensible way to proceed. But with SPAs, it’s more common for client-side code to request
+some “raw” data from the server, and use that data to construct or modify DOM elements. How can a Rails app return
+raw data rather than HTML markup to JavaScript client code?</p>
+<p>One simple mechanism is for the controller action to use <code class="code docutils literal notranslate"><span class="pre">render</span> <span class="pre">:text</span></code> to return a plain string. But what if we need
+to send structured data to the client? As you have probably guessed, JSON solves that problem, even though the X in
+AJAX stands for XML, which was originally believed to be the standard that would take hold for data interchange.
+In practice, modern browsers’ JSAPIs include a function JSON.parse that converts a string of JSON into the corresponding
+JavaScript object(s).</p>
+<p>To use JSON in our client-side code, we must address three questions:</p>
+<ol class="arabic simple">
+<li><p>How do we get the server app to generate JSON in response to AJAX requests, rather than rendering HTML view templates or partials?</p></li>
+<li><p>How does the client specify that it expects a JSON response, and how does it use the JSON response data to modify the DOM?</p></li>
+<li><p>When testing AJAX requests that expect JSON responses, how can we use fixtures to “stub out the server” and test these behaviors in isolation, as we did in Section 6.8?</p></li>
+</ol>
+<p>The first question is easy. If you have control over the server code, your Rails controller actions can emit JSON rather
+than an XML or HTML template by using render <code class="code docutils literal notranslate"><span class="pre">:json=&gt;</span></code> <em>object</em>, which sends a JSON representation of an object back to the client
+as the single response from the controller action. Like rendering a template, you are only allowed a single call to <code class="code docutils literal notranslate"><span class="pre">render</span></code>
+per action, so all the response data for a given controller action must be packed into a single JSON object.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kd">let</span> <span class="nx">MoviePopupJson</span> <span class="o">=</span> <span class="p">{</span>
+<span class="linenos"> 2</span>    <span class="c1">// &#39;setup&#39; function omitted for brevity</span>
+<span class="linenos"> 3</span>    <span class="nx">getMovieInfo</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="linenos"> 4</span>        <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;GET&#39;</span><span class="p">,</span>
+<span class="linenos"> 5</span>                <span class="nx">dataType</span><span class="o">:</span> <span class="s1">&#39;json&#39;</span><span class="p">,</span>
+<span class="linenos"> 6</span>                <span class="nx">url</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">),</span>
+<span class="linenos"> 7</span>                <span class="nx">success</span><span class="o">:</span> <span class="nx">MoviePopupJson</span><span class="p">.</span><span class="nx">showMovieInfo</span>
+<span class="linenos"> 8</span>                <span class="c1">// &#39;timeout&#39; and &#39;error&#39; functions omitted for brevity</span>
+<span class="linenos"> 9</span>            <span class="p">});</span>
+<span class="linenos">10</span>        <span class="k">return</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+<span class="linenos">11</span>    <span class="p">}</span>
+<span class="linenos">12</span>    <span class="p">,</span><span class="nx">showMovieInfo</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">jsonData</span><span class="p">,</span> <span class="nx">requestStatus</span><span class="p">,</span> <span class="nx">xhrObject</span><span class="p">)</span> <span class="p">{</span>
+<span class="linenos">13</span>        <span class="c1">// center a floater 1/2 as wide and 1/4 as tall as screen</span>
+<span class="linenos">14</span>        <span class="kd">let</span> <span class="nx">oneFourth</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">ceil</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">width</span><span class="p">()</span> <span class="o">/</span> <span class="mf">4</span><span class="p">);</span>
+<span class="linenos">15</span>        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#movieInfo&#39;</span><span class="p">).</span>
+<span class="linenos">16</span>        <span class="nx">css</span><span class="p">({</span><span class="s1">&#39;left&#39;</span><span class="o">:</span> <span class="nx">oneFourth</span><span class="p">,</span>  <span class="s1">&#39;width&#39;</span><span class="o">:</span> <span class="mf">2</span><span class="o">*</span><span class="nx">oneFourth</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="o">:</span> <span class="mf">250</span><span class="p">}).</span>
+<span class="linenos">17</span>        <span class="nx">html</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;p&gt;&#39;</span> <span class="o">+</span> <span class="nx">jsonData</span><span class="p">.</span><span class="nx">description</span> <span class="o">+</span> <span class="s1">&#39;&lt;/p&gt;&#39;</span><span class="p">),</span>
+<span class="linenos">18</span>                <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;a id=&quot;closeLink&quot; href=&quot;#&quot;&gt;&lt;/a&gt;&#39;</span><span class="p">)).</span>
+<span class="linenos">19</span>        <span class="nx">show</span><span class="p">();</span>
+<span class="linenos">20</span>        <span class="c1">// make the Close link in the hidden element work</span>
+<span class="linenos">21</span>        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#closeLink&#39;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="nx">MoviePopupJson</span><span class="p">.</span><span class="nx">hideMovieInfo</span><span class="p">);</span>
+<span class="linenos">22</span>        <span class="k">return</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>  <span class="c1">// prevent default link action</span>
+<span class="linenos">23</span>    <span class="p">}</span>
+<span class="linenos">24</span>    <span class="c1">// hideMovieInfo omitted for brevity</span>
+<span class="linenos">25</span><span class="p">};</span>
+</pre></div>
+</div>
+
+<figure>
+    <figcaption>
+    Figure 6.26: This version of MoviePopup expects a JSON rather than HTML response (line 5), so the success function
+uses the returned JSON data structure to create new HTML elements inside the popup div (lines 17–19; observe that
+jQuery DOM-manipulation functions such as append can take multiple arguments of distinct pieces of HTML to create).
+The functions omitted for brevity are the same as in Figure 6.14.
+    </figcaption>
+</figure>
+
+<p><code class="code docutils literal notranslate"><span class="pre">render</span> <span class="pre">:json</span></code> works by calling <code class="code docutils literal notranslate"><span class="pre">to_json</span></code> on object to create the string to send back to the client.
+The default implementation of <code class="code docutils literal notranslate"><span class="pre">to_json</span></code> can serialize simple ActiveRecord objects, as Figure 6.25 shows.</p>
+<p>To make an AJAX call that expects a JSON-encoded response, we just ensure that the argument object passed to <code class="code docutils literal notranslate"><span class="pre">$.ajax</span></code> includes
+a dataType property whose value is the string <code class="code docutils literal notranslate"><span class="pre">json</span></code>, as Figure 6.26 shows. The presence of this property tells jQuery to
+automatically call <code class="code docutils literal notranslate"><span class="pre">JSON.parse</span></code> on the returned data, so you don’t have to do so yourself.</p>
+<p>How can we test this code without calling the server every time? Happily, Jasmine- jQuery’s fixture mechanism allows us
+to specify JSON fixtures as well as HTML fixtures, as Figure 6.27 shows.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;MoviePopupJson&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="linenos"> 2</span>    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;successful AJAX call&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="linenos"> 3</span>        <span class="nx">beforeEach</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="linenos"> 4</span>        <span class="nx">loadFixtures</span><span class="p">(</span><span class="s1">&#39;movie_row.html&#39;</span><span class="p">);</span>
+<span class="linenos"> 5</span>        <span class="kd">let</span> <span class="nx">jsonResponse</span> <span class="o">=</span> <span class="nx">getJSONFixture</span><span class="p">(</span><span class="s1">&#39;movie_info.json&#39;</span><span class="p">);</span>
+<span class="linenos"> 6</span>        <span class="nx">spyOn</span><span class="p">(</span><span class="nx">$</span><span class="p">,</span> <span class="s1">&#39;ajax&#39;</span><span class="p">).</span><span class="nx">and</span><span class="p">.</span><span class="nx">callFake</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">ajaxArgs</span><span class="p">)</span> <span class="p">{</span>
+<span class="linenos"> 7</span>            <span class="nx">ajaxArgs</span><span class="p">.</span><span class="nx">success</span><span class="p">(</span><span class="nx">jsonResponse</span><span class="p">,</span> <span class="s1">&#39;200&#39;</span><span class="p">);</span>
+<span class="linenos"> 8</span>        <span class="p">});</span>
+<span class="linenos"> 9</span>        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#movies a&#39;</span><span class="p">).</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">);</span>
+<span class="linenos">10</span>        <span class="p">});</span>
+<span class="linenos">11</span>        <span class="c1">// &#39;it&#39; clauses are same as in movie_popup_spec.js</span>
+<span class="linenos">12</span>    <span class="p">});</span>
+<span class="linenos">13</span><span class="p">});</span>
+</pre></div>
+</div>
+
+<figure>
+    <figcaption>
+    Figure 6.27: Jasmine-jQuery expects to find fixture files containing .json data in spec/javascripts/fixtures/json.
+After executing line 5, jsonResponse will contain the actual JavaScript object (not the raw JSON string!) that will get
+passed to the success handler.
+    </figcaption>
+</figure>
+
+<figure>
+    <%= image_tag "Chapter6/6.28.jpg", class:"center", alt: "6.28" %>
+    <figcaption>
+    Figure 6.28: Architecture of in-browser SPAs that retrieve assets from multiple distinct services. Left: If the JavaScript code
+was served from RottenPotatoes.com, the default same-origin policy that browsers implement for JavaScript will forbid
+the code from making AJAX calls to servers in other domains. The cross-origin resource sharing (CORS) specification
+relaxes this restriction but is only supported by very recent browsers. Right: in the traditional SPA architecture, a single
+server serves the JavaScript code and interacts with other remote services. This arrangement respects the same-origin
+policy and also allows the main server to do additional work on behalf of the client if needed.
+    </figcaption>
+</figure>
+
+<p><strong>Self-Check 6.10.1.</strong> <em>In Figure 6.27 showing the use of a JSON fixture, why do we also still need the HTML
+fixture to be loaded in line 4?</em></p>
+<blockquote>
+<div><p>Line 9 tries to trigger the click handler for an element matching #movies a, and if we don’t load the HTML
+fixture representing a row of the movies table, no such element will exist. (Indeed, the <code class="code docutils literal notranslate"><span class="pre">MoviePopupJson.setup</span></code>
+function tries to bind a click handler on this element, so that would also fail.) This is an example of using
+both an HTML fixture to simulate the user clicking on a page element and a JSON fixture to simulate a successful
+response from the server in response to that click.</p>
+</div></blockquote>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="<%= section_path(chapter_id: 6, section_id: 9) %>" title="previous page"><span class="section-number">6.9. </span>CHIPS: AJAX Enhancements to RottenPotatoes</a>
+    <a class='right-next' id="next-link" href="<%= section_path(chapter_id: 6, section_id: 11) %>" title="next page"><span class="section-number">6.11. </span>Fallacies and Pitfalls</a>
+
+        </div>
+        
+        </div>
+    </div>

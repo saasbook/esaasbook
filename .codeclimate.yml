@@ -1,0 +1,6 @@
+exclude_patterns:
+- "app/assets/javascript/vendor/"
+- "app/assets/javascript/documentation_options.js"
+- "old_site/"
+- "features/"
+- "spec/"

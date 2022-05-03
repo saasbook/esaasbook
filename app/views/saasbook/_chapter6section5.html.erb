@@ -1,0 +1,118 @@
+    
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="the-dom-and-accessibility">
+<h1><span class="section-number">6.5. </span>The DOM and Accessibility<a class="headerlink" href="#the-dom-and-accessibility" title="Permalink to this headline">¶</a></h1>
+<p>Many people navigate a website by clicking on buttons or links. This relies on using a mouse or touchscreen as
+well as being able to perceive the visual affordances of the web page. Considering <em>accessibility</em>, sometimes
+abbreviated <em>a11y</em>, is about ensuring that your users can access your applications using different input methods.
+For example, some users may need (or prefer) to navigate a website using the keyboard, so they must have a way
+of “clicking” on a button, perhaps by pressing space on their keyboards. Blind or low-vision users may use <em>screen
+reader</em> software that translates text and interactions on screen into audio, and to include these users you must
+ensure there’s a way for the computer to generate a text-based description of your page elements. The <code class="code docutils literal notranslate"><span class="pre">alt</span></code> attribute
+of an img element, which has been part of HTML since the beginning, is one simple example of providing a textual
+alternative to visual element.</p>
+<p>Section 1.8 motivated the use of HTML/CSS frameworks. One advantage of a good framework is that it provides some
+built-in support for using the techniques we describe in this section to improve your app’s accessibility: using
+Semantic HTML to structure your pages, and adding ARIA (Accessible Rich Internet Applications) attributes to give
+hints to screen readers.</p>
+<p><strong>Semantic HTML.</strong> HTML is very flexible: in principle you can accomplish just about any visual styling using only <code class="code docutils literal notranslate"><span class="pre">div</span></code>
+(“divider”) elements with appropriate CSS rules. However, a <code class="code docutils literal notranslate"><span class="pre">div</span></code> doesn’t convey much about the purpose of that element.
+<em>Semantic</em> <em>HTML</em> involves choosing the <em>most appropriate</em> HTML element type tag that describes the element’s logical role
+on the page, so that (for example) a screen reader can convey that a particular element
+is a button, heading, paragraph, or maybe even a timestamp. Beyond accessibility, using the proper HTML element type
+communicates your intentions to other developers on the project, and allows search engines to improve their search results.
+We distinguish three categories of HTML elements: structural, content, and interactive.</p>
+<p><strong>Structural elements</strong> break down large and often visually-distinct sections of a web page, allowing screen readers to
+quickly jump between sections:</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">h1...h6</span></code> are elements that give your page an outline. Most pages start with <code class="code docutils literal notranslate"><span class="pre">h1</span></code>.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">nav</span></code> is used for sections of links that direct users to different parts of your website. Commonly, this is used in a “navigation bar” at the top of a web page.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">main</span></code> This is for the body of your web page. There should only be one of these per page.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">header</span></code> and <code class="code docutils literal notranslate"><span class="pre">footer</span></code> These are common sections that you might include. They should be <em>outside</em> of the main content.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">section</span></code> should be used to group elements into a larger component, like a toolbar.</p></li>
+</ul>
+<p><strong>Content elements</strong> give meaningful descriptions to content that is primarily designed to
+be read, such as text and graphics:</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">p</span></code> is for a “paragraph”, which can include other elements inside, like <code class="code docutils literal notranslate"><span class="pre">img</span></code>, <code class="code docutils literal notranslate"><span class="pre">a</span></code>, and so on.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">strong</span></code> and <code class="code docutils literal notranslate"><span class="pre">em</span></code> for bold and italic text, respectively.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">time</span></code> is useful for dates and times, and many browsers give users additional features, like the ability to easily create a calendar link.</p></li>
+</ul>
+<p><strong>Interactive elements</strong> are those with which users interact, so they are perhaps the most important to target for accessibility.</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">a</span></code> (“anchor”) links to another page or another part of the same page.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">button</span></code> is the main way to take some action. <em>When you use a button, the browser automatically provides functions for keyboard accessibility, as well as describing the button as “clickable” to a screen reader.</em></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">input</span></code> is the primary method for accepting user input, such as within a form. <code class="code docutils literal notranslate"><span class="pre">inputs</span></code> have a <code class="code docutils literal notranslate"><span class="pre">type</span></code> attribute that can take on one of 22 different values such as <code class="code docutils literal notranslate"><span class="pre">email</span></code>, <code class="code docutils literal notranslate"><span class="pre">password</span></code>, <code class="code docutils literal notranslate"><span class="pre">checkbox</span></code>, and so on.</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">select</span></code> builds simple dropdown lists.</p></li>
+</ul>
+<p>Buttons and inputs come with quite a few default features that are critical for accessibility.
+However, each of these components can be controlled individually.</p>
+<ul class="simple">
+<li><p><em>Focus</em>: An interactive element needs to be able to “receive focus”, which means that when a user is navigating a web page with a keyboard, they are able to take actions on a focused element. (This is analogous to how the styling of an element might change when you hover over it.) Focusability is controlled by the <code class="code docutils literal notranslate"><span class="pre">tabindex</span></code> attribute. Native elements like a <code class="code docutils literal notranslate"><span class="pre">button</span></code> have a property <code class="code docutils literal notranslate"><span class="pre">tabindex=&quot;0&quot;</span></code> internal to them. If you’re trying to make a span interactive, you’ll need to take care to manually set this.</p></li>
+<li><p><em>Keyboard Actions</em>: When a button or link has focus, a button is activated when Enter or Space is pressed, but links are followed only when Enter is pressed. When adding interactivity to other element types, take care to add an <code class="code docutils literal notranslate"><span class="pre">onkeypress</span></code> event handler that responds to the appropriate keys. The keypress handler will often call the <code class="code docutils literal notranslate"><span class="pre">onclick</span></code> handler, mirroring the behavior of the built-in <code class="code docutils literal notranslate"><span class="pre">button</span></code>.</p></li>
+<li><p><em>Visual Focus</em>: Using the <code class="code docutils literal notranslate"><span class="pre">:focus</span></code> CSS pseudo-selector allows styling an element differently when it has focus, so that when users tab with the keyboard they can see which element is active.</p></li>
+</ul>
+<p>A corollary of the Semantic HTML guideline of using the most appropriate element for a given task is that you shouldn’t
+deliberately make non-interactive elements interactive unless you have no other alternatives, such as having a plain <code class="code docutils literal notranslate"><span class="pre">p</span></code>
+(paragraph) element respond to clicks. Instead, find a way to achieve your goal using existing interactive elements such as
+buttons and links.</p>
+<p>Going beyond using Semantic HTML to select the right elements, we can further improve accessibility using <strong>WAI-ARIA</strong>, or simply
+ARIA: The Web Accessibility Initiative/Accessible Rich Internet Applications specification stewarded by the World Wide Web
+Consortium (W3C), which specifies how to increase the accessibility of web pages, in particular those enhanced by JavaScript.</p>
+<p>The first rule of ARIA is “Don’t use ARIA”—that is, try to structure your HTML and JavaScript so that the additional support
+ARIA provides is unnecessary. ARIA is a purely <em>descriptive</em> tool: Adding ARIA attributes to an element will not change how the
+element <em>works</em>, but only how it is read aloud by the screen reader. ARIA applies to both interactive and non-interactive
+elements.</p>
+<p>In ARIA, every HTML element has a <em>role</em> and a <em>label</em>. The ARIA specification defines the allowed roles. Many roles such as
+<code class="code docutils literal notranslate"><span class="pre">link</span></code> and <code class="code docutils literal notranslate"><span class="pre">button</span></code> follow from the HTML element type itself, but others describe more complex UI elements such as “tooltip”
+that do not correspond directly to a specific HTML element type.</p>
+<p>The label, sometimes called an <em>accessible name</em>, is typically generated from the visual text of the element, and sometimes
+includes the role. For example a button (<code class="code docutils literal notranslate"><span class="pre">&lt;button&gt;Submit&lt;/button&gt;</span></code>) might be read as “Submit, button” by a screen reader.
+But when there is no text content in an interactive element, such as button whose content is an icon, for accessibility
+you <em>must</em> provide a label using ARIA. For example, adding the attribute <code class="code docutils literal notranslate"><span class="pre">aria-label=&quot;add</span> <span class="pre">to</span> <span class="pre">cart&quot;</span></code> to an element will cause
+the screen reader to read the phrase “add to cart.” Labels should be detailed enough to convey the element’s purpose, but
+as concise as possible.</p>
+<p>Finally, in this chapter we’ve seen many examples of how JavaScript can “live-update” the page’s DOM (and therefore the rendered
+HTML) after the page has been loaded, even if the user doesn’t do anything, as in the case of a page change triggered by a
+timer event. But if a page doesn’t specify when and where content might be updated, then screen-reader users might not realize
+something has changed. Adding the <code class="code docutils literal notranslate"><span class="pre">aria-live</span></code> attribute to an element tells a screen reader to notify the user when the content
+in that element changes. Most often, you should use <code class="code docutils literal notranslate"><span class="pre">aria-live=&quot;polite&quot;</span></code>, which tries to minimize interruptions to the user,
+but in special cases, you can use <code class="code docutils literal notranslate"><span class="pre">aria-live=&quot;assertive&quot;</span></code> to convey an urgent message.</p>
+<p>Although mature HTML/CSS frameworks such as Bootstrap include appropriate ARIA notations on the elements and components they
+provide, accessibility is an ongoing concern during app development. The Web Content Accessibility Guidelines WCAG are the
+requirements that applications need to follow to be considered legally accessible in many jurisdictions. The <code class="code docutils literal notranslate"><span class="pre">axe</span></code> browser
+extension, available for Chrome and Firefox, runs numerous checks for WCAG 2 compliance on any displayed page. Similarly,
+the W3C maintains the ARIA Authoring Practices specification, which contains dozens of examples (with working JavaScript)
+for common UI patterns across applications.</p>
+
+<figure>
+    <%= image_tag "Chapter6/6.9.jpg", class:"center", alt: "6.9" %>
+    <figcaption>
+    Figure 6.9: A few of the JavaScript events defined by the jQuery API. Set a handler for an event with
+element.on(’evt’, func) or as a shortcut, element.evt(func). Hence, $(’h1’).on(’click’, function() {...}) is
+equivalent to $(’h1’).click(function() {...}). The callback func will be passed an argument (which you’re free to
+ignore) whose value is the jQuery Event object describing the event that was triggered. Remember that on and its shortcuts
+will bind the callback to all elements matching the selector, so be sure the selector you pass is unambiguous, for example by
+identifying an element by its ID.
+    </figcaption>
+</figure>
+
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="<%= section_path(chapter_id: 6, section_id: 4) %>" title="previous page"><span class="section-number">6.4. </span>The Document Object Model (DOM) and jQuery</a>
+    <a class='right-next' id="next-link" href="<%= section_path(chapter_id: 6, section_id: 6) %>" title="next page"><span class="section-number">6.6. </span>Events and Callbacks</a>
+
+        </div>
+        
+        </div>
+    </div>

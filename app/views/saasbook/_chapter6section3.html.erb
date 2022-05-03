@@ -1,0 +1,136 @@
+    
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="classes-functions-and-constructors">
+<h1><span class="section-number">6.3. </span>Classes, Functions and Constructors<a class="headerlink" href="#classes-functions-and-constructors" title="Permalink to this headline">¶</a></h1>
+<p>In Chapter 2 we mentioned that object-orientation and class inheritance are distinct language design concepts,
+although many people mistakenly conflate them because popular languages like Java use both. While JavaScript is
+object-oriented and supports inheritance, <em>it does not have classes</em>, despite the addition of a new <code class="code docutils literal notranslate"><span class="pre">class</span></code> keyword
+in the ECMAScript 6 standard. However, classes have <em>not</em> been added to JavaScript; the keyword is <strong>syntactic sugar</strong>
+for JavaScript’s built-in mechanism of <strong>prototype inheritance</strong>, in which every object inherits from some
+prototype object and delegates to its prototype any slot lookup that fails on the object itself.</p>
+<p>Unfortunately, the design of this mechanism has led to confusion for newcomers to JavaScript, especially regarding
+the behavior of the keyword this. We will concern ourselves with three common uses of <code class="code docutils literal notranslate"><span class="pre">this</span></code>. In this section we
+introduce the first two of these uses, and an associated pitfall. In Section 6.6 we introduce the third use.</p>
+<p>Lines 1–8 of Figure 6.6 show a function called <code class="code docutils literal notranslate"><span class="pre">Movie</span></code>. This syntax for defining functions may be unfamiliar, whereas
+the alternate syntax in lines 9–11 looks comfortably familiar. Nonetheless, we will use the first syntax for two
+reasons. First, unlike Ruby, functions in JavaScript are true <strong>first-class objects</strong>—you can pass them around, assign
+them to variables, and so on. The syntax in line 1 makes it clear that <code class="code docutils literal notranslate"><span class="pre">Movie</span></code> is simply a variable whose value happens
+to be a function. Second, although it’s not obvious, the variable <code class="code docutils literal notranslate"><span class="pre">Movie</span></code> in line 9 is being declared in JavaScript’s
+global namespace—hardly beautiful. In general we want to minimize clutter in the global namespace, so we will usually
+create one or a few objects
+named by global variables associated with our app, and all of our JavaScript functions will be the values of properties
+of those objects.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kd">let</span> <span class="nx">Movie</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">title</span><span class="p">,</span><span class="nx">year</span><span class="p">,</span><span class="nx">rating</span><span class="p">)</span> <span class="p">{</span>
+<span class="linenos"> 2</span>    <span class="k">this</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">title</span><span class="p">;</span>
+<span class="linenos"> 3</span>    <span class="k">this</span><span class="p">.</span><span class="nx">year</span> <span class="o">=</span> <span class="nx">year</span><span class="p">;</span>
+<span class="linenos"> 4</span>    <span class="k">this</span><span class="p">.</span><span class="nx">rating</span> <span class="o">=</span> <span class="nx">rating</span><span class="p">;</span>
+<span class="linenos"> 5</span>    <span class="k">this</span><span class="p">.</span><span class="nx">full_title</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="c1">// &quot;instance method&quot;</span>
+<span class="linenos"> 6</span>        <span class="k">return</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">title</span> <span class="o">+</span> <span class="s1">&#39; (&#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">year</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span><span class="p">);</span>
+<span class="linenos"> 7</span>    <span class="p">};</span>
+<span class="linenos"> 8</span><span class="p">};</span>
+<span class="linenos"> 9</span><span class="kd">function</span> <span class="nx">Movie</span><span class="p">(</span><span class="nx">title</span><span class="p">,</span><span class="nx">year</span><span class="p">,</span><span class="nx">rating</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">// this syntax may look familiar...</span>
+<span class="linenos">10</span><span class="c1">// ...</span>
+<span class="linenos">11</span><span class="p">}</span>
+<span class="linenos">12</span><span class="c1">// using &#39;new&#39; makes Movie the new objects&#39; prototype:</span>
+<span class="linenos">13</span><span class="nx">pianist</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Movie</span><span class="p">(</span><span class="s1">&#39;The Pianist&#39;</span><span class="p">,</span> <span class="mf">2002</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">);</span>
+<span class="linenos">14</span><span class="nx">pianist</span><span class="p">.</span><span class="nx">full_title</span><span class="p">;</span>   <span class="c1">// =&gt; function() {...}</span>
+<span class="linenos">15</span><span class="nx">pianist</span><span class="p">.</span><span class="nx">full_title</span><span class="p">();</span> <span class="c1">// =&gt; &quot;The Pianist (2002)&quot;</span>
+<span class="linenos">16</span><span class="c1">// BAD: without &#39;new&#39;, &#39;this&#39; is bound to global object in Movie call!!</span>
+<span class="linenos">17</span><span class="nx">juno</span> <span class="o">=</span> <span class="nx">Movie</span><span class="p">(</span><span class="s1">&#39;Juno&#39;</span><span class="p">,</span> <span class="mf">2007</span><span class="p">,</span> <span class="s1">&#39;PG-13&#39;</span><span class="p">);</span> <span class="c1">// DON&#39;T DO THIS!!</span>
+<span class="linenos">18</span><span class="nx">juno</span><span class="p">;</span>               <span class="c1">// undefined</span>
+<span class="linenos">19</span><span class="nx">juno</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>         <span class="c1">// error: &#39;undefined&#39; has no properties</span>
+<span class="linenos">20</span><span class="nx">juno</span><span class="p">.</span><span class="nx">full_title</span><span class="p">();</span>  <span class="c1">// error: &#39;undefined&#39; has no properties</span>
+</pre></div>
+</div>
+<figure>
+    <figcaption>
+    Figure 6.6: Since functions are first-class objects, it is fine for an object to have a property whose value is a function, as
+    full_title is. We will make extensive use of this characteristic. Note the pitfall in lines 14–18.
+    </figcaption>
+</figure>
+<p>If we call the Movie function using JavaScript’s new keyword (line 13), the value of this in the function body
+will be a new JavaScript object that will eventually be returned by the function, similar to Ruby’s <code class="code docutils literal notranslate"><span class="pre">self</span></code> inside
+an <code class="code docutils literal notranslate"><span class="pre">initialize</span></code> constructor method. In this case, the returned object will have properties <code class="code docutils literal notranslate"><span class="pre">title</span></code>, <code class="code docutils literal notranslate"><span class="pre">year</span></code>,
+<code class="code docutils literal notranslate"><span class="pre">rating</span></code>, and <code class="code docutils literal notranslate"><span class="pre">full_title</span></code>, the last of which is a property whose value is a function. If line 14 looks like a function call to you,
+then you’ve been hanging around Ruby too long; since functions are first-class objects in JavaScript, this line just
+returns the value of <code class="code docutils literal notranslate"><span class="pre">full_title</span></code>, which is the function itself, not the result of calling it! To actually call it, we
+need to use parentheses, as in line 15. When we make that call, within the body of <code class="code docutils literal notranslate"><span class="pre">full_title</span></code>, this will refer to the
+object whose property the function is, in this case <code class="code docutils literal notranslate"><span class="pre">pianist</span></code>.</p>
+<p>Remember, though, that while these examples look just like calling a class’s constructor and calling an instance method in
+Ruby, JavaScript has no concept of classes or instance methods. In fact, there is nothing about a particular JavaScript
+function that makes it a constructor; instead, it’s the use of new when calling the function that makes it a constructor,
+causing it to create and return a new object. The reason this works is because of JavaScript’s <strong>prototype inheritance</strong>
+mechanism, which we don’t discuss further (but see the Elaboration below to learn more). Nonetheless, forgetting this subtle
+distinction may confuse you when you expect class-like behaviors and don’t get them.</p>
+<p>However, a JavaScript misfeature can trip us up here. It is (unfortunately) perfectly legal to call <code class="code docutils literal notranslate"><span class="pre">Movie</span></code> as a plain old
+function <em>without</em> using the <code class="code docutils literal notranslate"><span class="pre">new</span></code> keyword, as in line 17. If you do this, JavaScript’s behavior is completely different in
+two horrible, horrible ways. First, in the body of <code class="code docutils literal notranslate"><span class="pre">Movie</span></code>, <code class="code docutils literal notranslate"><span class="pre">this</span></code> will not refer to a brand-new object but instead to the
+<em>global object</em>, which defines various special constants such as <code class="code docutils literal notranslate"><span class="pre">Infinity</span></code>, <code class="code docutils literal notranslate"><span class="pre">NaN</span></code>, and <code class="code docutils literal notranslate"><span class="pre">null</span></code>, and supplies various other parts
+of the JavaScript environment. When JavaScript is run in a browser, the global object happens to be a data structure
+representing the browser window. Therefore, lines 2–5 will be creating and setting new properties of this object—clearly
+not what we intended,
+but unfortunately, when <code class="code docutils literal notranslate"><span class="pre">this</span></code> is used in a scope where it would otherwise be undefined, it refers to the global object, a
+serious design defect in the language. (See Fallacies and Pitfalls and To Learn More if you want to learn about the reasons
+for this odd behavior, a discussion of which is beyond the scope of this introduction to the language.)</p>
+<p>Second, since <code class="code docutils literal notranslate"><span class="pre">Movie</span></code> doesn’t explicitly return anything, its return value (and therefore the value of <code class="code docutils literal notranslate"><span class="pre">juno</span></code>) will be <code class="code docutils literal notranslate"><span class="pre">undefined</span></code>.
+Whereas a Ruby function returns the value of the last expression in the function by default, a JavaScript function returns
+<code class="code docutils literal notranslate"><span class="pre">undefined</span></code> unless it has an explicit <code class="code docutils literal notranslate"><span class="pre">return</span></code> statement. (The <code class="code docutils literal notranslate"><span class="pre">return</span></code> in line 6 belongs to the <code class="code docutils literal notranslate"><span class="pre">full_title</span></code> function, not to <code class="code docutils literal notranslate"><span class="pre">Movie</span></code>
+itself.) Hence, lines 19–20 give errors because we’re trying to reference a property (<code class="code docutils literal notranslate"><span class="pre">title</span></code>) on something that isn’t even
+an object.</p>
+<p>You can avoid this pitfall by rigorously following the widespread JavaScript convention that a function’s name should be
+capitalized if and only if the function is intended to be called as a constructor using <code class="code docutils literal notranslate"><span class="pre">new</span></code>. Functions that are not
+“constructor-like” should be given names beginning with lowercase letters.</p>
+<p><strong>Self-Check 6.3.1.</strong> <em>What is the difference between evaluating</em> <code class="code docutils literal notranslate"><span class="pre">square.area</span></code> <em>and</em> <code class="code docutils literal notranslate"><span class="pre">square.area()</span></code> <em>in the following
+JavaScript code?</em></p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">square</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">side</span><span class="o">:</span> <span class="mf">3</span><span class="p">,</span>
+    <span class="nx">area</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">side</span><span class="o">*</span><span class="k">this</span><span class="p">.</span><span class="nx">side</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+
+<figure>
+    <%= image_tag "Chapter6/6.7.jpg", class:"center", alt: "6.7" %>
+    <figcaption>
+    Figure 6.7: A simplified view of the DOM tree corresponding to the RottenPotatoes “list of movies” page with skeletal
+HTML markup. An open triangle indicates places where we’ve elided the rest of the subtree for brevity. this.document is
+set to point to the DOM tree’s root when a page is loaded.
+    </figcaption>
+</figure>
+
+
+<p></p>
+<blockquote>
+<div><p><code class="code docutils literal notranslate"><span class="pre">square.area()</span></code> is a function call that in this case will return 9, whereas square.area is an unapplied function object.</p>
+</div></blockquote>
+<p><strong>Self-Check 6.3.2.</strong> <em>Given the code in Self-Check 6.3.1, explain why it’s is incorrect to write</em> <code class="code docutils literal notranslate"><span class="pre">s=new</span> <span class="pre">square</span></code>.</p>
+<blockquote>
+<div><p><code class="code docutils literal notranslate"><span class="pre">square</span></code> is just an object, not a function, so it cannot be called as a constructor (or at all).</p>
+</div></blockquote>
+<p><strong>Self-Check 6.3.3.</strong> <em>In Ruby, when a method call takes no arguments, the empty parentheses following the method call are
+optional. Why wouldn’t this work in JavaScript?</em></p>
+<blockquote>
+<div><p>Because JavaScript functions are first-class objects, a function name without parentheses would be an expression whose
+value is the function itself, rather than a call to the function.</p>
+</div></blockquote>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="<%= section_path(chapter_id: 6, section_id: 2) %>" title="previous page"><span class="section-number">6.2. </span>Introducing ECMAScript</a>
+    <a class='right-next' id="next-link" href="<%= section_path(chapter_id: 6, section_id: 4) %>" title="next page"><span class="section-number">6.4. </span>The Document Object Model (DOM) and jQuery</a>
+
+        </div>
+        
+        </div>
+    </div>

@@ -1,0 +1,73 @@
+    
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="concluding-remarks-from-solo-developer-to-teams-of-teams">
+<h1><span class="section-number">10.9. </span>Concluding Remarks: From Solo Developer to Teams of Teams<a class="headerlink" href="#concluding-remarks-from-solo-developer-to-teams-of-teams" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p><em>The first 90% of the code accounts for the first 10% of the development time.
+The remaining 10% of the code accounts for the other 90% of the development time.</em></p>
+<p class="attribution">—Tom Cargill, quoted in Programming Pearls, 1985</p>
+</div></blockquote>
+<p>The history of version control systems mirrors the movement towards distributed collaboration
+among “teams of teams,” with two-pizza teams emerging as a popular unit of cohesiveness. From
+about 1970–1985, the original Unix <strong>Source Code Control System</strong> (SCCS) and its longer-lived
+descendant <strong>Revision Control System</strong> (RCS) required the repo and all development to stay on the
+same computer (which might be a multi-user system) and disallowed simultaneous editing of the
+same file by different developers. The <strong>Concurrent Versions System</strong> (CVS) and <strong>Subversion</strong> introduced
+simultaneous editing and branches, but only a single repo. Git completed the decentralization by
+allowing any copy of a repo to push or pull from any other, enabling completely decentralized
+“teams of teams,” and by making branching and merging much quicker and easier than its
+predecessors. Today, distributed collaboration is the norm: rather than a large distributed
+team, fork-and-pull allows a large number of Agile two-pizza teams to make independent
+progress, and the use of Git to support such efforts has become ubiquitous. The two-pizza
+team size makes it easier for a team to stay organized than the giant programming teams possible
+in Plan-and-Document. The
+decentralized approach also distributes responsibility for project planning and cost esimation
+more than P&amp;D, which relies on the project manager to make the time and cost estimates, assess
+risks, and to run the project so that it delivers the product on time and on budget with the
+required functionality.</p>
+<p>We have previously seen two examples of processes in which the P&amp;D and Agile versions comprise
+the same skills and steps, but sequenced differently. Test-driven development uses the same
+elements as conventional code writing followed by debugging, but in a different order. Agile
+iterations include the same elements as a waterfall project, but in a different order. Team
+coordination is a third example: Agile teams use the same processes as P&amp;D teams—releases,
+code reviews, customer reviews, cost and effort estimation, assignment of different parts of
+the coding task to different developers—but in a different order. Agile proponents believe the
+techniques in this chapter can help an agile team avoid many of the pitfalls that have made
+software projects infamous for being late and over budget. Checking in continuously with other
+developers (via PRs) and customers (via frequent deployments to staging) during each iteration
+guides your team into spending its resources most effectively and is more likely to result in
+software that makes customers happy within the time and cost budget. A disciplined workflow
+using version control allows developers to make progress on many fronts simultaneously without
+interfering with each others’ work, and also allows disciplined and systematic management of
+the bug lifecycle.</p>
+<p>Finally, as with any experience, you should reflect on what went well, what didn’t go well,
+and what you would do differently. It is not a sin to make a mistake, as long as you learn
+from it; the sin is making the same mistake repeatedly. Many Agile teams’ end-of-iteration
+Retrospective meeting allows this learning to happen incrementally each week and makes the
+team more cohesive over time, rather than waiting until the end of a long project to determine
+what could have gone better.</p>
+<p>For more comprehensive details on this chapter’s topics, we recommend these resources:</p>
+<ul class="simple">
+<li><p>You can find very detailed descriptions of Git’s powerful features in Version Control With Git (Loeliger 2009), which takes a more tutorial approach, and in the free Git Community Book, which is also useful as a thorough reference on Git. For detailed help on a specific command, use git help command, for example, git help branch; but be aware that these explanations are for reference, not tutorial.</p></li>
+<li><p>Atlassian has an excellent set of tutorials16 covering many Git-related topics, including rebasing.</p></li>
+<li><p>Many medium-sized projects that don’t use Pivotal Tracker, or whose bug-management needs go somewhat beyond what Tracker provides, rely on the Issues feature built into every GitHub repo. The Issues system allows each team to create appropriate “labels” for different bug types and priorities and create their own “bug lifecycle” process.</p></li>
+</ul>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="<%= section_path(chapter_id: 10, section_id: 8) %>" title="previous page"><span class="section-number">10.8. </span>Fallacies and Pitfalls</a>
+    <a class='right-next' id="next-link" href="<%= chapter_path(chapter_id: 11) %>" title="next page"><span class="section-number">11. </span>Design Patterns for SaaS Apps</a>
+
+        </div>
+        
+        </div>
+    </div>

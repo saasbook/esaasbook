@@ -1,0 +1,47 @@
+.highlight_button {
+    padding: 2px;
+    width: 120px;
+}
+
+span.yellow-highlight {
+    background-color: #ffff80;
+    color: black;
+}
+
+span.green-highlight {
+    background-color: #8cff32;
+    color: black;
+}
+
+span.blue-highlight {
+    background-color: #add8e6;
+    color: black;
+}
+
+span.default-annotation {
+    background-color: lavender;
+    color: black;
+}
+
+/* 
+    PLEASE NOTE: !important must be used here.
+    Bootstrap injects element.style tag directly
+    into the HTML for these dropdowns.
+    No amount of specificity will override it.
+
+    If the options are adding a bunch of javascript
+    to try to intercept/override the style injected
+    by bootstrap or just add !important to the CSS,
+    I'll take the hit on the CSS.
+*/
+div#color-dropdown.dropdown-menu.show {
+    transform: translate(0px, 36px) !important;
+}
+
+#highlight-button {
+    margin-right: 0px;
+}
+
+#highlight-toggle {
+    margin-left: 0px;
+}

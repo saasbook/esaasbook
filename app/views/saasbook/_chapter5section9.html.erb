@@ -1,0 +1,40 @@
+    
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="fallacies-and-pitfalls">
+<h1><span class="section-number">5.9. </span>Fallacies and Pitfalls<a class="headerlink" href="#fallacies-and-pitfalls" title="Permalink to this headline">¶</a></h1>
+<p><strong>Pitfall: Too many filters or model lifecycle callbacks, or overly complex logic in filters or callbacks.</strong></p>
+<p>Filters and callbacks provide convenient and well-defined places to DRY out duplicated code, but too many of
+them can make it difficult to follow the app’s logic flow. For example, when there are numerous before-filters,
+after-filters and around-filters that trigger on different sets of controller actions, it can be hard to figure
+out why a controller action fails to execute as expected or which filter “stopped the show.” Things can be even
+worse if some of the filters are declared not in the controller itself but in a controller from which it inherits,
+such as <code class="code docutils literal notranslate"><span class="pre">ApplicationController</span></code>. Filters and callbacks should be used when you truly want to centralize code that
+would otherwise be duplicated.</p>
+<p><strong>Pitfall: Not checking for errors when saving associations.</strong></p>
+<p>Saving an object that has associations implies potentially modifying multiple tables. If any of those modifications
+fails, perhaps because of validations either on the object or on its associated objects, other parts of the save might
+silently fail. Be sure to check the return value of <code class="code docutils literal notranslate"><span class="pre">save</span></code>, or else use <code class="code docutils literal notranslate"><span class="pre">save!</span></code> and rescue any exceptions.</p>
+<p><strong>Pitfall: Nesting resources more than 1 level deep.</strong></p>
+<p>Although it’s technically possible to have nested resources multiple levels deep, the routes and actions quickly
+become cumbersome, which may be a sign that your design isn’t properly factored. Perhaps there is an additional
+entity relationship that needs to be modeled, using a shortcut such as <code class="code docutils literal notranslate"><span class="pre">has_many</span> <span class="pre">:through</span></code> to represent the
+final association.</p>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="<%= section_path(chapter_id: 5, section_id: 8) %>" title="previous page"><span class="section-number">5.8. </span>Other Types of Code</a>
+    <a class='right-next' id="next-link" href="<%= section_path(chapter_id: 5, section_id: 10) %>" title="next page"><span class="section-number">5.10. </span>Concluding Remarks: Languages, Productivity, and Beauty</a>
+
+        </div>
+        
+        </div>
+    </div>

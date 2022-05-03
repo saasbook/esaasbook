@@ -1,0 +1,74 @@
+    
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="fallacies-and-pitfalls">
+<h1><span class="section-number">11.9. </span>Fallacies and Pitfalls<a class="headerlink" href="#fallacies-and-pitfalls" title="Permalink to this headline">¶</a></h1>
+<p><strong>Pitfall: Over-reliance or under-reliance on patterns.</strong></p>
+<p>As with every tool and methodology we’ve seen, slavishly following design patterns is a
+pitfall: they can help point the way when your problem could take advantage of a proven
+solution, but they cannot by themselves ensure beautiful code. In fact, the GoF authors
+specifically warn <em>against</em> trying to evaluate the soundness of a design based on the number
+of patterns it uses. In addition, if you apply design patterns too early in your design
+cycle, you may try to implement a pattern in its full generality even though you may not
+need that generality for solving the current problem. That will complicate your design
+because most design patterns call for <em>more</em> classes, methods, and levels of indirection than
+the same code would require without this level of generality. In contrast, if you apply
+design patterns too late, you risk falling into antipatterns and extensive refactoring.</p>
+<p>What to do? Develop taste and judgment through learning by doing. You will make some mistakes
+as you go, but your judgment on how to deliver working and maintainable code will quickly
+improve.</p>
+<p><strong>Pitfall: Over-reliance on UML or other diagrams.</strong></p>
+<p>A diagram’s purpose is communication of intent. Reading UML diagrams is not necessarily easier
+than reading user stories or well-factored TDD tests. Create a diagram when it
+helps to clarify a class architecture; don’t rely on them as a crutch.</p>
+<p><strong>Fallacy: SOLID principles aren’t needed in dynamic languages.</strong></p>
+<p>As we saw in this chapter, some of the problems addressed by SOLID don’t really arise in
+dynamically-typed languages like Ruby. Nonetheless, the SOLID guidelines still represent
+good design; in static languages, there is simply a much more tangible up-front cost to
+ignoring them. In dynamic languages, while the opportunity exists to use dynamic features
+to make your code more elegant and DRY without the extra machinery required by some of the
+SOLID guidelines, the corresponding risk is that it’s easier to fall into sloth and end up
+with ugly antipattern code.</p>
+<p><strong>Pitfall: Lots of private methods in a class.</strong></p>
+<p>You may have already discovered that methods declared <code class="code docutils literal notranslate"><span class="pre">private</span></code> are hard to test, because by
+definition they can only be called from within an instance method of that class—meaning they
+cannot be called directly from an RSpec test. Although you can use a hack to temporarily make
+the method public (<code class="code docutils literal notranslate"><span class="pre">MyClass.send(:public,:some_private_method)</span></code>), private methods complex enough
+to need their own tests should be considered a smell: the methods themselves may be too long,
+violating the <strong>S</strong>hort guideline of SOFA, and the class containing these methods may be violating
+the <strong>Single Responsibility Principle</strong>. In this case, consider extracting a collaborator class
+whose methods are public (and therefore easy to test and easy to shorten by refactoring) but
+are only called from the original class, thereby improving maintainability and testability.</p>
+<p><strong>Pitfall: Using</strong> <code class="code docutils literal notranslate"><span class="pre">initialize</span></code> <strong>to implement factory patterns.</strong></p>
+<p>In Section 11.4, we showed an example of Abstract Factory pattern in which the correct subclass
+constructor is called directly. Another common scenario is one in which you have a class A with
+subclasses A1 and A2, and you want calls to A’s constructor to return a new object of the correct
+subclass. You usually cannot put the factory logic into the <code class="code docutils literal notranslate"><span class="pre">initialize</span></code> method of A, because that
+method must by definition return an instance of class A. Instead, give the factory method a
+different name such as <code class="code docutils literal notranslate"><span class="pre">create</span></code>, make it a class method, and call it
+from A’s constructor:</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">class</span> <span class="nc">A</span>
+<span class="linenos">2</span>    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">create</span><span class="p">(</span><span class="n">subclass</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="c1"># subclass must be either &#39;A1&#39; or &#39;A2&#39;</span>
+<span class="linenos">3</span>        <span class="k">return</span> <span class="no">Object</span><span class="o">.</span><span class="n">const_get</span><span class="p">(</span><span class="n">subclass</span><span class="p">)</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="ss">:new</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+<span class="linenos">4</span>    <span class="k">end</span>
+<span class="linenos">5</span><span class="k">end</span>
+</pre></div>
+</div>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="<%= section_path(chapter_id: 11, section_id: 8) %>" title="previous page"><span class="section-number">11.8. </span>The Plan-And-Document Perspective on Design Patterns</a>
+    <a class='right-next' id="next-link" href="<%= section_path(chapter_id: 11, section_id: 10) %>" title="next page"><span class="section-number">11.10. </span>Concluding Remarks: Frameworks Capture Design Patterns</a>
+
+        </div>
+        
+        </div>
+    </div>

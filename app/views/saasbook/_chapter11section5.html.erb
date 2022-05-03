@@ -1,0 +1,119 @@
+    
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="liskov-substitution-principle">
+<h1><span class="section-number">11.5. </span>Liskov Substitution Principle<a class="headerlink" href="#liskov-substitution-principle" title="Permalink to this headline">¶</a></h1>
+<p>The <strong>Liskov Substitution Principle</strong> (LSP) is named for Turing Award winner Barbara Liskov,
+who did seminal work on subtypes that heavily influenced object-oriented programming.
+Informally, LSP states that a method designed to work on an object of type <span class="math notranslate nohighlight">\(T\)</span> should also
+work on an object of any subtype of <span class="math notranslate nohighlight">\(T\)</span> . That is, all of <span class="math notranslate nohighlight">\(T\)</span>’s subtypes should
+preserve <span class="math notranslate nohighlight">\(T\)</span>’s “contract.”</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">class</span> <span class="nc">Rectangle</span>
+<span class="linenos"> 2</span>    <span class="kp">attr_accessor</span> <span class="ss">:width</span><span class="p">,</span> <span class="ss">:height</span><span class="p">,</span> <span class="ss">:top_left_corner</span>
+<span class="linenos"> 3</span>    <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="n">width</span><span class="p">,</span><span class="n">height</span><span class="p">,</span><span class="n">top_left</span><span class="p">)</span> <span class="o">...</span> <span class="p">;</span> <span class="k">end</span>
+<span class="linenos"> 4</span>    <span class="k">def</span> <span class="nf">area</span> <span class="o">...</span> <span class="p">;</span> <span class="k">end</span>
+<span class="linenos"> 5</span>    <span class="k">def</span> <span class="nf">perimeter</span> <span class="o">...</span> <span class="p">;</span> <span class="k">end</span>
+<span class="linenos"> 6</span><span class="k">end</span>
+<span class="linenos"> 7</span><span class="c1"># A square is just a special case of rectangle...right?</span>
+<span class="linenos"> 8</span><span class="k">class</span> <span class="nc">Square</span> <span class="o">&lt;</span> <span class="no">Rectangle</span>
+<span class="linenos"> 9</span>    <span class="c1"># ooops...a square has to have width and height equal</span>
+<span class="linenos">10</span>    <span class="kp">attr_reader</span> <span class="ss">:width</span><span class="p">,</span> <span class="ss">:height</span><span class="p">,</span> <span class="ss">:side</span>
+<span class="linenos">11</span>    <span class="k">def</span> <span class="nf">width=</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>  <span class="p">;</span> <span class="vi">@width</span> <span class="o">=</span> <span class="vi">@height</span> <span class="o">=</span> <span class="n">w</span> <span class="p">;</span> <span class="k">end</span>
+<span class="linenos">12</span>    <span class="k">def</span> <span class="nf">height=</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="p">;</span> <span class="vi">@width</span> <span class="o">=</span> <span class="vi">@height</span> <span class="o">=</span> <span class="n">w</span> <span class="p">;</span> <span class="k">end</span>
+<span class="linenos">13</span>    <span class="k">def</span> <span class="nf">side=</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>   <span class="p">;</span> <span class="vi">@width</span> <span class="o">=</span> <span class="vi">@height</span> <span class="o">=</span> <span class="n">w</span> <span class="p">;</span> <span class="k">end</span>
+<span class="linenos">14</span><span class="k">end</span>
+<span class="linenos">15</span><span class="c1"># But is a Square really a kind of Rectangle?</span>
+<span class="linenos">16</span><span class="k">class</span> <span class="nc">Rectangle</span>
+<span class="linenos">17</span>    <span class="k">def</span> <span class="nf">make_twice_as_wide_as_high</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
+<span class="linenos">18</span>        <span class="nb">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">dim</span>
+<span class="linenos">19</span>        <span class="nb">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">dim</span>           <span class="c1"># doesn&#39;t work!</span>
+<span class="linenos">20</span>    <span class="k">end</span>
+<span class="linenos">21</span><span class="k">end</span>
+</pre></div>
+</div>
+
+<figure>
+  <figcaption>
+  Figure 11.16: Behaviorally, rectangles have some capabilities that squares don’t have—for example, the ability to set the
+lengths of their sides independently, as in Rectangle#make_twice_as_wide_as_high.
+  </figcaption>
+</figure>
+
+<p>This may seem like common sense, but it’s subtly easy to get wrong. Consider the code
+in Figure 11.16, which suffers from an LSP violation. You might think a <code class="code docutils literal notranslate"><span class="pre">Square</span></code> is just a
+special case of <code class="code docutils literal notranslate"><span class="pre">Rectangle</span></code> and should therefore inherit from it. But <em>behaviorally</em>, a square
+is <em>not</em> like a rectangle when it comes to setting the length of a side! When you spot this
+problem, you might be tempted to override <code class="code docutils literal notranslate"><span class="pre">Rectangle#make_twice_as_wide_as_high</span></code> within <code class="code docutils literal notranslate"><span class="pre">Square</span></code>,
+perhaps raising an exception since this method doesn’t make sense to call on a <code class="code docutils literal notranslate"><span class="pre">Square</span></code>. But
+that would be a <em>refused bequest</em>—a design smell that often indicates an LSP violation. The
+symptom is that a subclass either destructively overrides a behavior inherited from its
+superclass or forces changes to the superclass to avoid the problem (which itself should
+indicate a possible OCP violation). The problem is that inheritance is all about implementation
+sharing, but if a subclass won’t take advantage of its parent’s implementations, it might not
+deserve to be a subclass at all.</p>
+<p>The fix, therefore, is to again use composition and delegation rather than inheritance, as
+Figure 11.17 shows. Happily, because of Ruby’s duck typing, this use of composition and
+delegation still allows us to pass an instance of <code class="code docutils literal notranslate"><span class="pre">Square</span></code> to most places where a <code class="code docutils literal notranslate"><span class="pre">Rectangle</span></code>
+would be expected, even though it’s no longer a subclass; a statically-typed language would
+have to introduce an explicit interface capturing the operations common to both <code class="code docutils literal notranslate"><span class="pre">Square</span></code> and
+<code class="code docutils literal notranslate"><span class="pre">Rectangle</span></code>.</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># LSP-compliant solution: replace inheritance with delegation</span>
+<span class="linenos"> 2</span><span class="c1"># Ruby&#39;s duck typing still lets you use a square in most places where</span>
+<span class="linenos"> 3</span><span class="c1">#  rectangle would be used - but no longer a subclass in LSP sense.</span>
+<span class="linenos"> 4</span><span class="k">class</span> <span class="nc">Square</span>
+<span class="linenos"> 5</span>    <span class="kp">attr_accessor</span> <span class="ss">:rect</span>
+<span class="linenos"> 6</span>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">side</span><span class="p">,</span> <span class="n">top_left</span><span class="p">)</span>
+<span class="linenos"> 7</span>        <span class="vi">@rect</span> <span class="o">=</span> <span class="no">Rectangle</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">side</span><span class="p">,</span> <span class="n">side</span><span class="p">,</span> <span class="n">top_left</span><span class="p">)</span>
+<span class="linenos"> 8</span>    <span class="k">end</span>
+<span class="linenos"> 9</span>    <span class="k">def</span> <span class="nf">area</span>      <span class="p">;</span> <span class="n">rect</span><span class="o">.</span><span class="n">area</span>      <span class="p">;</span> <span class="k">end</span>
+<span class="linenos">10</span>    <span class="k">def</span> <span class="nf">perimeter</span> <span class="p">;</span> <span class="n">rect</span><span class="o">.</span><span class="n">perimeter</span> <span class="p">;</span> <span class="k">end</span>
+<span class="linenos">11</span>    <span class="c1"># A more concise way to delegate, if using ActiveSupport (see text):</span>
+<span class="linenos">12</span>    <span class="c1">#  delegate :area, :perimeter, :to =&gt; :rectangle</span>
+<span class="linenos">13</span>    <span class="k">def</span> <span class="nf">side=</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="p">;</span> <span class="n">rect</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">rect</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">s</span> <span class="p">;</span> <span class="k">end</span>
+<span class="linenos">14</span><span class="k">end</span>
+</pre></div>
+</div>
+
+<figure>
+  <figcaption>
+  Figure 11.17: As with some OCP violations, the problem arises from a misuse of inheritance. As Figure 11.18 shows,
+preferring composition and delegation to inheritance fixes the problem. Line 12 shows a concise syntax for delegation
+available to apps using ActiveSupport (and all Rails apps do); similar functionality for non-Rails Ruby apps is provided by
+the Forwardable module in Ruby’s standard library.
+  </figcaption>
+</figure>
+
+<figure>
+  <%= image_tag "Chapter11/11.18.svg", class:"center", alt: "11.18" %>
+  <figcaption>
+  Figure 11.18: Left: The UML class diagram representing the original LSP-violating code in Figure 11.16, which
+destructively overrides Rectangle#make_twice_as_wide_as_high. Right: the class diagram for the refactored
+LSP-compliant code in Figure 11.17.
+  </figcaption>
+</figure>
+
+<p><strong>Self-Check 11.5.1.</strong> <em>Why is</em> <code class="code docutils literal notranslate"><span class="pre">Forwardable</span></code> <em>in the Ruby standard library provided as a
+module rather than a class?</em></p>
+<blockquote>
+<div><p>Modules allow the delegation mechanisms to be mixed in to any class that wants to use them,
+which would be awkward if <code class="code docutils literal notranslate"><span class="pre">Forwardable</span></code> were a class. That is, <code class="code docutils literal notranslate"><span class="pre">Forwardable</span></code> is itself an example
+of preferring composition to inheritance!</p>
+</div></blockquote>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="<%= section_path(chapter_id: 11, section_id: 4) %>" title="previous page"><span class="section-number">11.4. </span>Open/Closed Principle</a>
+    <a class='right-next' id="next-link" href="<%= section_path(chapter_id: 11, section_id: 6) %>" title="next page"><span class="section-number">11.6. </span>Dependency Injection Principle</a>
+
+        </div>
+        
+        </div>
+    </div>

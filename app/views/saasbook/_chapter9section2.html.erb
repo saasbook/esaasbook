@@ -1,0 +1,150 @@
+    
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="exploring-a-legacy-codebase">
+<h1><span class="section-number">9.2. </span>Exploring a Legacy Codebase<a class="headerlink" href="#exploring-a-legacy-codebase" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p><em>If you’ve chosen the right data structures and organized things well, the algorithms
+will almost always be self-evident. Data structures, not algorithms, are central to
+programming.</em></p>
+<p class="attribution">—Rob Pike</p>
+</div></blockquote>
+<p>The goal of exploration is to understand the app from both the customers’ and the developers’
+point of view. The specific techniques you use may depend on your immediate aims:</p>
+<ul class="simple">
+<li><p>You’re brand new to the project and need to understand the app’s overall architecture, documenting as you go so others don’t have to repeat your discovery process.</p></li>
+<li><p>You need to understand just the moving parts that would be affected by a specific change you’ve been asked to make.</p></li>
+<li><p>You’re looking for areas that need beautification because you’re in the process of port- ing or otherwise updating a legacy codebase.</p></li>
+</ul>
+<p>Just as we explored SaaS architecture in Chapter 3 using height as an analogy, we can follow
+some “outside-in” steps to understand the structure of a legacy app at various levels:</p>
+<ol class="arabic simple">
+<li><p>Check out a scratch branch to run the app in a development environment</p></li>
+<li><p>Learn and replicate the user stories, working with other stakeholders if necessary</p></li>
+<li><p>Examine the database schema and the relationships among the most important classes 4. Skim all the code to quantify code quality and test coverage</p></li>
+</ol>
+<p>Since operating on the live app could endanger customer data or the user experience, the
+first step is to get the application running in a development or staging environment in
+which perturbing its operation causes no inconvenience to users. Create a <em>scratch branch</em>
+of the repo that you never intend to check back in and can therefore be used for
+experimentation. Create a development database if there isn’t an existing one used for
+development. An easy way to do this is to clone the production database if it isn’t too
+large, thereby sidestepping numerous pitfalls:</p>
+<ul class="simple">
+<li><p>The app may have relationships such as has-many or belongs-to that are reflected in the table rows. Without knowing the details of these relationships, you might create an in- valid subset of data. Using RottenPotatoes as an example, you might inadvertently end up with a <code class="code docutils literal notranslate"><span class="pre">review</span></code> whose <code class="code docutils literal notranslate"><span class="pre">movie_id</span></code> and <code class="code docutils literal notranslate"><span class="pre">moviegoer_id</span></code> refer to nonexistent movies or moviegoers.</p></li>
+<li><p>Cloning the database eliminates possible differences in behavior between production and development resulting from differences in database implementations, difference in how certain data types such as dates are represented in different databases, and so on.</p></li>
+<li><p>Cloning gives you realistic valid data to work with in development.</p></li>
+</ul>
+<p>If you can’t clone the production database, or you have successfully cloned it but it’s
+too unwieldy to use in development all the time, you can create a development database by
+extracting fixture data from the real database5 using the steps in Figure 9.3.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># on production computer:</span>
+<span class="nv">RAILS_ENV</span><span class="o">=</span>production rake db:schema:dump
+<span class="nv">RAILS_ENV</span><span class="o">=</span>production rake db:fixtures:extract
+<span class="c1"># copy db/schema.rb and test/fixtures/*.yml to development computer</span>
+<span class="c1"># then, on development computer:</span>
+rake db:create        <span class="c1"># uses RAILS_ENV=development by default</span>
+rake db:schema:load
+rake db:fixtures:load
+</pre></div>
+</div>
+
+<figure>
+  <figcaption>
+  Figure 9.3: You can create an empty development database that has the same schema as the production database and then
+populate it with fixtures. Although Chapter 8 cautions against the abuse of fixtures, in this case we are using them to
+replicate known behavior from the production environment in your development environment.
+  </figcaption>
+</figure> 
+
+<p>Once the app is running in development, have one or two experienced customers demonstrate
+how they use the app, indicating during the demo what changes they have in mind (Nierstrasz
+et al. 2009). Ask them to talk through the demo as they go; although their comments will
+often be in terms of the user experience (“Now I’m adding Mona as an admin user”), if the
+app was created using BDD, the comments may reflect examples of the original user stories
+and therefore the app’s architecture. Ask frequent questions during the demo, and if the
+maintainers of the app are available, have them observe the demo as well. In Section 9.3
+we will see how these demos can form the basis of “ground truth” tests to underpin your
+changes.</p>
+<p>Once you have an idea of how the app works, take a look at the database schema; Fred Brooks,
+Rob Pike, and others have all acknowledged the importance of understanding the data
+structures as a key to understanding the app logic. You can use an interactive database GUI
+to explore the schema, but you might find it more efficient to run <code class="code docutils literal notranslate"><span class="pre">rake</span> <span class="pre">db:schema:dump</span></code>, which
+creates a file <code class="code docutils literal notranslate"><span class="pre">db/schema.rb</span></code> containing the database schema in the migrations DSL introduced
+in Section 4.2. The goal is to match up the schema with the app’s overall architecture.</p>
+<p>Figure 9.4 shows a simplified Unified Modeling Language (UML) class diagram generated by the
+<code class="code docutils literal notranslate"><span class="pre">railroady</span></code> gem that captures the relationships among the most important classes and the most
+important attributes of those classes. While the diagram may look overwhelming initially,
+since not all classes play an equally important structural role, you can identify “highly
+connected” classes that are probably central to the application’s functions. For example,
+in Figure 9.4, the <code class="code docutils literal notranslate"><span class="pre">Customer</span></code> and <code class="code docutils literal notranslate"><span class="pre">Voucher</span></code> classes are connected to each other and to many other
+classes. You can then identify the tables corresponding to these classes in the database schema.</p>
+
+<figure>
+  <%= image_tag "Chapter9/9.4.svg", class:"center", alt: "9.4" %>       
+  <figcaption>
+  Figure 9.4: This simplified Unified Modeling Language (UML) class diagram, produced automatically by the railroady
+gem, shows the models in a Rails app that manages ticket sales, donations, and performance attendance for a small theater.
+Edges with arrowheads or circles show relationships between classes: a Customer has many Visits and Vouchers (open
+circle to arrowhead), has one most_recent_visit (solid circle to arrowhead), and has and belongs to many Labels
+(arrowhead to arrowhead). Plain edges show inheritance: Donation and Voucher are subclasses of Item. (All of the
+important classes here inherit from ActiveRecord::Base, but railroady draws only the app’s classes.) We will see other
+types of UML diagrams in Chapter 11.
+  </figcaption>
+</figure> 
+
+<p>Having familiarized yourself with the app’s architecture, most important data structures, and
+major classes, you are ready to look at the code. The goal of inspecting the code is to get a
+sense of its overall quality, test coverage, and other statistics that serve as a proxy for how
+painful it may be to understand and modify. Therefore, before diving into any specific file,
+run <code class="code docutils literal notranslate"><span class="pre">rake</span> <span class="pre">stats</span></code> to get the total number of lines of code and lines of tests for each file; this
+information can tell you which classes are most complex and therefore probably most important
+(highest LOC), best tested (best code-to-test ratio), simple “helper” classes (low LOC), and
+so on, deepening the understanding you bootstrapped from the class diagram and database schema.
+(Later in this chapter we’ll show how to evaluate code with some
+additional quality metrics to give you a heads up of where the hairiest efforts might be.) If
+test suites exist, run them; assuming most tests pass, read the tests to help understand the
+original developers’ intentions. Then spend one hour (Nierstrasz et al. 2009) inspecting the
+code in the most important classes as well as those you believe you’ll need to modify (the
+<em>change points</em>), which by now you should be getting a good sense of.</p>
+
+<figure>
+  <%= image_tag "Chapter9/9.5.jpg", class:"center", alt: "9.5" %>       
+  <figcaption>
+  Figure 9.5: A 3-by-5 inch (or A7 size) Class–Responsibility–Collaborator (CRC) card representing the Voucher class from
+Figure 9.4. The left column represents Voucher’s responsibilities—things it knows (instance variables) or does (instance
+methods). Since Ruby instance variables are always accessed through instance methods, we can determine responsibilities
+by searching the class file voucher.rb for instance methods and calls to attr_accessor. The right column represents
+Voucher’s collaborator classes; for Rails apps we can determine many of these by looking for has_many and belongs_to in
+voucher.rb.
+  </figcaption>
+</figure> 
+
+<p><strong>Self-Check 9.2.1.</strong> <em>What are some reasons it is important to get the app running in development
+even if you don’t plan to make any code changes right away?</em></p>
+<blockquote>
+<div><p>A few reasons include:</p>
+<ol class="arabic simple">
+<li><p>For SaaS, the existing tests may need access to a test database, which may not be accessible in production.</p></li>
+<li><p>Part of your exploration might involve the use of an interactive debugger or other tools that could slow down execution, which would be disruptive on the live site.</p></li>
+<li><p>For part of your exploration you might want to modify data in the database, which you can’t do with live customer data.</p></li>
+</ol>
+</div></blockquote>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="<%= section_path(chapter_id: 9, section_id: 1) %>" title="previous page"><span class="section-number">9.1. </span>What Makes Code “Legacy” and How Can Agile Help?</a>
+    <a class='right-next' id="next-link" href="<%= section_path(chapter_id: 9, section_id: 3) %>" title="next page"><span class="section-number">9.3. </span>Establishing Ground Truth With Characterization Tests</a>
+
+        </div>
+        
+        </div>
+    </div>

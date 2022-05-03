@@ -1,0 +1,127 @@
+    
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="establishing-ground-truth-with-characterization-tests">
+<h1><span class="section-number">9.3. </span>Establishing Ground Truth With Characterization Tests<a class="headerlink" href="#establishing-ground-truth-with-characterization-tests" title="Permalink to this headline">¶</a></h1>
+<p>If there are no tests (or too few tests) covering the parts of the code affected by your
+planned changes, you’ll need to create some tests. How do you do this given limited
+understanding of how the code works now? One way to start is to establish a baseline for
+“ground truth” by creating <strong>characterization tests</strong>: tests written after the fact that
+capture and describe the <em>actual, current</em> behavior of a piece of software, even if that
+behavior has bugs. By creating a <strong>R</strong>epeatable automatic test (see Section 8.1) that mimics
+what the code does right now, you can ensure that those behaviors stay the same as you
+modify and enhance the code, like a high-level regression test.</p>
+<p>It’s often easiest to start with an integration-level characterization test such as a Cucumber
+scenario, since these make the fewest assumptions about how the app works and focus only on the
+user experience. Indeed, while good scenarios ultimately make use of a “domain language” rather
+than describing detailed user interactions in imperative steps (Section 7.8), at this point
+it’s fine to start with imperative scenarios, since the goal is to increase coverage and provide
+ground truth from which to create more detailed tests. Once you have some green integration
+tests, you can turn your attention to unit- or functional-level tests, just as TDD follows BDD
+in the outside-in Agile cycle.</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="c1"># WARNING! This code has a bug! See text!</span>
+<span class="k">class</span> <span class="nc">TimeSetter</span>
+    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">convert</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="mi">1980</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">d</span> <span class="o">&gt;</span> <span class="mi">365</span><span class="p">)</span> <span class="k">do</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">%</span> <span class="mi">400</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span>
+            <span class="p">(</span><span class="n">y</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">))</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">d</span> <span class="o">&gt;</span> <span class="mi">366</span><span class="p">)</span>
+            <span class="n">d</span> <span class="o">-=</span> <span class="mi">366</span>
+            <span class="n">y</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">end</span>
+        <span class="k">else</span>
+            <span class="n">d</span> <span class="o">-=</span> <span class="mi">365</span>
+            <span class="n">y</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">end</span>
+        <span class="k">end</span>
+        <span class="k">return</span> <span class="n">y</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+
+<figure>
+  <figcaption>
+  Figure 9.6: This method is hard to understand, hard to test, and therefore, by Feathers’s definition of legacy code, hard to
+modify. In fact, it contains a bug—this example is a simplified version of a bug in the Microsoft Zune music player that
+caused any Zune booted on December 31, 2008, to freeze permanently, and for which the only resolution was to wait until
+the first minute of January 1, 2009, before rebooting.
+  </figcaption>
+</figure> 
+
+<p>Whereas integration-level characterization tests just capture behaviors that we observe without
+requiring us to understand <em>how</em> those behaviors happen, a unit-level characterization test seems
+to require us to understand the implementation. For example, consider the code in Figure 9.6.
+As we’ll discuss in detail in the next section, it has many problems, not least of which is
+that it contains a bug. The method <code class="code docutils literal notranslate"><span class="pre">convert</span></code> calculates the current year given a starting year
+(in this case 1980) and the number of days elapsed since January 1 of that year. If 0 days
+have elapsed, then it is January 1, 1980; if 365 days have elapsed, it is December 31, 1980,
+since 1980 was a leap year; if 366 days have elapsed, it is January 1, 1981; and so on. How
+would we create unit tests for <code class="code docutils literal notranslate"><span class="pre">convert</span></code> without understanding the method’s logic in detail?</p>
+<p>Feathers describes a useful technique for “reverse engineering” specs from a piece of code we
+don’t yet understand: create a spec with an assertion that we know will probably fail, run
+the spec, and use the information in the error message to change the spec to match actual
+behavior. Essentially, we create specs that assert incorrect results, then fix the specs based
+on the actual test behavior. Our goal is to capture the current behavior as completely as
+possible so that we’ll immediately know if code changes break the current behavior, so we
+aim for 100% C0 coverage (even though that’s no guarantee of bug-freedom!), which is challenging
+because the code as presented has no seams. Doing this for convert results in the specs in
+Figure 9.7 and even finds a bug in the process!</p>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="nb">require</span> <span class="s1">&#39;simplecov&#39;</span>
+<span class="no">SimpleCov</span><span class="o">.</span><span class="n">start</span>
+<span class="nb">require</span> <span class="s1">&#39;./time_setter&#39;</span>
+<span class="n">describe</span> <span class="no">TimeSetter</span> <span class="k">do</span>
+    <span class="p">{</span> <span class="mi">365</span> <span class="o">=&gt;</span> <span class="mi">1980</span><span class="p">,</span> <span class="mi">366</span> <span class="o">=&gt;</span> <span class="mi">1981</span><span class="p">,</span> <span class="mi">900</span> <span class="o">=&gt;</span> <span class="mi">1982</span> <span class="p">}</span><span class="o">.</span><span class="n">each_pair</span> <span class="k">do</span> <span class="o">|</span><span class="n">arg</span><span class="p">,</span><span class="n">result</span><span class="o">|</span>
+        <span class="n">it</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">arg</span><span class="si">}</span><span class="s2"> days puts us in </span><span class="si">#{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">do</span>
+            <span class="n">expect</span><span class="p">(</span><span class="no">TimeSetter</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">arg</span><span class="p">))</span><span class="o">.</span><span class="n">to</span> <span class="n">eq</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+
+<figure>
+  <figcaption>
+  Figure 9.7: This simple spec, resulting from the reverse-engineering technique of creating characterization tests achieves
+100% C0 coverage and helps us find a bug in Figure 9.6.
+  </figcaption>
+</figure> 
+
+<p>Feathers describes a useful technique for “reverse engineering” specs from a piece of code
+we don’t yet understand: create a spec with an assertion that we know will probably fail,
+run the spec, and use the information in the error message to change the spec to match actual
+behavior. Essentially, we create specs that assert incorrect results, then fix the specs based
+on the actual test behavior. Our goal is to capture the current behavior as completely as
+possible so that we’ll immediately know if code changes break the current behavior, so we
+aim for 100% C0 coverage (even though that’s no guarantee of bug-freedom!), which is challenging
+because the code as presented has no seams. Doing this for <code class="code docutils literal notranslate"><span class="pre">convert</span></code> results in the specs in
+Figure 9.7 and even finds a bug in the process!</p>
+<p><strong>Self-Check 9.3.1.</strong> <em>State whether each of the following is a goal of unit and functional
+testing, a goal of characterization testing, or both:a</em></p>
+<p><em>i Improve coverage</em></p>
+<p><em>ii Test boundary conditions and corner cases</em></p>
+<p><em>iii Document intent and behavior of app code</em></p>
+<p><em>iv Prevent regressions (reintroduction of earlier bugs)</em></p>
+<blockquote>
+<div><p>(i) and (iii) are goals of unit, functional, and characterization testing. (ii) and
+(iv) are goals of unit and functional testing, but non-goals of characterization testing.</p>
+</div></blockquote>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="<%= section_path(chapter_id: 9, section_id: 2) %>" title="previous page"><span class="section-number">9.2. </span>Exploring a Legacy Codebase</a>
+    <a class='right-next' id="next-link" href="<%= section_path(chapter_id: 9, section_id: 4) %>" title="next page"><span class="section-number">9.4. </span>Comments and Commits: Documenting Code</a>
+
+        </div>
+        
+        </div>
+    </div>

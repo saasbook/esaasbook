@@ -1,0 +1,54 @@
+name: build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      CCTR: ./cc-test-reporter
+      BUNDLE_WITHOUT: production
+      BUNDLE_BUILD__NOKOGIRI: --use-system-libraries
+      TZ: America/Los_Angeles
+      
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Install Ruby 2.6.6
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ruby-2.6.6 # Not needed with a .ruby-version file
+        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+        
+    - name: Run bundle install
+      run: |
+          gem install bundler
+          bundle install --jobs 4 --retry 2
+          
+    - name: Setup CodeClimate test-reporter
+      run: |
+        curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > $CCTR
+        chmod +x $CCTR
+        $CCTR before-build
+        
+    - name: run Cucumber tests and capture coverage
+      run: |
+        bundle exec cucumber --retry 2
+        $CCTR format-coverage --input-type simplecov --output "coverage/codeclimate.$SUITE.json" "/home/runner/work/esaasbook/esaasbook/coverage/.resultset.json" 
+        
+    - name: run RSpec tests and capture coverage
+      run: |
+        bundle exec rspec
+        $CCTR format-coverage --input-type simplecov --output coverage/codeclimate.$SUITE.json "/home/runner/work/esaasbook/esaasbook/coverage/.resultset.json" 
+    
+    - uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact
+        path: "/home/runner/work/esaasbook/esaasbook/coverage" 
+  
+    - name: Publish code coverage
+      run: |
+        export GIT_BRANCH="${GITHUB_REF/refs\/heads\//}"
+        $CCTR sum-coverage coverage/codeclimate.*.json
+        $CCTR upload-coverage -r ${{ secrets.CODE_CLIMATE_ID }}
+        $CCTR after-build -r ${{ secrets.CODE_CLIMATE_ID }}

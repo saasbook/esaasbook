@@ -83,4 +83,4 @@ production:
   <<: *default
   database: esaasbook_production
   username: esaasbook
-  password: <%= ENV['ESAASBOOK_DATABASE_PASSWORD'] %>
+  password: esaasbook

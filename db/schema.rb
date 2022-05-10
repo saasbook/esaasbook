@@ -12,14 +12,17 @@
 
 ActiveRecord::Schema.define(version: 2022_05_01_204721) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "page_annotations", force: :cascade do |t|
     t.integer "chapter"
     t.integer "section"
     t.string "annotation"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "page_id", null: false
+    t.bigint "page_id", null: false
     t.index ["page_id"], name: "index_page_annotations_on_page_id"
     t.index ["user_id"], name: "index_page_annotations_on_user_id"
   end

@@ -346,7 +346,6 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    sqlite3 (1.4.2)
     sys-uname (1.2.2)
       ffi (~> 1.1)
     thor (1.2.1)
@@ -389,7 +388,7 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   listen (~> 3.3)
   omniauth-github (~> 1.1, >= 1.1.2)
-  pg
+  pg (~> 1.1)
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.4, >= 6.1.4.6)
@@ -400,7 +399,6 @@ DEPENDENCIES
   sass-rails (>= 6)
   simplecov (~> 0.17.0)
   sprockets
-  sqlite3 (~> 1.4)
   tzinfo-data
   web-console (>= 4.1.0)
 
